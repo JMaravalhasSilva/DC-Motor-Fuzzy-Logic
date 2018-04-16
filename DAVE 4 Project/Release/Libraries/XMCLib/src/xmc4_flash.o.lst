@@ -1,0 +1,858 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc4_flash.c"
+  16              	 .section .text.XMC_FLASH_lEnterPageModeCommand,"ax",%progbits
+  17              	 .align 2
+  18              	 .global XMC_FLASH_lEnterPageModeCommand
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	XMC_FLASH_lEnterPageModeCommand:
+  23              	 
+  24              	 
+  25              	 
+  26 0000 014B     	 ldr r3,.L2
+  27 0002 5022     	 movs r2,#80
+  28 0004 1A60     	 str r2,[r3]
+  29 0006 7047     	 bx lr
+  30              	.L3:
+  31              	 .align 2
+  32              	.L2:
+  33 0008 5455000C 	 .word 201348436
+  35              	 .section .text.XMC_FLASH_lLoadPageCommand,"ax",%progbits
+  36              	 .align 2
+  37              	 .global XMC_FLASH_lLoadPageCommand
+  38              	 .thumb
+  39              	 .thumb_func
+  41              	XMC_FLASH_lLoadPageCommand:
+  42              	 
+  43              	 
+  44              	 
+  45 0000 024A     	 ldr r2,.L5
+  46 0002 034B     	 ldr r3,.L5+4
+  47 0004 1060     	 str r0,[r2]
+  48 0006 1960     	 str r1,[r3]
+  49 0008 7047     	 bx lr
+  50              	.L6:
+  51 000a 00BF     	 .align 2
+  52              	.L5:
+  53 000c F055000C 	 .word 201348592
+  54 0010 F455000C 	 .word 201348596
+  56              	 .section .text.XMC_FLASH_lWritePageCommand,"ax",%progbits
+  57              	 .align 2
+  58              	 .global XMC_FLASH_lWritePageCommand
+  59              	 .thumb
+  60              	 .thumb_func
+  62              	XMC_FLASH_lWritePageCommand:
+  63              	 
+  64              	 
+  65              	 
+  66 0000 30B4     	 push {r4,r5}
+  67 0002 054A     	 ldr r2,.L9
+  68 0004 054C     	 ldr r4,.L9+4
+  69 0006 AA23     	 movs r3,#170
+  70 0008 5525     	 movs r5,#85
+  71 000a A021     	 movs r1,#160
+  72 000c 1360     	 str r3,[r2]
+  73 000e 2560     	 str r5,[r4]
+  74 0010 1160     	 str r1,[r2]
+  75 0012 30BC     	 pop {r4,r5}
+  76 0014 0360     	 str r3,[r0]
+  77 0016 7047     	 bx lr
+  78              	.L10:
+  79              	 .align 2
+  80              	.L9:
+  81 0018 5455000C 	 .word 201348436
+  82 001c A8AA000C 	 .word 201370280
+  84              	 .section .text.XMC_FLASH_lWriteUCBPageCommand,"ax",%progbits
+  85              	 .align 2
+  86              	 .global XMC_FLASH_lWriteUCBPageCommand
+  87              	 .thumb
+  88              	 .thumb_func
+  90              	XMC_FLASH_lWriteUCBPageCommand:
+  91              	 
+  92              	 
+  93              	 
+  94 0000 30B4     	 push {r4,r5}
+  95 0002 054A     	 ldr r2,.L13
+  96 0004 054C     	 ldr r4,.L13+4
+  97 0006 AA23     	 movs r3,#170
+  98 0008 5525     	 movs r5,#85
+  99 000a C021     	 movs r1,#192
+ 100 000c 1360     	 str r3,[r2]
+ 101 000e 2560     	 str r5,[r4]
+ 102 0010 1160     	 str r1,[r2]
+ 103 0012 30BC     	 pop {r4,r5}
+ 104 0014 0360     	 str r3,[r0]
+ 105 0016 7047     	 bx lr
+ 106              	.L14:
+ 107              	 .align 2
+ 108              	.L13:
+ 109 0018 5455000C 	 .word 201348436
+ 110 001c A8AA000C 	 .word 201370280
+ 112              	 .section .text.XMC_FLASH_lEraseSectorCommand,"ax",%progbits
+ 113              	 .align 2
+ 114              	 .global XMC_FLASH_lEraseSectorCommand
+ 115              	 .thumb
+ 116              	 .thumb_func
+ 118              	XMC_FLASH_lEraseSectorCommand:
+ 119              	 
+ 120              	 
+ 121              	 
+ 122 0000 70B4     	 push {r4,r5,r6}
+ 123 0002 074B     	 ldr r3,.L17
+ 124 0004 074A     	 ldr r2,.L17+4
+ 125 0006 AA24     	 movs r4,#170
+ 126 0008 5521     	 movs r1,#85
+ 127 000a 8026     	 movs r6,#128
+ 128 000c 3025     	 movs r5,#48
+ 129 000e 1C60     	 str r4,[r3]
+ 130 0010 1160     	 str r1,[r2]
+ 131 0012 1E60     	 str r6,[r3]
+ 132 0014 1C60     	 str r4,[r3]
+ 133 0016 1160     	 str r1,[r2]
+ 134 0018 0560     	 str r5,[r0]
+ 135 001a 70BC     	 pop {r4,r5,r6}
+ 136 001c 7047     	 bx lr
+ 137              	.L18:
+ 138 001e 00BF     	 .align 2
+ 139              	.L17:
+ 140 0020 5455000C 	 .word 201348436
+ 141 0024 A8AA000C 	 .word 201370280
+ 143              	 .section .text.XMC_FLASH_lDisableSectorWriteProtectionCommand,"ax",%progbits
+ 144              	 .align 2
+ 145              	 .global XMC_FLASH_lDisableSectorWriteProtectionCommand
+ 146              	 .thumb
+ 147              	 .thumb_func
+ 149              	XMC_FLASH_lDisableSectorWriteProtectionCommand:
+ 150              	 
+ 151              	 
+ 152 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+ 153 0002 084B     	 ldr r3,.L21
+ 154 0004 DFF828E0 	 ldr lr,.L21+12
+ 155 0008 074E     	 ldr r6,.L21+4
+ 156 000a 084C     	 ldr r4,.L21+8
+ 157 000c 4FF0AA0C 	 mov ip,#170
+ 158 0010 5527     	 movs r7,#85
+ 159 0012 0525     	 movs r5,#5
+ 160 0014 CEF800C0 	 str ip,[lr]
+ 161 0018 1F60     	 str r7,[r3]
+ 162 001a 3060     	 str r0,[r6]
+ 163 001c 1960     	 str r1,[r3]
+ 164 001e 1A60     	 str r2,[r3]
+ 165 0020 2560     	 str r5,[r4]
+ 166 0022 F0BD     	 pop {r4,r5,r6,r7,pc}
+ 167              	.L22:
+ 168              	 .align 2
+ 169              	.L21:
+ 170 0024 A8AA000C 	 .word 201370280
+ 171 0028 3C55000C 	 .word 201348412
+ 172 002c 5855000C 	 .word 201348440
+ 173 0030 5455000C 	 .word 201348436
+ 175              	 .section .text.XMC_FLASH_lDisableReadProtectionCommand,"ax",%progbits
+ 176              	 .align 2
+ 177              	 .global XMC_FLASH_lDisableReadProtectionCommand
+ 178              	 .thumb
+ 179              	 .thumb_func
+ 181              	XMC_FLASH_lDisableReadProtectionCommand:
+ 182              	 
+ 183              	 
+ 184 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+ 185 0002 094B     	 ldr r3,.L25
+ 186 0004 DFF82CE0 	 ldr lr,.L25+12
+ 187 0008 084D     	 ldr r5,.L25+4
+ 188 000a 094A     	 ldr r2,.L25+8
+ 189 000c 4FF0AA0C 	 mov ip,#170
+ 190 0010 5527     	 movs r7,#85
+ 191 0012 0026     	 movs r6,#0
+ 192 0014 0824     	 movs r4,#8
+ 193 0016 CEF800C0 	 str ip,[lr]
+ 194 001a 1F60     	 str r7,[r3]
+ 195 001c 2E60     	 str r6,[r5]
+ 196 001e 1860     	 str r0,[r3]
+ 197 0020 1960     	 str r1,[r3]
+ 198 0022 1460     	 str r4,[r2]
+ 199 0024 F0BD     	 pop {r4,r5,r6,r7,pc}
+ 200              	.L26:
+ 201 0026 00BF     	 .align 2
+ 202              	.L25:
+ 203 0028 A8AA000C 	 .word 201370280
+ 204 002c 3C55000C 	 .word 201348412
+ 205 0030 5855000C 	 .word 201348440
+ 206 0034 5455000C 	 .word 201348436
+ 208              	 .section .text.XMC_FLASH_lClearStatusCommand,"ax",%progbits
+ 209              	 .align 2
+ 210              	 .global XMC_FLASH_lClearStatusCommand
+ 211              	 .thumb
+ 212              	 .thumb_func
+ 214              	XMC_FLASH_lClearStatusCommand:
+ 215              	 
+ 216              	 
+ 217              	 
+ 218 0000 014B     	 ldr r3,.L28
+ 219 0002 F522     	 movs r2,#245
+ 220 0004 1A60     	 str r2,[r3]
+ 221 0006 7047     	 bx lr
+ 222              	.L29:
+ 223              	 .align 2
+ 224              	.L28:
+ 225 0008 5455000C 	 .word 201348436
+ 227              	 .section .text.XMC_FLASH_ClearStatus,"ax",%progbits
+ 228              	 .align 2
+ 229              	 .global XMC_FLASH_ClearStatus
+ 230              	 .thumb
+ 231              	 .thumb_func
+ 233              	XMC_FLASH_ClearStatus:
+ 234              	 
+ 235              	 
+ 236              	 
+ 237 0000 014B     	 ldr r3,.L31
+ 238 0002 F522     	 movs r2,#245
+ 239 0004 1A60     	 str r2,[r3]
+ 240 0006 7047     	 bx lr
+ 241              	.L32:
+ 242              	 .align 2
+ 243              	.L31:
+ 244 0008 5455000C 	 .word 201348436
+ 246              	 .section .text.XMC_FLASH_GetStatus,"ax",%progbits
+ 247              	 .align 2
+ 248              	 .global XMC_FLASH_GetStatus
+ 249              	 .thumb
+ 250              	 .thumb_func
+ 252              	XMC_FLASH_GetStatus:
+ 253              	 
+ 254              	 
+ 255              	 
+ 256 0000 024A     	 ldr r2,.L34
+ 257 0002 41F21003 	 movw r3,#4112
+ 258 0006 D058     	 ldr r0,[r2,r3]
+ 259 0008 7047     	 bx lr
+ 260              	.L35:
+ 261 000a 00BF     	 .align 2
+ 262              	.L34:
+ 263 000c 00100058 	 .word 1476399104
+ 265              	 .section .text.XMC_FLASH_EnableEvent,"ax",%progbits
+ 266              	 .align 2
+ 267              	 .global XMC_FLASH_EnableEvent
+ 268              	 .thumb
+ 269              	 .thumb_func
+ 271              	XMC_FLASH_EnableEvent:
+ 272              	 
+ 273              	 
+ 274              	 
+ 275 0000 0349     	 ldr r1,.L37
+ 276 0002 41F21402 	 movw r2,#4116
+ 277 0006 8B58     	 ldr r3,[r1,r2]
+ 278 0008 1843     	 orrs r0,r0,r3
+ 279 000a 8850     	 str r0,[r1,r2]
+ 280 000c 7047     	 bx lr
+ 281              	.L38:
+ 282 000e 00BF     	 .align 2
+ 283              	.L37:
+ 284 0010 00100058 	 .word 1476399104
+ 286              	 .section .text.XMC_FLASH_DisableEvent,"ax",%progbits
+ 287              	 .align 2
+ 288              	 .global XMC_FLASH_DisableEvent
+ 289              	 .thumb
+ 290              	 .thumb_func
+ 292              	XMC_FLASH_DisableEvent:
+ 293              	 
+ 294              	 
+ 295              	 
+ 296 0000 0349     	 ldr r1,.L40
+ 297 0002 41F21402 	 movw r2,#4116
+ 298 0006 8B58     	 ldr r3,[r1,r2]
+ 299 0008 23EA0000 	 bic r0,r3,r0
+ 300 000c 8850     	 str r0,[r1,r2]
+ 301 000e 7047     	 bx lr
+ 302              	.L41:
+ 303              	 .align 2
+ 304              	.L40:
+ 305 0010 00100058 	 .word 1476399104
+ 307              	 .section .text.XMC_FLASH_ProgramPage,"ax",%progbits
+ 308              	 .align 2
+ 309              	 .global XMC_FLASH_ProgramPage
+ 310              	 .thumb
+ 311              	 .thumb_func
+ 313              	XMC_FLASH_ProgramPage:
+ 314              	 
+ 315              	 
+ 316              	 
+ 317 0000 0F4B     	 ldr r3,.L49
+ 318 0002 70B4     	 push {r4,r5,r6}
+ 319 0004 5022     	 movs r2,#80
+ 320 0006 F524     	 movs r4,#245
+ 321 0008 0E4E     	 ldr r6,.L49+4
+ 322 000a 0F4D     	 ldr r5,.L49+8
+ 323 000c 1C60     	 str r4,[r3]
+ 324 000e 01F58074 	 add r4,r1,#256
+ 325 0012 1A60     	 str r2,[r3]
+ 326              	.L43:
+ 327 0014 91E80C00 	 ldmia r1,{r2,r3}
+ 328 0018 0831     	 adds r1,r1,#8
+ 329 001a A142     	 cmp r1,r4
+ 330 001c 3260     	 str r2,[r6]
+ 331 001e 2B60     	 str r3,[r5]
+ 332 0020 F8D1     	 bne .L43
+ 333 0022 0749     	 ldr r1,.L49
+ 334 0024 094D     	 ldr r5,.L49+12
+ 335 0026 0A4A     	 ldr r2,.L49+16
+ 336 0028 AA23     	 movs r3,#170
+ 337 002a 5526     	 movs r6,#85
+ 338 002c A024     	 movs r4,#160
+ 339 002e 0B60     	 str r3,[r1]
+ 340 0030 2E60     	 str r6,[r5]
+ 341 0032 0C60     	 str r4,[r1]
+ 342 0034 0360     	 str r3,[r0]
+ 343              	.L44:
+ 344 0036 1368     	 ldr r3,[r2]
+ 345 0038 DB07     	 lsls r3,r3,#31
+ 346 003a FCD4     	 bmi .L44
+ 347 003c 70BC     	 pop {r4,r5,r6}
+ 348 003e 7047     	 bx lr
+ 349              	.L50:
+ 350              	 .align 2
+ 351              	.L49:
+ 352 0040 5455000C 	 .word 201348436
+ 353 0044 F055000C 	 .word 201348592
+ 354 0048 F455000C 	 .word 201348596
+ 355 004c A8AA000C 	 .word 201370280
+ 356 0050 10200058 	 .word 1476403216
+ 358              	 .section .text.XMC_FLASH_EraseSector,"ax",%progbits
+ 359              	 .align 2
+ 360              	 .global XMC_FLASH_EraseSector
+ 361              	 .thumb
+ 362              	 .thumb_func
+ 364              	XMC_FLASH_EraseSector:
+ 365              	 
+ 366              	 
+ 367 0000 0A4B     	 ldr r3,.L55
+ 368 0002 0B49     	 ldr r1,.L55+4
+ 369 0004 0B4A     	 ldr r2,.L55+8
+ 370 0006 F0B5     	 push {r4,r5,r6,r7,lr}
+ 371 0008 AA25     	 movs r5,#170
+ 372 000a 5524     	 movs r4,#85
+ 373 000c 4FF0F50E 	 mov lr,#245
+ 374 0010 8027     	 movs r7,#128
+ 375 0012 3026     	 movs r6,#48
+ 376 0014 C3F800E0 	 str lr,[r3]
+ 377 0018 1D60     	 str r5,[r3]
+ 378 001a 0C60     	 str r4,[r1]
+ 379 001c 1F60     	 str r7,[r3]
+ 380 001e 1D60     	 str r5,[r3]
+ 381 0020 0C60     	 str r4,[r1]
+ 382 0022 0660     	 str r6,[r0]
+ 383              	.L52:
+ 384 0024 1368     	 ldr r3,[r2]
+ 385 0026 DB07     	 lsls r3,r3,#31
+ 386 0028 FCD4     	 bmi .L52
+ 387 002a F0BD     	 pop {r4,r5,r6,r7,pc}
+ 388              	.L56:
+ 389              	 .align 2
+ 390              	.L55:
+ 391 002c 5455000C 	 .word 201348436
+ 392 0030 A8AA000C 	 .word 201370280
+ 393 0034 10200058 	 .word 1476403216
+ 395              	 .section .text.XMC_FLASH_lErasePhysicalSectorCommand,"ax",%progbits
+ 396              	 .align 2
+ 397              	 .global XMC_FLASH_lErasePhysicalSectorCommand
+ 398              	 .thumb
+ 399              	 .thumb_func
+ 401              	XMC_FLASH_lErasePhysicalSectorCommand:
+ 402              	 
+ 403              	 
+ 404              	 
+ 405 0000 70B4     	 push {r4,r5,r6}
+ 406 0002 074B     	 ldr r3,.L59
+ 407 0004 074A     	 ldr r2,.L59+4
+ 408 0006 AA24     	 movs r4,#170
+ 409 0008 5521     	 movs r1,#85
+ 410 000a 8026     	 movs r6,#128
+ 411 000c 4025     	 movs r5,#64
+ 412 000e 1C60     	 str r4,[r3]
+ 413 0010 1160     	 str r1,[r2]
+ 414 0012 1E60     	 str r6,[r3]
+ 415 0014 1C60     	 str r4,[r3]
+ 416 0016 1160     	 str r1,[r2]
+ 417 0018 0560     	 str r5,[r0]
+ 418 001a 70BC     	 pop {r4,r5,r6}
+ 419 001c 7047     	 bx lr
+ 420              	.L60:
+ 421 001e 00BF     	 .align 2
+ 422              	.L59:
+ 423 0020 5455000C 	 .word 201348436
+ 424 0024 A8AA000C 	 .word 201370280
+ 426              	 .section .text.XMC_FLASH_lRepairPhysicalSectorCommand,"ax",%progbits
+ 427              	 .align 2
+ 428              	 .global XMC_FLASH_lRepairPhysicalSectorCommand
+ 429              	 .thumb
+ 430              	 .thumb_func
+ 432              	XMC_FLASH_lRepairPhysicalSectorCommand:
+ 433              	 
+ 434              	 
+ 435              	 
+ 436 0000 70B4     	 push {r4,r5,r6}
+ 437 0002 074B     	 ldr r3,.L63
+ 438 0004 074A     	 ldr r2,.L63+4
+ 439 0006 084C     	 ldr r4,.L63+8
+ 440 0008 AA20     	 movs r0,#170
+ 441 000a 5521     	 movs r1,#85
+ 442 000c 8026     	 movs r6,#128
+ 443 000e 4025     	 movs r5,#64
+ 444 0010 1860     	 str r0,[r3]
+ 445 0012 1160     	 str r1,[r2]
+ 446 0014 1E60     	 str r6,[r3]
+ 447 0016 1860     	 str r0,[r3]
+ 448 0018 1160     	 str r1,[r2]
+ 449 001a 2560     	 str r5,[r4]
+ 450 001c 70BC     	 pop {r4,r5,r6}
+ 451 001e 7047     	 bx lr
+ 452              	.L64:
+ 453              	 .align 2
+ 454              	.L63:
+ 455 0020 5455000C 	 .word 201348436
+ 456 0024 A8AA000C 	 .word 201370280
+ 457 0028 0000010C 	 .word 201392128
+ 459              	 .section .text.XMC_FLASH_ErasePhysicalSector,"ax",%progbits
+ 460              	 .align 2
+ 461              	 .global XMC_FLASH_ErasePhysicalSector
+ 462              	 .thumb
+ 463              	 .thumb_func
+ 465              	XMC_FLASH_ErasePhysicalSector:
+ 466              	 
+ 467              	 
+ 468 0000 0A4B     	 ldr r3,.L69
+ 469 0002 0B49     	 ldr r1,.L69+4
+ 470 0004 0B4A     	 ldr r2,.L69+8
+ 471 0006 F0B5     	 push {r4,r5,r6,r7,lr}
+ 472 0008 AA25     	 movs r5,#170
+ 473 000a 5524     	 movs r4,#85
+ 474 000c 4FF0F50E 	 mov lr,#245
+ 475 0010 8027     	 movs r7,#128
+ 476 0012 4026     	 movs r6,#64
+ 477 0014 C3F800E0 	 str lr,[r3]
+ 478 0018 1D60     	 str r5,[r3]
+ 479 001a 0C60     	 str r4,[r1]
+ 480 001c 1F60     	 str r7,[r3]
+ 481 001e 1D60     	 str r5,[r3]
+ 482 0020 0C60     	 str r4,[r1]
+ 483 0022 0660     	 str r6,[r0]
+ 484              	.L66:
+ 485 0024 1368     	 ldr r3,[r2]
+ 486 0026 DB07     	 lsls r3,r3,#31
+ 487 0028 FCD4     	 bmi .L66
+ 488 002a F0BD     	 pop {r4,r5,r6,r7,pc}
+ 489              	.L70:
+ 490              	 .align 2
+ 491              	.L69:
+ 492 002c 5455000C 	 .word 201348436
+ 493 0030 A8AA000C 	 .word 201370280
+ 494 0034 10200058 	 .word 1476403216
+ 496              	 .section .text.XMC_FLASH_RepairPhysicalSector,"ax",%progbits
+ 497              	 .align 2
+ 498              	 .global XMC_FLASH_RepairPhysicalSector
+ 499              	 .thumb
+ 500              	 .thumb_func
+ 502              	XMC_FLASH_RepairPhysicalSector:
+ 503              	 
+ 504              	 
+ 505              	 
+ 506 0000 F0B4     	 push {r4,r5,r6,r7}
+ 507 0002 084B     	 ldr r3,.L73
+ 508 0004 084A     	 ldr r2,.L73+4
+ 509 0006 094C     	 ldr r4,.L73+8
+ 510 0008 F527     	 movs r7,#245
+ 511 000a AA20     	 movs r0,#170
+ 512 000c 5521     	 movs r1,#85
+ 513 000e 8026     	 movs r6,#128
+ 514 0010 4025     	 movs r5,#64
+ 515 0012 1F60     	 str r7,[r3]
+ 516 0014 1860     	 str r0,[r3]
+ 517 0016 1160     	 str r1,[r2]
+ 518 0018 1E60     	 str r6,[r3]
+ 519 001a 1860     	 str r0,[r3]
+ 520 001c 1160     	 str r1,[r2]
+ 521 001e 2560     	 str r5,[r4]
+ 522 0020 F0BC     	 pop {r4,r5,r6,r7}
+ 523 0022 7047     	 bx lr
+ 524              	.L74:
+ 525              	 .align 2
+ 526              	.L73:
+ 527 0024 5455000C 	 .word 201348436
+ 528 0028 A8AA000C 	 .word 201370280
+ 529 002c 0000010C 	 .word 201392128
+ 531              	 .section .text.XMC_FLASH_EraseUCB,"ax",%progbits
+ 532              	 .align 2
+ 533              	 .global XMC_FLASH_EraseUCB
+ 534              	 .thumb
+ 535              	 .thumb_func
+ 537              	XMC_FLASH_EraseUCB:
+ 538              	 
+ 539              	 
+ 540              	 
+ 541 0000 094B     	 ldr r3,.L79
+ 542 0002 0A49     	 ldr r1,.L79+4
+ 543 0004 0A4A     	 ldr r2,.L79+8
+ 544 0006 F0B4     	 push {r4,r5,r6,r7}
+ 545 0008 AA25     	 movs r5,#170
+ 546 000a 5524     	 movs r4,#85
+ 547 000c 8027     	 movs r7,#128
+ 548 000e C026     	 movs r6,#192
+ 549 0010 1D60     	 str r5,[r3]
+ 550 0012 0C60     	 str r4,[r1]
+ 551 0014 1F60     	 str r7,[r3]
+ 552 0016 1D60     	 str r5,[r3]
+ 553 0018 0C60     	 str r4,[r1]
+ 554 001a 0660     	 str r6,[r0]
+ 555              	.L76:
+ 556 001c 1368     	 ldr r3,[r2]
+ 557 001e DB07     	 lsls r3,r3,#31
+ 558 0020 FCD4     	 bmi .L76
+ 559 0022 F0BC     	 pop {r4,r5,r6,r7}
+ 560 0024 7047     	 bx lr
+ 561              	.L80:
+ 562 0026 00BF     	 .align 2
+ 563              	.L79:
+ 564 0028 5455000C 	 .word 201348436
+ 565 002c A8AA000C 	 .word 201370280
+ 566 0030 10200058 	 .word 1476403216
+ 568              	 .section .text.XMC_FLASH_Reset,"ax",%progbits
+ 569              	 .align 2
+ 570              	 .global XMC_FLASH_Reset
+ 571              	 .thumb
+ 572              	 .thumb_func
+ 574              	XMC_FLASH_Reset:
+ 575              	 
+ 576              	 
+ 577              	 
+ 578 0000 014B     	 ldr r3,.L82
+ 579 0002 F022     	 movs r2,#240
+ 580 0004 1A60     	 str r2,[r3]
+ 581 0006 7047     	 bx lr
+ 582              	.L83:
+ 583              	 .align 2
+ 584              	.L82:
+ 585 0008 5455000C 	 .word 201348436
+ 587              	 .section .text.XMC_FLASH_InstallProtection,"ax",%progbits
+ 588              	 .align 2
+ 589              	 .global XMC_FLASH_InstallProtection
+ 590              	 .thumb
+ 591              	 .thumb_func
+ 593              	XMC_FLASH_InstallProtection:
+ 594              	 
+ 595              	 
+ 596 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+ 597 0002 DFF86CE0 	 ldr lr,.L90+16
+ 598 0006 164F     	 ldr r7,.L90
+ 599 0008 164C     	 ldr r4,.L90+4
+ 600 000a 9446     	 mov ip,r2
+ 601 000c 5025     	 movs r5,#80
+ 602 000e 1A46     	 mov r2,r3
+ 603 0010 0023     	 movs r3,#0
+ 604 0012 2560     	 str r5,[r4]
+ 605 0014 7646     	 mov r6,lr
+ 606 0016 CEF80010 	 str r1,[lr]
+ 607 001a 1C46     	 mov r4,r3
+ 608 001c 3B60     	 str r3,[r7]
+ 609 001e 3D46     	 mov r5,r7
+ 610 0020 CEF80010 	 str r1,[lr]
+ 611 0024 3B60     	 str r3,[r7]
+ 612 0026 1C21     	 movs r1,#28
+ 613 0028 CEF800C0 	 str ip,[lr]
+ 614 002c 3A60     	 str r2,[r7]
+ 615 002e CEF800C0 	 str ip,[lr]
+ 616 0032 3A60     	 str r2,[r7]
+ 617              	.L85:
+ 618 0034 0139     	 subs r1,r1,#1
+ 619 0036 3460     	 str r4,[r6]
+ 620 0038 2C60     	 str r4,[r5]
+ 621 003a FBD1     	 bne .L85
+ 622 003c 00F54033 	 add r3,r0,#196608
+ 623 0040 9B02     	 lsls r3,r3,#10
+ 624 0042 0848     	 ldr r0,.L90+4
+ 625 0044 084D     	 ldr r5,.L90+8
+ 626 0046 094A     	 ldr r2,.L90+12
+ 627 0048 AA21     	 movs r1,#170
+ 628 004a 5526     	 movs r6,#85
+ 629 004c C024     	 movs r4,#192
+ 630 004e 0160     	 str r1,[r0]
+ 631 0050 2E60     	 str r6,[r5]
+ 632 0052 0460     	 str r4,[r0]
+ 633 0054 1960     	 str r1,[r3]
+ 634              	.L86:
+ 635 0056 1368     	 ldr r3,[r2]
+ 636 0058 DB07     	 lsls r3,r3,#31
+ 637 005a FCD4     	 bmi .L86
+ 638 005c F0BD     	 pop {r4,r5,r6,r7,pc}
+ 639              	.L91:
+ 640 005e 00BF     	 .align 2
+ 641              	.L90:
+ 642 0060 F455000C 	 .word 201348596
+ 643 0064 5455000C 	 .word 201348436
+ 644 0068 A8AA000C 	 .word 201370280
+ 645 006c 10200058 	 .word 1476403216
+ 646 0070 F055000C 	 .word 201348592
+ 648              	 .section .text.XMC_FLASH_ConfirmProtection,"ax",%progbits
+ 649              	 .align 2
+ 650              	 .global XMC_FLASH_ConfirmProtection
+ 651              	 .thumb
+ 652              	 .thumb_func
+ 654              	XMC_FLASH_ConfirmProtection:
+ 655              	 
+ 656              	 
+ 657              	 
+ 658 0000 F0B4     	 push {r4,r5,r6,r7}
+ 659 0002 134B     	 ldr r3,.L98
+ 660 0004 134D     	 ldr r5,.L98+4
+ 661 0006 144A     	 ldr r2,.L98+8
+ 662 0008 144F     	 ldr r7,.L98+12
+ 663 000a 0026     	 movs r6,#0
+ 664 000c 5021     	 movs r1,#80
+ 665 000e 1160     	 str r1,[r2]
+ 666 0010 1C46     	 mov r4,r3
+ 667 0012 1F60     	 str r7,[r3]
+ 668 0014 3246     	 mov r2,r6
+ 669 0016 2E60     	 str r6,[r5]
+ 670 0018 2946     	 mov r1,r5
+ 671 001a 1F60     	 str r7,[r3]
+ 672 001c 1E23     	 movs r3,#30
+ 673 001e 2E60     	 str r6,[r5]
+ 674              	.L93:
+ 675 0020 013B     	 subs r3,r3,#1
+ 676 0022 2260     	 str r2,[r4]
+ 677 0024 0A60     	 str r2,[r1]
+ 678 0026 FBD1     	 bne .L93
+ 679 0028 00F54033 	 add r3,r0,#196608
+ 680 002c 9B02     	 lsls r3,r3,#10
+ 681 002e 0A48     	 ldr r0,.L98+8
+ 682 0030 0B4D     	 ldr r5,.L98+16
+ 683 0032 0C4A     	 ldr r2,.L98+20
+ 684 0034 AA21     	 movs r1,#170
+ 685 0036 5526     	 movs r6,#85
+ 686 0038 C024     	 movs r4,#192
+ 687 003a 0160     	 str r1,[r0]
+ 688 003c 2E60     	 str r6,[r5]
+ 689 003e 0460     	 str r4,[r0]
+ 690 0040 C3F80012 	 str r1,[r3,#512]
+ 691              	.L94:
+ 692 0044 1368     	 ldr r3,[r2]
+ 693 0046 DB07     	 lsls r3,r3,#31
+ 694 0048 FCD4     	 bmi .L94
+ 695 004a F0BC     	 pop {r4,r5,r6,r7}
+ 696 004c 7047     	 bx lr
+ 697              	.L99:
+ 698 004e 00BF     	 .align 2
+ 699              	.L98:
+ 700 0050 F055000C 	 .word 201348592
+ 701 0054 F455000C 	 .word 201348596
+ 702 0058 5455000C 	 .word 201348436
+ 703 005c C315FE8A 	 .word -1963059773
+ 704 0060 A8AA000C 	 .word 201370280
+ 705 0064 10200058 	 .word 1476403216
+ 707              	 .section .text.XMC_FLASH_VerifyReadProtection,"ax",%progbits
+ 708              	 .align 2
+ 709              	 .global XMC_FLASH_VerifyReadProtection
+ 710              	 .thumb
+ 711              	 .thumb_func
+ 713              	XMC_FLASH_VerifyReadProtection:
+ 714              	 
+ 715              	 
+ 716 0000 2DE9F047 	 push {r4,r5,r6,r7,r8,r9,r10,lr}
+ 717 0004 41F21002 	 movw r2,#4112
+ 718 0008 124C     	 ldr r4,.L104
+ 719 000a A358     	 ldr r3,[r4,r2]
+ 720 000c 13F48023 	 ands r3,r3,#262144
+ 721 0010 1DD0     	 beq .L102
+ 722 0012 114B     	 ldr r3,.L104+4
+ 723 0014 114D     	 ldr r5,.L104+8
+ 724 0016 DFF84CE0 	 ldr lr,.L104+16
+ 725 001a 114E     	 ldr r6,.L104+12
+ 726 001c 4FF0F50A 	 mov r10,#245
+ 727 0020 4FF0AA09 	 mov r9,#170
+ 728 0024 4FF05508 	 mov r8,#85
+ 729 0028 4FF0000C 	 mov ip,#0
+ 730 002c 0827     	 movs r7,#8
+ 731 002e C5F800A0 	 str r10,[r5]
+ 732 0032 C5F80090 	 str r9,[r5]
+ 733 0036 C3F80080 	 str r8,[r3]
+ 734 003a CEF800C0 	 str ip,[lr]
+ 735 003e 1860     	 str r0,[r3]
+ 736 0040 1960     	 str r1,[r3]
+ 737 0042 3760     	 str r7,[r6]
+ 738 0044 A058     	 ldr r0,[r4,r2]
+ 739 0046 C0F3C040 	 ubfx r0,r0,#19,#1
+ 740 004a BDE8F087 	 pop {r4,r5,r6,r7,r8,r9,r10,pc}
+ 741              	.L102:
+ 742 004e 1846     	 mov r0,r3
+ 743 0050 BDE8F087 	 pop {r4,r5,r6,r7,r8,r9,r10,pc}
+ 744              	.L105:
+ 745              	 .align 2
+ 746              	.L104:
+ 747 0054 00100058 	 .word 1476399104
+ 748 0058 A8AA000C 	 .word 201370280
+ 749 005c 5455000C 	 .word 201348436
+ 750 0060 5855000C 	 .word 201348440
+ 751 0064 3C55000C 	 .word 201348412
+ 753              	 .section .text.XMC_FLASH_VerifyWriteProtection,"ax",%progbits
+ 754              	 .align 2
+ 755              	 .global XMC_FLASH_VerifyWriteProtection
+ 756              	 .thumb
+ 757              	 .thumb_func
+ 759              	XMC_FLASH_VerifyWriteProtection:
+ 760              	 
+ 761              	 
+ 762 0000 2DE9F04F 	 push {r4,r5,r6,r7,r8,r9,r10,fp,lr}
+ 763 0004 1C4E     	 ldr r6,.L112
+ 764 0006 41F21005 	 movw r5,#4112
+ 765 000a 00F11507 	 add r7,r0,#21
+ 766 000e 7459     	 ldr r4,[r6,r5]
+ 767 0010 FC40     	 lsrs r4,r4,r7
+ 768 0012 14F00104 	 ands r4,r4,#1
+ 769 0016 2BD0     	 beq .L109
+ 770 0018 184C     	 ldr r4,.L112+4
+ 771 001a 194F     	 ldr r7,.L112+8
+ 772 001c DFF86880 	 ldr r8,.L112+16
+ 773 0020 DFF868E0 	 ldr lr,.L112+20
+ 774 0024 4FF0F50B 	 mov fp,#245
+ 775 0028 4FF0AA0A 	 mov r10,#170
+ 776 002c 4FF05509 	 mov r9,#85
+ 777 0030 4FF0050C 	 mov ip,#5
+ 778 0034 C4F800B0 	 str fp,[r4]
+ 779 0038 C4F800A0 	 str r10,[r4]
+ 780 003c C7F80090 	 str r9,[r7]
+ 781 0040 C8F80000 	 str r0,[r8]
+ 782 0044 3A60     	 str r2,[r7]
+ 783 0046 3B60     	 str r3,[r7]
+ 784 0048 CEF800C0 	 str ip,[lr]
+ 785 004c 7459     	 ldr r4,[r6,r5]
+ 786 004e 00F11903 	 add r3,r0,#25
+ 787 0052 DC40     	 lsrs r4,r4,r3
+ 788 0054 14F00104 	 ands r4,r4,#1
+ 789 0058 0AD0     	 beq .L109
+ 790 005a 0A4B     	 ldr r3,.L112+12
+ 791 005c 53F82030 	 ldr r3,[r3,r0,lsl#2]
+ 792 0060 21F40040 	 bic r0,r1,#32768
+ 793 0064 181A     	 subs r0,r3,r0
+ 794 0066 B0FA80F0 	 clz r0,r0
+ 795 006a 4009     	 lsrs r0,r0,#5
+ 796 006c BDE8F08F 	 pop {r4,r5,r6,r7,r8,r9,r10,fp,pc}
+ 797              	.L109:
+ 798 0070 2046     	 mov r0,r4
+ 799 0072 BDE8F08F 	 pop {r4,r5,r6,r7,r8,r9,r10,fp,pc}
+ 800              	.L113:
+ 801 0076 00BF     	 .align 2
+ 802              	.L112:
+ 803 0078 00100058 	 .word 1476399104
+ 804 007c 5455000C 	 .word 201348436
+ 805 0080 A8AA000C 	 .word 201370280
+ 806 0084 20200058 	 .word 1476403232
+ 807 0088 3C55000C 	 .word 201348412
+ 808 008c 5855000C 	 .word 201348440
+ 810              	 .section .text.XMC_FLASH_ResumeProtection,"ax",%progbits
+ 811              	 .align 2
+ 812              	 .global XMC_FLASH_ResumeProtection
+ 813              	 .thumb
+ 814              	 .thumb_func
+ 816              	XMC_FLASH_ResumeProtection:
+ 817              	 
+ 818              	 
+ 819              	 
+ 820 0000 014B     	 ldr r3,.L115
+ 821 0002 5E22     	 movs r2,#94
+ 822 0004 1A60     	 str r2,[r3]
+ 823 0006 7047     	 bx lr
+ 824              	.L116:
+ 825              	 .align 2
+ 826              	.L115:
+ 827 0008 5455000C 	 .word 201348436
+ 829              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc4_flash.c
+    {standard input}:17     .text.XMC_FLASH_lEnterPageModeCommand:00000000 $t
+    {standard input}:22     .text.XMC_FLASH_lEnterPageModeCommand:00000000 XMC_FLASH_lEnterPageModeCommand
+    {standard input}:33     .text.XMC_FLASH_lEnterPageModeCommand:00000008 $d
+    {standard input}:36     .text.XMC_FLASH_lLoadPageCommand:00000000 $t
+    {standard input}:41     .text.XMC_FLASH_lLoadPageCommand:00000000 XMC_FLASH_lLoadPageCommand
+    {standard input}:53     .text.XMC_FLASH_lLoadPageCommand:0000000c $d
+    {standard input}:57     .text.XMC_FLASH_lWritePageCommand:00000000 $t
+    {standard input}:62     .text.XMC_FLASH_lWritePageCommand:00000000 XMC_FLASH_lWritePageCommand
+    {standard input}:81     .text.XMC_FLASH_lWritePageCommand:00000018 $d
+    {standard input}:85     .text.XMC_FLASH_lWriteUCBPageCommand:00000000 $t
+    {standard input}:90     .text.XMC_FLASH_lWriteUCBPageCommand:00000000 XMC_FLASH_lWriteUCBPageCommand
+    {standard input}:109    .text.XMC_FLASH_lWriteUCBPageCommand:00000018 $d
+    {standard input}:113    .text.XMC_FLASH_lEraseSectorCommand:00000000 $t
+    {standard input}:118    .text.XMC_FLASH_lEraseSectorCommand:00000000 XMC_FLASH_lEraseSectorCommand
+    {standard input}:140    .text.XMC_FLASH_lEraseSectorCommand:00000020 $d
+    {standard input}:144    .text.XMC_FLASH_lDisableSectorWriteProtectionCommand:00000000 $t
+    {standard input}:149    .text.XMC_FLASH_lDisableSectorWriteProtectionCommand:00000000 XMC_FLASH_lDisableSectorWriteProtectionCommand
+    {standard input}:170    .text.XMC_FLASH_lDisableSectorWriteProtectionCommand:00000024 $d
+    {standard input}:176    .text.XMC_FLASH_lDisableReadProtectionCommand:00000000 $t
+    {standard input}:181    .text.XMC_FLASH_lDisableReadProtectionCommand:00000000 XMC_FLASH_lDisableReadProtectionCommand
+    {standard input}:203    .text.XMC_FLASH_lDisableReadProtectionCommand:00000028 $d
+    {standard input}:209    .text.XMC_FLASH_lClearStatusCommand:00000000 $t
+    {standard input}:214    .text.XMC_FLASH_lClearStatusCommand:00000000 XMC_FLASH_lClearStatusCommand
+    {standard input}:225    .text.XMC_FLASH_lClearStatusCommand:00000008 $d
+    {standard input}:228    .text.XMC_FLASH_ClearStatus:00000000 $t
+    {standard input}:233    .text.XMC_FLASH_ClearStatus:00000000 XMC_FLASH_ClearStatus
+    {standard input}:244    .text.XMC_FLASH_ClearStatus:00000008 $d
+    {standard input}:247    .text.XMC_FLASH_GetStatus:00000000 $t
+    {standard input}:252    .text.XMC_FLASH_GetStatus:00000000 XMC_FLASH_GetStatus
+    {standard input}:263    .text.XMC_FLASH_GetStatus:0000000c $d
+    {standard input}:266    .text.XMC_FLASH_EnableEvent:00000000 $t
+    {standard input}:271    .text.XMC_FLASH_EnableEvent:00000000 XMC_FLASH_EnableEvent
+    {standard input}:284    .text.XMC_FLASH_EnableEvent:00000010 $d
+    {standard input}:287    .text.XMC_FLASH_DisableEvent:00000000 $t
+    {standard input}:292    .text.XMC_FLASH_DisableEvent:00000000 XMC_FLASH_DisableEvent
+    {standard input}:305    .text.XMC_FLASH_DisableEvent:00000010 $d
+    {standard input}:308    .text.XMC_FLASH_ProgramPage:00000000 $t
+    {standard input}:313    .text.XMC_FLASH_ProgramPage:00000000 XMC_FLASH_ProgramPage
+    {standard input}:352    .text.XMC_FLASH_ProgramPage:00000040 $d
+    {standard input}:359    .text.XMC_FLASH_EraseSector:00000000 $t
+    {standard input}:364    .text.XMC_FLASH_EraseSector:00000000 XMC_FLASH_EraseSector
+    {standard input}:391    .text.XMC_FLASH_EraseSector:0000002c $d
+    {standard input}:396    .text.XMC_FLASH_lErasePhysicalSectorCommand:00000000 $t
+    {standard input}:401    .text.XMC_FLASH_lErasePhysicalSectorCommand:00000000 XMC_FLASH_lErasePhysicalSectorCommand
+    {standard input}:423    .text.XMC_FLASH_lErasePhysicalSectorCommand:00000020 $d
+    {standard input}:427    .text.XMC_FLASH_lRepairPhysicalSectorCommand:00000000 $t
+    {standard input}:432    .text.XMC_FLASH_lRepairPhysicalSectorCommand:00000000 XMC_FLASH_lRepairPhysicalSectorCommand
+    {standard input}:455    .text.XMC_FLASH_lRepairPhysicalSectorCommand:00000020 $d
+    {standard input}:460    .text.XMC_FLASH_ErasePhysicalSector:00000000 $t
+    {standard input}:465    .text.XMC_FLASH_ErasePhysicalSector:00000000 XMC_FLASH_ErasePhysicalSector
+    {standard input}:492    .text.XMC_FLASH_ErasePhysicalSector:0000002c $d
+    {standard input}:497    .text.XMC_FLASH_RepairPhysicalSector:00000000 $t
+    {standard input}:502    .text.XMC_FLASH_RepairPhysicalSector:00000000 XMC_FLASH_RepairPhysicalSector
+    {standard input}:527    .text.XMC_FLASH_RepairPhysicalSector:00000024 $d
+    {standard input}:532    .text.XMC_FLASH_EraseUCB:00000000 $t
+    {standard input}:537    .text.XMC_FLASH_EraseUCB:00000000 XMC_FLASH_EraseUCB
+    {standard input}:564    .text.XMC_FLASH_EraseUCB:00000028 $d
+    {standard input}:569    .text.XMC_FLASH_Reset:00000000 $t
+    {standard input}:574    .text.XMC_FLASH_Reset:00000000 XMC_FLASH_Reset
+    {standard input}:585    .text.XMC_FLASH_Reset:00000008 $d
+    {standard input}:588    .text.XMC_FLASH_InstallProtection:00000000 $t
+    {standard input}:593    .text.XMC_FLASH_InstallProtection:00000000 XMC_FLASH_InstallProtection
+    {standard input}:642    .text.XMC_FLASH_InstallProtection:00000060 $d
+    {standard input}:649    .text.XMC_FLASH_ConfirmProtection:00000000 $t
+    {standard input}:654    .text.XMC_FLASH_ConfirmProtection:00000000 XMC_FLASH_ConfirmProtection
+    {standard input}:700    .text.XMC_FLASH_ConfirmProtection:00000050 $d
+    {standard input}:708    .text.XMC_FLASH_VerifyReadProtection:00000000 $t
+    {standard input}:713    .text.XMC_FLASH_VerifyReadProtection:00000000 XMC_FLASH_VerifyReadProtection
+    {standard input}:747    .text.XMC_FLASH_VerifyReadProtection:00000054 $d
+    {standard input}:754    .text.XMC_FLASH_VerifyWriteProtection:00000000 $t
+    {standard input}:759    .text.XMC_FLASH_VerifyWriteProtection:00000000 XMC_FLASH_VerifyWriteProtection
+    {standard input}:803    .text.XMC_FLASH_VerifyWriteProtection:00000078 $d
+    {standard input}:811    .text.XMC_FLASH_ResumeProtection:00000000 $t
+    {standard input}:816    .text.XMC_FLASH_ResumeProtection:00000000 XMC_FLASH_ResumeProtection
+    {standard input}:827    .text.XMC_FLASH_ResumeProtection:00000008 $d
+
+NO UNDEFINED SYMBOLS

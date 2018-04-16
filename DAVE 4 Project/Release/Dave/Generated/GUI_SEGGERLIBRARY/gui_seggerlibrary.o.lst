@@ -1,0 +1,313 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "gui_seggerlibrary.c"
+  16              	 .section .text.GUI_SEGGERLIBRARY_GetAppVersion,"ax",%progbits
+  17              	 .align 2
+  18              	 .global GUI_SEGGERLIBRARY_GetAppVersion
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	GUI_SEGGERLIBRARY_GetAppVersion:
+  23              	 
+  24              	 
+  25              	 
+  26 0000 0423     	 movs r3,#4
+  27 0002 0020     	 movs r0,#0
+  28 0004 63F30700 	 bfi r0,r3,#0,#8
+  29 0008 0123     	 movs r3,#1
+  30 000a 63F30F20 	 bfi r0,r3,#8,#8
+  31 000e 0A23     	 movs r3,#10
+  32 0010 63F31740 	 bfi r0,r3,#16,#8
+  33 0014 82B0     	 sub sp,sp,#8
+  34 0016 02B0     	 add sp,sp,#8
+  35              	 
+  36 0018 7047     	 bx lr
+  38 001a 00BF     	 .section .text.GUI_SEGGERLIBRARY_Init,"ax",%progbits
+  39              	 .align 2
+  40              	 .global GUI_SEGGERLIBRARY_Init
+  41              	 .thumb
+  42              	 .thumb_func
+  44              	GUI_SEGGERLIBRARY_Init:
+  45              	 
+  46              	 
+  47 0000 38B5     	 push {r3,r4,r5,lr}
+  48 0002 0546     	 mov r5,r0
+  49 0004 0068     	 ldr r0,[r0]
+  50 0006 FFF7FEFF 	 bl SPI_MASTER_Init
+  51 000a 0446     	 mov r4,r0
+  52 000c 30B1     	 cbz r0,.L12
+  53 000e 0124     	 movs r4,#1
+  54              	.L4:
+  55 0010 2B7A     	 ldrb r3,[r5,#8]
+  56 0012 0BB1     	 cbz r3,.L5
+  57 0014 FFF7FEFF 	 bl GUI_Init
+  58              	.L5:
+  59 0018 2046     	 mov r0,r4
+  60 001a 38BD     	 pop {r3,r4,r5,pc}
+  61              	.L12:
+  62 001c 6B68     	 ldr r3,[r5,#4]
+  63 001e 5868     	 ldr r0,[r3,#4]
+  64 0020 197A     	 ldrb r1,[r3,#8]
+  65 0022 1A68     	 ldr r2,[r3]
+  66 0024 FFF7FEFF 	 bl XMC_GPIO_Init
+  67 0028 F2E7     	 b .L4
+  69 002a 00BF     	 .section .text.GUI_SEGGERLIBRARY_SendByte,"ax",%progbits
+  70              	 .align 2
+  71              	 .global GUI_SEGGERLIBRARY_SendByte
+  72              	 .thumb
+  73              	 .thumb_func
+  75              	GUI_SEGGERLIBRARY_SendByte:
+  76              	 
+  77              	 
+  78 0000 10B5     	 push {r4,lr}
+  79 0002 084C     	 ldr r4,.L17
+  80 0004 2368     	 ldr r3,[r4]
+  81 0006 DA6C     	 ldr r2,[r3,#76]
+  82 0008 42F48052 	 orr r2,r2,#4096
+  83 000c 0146     	 mov r1,r0
+  84 000e DA64     	 str r2,[r3,#76]
+  85 0010 1846     	 mov r0,r3
+  86 0012 0022     	 movs r2,#0
+  87 0014 FFF7FEFF 	 bl XMC_SPI_CH_Transmit
+  88 0018 2268     	 ldr r2,[r4]
+  89              	.L14:
+  90 001a 936C     	 ldr r3,[r2,#72]
+  91 001c DB04     	 lsls r3,r3,#19
+  92 001e FCD5     	 bpl .L14
+  93 0020 10BD     	 pop {r4,pc}
+  94              	.L18:
+  95 0022 00BF     	 .align 2
+  96              	.L17:
+  97 0024 00000000 	 .word SPI_MASTER_1
+  99              	 .section .text.GUI_SEGGERLIBRARY_ReadByte,"ax",%progbits
+ 100              	 .align 2
+ 101              	 .global GUI_SEGGERLIBRARY_ReadByte
+ 102              	 .thumb
+ 103              	 .thumb_func
+ 105              	GUI_SEGGERLIBRARY_ReadByte:
+ 106              	 
+ 107              	 
+ 108 0000 10B5     	 push {r4,lr}
+ 109 0002 0B4C     	 ldr r4,.L23
+ 110 0004 2068     	 ldr r0,[r4]
+ 111 0006 C36C     	 ldr r3,[r0,#76]
+ 112 0008 43F44043 	 orr r3,r3,#49152
+ 113 000c C364     	 str r3,[r0,#76]
+ 114 000e 4FF6FF71 	 movw r1,#65535
+ 115 0012 0022     	 movs r2,#0
+ 116 0014 FFF7FEFF 	 bl XMC_SPI_CH_Transmit
+ 117 0018 2068     	 ldr r0,[r4]
+ 118              	.L20:
+ 119 001a 836C     	 ldr r3,[r0,#72]
+ 120 001c 03F44043 	 and r3,r3,#49152
+ 121 0020 B3F5404F 	 cmp r3,#49152
+ 122 0024 F9D1     	 bne .L20
+ 123 0026 FFF7FEFF 	 bl XMC_SPI_CH_GetReceivedData
+ 124 002a C0B2     	 uxtb r0,r0
+ 125 002c 10BD     	 pop {r4,pc}
+ 126              	.L24:
+ 127 002e 00BF     	 .align 2
+ 128              	.L23:
+ 129 0030 00000000 	 .word SPI_MASTER_1
+ 131              	 .section .text.GUI_SEGGERLIBRARY_WriteCmdByte,"ax",%progbits
+ 132              	 .align 2
+ 133              	 .global GUI_SEGGERLIBRARY_WriteCmdByte
+ 134              	 .thumb
+ 135              	 .thumb_func
+ 137              	GUI_SEGGERLIBRARY_WriteCmdByte:
+ 138              	 
+ 139              	 
+ 140 0000 38B5     	 push {r3,r4,r5,lr}
+ 141 0002 104C     	 ldr r4,.L29
+ 142 0004 104B     	 ldr r3,.L29+4
+ 143 0006 6268     	 ldr r2,[r4,#4]
+ 144 0008 1D7A     	 ldrb r5,[r3,#8]
+ 145 000a 116D     	 ldr r1,[r2,#80]
+ 146 000c 5A68     	 ldr r2,[r3,#4]
+ 147 000e 0969     	 ldr r1,[r1,#16]
+ 148 0010 4FF48033 	 mov r3,#65536
+ 149 0014 AB40     	 lsls r3,r3,r5
+ 150 0016 5360     	 str r3,[r2,#4]
+ 151 0018 0546     	 mov r5,r0
+ 152 001a 2068     	 ldr r0,[r4]
+ 153 001c FFF7FEFF 	 bl XMC_SPI_CH_EnableSlaveSelect
+ 154 0020 2068     	 ldr r0,[r4]
+ 155 0022 C36C     	 ldr r3,[r0,#76]
+ 156 0024 43F48053 	 orr r3,r3,#4096
+ 157 0028 C364     	 str r3,[r0,#76]
+ 158 002a 2946     	 mov r1,r5
+ 159 002c 0022     	 movs r2,#0
+ 160 002e FFF7FEFF 	 bl XMC_SPI_CH_Transmit
+ 161 0032 2068     	 ldr r0,[r4]
+ 162              	.L26:
+ 163 0034 836C     	 ldr r3,[r0,#72]
+ 164 0036 DB04     	 lsls r3,r3,#19
+ 165 0038 FCD5     	 bpl .L26
+ 166 003a BDE83840 	 pop {r3,r4,r5,lr}
+ 167 003e FFF7FEBF 	 b XMC_SPI_CH_DisableSlaveSelect
+ 168              	.L30:
+ 169 0042 00BF     	 .align 2
+ 170              	.L29:
+ 171 0044 00000000 	 .word SPI_MASTER_1
+ 172 0048 00000000 	 .word GUI_SEGGERLIBRARY_0_config
+ 174              	 .section .text.GUI_SEGGERLIBRARY_WriteDataByte,"ax",%progbits
+ 175              	 .align 2
+ 176              	 .global GUI_SEGGERLIBRARY_WriteDataByte
+ 177              	 .thumb
+ 178              	 .thumb_func
+ 180              	GUI_SEGGERLIBRARY_WriteDataByte:
+ 181              	 
+ 182              	 
+ 183 0000 38B5     	 push {r3,r4,r5,lr}
+ 184 0002 0F4C     	 ldr r4,.L35
+ 185 0004 0F4B     	 ldr r3,.L35+4
+ 186 0006 6268     	 ldr r2,[r4,#4]
+ 187 0008 1D7A     	 ldrb r5,[r3,#8]
+ 188 000a 116D     	 ldr r1,[r2,#80]
+ 189 000c 5A68     	 ldr r2,[r3,#4]
+ 190 000e 0969     	 ldr r1,[r1,#16]
+ 191 0010 0123     	 movs r3,#1
+ 192 0012 AB40     	 lsls r3,r3,r5
+ 193 0014 5360     	 str r3,[r2,#4]
+ 194 0016 0546     	 mov r5,r0
+ 195 0018 2068     	 ldr r0,[r4]
+ 196 001a FFF7FEFF 	 bl XMC_SPI_CH_EnableSlaveSelect
+ 197 001e 2068     	 ldr r0,[r4]
+ 198 0020 C36C     	 ldr r3,[r0,#76]
+ 199 0022 43F48053 	 orr r3,r3,#4096
+ 200 0026 C364     	 str r3,[r0,#76]
+ 201 0028 2946     	 mov r1,r5
+ 202 002a 0022     	 movs r2,#0
+ 203 002c FFF7FEFF 	 bl XMC_SPI_CH_Transmit
+ 204 0030 2068     	 ldr r0,[r4]
+ 205              	.L32:
+ 206 0032 836C     	 ldr r3,[r0,#72]
+ 207 0034 DB04     	 lsls r3,r3,#19
+ 208 0036 FCD5     	 bpl .L32
+ 209 0038 BDE83840 	 pop {r3,r4,r5,lr}
+ 210 003c FFF7FEBF 	 b XMC_SPI_CH_DisableSlaveSelect
+ 211              	.L36:
+ 212              	 .align 2
+ 213              	.L35:
+ 214 0040 00000000 	 .word SPI_MASTER_1
+ 215 0044 00000000 	 .word GUI_SEGGERLIBRARY_0_config
+ 217              	 .section .text.GUI_SEGGERLIBRARY_WriteMultipleBytes,"ax",%progbits
+ 218              	 .align 2
+ 219              	 .global GUI_SEGGERLIBRARY_WriteMultipleBytes
+ 220              	 .thumb
+ 221              	 .thumb_func
+ 223              	GUI_SEGGERLIBRARY_WriteMultipleBytes:
+ 224              	 
+ 225              	 
+ 226 0000 F8B5     	 push {r3,r4,r5,r6,r7,lr}
+ 227 0002 124E     	 ldr r6,.L43
+ 228 0004 124B     	 ldr r3,.L43+4
+ 229 0006 7268     	 ldr r2,[r6,#4]
+ 230 0008 1C7A     	 ldrb r4,[r3,#8]
+ 231 000a 176D     	 ldr r7,[r2,#80]
+ 232 000c 5A68     	 ldr r2,[r3,#4]
+ 233 000e 0123     	 movs r3,#1
+ 234 0010 A340     	 lsls r3,r3,r4
+ 235 0012 0546     	 mov r5,r0
+ 236 0014 0C46     	 mov r4,r1
+ 237 0016 3068     	 ldr r0,[r6]
+ 238 0018 5360     	 str r3,[r2,#4]
+ 239 001a 3969     	 ldr r1,[r7,#16]
+ 240 001c FFF7FEFF 	 bl XMC_SPI_CH_EnableSlaveSelect
+ 241 0020 3068     	 ldr r0,[r6]
+ 242 0022 013D     	 subs r5,r5,#1
+ 243              	.L39:
+ 244 0024 C36C     	 ldr r3,[r0,#76]
+ 245 0026 15F8011F 	 ldrb r1,[r5,#1]!
+ 246 002a 43F48053 	 orr r3,r3,#4096
+ 247 002e C364     	 str r3,[r0,#76]
+ 248 0030 0022     	 movs r2,#0
+ 249 0032 FFF7FEFF 	 bl XMC_SPI_CH_Transmit
+ 250 0036 3068     	 ldr r0,[r6]
+ 251              	.L38:
+ 252 0038 836C     	 ldr r3,[r0,#72]
+ 253 003a DB04     	 lsls r3,r3,#19
+ 254 003c FCD5     	 bpl .L38
+ 255 003e 013C     	 subs r4,r4,#1
+ 256 0040 F0D1     	 bne .L39
+ 257 0042 BDE8F840 	 pop {r3,r4,r5,r6,r7,lr}
+ 258 0046 FFF7FEBF 	 b XMC_SPI_CH_DisableSlaveSelect
+ 259              	.L44:
+ 260 004a 00BF     	 .align 2
+ 261              	.L43:
+ 262 004c 00000000 	 .word SPI_MASTER_1
+ 263 0050 00000000 	 .word GUI_SEGGERLIBRARY_0_config
+ 265              	 .section .text.GUI_SEGGERLIBRARY_ReadMultipleBytes,"ax",%progbits
+ 266              	 .align 2
+ 267              	 .global GUI_SEGGERLIBRARY_ReadMultipleBytes
+ 268              	 .thumb
+ 269              	 .thumb_func
+ 271              	GUI_SEGGERLIBRARY_ReadMultipleBytes:
+ 272              	 
+ 273              	 
+ 274              	 
+ 275 0000 30B4     	 push {r4,r5}
+ 276 0002 064B     	 ldr r3,.L47
+ 277 0004 1D7A     	 ldrb r5,[r3,#8]
+ 278 0006 5C68     	 ldr r4,[r3,#4]
+ 279 0008 0123     	 movs r3,#1
+ 280 000a AB40     	 lsls r3,r3,r5
+ 281 000c 0A46     	 mov r2,r1
+ 282 000e 6360     	 str r3,[r4,#4]
+ 283 0010 0146     	 mov r1,r0
+ 284 0012 30BC     	 pop {r4,r5}
+ 285 0014 0248     	 ldr r0,.L47+4
+ 286 0016 FFF7FEBF 	 b SPI_MASTER_Receive
+ 287              	.L48:
+ 288 001a 00BF     	 .align 2
+ 289              	.L47:
+ 290 001c 00000000 	 .word GUI_SEGGERLIBRARY_0_config
+ 291 0020 00000000 	 .word SPI_MASTER_1
+ 293              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 gui_seggerlibrary.c
+    {standard input}:17     .text.GUI_SEGGERLIBRARY_GetAppVersion:00000000 $t
+    {standard input}:22     .text.GUI_SEGGERLIBRARY_GetAppVersion:00000000 GUI_SEGGERLIBRARY_GetAppVersion
+    {standard input}:39     .text.GUI_SEGGERLIBRARY_Init:00000000 $t
+    {standard input}:44     .text.GUI_SEGGERLIBRARY_Init:00000000 GUI_SEGGERLIBRARY_Init
+    {standard input}:70     .text.GUI_SEGGERLIBRARY_SendByte:00000000 $t
+    {standard input}:75     .text.GUI_SEGGERLIBRARY_SendByte:00000000 GUI_SEGGERLIBRARY_SendByte
+    {standard input}:97     .text.GUI_SEGGERLIBRARY_SendByte:00000024 $d
+    {standard input}:100    .text.GUI_SEGGERLIBRARY_ReadByte:00000000 $t
+    {standard input}:105    .text.GUI_SEGGERLIBRARY_ReadByte:00000000 GUI_SEGGERLIBRARY_ReadByte
+    {standard input}:129    .text.GUI_SEGGERLIBRARY_ReadByte:00000030 $d
+    {standard input}:132    .text.GUI_SEGGERLIBRARY_WriteCmdByte:00000000 $t
+    {standard input}:137    .text.GUI_SEGGERLIBRARY_WriteCmdByte:00000000 GUI_SEGGERLIBRARY_WriteCmdByte
+    {standard input}:171    .text.GUI_SEGGERLIBRARY_WriteCmdByte:00000044 $d
+    {standard input}:175    .text.GUI_SEGGERLIBRARY_WriteDataByte:00000000 $t
+    {standard input}:180    .text.GUI_SEGGERLIBRARY_WriteDataByte:00000000 GUI_SEGGERLIBRARY_WriteDataByte
+    {standard input}:214    .text.GUI_SEGGERLIBRARY_WriteDataByte:00000040 $d
+    {standard input}:218    .text.GUI_SEGGERLIBRARY_WriteMultipleBytes:00000000 $t
+    {standard input}:223    .text.GUI_SEGGERLIBRARY_WriteMultipleBytes:00000000 GUI_SEGGERLIBRARY_WriteMultipleBytes
+    {standard input}:262    .text.GUI_SEGGERLIBRARY_WriteMultipleBytes:0000004c $d
+    {standard input}:266    .text.GUI_SEGGERLIBRARY_ReadMultipleBytes:00000000 $t
+    {standard input}:271    .text.GUI_SEGGERLIBRARY_ReadMultipleBytes:00000000 GUI_SEGGERLIBRARY_ReadMultipleBytes
+    {standard input}:290    .text.GUI_SEGGERLIBRARY_ReadMultipleBytes:0000001c $d
+
+UNDEFINED SYMBOLS
+SPI_MASTER_Init
+GUI_Init
+XMC_GPIO_Init
+XMC_SPI_CH_Transmit
+SPI_MASTER_1
+XMC_SPI_CH_GetReceivedData
+XMC_SPI_CH_EnableSlaveSelect
+XMC_SPI_CH_DisableSlaveSelect
+GUI_SEGGERLIBRARY_0_config
+SPI_MASTER_Receive

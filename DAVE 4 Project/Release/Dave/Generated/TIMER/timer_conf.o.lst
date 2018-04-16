@@ -1,0 +1,51 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "timer_conf.c"
+  16              	 .global ENCODER_TIMER
+  17              	 .global ENCODER_TIMER_config
+  18              	 .section .bss.ENCODER_TIMER_config,"aw",%nobits
+  19              	 .align 2
+  22              	ENCODER_TIMER_config:
+  23 0000 00000000 	 .space 8
+  23      00000000 
+  24              	 .section .data.ENCODER_TIMER,"aw",%progbits
+  25              	 .align 2
+  28              	ENCODER_TIMER:
+  29 0000 E8030000 	 .word 1000
+  30 0004 3435E358 	 .word 1491285300
+  31 0008 0A000000 	 .word 10
+  32 000c 00500000 	 .word 20480
+  33 0010 00000000 	 .word GLOBAL_CCU4_0
+  34 0014 00440048 	 .word 1207976960
+  35 0018 03       	 .byte 3
+  36 0019 000000   	 .space 3
+  37 001c 00000000 	 .word ENCODER_TIMER_config
+  38 0020 01       	 .byte 1
+  39 0021 00       	 .byte 0
+  40 0022 9F05     	 .short 1439
+  41 0024 01       	 .byte 1
+  42 0025 01       	 .byte 1
+  43 0026 00       	 .byte 0
+  44 0027 00       	 .space 1
+  45              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 timer_conf.c
+    {standard input}:28     .data.ENCODER_TIMER:00000000 ENCODER_TIMER
+    {standard input}:22     .bss.ENCODER_TIMER_config:00000000 ENCODER_TIMER_config
+    {standard input}:19     .bss.ENCODER_TIMER_config:00000000 $d
+    {standard input}:25     .data.ENCODER_TIMER:00000000 $d
+
+UNDEFINED SYMBOLS
+GLOBAL_CCU4_0

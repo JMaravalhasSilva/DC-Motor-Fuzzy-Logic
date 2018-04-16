@@ -1,0 +1,275 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "LCDConf.c"
+  16              	 .section .text.LCD_X_Config,"ax",%progbits
+  17              	 .align 2
+  18              	 .global LCD_X_Config
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	LCD_X_Config:
+  23              	 
+  24              	 
+  25 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+  26 0002 0021     	 movs r1,#0
+  27 0004 A1B0     	 sub sp,sp,#132
+  28 0006 0C46     	 mov r4,r1
+  29 0008 06A8     	 add r0,sp,#24
+  30 000a 6822     	 movs r2,#104
+  31 000c FFF7FEFF 	 bl memset
+  32 0010 2346     	 mov r3,r4
+  33 0012 2246     	 mov r2,r4
+  34 0014 1749     	 ldr r1,.L3
+  35 0016 1848     	 ldr r0,.L3+4
+  36 0018 0194     	 str r4,[sp,#4]
+  37 001a 0294     	 str r4,[sp,#8]
+  38 001c 0394     	 str r4,[sp,#12]
+  39 001e 0494     	 str r4,[sp,#16]
+  40 0020 0594     	 str r4,[sp,#20]
+  41 0022 FFF7FEFF 	 bl GUI_DEVICE_CreateAndLink
+  42 0026 A021     	 movs r1,#160
+  43 0028 0546     	 mov r5,r0
+  44 002a 8022     	 movs r2,#128
+  45 002c 2046     	 mov r0,r4
+  46 002e FFF7FEFF 	 bl LCD_SetSizeEx
+  47 0032 2046     	 mov r0,r4
+  48 0034 A021     	 movs r1,#160
+  49 0036 8022     	 movs r2,#128
+  50 0038 FFF7FEFF 	 bl LCD_SetVSizeEx
+  51 003c 0F4F     	 ldr r7,.L3+8
+  52 003e DFF84CC0 	 ldr ip,.L3+24
+  53 0042 DFF84CE0 	 ldr lr,.L3+28
+  54 0046 0E4A     	 ldr r2,.L3+12
+  55 0048 0E4E     	 ldr r6,.L3+16
+  56 004a 0F4B     	 ldr r3,.L3+20
+  57 004c CDF818C0 	 str ip,[sp,#24]
+  58 0050 06A9     	 add r1,sp,#24
+  59 0052 2846     	 mov r0,r5
+  60 0054 CDF81CE0 	 str lr,[sp,#28]
+  61 0058 0997     	 str r7,[sp,#36]
+  62 005a 0D96     	 str r6,[sp,#52]
+  63 005c FFF7FEFF 	 bl GUIDRV_FlexColor_SetFunc
+  64 0060 6023     	 movs r3,#96
+  65 0062 2846     	 mov r0,r5
+  66 0064 01A9     	 add r1,sp,#4
+  67 0066 0394     	 str r4,[sp,#12]
+  68 0068 ADF81030 	 strh r3,[sp,#16]
+  69 006c FFF7FEFF 	 bl GUIDRV_FlexColor_Config
+  70 0070 21B0     	 add sp,sp,#132
+  71              	 
+  72 0072 F0BD     	 pop {r4,r5,r6,r7,pc}
+  73              	.L4:
+  74              	 .align 2
+  75              	.L3:
+  76 0074 00000000 	 .word LCD_API_ColorConv_M565
+  77 0078 00000000 	 .word GUIDRV_FlexColor_API
+  78 007c 00000000 	 .word GUI_SEGGERLIBRARY_WriteMultipleBytes
+  79 0080 00000000 	 .word GUIDRV_FlexColor_SetFunc66718
+  80 0084 00000000 	 .word GUI_SEGGERLIBRARY_ReadMultipleBytes
+  81 0088 00000000 	 .word GUIDRV_FlexColor_SetMode16bppC0B8
+  82 008c 00000000 	 .word GUI_SEGGERLIBRARY_WriteCmdByte
+  83 0090 00000000 	 .word GUI_SEGGERLIBRARY_WriteDataByte
+  85              	 .section .text.LCD_X_DisplayDriver,"ax",%progbits
+  86              	 .align 2
+  87              	 .global LCD_X_DisplayDriver
+  88              	 .thumb
+  89              	 .thumb_func
+  91              	LCD_X_DisplayDriver:
+  92              	 
+  93              	 
+  94 0000 0129     	 cmp r1,#1
+  95 0002 40F0E880 	 bne .L9
+  96 0006 10B5     	 push {r4,lr}
+  97 0008 0620     	 movs r0,#6
+  98 000a 0C46     	 mov r4,r1
+  99 000c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 100 0010 0020     	 movs r0,#0
+ 101 0012 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 102 0016 0520     	 movs r0,#5
+ 103 0018 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 104 001c 0020     	 movs r0,#0
+ 105 001e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 106 0022 0420     	 movs r0,#4
+ 107 0024 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 108 0028 0320     	 movs r0,#3
+ 109 002a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 110 002e 0420     	 movs r0,#4
+ 111 0030 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 112 0034 0020     	 movs r0,#0
+ 113 0036 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 114 003a 3B20     	 movs r0,#59
+ 115 003c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 116 0040 0020     	 movs r0,#0
+ 117 0042 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 118 0046 0220     	 movs r0,#2
+ 119 0048 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 120 004c 2046     	 mov r0,r4
+ 121 004e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 122 0052 0320     	 movs r0,#3
+ 123 0054 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 124 0058 9020     	 movs r0,#144
+ 125 005a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 126 005e 8020     	 movs r0,#128
+ 127 0060 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 128 0064 0020     	 movs r0,#0
+ 129 0066 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 130 006a 0820     	 movs r0,#8
+ 131 006c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 132 0070 2046     	 mov r0,r4
+ 133 0072 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 134 0076 0920     	 movs r0,#9
+ 135 0078 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 136 007c 2046     	 mov r0,r4
+ 137 007e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 138 0082 0A20     	 movs r0,#10
+ 139 0084 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 140 0088 2046     	 mov r0,r4
+ 141 008a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 142 008e 0B20     	 movs r0,#11
+ 143 0090 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 144 0094 0A20     	 movs r0,#10
+ 145 0096 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 146 009a 0C20     	 movs r0,#12
+ 147 009c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 148 00a0 0A20     	 movs r0,#10
+ 149 00a2 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 150 00a6 0D20     	 movs r0,#13
+ 151 00a8 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 152 00ac 0A20     	 movs r0,#10
+ 153 00ae FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 154 00b2 1020     	 movs r0,#16
+ 155 00b4 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 156 00b8 4620     	 movs r0,#70
+ 157 00ba FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 158 00be 1120     	 movs r0,#17
+ 159 00c0 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 160 00c4 3820     	 movs r0,#56
+ 161 00c6 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 162 00ca 1220     	 movs r0,#18
+ 163 00cc FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 164 00d0 3A20     	 movs r0,#58
+ 165 00d2 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 166 00d6 1320     	 movs r0,#19
+ 167 00d8 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 168 00dc 0020     	 movs r0,#0
+ 169 00de FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 170 00e2 1420     	 movs r0,#20
+ 171 00e4 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 172 00e8 3120     	 movs r0,#49
+ 173 00ea FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 174 00ee 0F20     	 movs r0,#15
+ 175 00f0 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 176 00f4 0020     	 movs r0,#0
+ 177 00f6 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 178 00fa 1620     	 movs r0,#22
+ 179 00fc FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 180 0100 6620     	 movs r0,#102
+ 181 0102 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 182 0106 1720     	 movs r0,#23
+ 183 0108 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 184 010c 0020     	 movs r0,#0
+ 185 010e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 186 0112 1820     	 movs r0,#24
+ 187 0114 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 188 0118 9F20     	 movs r0,#159
+ 189 011a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 190 011e 1920     	 movs r0,#25
+ 191 0120 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 192 0124 0020     	 movs r0,#0
+ 193 0126 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 194 012a 1A20     	 movs r0,#26
+ 195 012c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 196 0130 7F20     	 movs r0,#127
+ 197 0132 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 198 0136 2020     	 movs r0,#32
+ 199 0138 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 200 013c 0020     	 movs r0,#0
+ 201 013e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 202 0142 2120     	 movs r0,#33
+ 203 0144 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 204 0148 0020     	 movs r0,#0
+ 205 014a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 206 014e 2820     	 movs r0,#40
+ 207 0150 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 208 0154 7F20     	 movs r0,#127
+ 209 0156 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 210 015a 2920     	 movs r0,#41
+ 211 015c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 212 0160 0020     	 movs r0,#0
+ 213 0162 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 214 0166 2E20     	 movs r0,#46
+ 215 0168 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 216 016c 0020     	 movs r0,#0
+ 217 016e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 218 0172 2F20     	 movs r0,#47
+ 219 0174 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 220 0178 0020     	 movs r0,#0
+ 221 017a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 222 017e 3120     	 movs r0,#49
+ 223 0180 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 224 0184 0020     	 movs r0,#0
+ 225 0186 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 226 018a 3220     	 movs r0,#50
+ 227 018c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 228 0190 0020     	 movs r0,#0
+ 229 0192 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 230 0196 3320     	 movs r0,#51
+ 231 0198 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 232 019c 0020     	 movs r0,#0
+ 233 019e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 234 01a2 3420     	 movs r0,#52
+ 235 01a4 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 236 01a8 9F20     	 movs r0,#159
+ 237 01aa FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 238 01ae 3520     	 movs r0,#53
+ 239 01b0 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 240 01b4 0020     	 movs r0,#0
+ 241 01b6 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 242 01ba 3620     	 movs r0,#54
+ 243 01bc FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 244 01c0 7F20     	 movs r0,#127
+ 245 01c2 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 246 01c6 0620     	 movs r0,#6
+ 247 01c8 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 248 01cc 2046     	 mov r0,r4
+ 249 01ce FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 250 01d2 0020     	 movs r0,#0
+ 251 01d4 10BD     	 pop {r4,pc}
+ 252              	.L9:
+ 253 01d6 4FF0FF30 	 mov r0,#-1
+ 254 01da 7047     	 bx lr
+ 256              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 LCDConf.c
+    {standard input}:17     .text.LCD_X_Config:00000000 $t
+    {standard input}:22     .text.LCD_X_Config:00000000 LCD_X_Config
+    {standard input}:76     .text.LCD_X_Config:00000074 $d
+    {standard input}:86     .text.LCD_X_DisplayDriver:00000000 $t
+    {standard input}:91     .text.LCD_X_DisplayDriver:00000000 LCD_X_DisplayDriver
+
+UNDEFINED SYMBOLS
+memset
+GUI_DEVICE_CreateAndLink
+LCD_SetSizeEx
+LCD_SetVSizeEx
+GUIDRV_FlexColor_SetFunc
+GUIDRV_FlexColor_Config
+LCD_API_ColorConv_M565
+GUIDRV_FlexColor_API
+GUI_SEGGERLIBRARY_WriteMultipleBytes
+GUIDRV_FlexColor_SetFunc66718
+GUI_SEGGERLIBRARY_ReadMultipleBytes
+GUIDRV_FlexColor_SetMode16bppC0B8
+GUI_SEGGERLIBRARY_WriteCmdByte
+GUI_SEGGERLIBRARY_WriteDataByte

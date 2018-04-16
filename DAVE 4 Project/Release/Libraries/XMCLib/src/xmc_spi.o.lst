@@ -1,0 +1,334 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc_spi.c"
+  16              	 .section .text.XMC_SPI_CH_Init,"ax",%progbits
+  17              	 .align 2
+  18              	 .global XMC_SPI_CH_Init
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	XMC_SPI_CH_Init:
+  23              	 
+  24              	 
+  25 0000 38B5     	 push {r3,r4,r5,lr}
+  26 0002 0D46     	 mov r5,r1
+  27 0004 0446     	 mov r4,r0
+  28 0006 FFF7FEFF 	 bl XMC_USIC_CH_Enable
+  29 000a 2B79     	 ldrb r3,[r5,#4]
+  30 000c 53B1     	 cbz r3,.L7
+  31 000e 0E4B     	 ldr r3,.L8
+  32 0010 6363     	 str r3,[r4,#52]
+  33 0012 4FF4A263 	 mov r3,#1296
+  34 0016 A363     	 str r3,[r4,#56]
+  35              	.L3:
+  36 0018 EB88     	 ldrh r3,[r5,#6]
+  37 001a 4FF0FF32 	 mov r2,#-1
+  38 001e E264     	 str r2,[r4,#76]
+  39 0020 2364     	 str r3,[r4,#64]
+  40 0022 38BD     	 pop {r3,r4,r5,pc}
+  41              	.L7:
+  42 0024 0222     	 movs r2,#2
+  43 0026 2046     	 mov r0,r4
+  44 0028 2968     	 ldr r1,[r5]
+  45 002a FFF7FEFF 	 bl XMC_USIC_CH_SetBaudrate
+  46 002e 2B79     	 ldrb r3,[r5,#4]
+  47 0030 054A     	 ldr r2,.L8
+  48 0032 6263     	 str r2,[r4,#52]
+  49 0034 4FF4A262 	 mov r2,#1296
+  50 0038 A263     	 str r2,[r4,#56]
+  51 003a 002B     	 cmp r3,#0
+  52 003c ECD1     	 bne .L3
+  53 003e 6B79     	 ldrb r3,[r5,#5]
+  54 0040 43F00B03 	 orr r3,r3,#11
+  55 0044 E363     	 str r3,[r4,#60]
+  56 0046 E7E7     	 b .L3
+  57              	.L9:
+  58              	 .align 2
+  59              	.L8:
+  60 0048 02013F07 	 .word 121569538
+  62              	 .section .text.XMC_SPI_CH_SetBaudrate,"ax",%progbits
+  63              	 .align 2
+  64              	 .global XMC_SPI_CH_SetBaudrate
+  65              	 .thumb
+  66              	 .thumb_func
+  68              	XMC_SPI_CH_SetBaudrate:
+  69              	 
+  70              	 
+  71 0000 38B5     	 push {r3,r4,r5,lr}
+  72 0002 0C46     	 mov r4,r1
+  73 0004 0546     	 mov r5,r0
+  74 0006 FFF7FEFF 	 bl XMC_SCU_CLOCK_GetPeripheralClockFrequency
+  75 000a B4EB500F 	 cmp r4,r0,lsr#1
+  76 000e 01D9     	 bls .L14
+  77 0010 0120     	 movs r0,#1
+  78 0012 38BD     	 pop {r3,r4,r5,pc}
+  79              	.L14:
+  80 0014 2846     	 mov r0,r5
+  81 0016 2146     	 mov r1,r4
+  82 0018 0222     	 movs r2,#2
+  83 001a FFF7FEFF 	 bl XMC_USIC_CH_SetBaudrate
+  84 001e 0030     	 adds r0,r0,#0
+  85 0020 18BF     	 it ne
+  86 0022 0120     	 movne r0,#1
+  87 0024 38BD     	 pop {r3,r4,r5,pc}
+  89 0026 00BF     	 .section .text.XMC_SPI_CH_EnableSlaveSelect,"ax",%progbits
+  90              	 .align 2
+  91              	 .global XMC_SPI_CH_EnableSlaveSelect
+  92              	 .thumb
+  93              	 .thumb_func
+  95              	XMC_SPI_CH_EnableSlaveSelect:
+  96              	 
+  97              	 
+  98              	 
+  99 0000 C36B     	 ldr r3,[r0,#60]
+ 100 0002 23F47F03 	 bic r3,r3,#16711680
+ 101 0006 C363     	 str r3,[r0,#60]
+ 102 0008 C36B     	 ldr r3,[r0,#60]
+ 103 000a 1943     	 orrs r1,r1,r3
+ 104 000c C163     	 str r1,[r0,#60]
+ 105 000e 7047     	 bx lr
+ 107              	 .section .text.XMC_SPI_CH_DisableSlaveSelect,"ax",%progbits
+ 108              	 .align 2
+ 109              	 .global XMC_SPI_CH_DisableSlaveSelect
+ 110              	 .thumb
+ 111              	 .thumb_func
+ 113              	XMC_SPI_CH_DisableSlaveSelect:
+ 114              	 
+ 115              	 
+ 116              	 
+ 117 0000 C36C     	 ldr r3,[r0,#76]
+ 118 0002 43F00103 	 orr r3,r3,#1
+ 119 0006 C364     	 str r3,[r0,#76]
+ 120 0008 C36B     	 ldr r3,[r0,#60]
+ 121 000a 23F47F03 	 bic r3,r3,#16711680
+ 122 000e C363     	 str r3,[r0,#60]
+ 123 0010 7047     	 bx lr
+ 125 0012 00BF     	 .section .text.XMC_SPI_CH_Transmit,"ax",%progbits
+ 126              	 .align 2
+ 127              	 .global XMC_SPI_CH_Transmit
+ 128              	 .thumb
+ 129              	 .thumb_func
+ 131              	XMC_SPI_CH_Transmit:
+ 132              	 
+ 133              	 
+ 134              	 
+ 135 0000 036C     	 ldr r3,[r0,#64]
+ 136 0002 30B4     	 push {r4,r5}
+ 137 0004 9501     	 lsls r5,r2,#6
+ 138 0006 23F0C004 	 bic r4,r3,#192
+ 139 000a EBB2     	 uxtb r3,r5
+ 140 000c 2343     	 orrs r3,r3,r4
+ 141 000e 0364     	 str r3,[r0,#64]
+ 142 0010 D0F80831 	 ldr r3,[r0,#264]
+ 143 0014 13F0E06F 	 tst r3,#117440512
+ 144 0018 04D0     	 beq .L19
+ 145 001a 6032     	 adds r2,r2,#96
+ 146 001c 30BC     	 pop {r4,r5}
+ 147 001e 40F82210 	 str r1,[r0,r2,lsl#2]
+ 148 0022 7047     	 bx lr
+ 149              	.L19:
+ 150 0024 836B     	 ldr r3,[r0,#56]
+ 151 0026 1B06     	 lsls r3,r3,#24
+ 152 0028 FCD4     	 bmi .L19
+ 153 002a C36C     	 ldr r3,[r0,#76]
+ 154 002c 2032     	 adds r2,r2,#32
+ 155 002e 43F40053 	 orr r3,r3,#8192
+ 156 0032 C364     	 str r3,[r0,#76]
+ 157 0034 30BC     	 pop {r4,r5}
+ 158 0036 40F82210 	 str r1,[r0,r2,lsl#2]
+ 159 003a 7047     	 bx lr
+ 161              	 .section .text.XMC_SPI_CH_GetReceivedData,"ax",%progbits
+ 162              	 .align 2
+ 163              	 .global XMC_SPI_CH_GetReceivedData
+ 164              	 .thumb
+ 165              	 .thumb_func
+ 167              	XMC_SPI_CH_GetReceivedData:
+ 168              	 
+ 169              	 
+ 170              	 
+ 171 0000 D0F80C31 	 ldr r3,[r0,#268]
+ 172 0004 13F0E06F 	 tst r3,#117440512
+ 173 0008 0CBF     	 ite eq
+ 174 000a 406D     	 ldreq r0,[r0,#84]
+ 175 000c D0F81C01 	 ldrne r0,[r0,#284]
+ 176 0010 80B2     	 uxth r0,r0
+ 177 0012 7047     	 bx lr
+ 179              	 .section .text.XMC_SPI_CH_SetInterwordDelay,"ax",%progbits
+ 180              	 .align 2
+ 181              	 .global XMC_SPI_CH_SetInterwordDelay
+ 182              	 .thumb
+ 183              	 .thumb_func
+ 185              	XMC_SPI_CH_SetInterwordDelay:
+ 186              	 
+ 187              	 
+ 188 0000 2DE9F84F 	 push {r3,r4,r5,r6,r7,r8,r9,r10,fp,lr}
+ 189 0004 0746     	 mov r7,r0
+ 190 0006 0D46     	 mov r5,r1
+ 191 0008 FFF7FEFF 	 bl XMC_SCU_CLOCK_GetPeripheralClockFrequency
+ 192 000c 7C69     	 ldr r4,[r7,#20]
+ 193 000e 3A69     	 ldr r2,[r7,#16]
+ 194 0010 284E     	 ldr r6,.L36
+ 195 0012 800A     	 lsrs r0,r0,#10
+ 196 0014 C4F30944 	 ubfx r4,r4,#16,#10
+ 197 0018 C2F30902 	 ubfx r2,r2,#0,#10
+ 198 001c 0134     	 adds r4,r4,#1
+ 199 001e 02FB00F2 	 mul r2,r2,r0
+ 200 0022 B2FBF4F3 	 udiv r3,r2,r4
+ 201 0026 B6FBF3F6 	 udiv r6,r6,r3
+ 202 002a AE42     	 cmp r6,r5
+ 203 002c 3DD9     	 bls .L33
+ 204 002e 2024     	 movs r4,#32
+ 205 0030 4FF0640E 	 mov lr,#100
+ 206 0034 204A     	 ldr r2,.L36+4
+ 207 0036 214E     	 ldr r6,.L36+8
+ 208 0038 05FB03F1 	 mul r1,r5,r3
+ 209 003c A446     	 mov ip,r4
+ 210 003e 7546     	 mov r5,lr
+ 211 0040 4FF00408 	 mov r8,#4
+ 212              	.L32:
+ 213 0044 B1FBF2FA 	 udiv r10,r1,r2
+ 214 0048 A6FB0A03 	 umull r0,r3,r6,r10
+ 215 004c 5B09     	 lsrs r3,r3,#5
+ 216 004e 05FB13A9 	 mls r9,r5,r3,r10
+ 217 0052 581C     	 adds r0,r3,#1
+ 218 0054 B9F1320F 	 cmp r9,#50
+ 219 0058 05FB00FB 	 mul fp,r5,r0
+ 220 005c 98BF     	 it ls
+ 221 005e 1846     	 movls r0,r3
+ 222 0060 00F1FF33 	 add r3,r0,#-1
+ 223 0064 88BF     	 it hi
+ 224 0066 CAEB0B09 	 rsbhi r9,r10,fp
+ 225 006a A2F51C52 	 sub r2,r2,#9984
+ 226 006e 032B     	 cmp r3,#3
+ 227 0070 A2F11002 	 sub r2,r2,#16
+ 228 0074 04D8     	 bhi .L31
+ 229 0076 F145     	 cmp r9,lr
+ 230 0078 02D2     	 bcs .L31
+ 231 007a CE46     	 mov lr,r9
+ 232 007c 8046     	 mov r8,r0
+ 233 007e A446     	 mov ip,r4
+ 234              	.L31:
+ 235 0080 013C     	 subs r4,r4,#1
+ 236 0082 DFD1     	 bne .L32
+ 237 0084 0CF1FF33 	 add r3,ip,#-1
+ 238 0088 1B02     	 lsls r3,r3,#8
+ 239 008a 08F1FF38 	 add r8,r8,#-1
+ 240 008e 03F4F852 	 and r2,r3,#7936
+ 241 0092 4FEA8813 	 lsl r3,r8,#6
+ 242              	.L28:
+ 243 0096 F96B     	 ldr r1,[r7,#60]
+ 244 0098 21F4FF51 	 bic r1,r1,#8160
+ 245 009c 1343     	 orrs r3,r3,r2
+ 246 009e 21F01001 	 bic r1,r1,#16
+ 247 00a2 0B43     	 orrs r3,r3,r1
+ 248 00a4 FB63     	 str r3,[r7,#60]
+ 249 00a6 BDE8F88F 	 pop {r3,r4,r5,r6,r7,r8,r9,r10,fp,pc}
+ 250              	.L33:
+ 251 00aa 4FF4F852 	 mov r2,#7936
+ 252 00ae C023     	 movs r3,#192
+ 253 00b0 F1E7     	 b .L28
+ 254              	.L37:
+ 255 00b2 00BF     	 .align 2
+ 256              	.L36:
+ 257 00b4 0020A107 	 .word 128000000
+ 258 00b8 00E20400 	 .word 320000
+ 259 00bc 1F85EB51 	 .word 1374389535
+ 261              	 .section .text.XMC_SPI_CH_Stop,"ax",%progbits
+ 262              	 .align 2
+ 263              	 .global XMC_SPI_CH_Stop
+ 264              	 .thumb
+ 265              	 .thumb_func
+ 267              	XMC_SPI_CH_Stop:
+ 268              	 
+ 269              	 
+ 270              	 
+ 271 0000 836B     	 ldr r3,[r0,#56]
+ 272 0002 1B06     	 lsls r3,r3,#24
+ 273 0004 05D4     	 bmi .L40
+ 274 0006 036C     	 ldr r3,[r0,#64]
+ 275 0008 23F00F03 	 bic r3,r3,#15
+ 276 000c 0364     	 str r3,[r0,#64]
+ 277 000e 0020     	 movs r0,#0
+ 278 0010 7047     	 bx lr
+ 279              	.L40:
+ 280 0012 0220     	 movs r0,#2
+ 281 0014 7047     	 bx lr
+ 283 0016 00BF     	 .section .text.XMC_SPI_CH_EnableEvent,"ax",%progbits
+ 284              	 .align 2
+ 285              	 .global XMC_SPI_CH_EnableEvent
+ 286              	 .thumb
+ 287              	 .thumb_func
+ 289              	XMC_SPI_CH_EnableEvent:
+ 290              	 
+ 291              	 
+ 292              	 
+ 293 0000 036C     	 ldr r3,[r0,#64]
+ 294 0002 01F4FE32 	 and r2,r1,#130048
+ 295 0006 1343     	 orrs r3,r3,r2
+ 296 0008 0364     	 str r3,[r0,#64]
+ 297 000a C36B     	 ldr r3,[r0,#60]
+ 298 000c 4903     	 lsls r1,r1,#13
+ 299 000e 89B2     	 uxth r1,r1
+ 300 0010 1943     	 orrs r1,r1,r3
+ 301 0012 C163     	 str r1,[r0,#60]
+ 302 0014 7047     	 bx lr
+ 304 0016 00BF     	 .section .text.XMC_SPI_CH_DisableEvent,"ax",%progbits
+ 305              	 .align 2
+ 306              	 .global XMC_SPI_CH_DisableEvent
+ 307              	 .thumb
+ 308              	 .thumb_func
+ 310              	XMC_SPI_CH_DisableEvent:
+ 311              	 
+ 312              	 
+ 313              	 
+ 314 0000 036C     	 ldr r3,[r0,#64]
+ 315 0002 01F4FE32 	 and r2,r1,#130048
+ 316 0006 23EA0203 	 bic r3,r3,r2
+ 317 000a 0364     	 str r3,[r0,#64]
+ 318 000c C36B     	 ldr r3,[r0,#60]
+ 319 000e 4903     	 lsls r1,r1,#13
+ 320 0010 89B2     	 uxth r1,r1
+ 321 0012 23EA0101 	 bic r1,r3,r1
+ 322 0016 C163     	 str r1,[r0,#60]
+ 323 0018 7047     	 bx lr
+ 325 001a 00BF     	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_spi.c
+    {standard input}:17     .text.XMC_SPI_CH_Init:00000000 $t
+    {standard input}:22     .text.XMC_SPI_CH_Init:00000000 XMC_SPI_CH_Init
+    {standard input}:60     .text.XMC_SPI_CH_Init:00000048 $d
+    {standard input}:63     .text.XMC_SPI_CH_SetBaudrate:00000000 $t
+    {standard input}:68     .text.XMC_SPI_CH_SetBaudrate:00000000 XMC_SPI_CH_SetBaudrate
+    {standard input}:90     .text.XMC_SPI_CH_EnableSlaveSelect:00000000 $t
+    {standard input}:95     .text.XMC_SPI_CH_EnableSlaveSelect:00000000 XMC_SPI_CH_EnableSlaveSelect
+    {standard input}:108    .text.XMC_SPI_CH_DisableSlaveSelect:00000000 $t
+    {standard input}:113    .text.XMC_SPI_CH_DisableSlaveSelect:00000000 XMC_SPI_CH_DisableSlaveSelect
+    {standard input}:126    .text.XMC_SPI_CH_Transmit:00000000 $t
+    {standard input}:131    .text.XMC_SPI_CH_Transmit:00000000 XMC_SPI_CH_Transmit
+    {standard input}:162    .text.XMC_SPI_CH_GetReceivedData:00000000 $t
+    {standard input}:167    .text.XMC_SPI_CH_GetReceivedData:00000000 XMC_SPI_CH_GetReceivedData
+    {standard input}:180    .text.XMC_SPI_CH_SetInterwordDelay:00000000 $t
+    {standard input}:185    .text.XMC_SPI_CH_SetInterwordDelay:00000000 XMC_SPI_CH_SetInterwordDelay
+    {standard input}:257    .text.XMC_SPI_CH_SetInterwordDelay:000000b4 $d
+    {standard input}:262    .text.XMC_SPI_CH_Stop:00000000 $t
+    {standard input}:267    .text.XMC_SPI_CH_Stop:00000000 XMC_SPI_CH_Stop
+    {standard input}:284    .text.XMC_SPI_CH_EnableEvent:00000000 $t
+    {standard input}:289    .text.XMC_SPI_CH_EnableEvent:00000000 XMC_SPI_CH_EnableEvent
+    {standard input}:305    .text.XMC_SPI_CH_DisableEvent:00000000 $t
+    {standard input}:310    .text.XMC_SPI_CH_DisableEvent:00000000 XMC_SPI_CH_DisableEvent
+
+UNDEFINED SYMBOLS
+XMC_USIC_CH_Enable
+XMC_USIC_CH_SetBaudrate
+XMC_SCU_CLOCK_GetPeripheralClockFrequency

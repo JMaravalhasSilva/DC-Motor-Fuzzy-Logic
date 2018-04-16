@@ -1,0 +1,60 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "GUIConf.c"
+  16              	 .section .text.GUI_X_Config,"ax",%progbits
+  17              	 .align 2
+  18              	 .global GUI_X_Config
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	GUI_X_Config:
+  23              	 
+  24              	 
+  25 0000 08B5     	 push {r3,lr}
+  26 0002 0648     	 ldr r0,.L3
+  27 0004 4FF48051 	 mov r1,#4096
+  28 0008 FFF7FEFF 	 bl GUI_ALLOC_AssignMemory
+  29 000c 8020     	 movs r0,#128
+  30 000e FFF7FEFF 	 bl GUI_ALLOC_SetAvBlockSize
+  31 0012 0348     	 ldr r0,.L3+4
+  32 0014 BDE80840 	 pop {r3,lr}
+  33 0018 FFF7FEBF 	 b GUI_SetDefaultFont
+  34              	.L4:
+  35              	 .align 2
+  36              	.L3:
+  37 001c 00000000 	 .word .LANCHOR0
+  38 0020 00000000 	 .word GUI_Font6x8
+  40              	 .section .bss.aMemory.7568,"aw",%nobits
+  41              	 .align 2
+  42              	 .set .LANCHOR0,.+0
+  45              	aMemory.7568:
+  46 0000 00000000 	 .space 4096
+  46      00000000 
+  46      00000000 
+  46      00000000 
+  46      00000000 
+  47              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 GUIConf.c
+    {standard input}:17     .text.GUI_X_Config:00000000 $t
+    {standard input}:22     .text.GUI_X_Config:00000000 GUI_X_Config
+    {standard input}:37     .text.GUI_X_Config:0000001c $d
+    {standard input}:41     .bss.aMemory.7568:00000000 $d
+    {standard input}:45     .bss.aMemory.7568:00000000 aMemory.7568
+
+UNDEFINED SYMBOLS
+GUI_ALLOC_AssignMemory
+GUI_ALLOC_SetAvBlockSize
+GUI_SetDefaultFont
+GUI_Font6x8

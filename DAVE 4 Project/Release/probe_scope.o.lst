@@ -1,0 +1,1522 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "probe_scope.c"
+  16              	 .section .text.ProbeScope_SampleCh.part.0,"ax",%progbits
+  17              	 .align 2
+  18              	 .thumb
+  19              	 .thumb_func
+  21              	ProbeScope_SampleCh.part.0:
+  22              	 
+  23              	 
+  24              	 
+  25 0000 10B4     	 push {r4}
+  26 0002 3D4B     	 ldr r3,.L33
+  27 0004 0279     	 ldrb r2,[r0,#4]
+  28 0006 1B68     	 ldr r3,[r3]
+  29 0008 062A     	 cmp r2,#6
+  30 000a 0AD8     	 bhi .L1
+  31 000c DFE802F0 	 tbb [pc,r2]
+  32              	.L4:
+  33 0010 1F       	 .byte (.L3-.L4)/2
+  34 0011 2F       	 .byte (.L5-.L4)/2
+  35 0012 3F       	 .byte (.L6-.L4)/2
+  36 0013 4E       	 .byte (.L7-.L4)/2
+  37 0014 0C       	 .byte (.L9-.L4)/2
+  38 0015 0C       	 .byte (.L9-.L4)/2
+  39 0016 04       	 .byte (.L10-.L4)/2
+  40 0017 00       	 .p2align 1
+  41              	.L10:
+  42 0018 0269     	 ldr r2,[r0,#16]
+  43 001a 00EB8300 	 add r0,r0,r3,lsl#2
+  44 001e 1268     	 ldr r2,[r2]
+  45 0020 8261     	 str r2,[r0,#24]
+  46              	.L1:
+  47 0022 5DF8044B 	 ldr r4,[sp],#4
+  48 0026 7047     	 bx lr
+  49              	.L9:
+  50 0028 8268     	 ldr r2,[r0,#8]
+  51 002a 002A     	 cmp r2,#0
+  52 002c 4DD0     	 beq .L32
+  53 002e 0169     	 ldr r1,[r0,#16]
+  54 0030 027B     	 ldrb r2,[r0,#12]
+  55 0032 0968     	 ldr r1,[r1]
+  56 0034 0124     	 movs r4,#1
+  57 0036 04FA02F2 	 lsl r2,r4,r2
+  58 003a 0633     	 adds r3,r3,#6
+  59 003c 0A40     	 ands r2,r2,r1
+  60 003e 14BF     	 ite ne
+  61 0040 40F82340 	 strne r4,[r0,r3,lsl#2]
+  62 0044 40F82320 	 streq r2,[r0,r3,lsl#2]
+  63 0048 5DF8044B 	 ldr r4,[sp],#4
+  64 004c 7047     	 bx lr
+  65              	.L3:
+  66 004e 8268     	 ldr r2,[r0,#8]
+  67 0050 002A     	 cmp r2,#0
+  68 0052 40D0     	 beq .L24
+  69 0054 0169     	 ldr r1,[r0,#16]
+  70 0056 027B     	 ldrb r2,[r0,#12]
+  71 0058 0978     	 ldrb r1,[r1]
+  72 005a 0124     	 movs r4,#1
+  73 005c 04FA02F2 	 lsl r2,r4,r2
+  74 0060 0A40     	 ands r2,r2,r1
+  75 0062 03F10603 	 add r3,r3,#6
+  76 0066 39D0     	 beq .L25
+  77 0068 00F82340 	 strb r4,[r0,r3,lsl#2]
+  78 006c D9E7     	 b .L1
+  79              	.L5:
+  80 006e 8268     	 ldr r2,[r0,#8]
+  81 0070 002A     	 cmp r2,#0
+  82 0072 30D0     	 beq .L24
+  83 0074 0269     	 ldr r2,[r0,#16]
+  84 0076 047B     	 ldrb r4,[r0,#12]
+  85 0078 1278     	 ldrb r2,[r2]
+  86 007a 0121     	 movs r1,#1
+  87 007c 01FA04F4 	 lsl r4,r1,r4
+  88 0080 2240     	 ands r2,r2,r4
+  89 0082 52B2     	 sxtb r2,r2
+  90 0084 0633     	 adds r3,r3,#6
+  91 0086 4AB3     	 cbz r2,.L25
+  92 0088 00F82310 	 strb r1,[r0,r3,lsl#2]
+  93 008c C9E7     	 b .L1
+  94              	.L6:
+  95 008e 8268     	 ldr r2,[r0,#8]
+  96 0090 62B3     	 cbz r2,.L28
+  97 0092 0169     	 ldr r1,[r0,#16]
+  98 0094 027B     	 ldrb r2,[r0,#12]
+  99 0096 0988     	 ldrh r1,[r1]
+ 100 0098 0124     	 movs r4,#1
+ 101 009a 04FA02F2 	 lsl r2,r4,r2
+ 102 009e 0A40     	 ands r2,r2,r1
+ 103 00a0 03F10603 	 add r3,r3,#6
+ 104 00a4 1FD0     	 beq .L18
+ 105 00a6 20F82340 	 strh r4,[r0,r3,lsl#2]
+ 106 00aa BAE7     	 b .L1
+ 107              	.L7:
+ 108 00ac 8268     	 ldr r2,[r0,#8]
+ 109 00ae EAB1     	 cbz r2,.L28
+ 110 00b0 0269     	 ldr r2,[r0,#16]
+ 111 00b2 047B     	 ldrb r4,[r0,#12]
+ 112 00b4 1288     	 ldrh r2,[r2]
+ 113 00b6 0121     	 movs r1,#1
+ 114 00b8 01FA04F4 	 lsl r4,r1,r4
+ 115 00bc 2240     	 ands r2,r2,r4
+ 116 00be 12B2     	 sxth r2,r2
+ 117 00c0 0633     	 adds r3,r3,#6
+ 118 00c2 82B1     	 cbz r2,.L18
+ 119 00c4 20F82310 	 strh r1,[r0,r3,lsl#2]
+ 120 00c8 ABE7     	 b .L1
+ 121              	.L32:
+ 122 00ca 0269     	 ldr r2,[r0,#16]
+ 123 00cc 0633     	 adds r3,r3,#6
+ 124 00ce 1268     	 ldr r2,[r2]
+ 125 00d0 40F82320 	 str r2,[r0,r3,lsl#2]
+ 126 00d4 A5E7     	 b .L1
+ 127              	.L24:
+ 128 00d6 0269     	 ldr r2,[r0,#16]
+ 129 00d8 1278     	 ldrb r2,[r2]
+ 130 00da 0633     	 adds r3,r3,#6
+ 131              	.L25:
+ 132 00dc 00F82320 	 strb r2,[r0,r3,lsl#2]
+ 133 00e0 5DF8044B 	 ldr r4,[sp],#4
+ 134 00e4 7047     	 bx lr
+ 135              	.L18:
+ 136 00e6 20F82320 	 strh r2,[r0,r3,lsl#2]
+ 137 00ea 9AE7     	 b .L1
+ 138              	.L28:
+ 139 00ec 0269     	 ldr r2,[r0,#16]
+ 140 00ee 0633     	 adds r3,r3,#6
+ 141 00f0 1288     	 ldrh r2,[r2]
+ 142 00f2 20F82320 	 strh r2,[r0,r3,lsl#2]
+ 143 00f6 94E7     	 b .L1
+ 144              	.L34:
+ 145              	 .align 2
+ 146              	.L33:
+ 147 00f8 00000000 	 .word .LANCHOR0
+ 149              	 .section .text.ProbeScope_ModeTrig.part.1,"ax",%progbits
+ 150              	 .align 2
+ 151              	 .thumb
+ 152              	 .thumb_func
+ 154              	ProbeScope_ModeTrig.part.1:
+ 155              	 
+ 156              	 
+ 157 0000 A44A     	 ldr r2,.L236
+ 158 0002 2DE9F843 	 push {r3,r4,r5,r6,r7,r8,r9,lr}
+ 159 0006 1388     	 ldrh r3,[r2]
+ 160 0008 0BB9     	 cbnz r3,.L36
+ 161 000a 0123     	 movs r3,#1
+ 162 000c 1380     	 strh r3,[r2]
+ 163              	.L36:
+ 164 000e A24C     	 ldr r4,.L236+4
+ 165 0010 A249     	 ldr r1,.L236+8
+ 166 0012 2278     	 ldrb r2,[r4]
+ 167 0014 0B80     	 strh r3,[r1]
+ 168 0016 032A     	 cmp r2,#3
+ 169 0018 00F21981 	 bhi .L37
+ 170 001c DFE812F0 	 tbh [pc,r2,lsl#1]
+ 171              	.L39:
+ 172 0020 D700     	 .2byte (.L38-.L39)/2
+ 173 0022 9100     	 .2byte (.L40-.L39)/2
+ 174 0024 4A00     	 .2byte (.L41-.L39)/2
+ 175 0026 0400     	 .2byte (.L42-.L39)/2
+ 176              	 .p2align 1
+ 177              	.L42:
+ 178 0028 9D4A     	 ldr r2,.L236+12
+ 179 002a 1368     	 ldr r3,[r2]
+ 180 002c 002B     	 cmp r3,#0
+ 181 002e 40F01281 	 bne .L183
+ 182 0032 9C4B     	 ldr r3,.L236+16
+ 183 0034 1B68     	 ldr r3,[r3]
+ 184 0036 002B     	 cmp r3,#0
+ 185 0038 40F00B81 	 bne .L35
+ 186 003c 9A4A     	 ldr r2,.L236+20
+ 187 003e 9B48     	 ldr r0,.L236+24
+ 188 0040 9B49     	 ldr r1,.L236+28
+ 189 0042 1360     	 str r3,[r2]
+ 190 0044 9B4A     	 ldr r2,.L236+32
+ 191 0046 0368     	 ldr r3,[r0]
+ 192 0048 0968     	 ldr r1,[r1]
+ 193 004a 1160     	 str r1,[r2]
+ 194 004c 0122     	 movs r2,#1
+ 195 004e 9342     	 cmp r3,r2
+ 196 0050 2270     	 strb r2,[r4]
+ 197 0052 00F04F82 	 beq .L202
+ 198              	.L126:
+ 199 0056 9848     	 ldr r0,.L236+36
+ 200 0058 0368     	 ldr r3,[r0]
+ 201 005a 012B     	 cmp r3,#1
+ 202 005c 00F04782 	 beq .L203
+ 203              	.L127:
+ 204 0060 9648     	 ldr r0,.L236+40
+ 205 0062 0368     	 ldr r3,[r0]
+ 206 0064 012B     	 cmp r3,#1
+ 207 0066 00F03F82 	 beq .L204
+ 208              	.L128:
+ 209 006a 9548     	 ldr r0,.L236+44
+ 210 006c 0368     	 ldr r3,[r0]
+ 211 006e 012B     	 cmp r3,#1
+ 212 0070 00F03782 	 beq .L205
+ 213              	.L129:
+ 214 0074 9348     	 ldr r0,.L236+48
+ 215 0076 0368     	 ldr r3,[r0]
+ 216 0078 012B     	 cmp r3,#1
+ 217 007a 00F04182 	 beq .L206
+ 218              	.L130:
+ 219 007e 9248     	 ldr r0,.L236+52
+ 220 0080 0368     	 ldr r3,[r0]
+ 221 0082 012B     	 cmp r3,#1
+ 222 0084 00F03982 	 beq .L207
+ 223              	.L131:
+ 224 0088 9048     	 ldr r0,.L236+56
+ 225 008a 0368     	 ldr r3,[r0]
+ 226 008c 012B     	 cmp r3,#1
+ 227 008e 00F03A82 	 beq .L208
+ 228              	.L132:
+ 229 0092 8F48     	 ldr r0,.L236+60
+ 230 0094 0368     	 ldr r3,[r0]
+ 231 0096 012B     	 cmp r3,#1
+ 232 0098 00F02082 	 beq .L209
+ 233              	.L133:
+ 234 009c 8D4A     	 ldr r2,.L236+64
+ 235 009e 8E49     	 ldr r1,.L236+68
+ 236 00a0 1368     	 ldr r3,[r2]
+ 237 00a2 0B60     	 str r3,[r1]
+ 238 00a4 0133     	 adds r3,r3,#1
+ 239 00a6 B3F57A7F 	 cmp r3,#1000
+ 240 00aa 28BF     	 it cs
+ 241 00ac 0023     	 movcs r3,#0
+ 242 00ae 1360     	 str r3,[r2]
+ 243 00b0 BDE8F883 	 pop {r3,r4,r5,r6,r7,r8,r9,pc}
+ 244              	.L41:
+ 245 00b4 7D48     	 ldr r0,.L236+24
+ 246 00b6 0368     	 ldr r3,[r0]
+ 247 00b8 012B     	 cmp r3,#1
+ 248 00ba 00F0E880 	 beq .L210
+ 249              	.L111:
+ 250 00be 7E48     	 ldr r0,.L236+36
+ 251 00c0 0368     	 ldr r3,[r0]
+ 252 00c2 012B     	 cmp r3,#1
+ 253 00c4 00F03981 	 beq .L211
+ 254              	.L112:
+ 255 00c8 7C48     	 ldr r0,.L236+40
+ 256 00ca 0368     	 ldr r3,[r0]
+ 257 00cc 012B     	 cmp r3,#1
+ 258 00ce 00F03781 	 beq .L212
+ 259              	.L113:
+ 260 00d2 7B48     	 ldr r0,.L236+44
+ 261 00d4 0368     	 ldr r3,[r0]
+ 262 00d6 012B     	 cmp r3,#1
+ 263 00d8 00F03B81 	 beq .L213
+ 264              	.L114:
+ 265 00dc 7948     	 ldr r0,.L236+48
+ 266 00de 0368     	 ldr r3,[r0]
+ 267 00e0 012B     	 cmp r3,#1
+ 268 00e2 00F03981 	 beq .L214
+ 269              	.L115:
+ 270 00e6 7848     	 ldr r0,.L236+52
+ 271 00e8 0368     	 ldr r3,[r0]
+ 272 00ea 012B     	 cmp r3,#1
+ 273 00ec 00F00181 	 beq .L215
+ 274              	.L116:
+ 275 00f0 7648     	 ldr r0,.L236+56
+ 276 00f2 0368     	 ldr r3,[r0]
+ 277 00f4 012B     	 cmp r3,#1
+ 278 00f6 00F0FF80 	 beq .L216
+ 279              	.L117:
+ 280 00fa 7548     	 ldr r0,.L236+60
+ 281 00fc 0368     	 ldr r3,[r0]
+ 282 00fe 012B     	 cmp r3,#1
+ 283 0100 00F0BF80 	 beq .L217
+ 284              	.L118:
+ 285 0104 734A     	 ldr r2,.L236+64
+ 286 0106 7449     	 ldr r1,.L236+68
+ 287 0108 1368     	 ldr r3,[r2]
+ 288 010a 0B60     	 str r3,[r1]
+ 289 010c 0133     	 adds r3,r3,#1
+ 290 010e B3F57A7F 	 cmp r3,#1000
+ 291 0112 28BF     	 it cs
+ 292 0114 0023     	 movcs r3,#0
+ 293 0116 1360     	 str r3,[r2]
+ 294 0118 704A     	 ldr r2,.L236+72
+ 295 011a 1368     	 ldr r3,[r2]
+ 296 011c 002B     	 cmp r3,#0
+ 297 011e 40F09A80 	 bne .L183
+ 298 0122 6F4A     	 ldr r2,.L236+76
+ 299 0124 1178     	 ldrb r1,[r2]
+ 300 0126 0129     	 cmp r1,#1
+ 301 0128 00F03281 	 beq .L218
+ 302 012c 6D4A     	 ldr r2,.L236+80
+ 303 012e 5C4B     	 ldr r3,.L236+12
+ 304 0130 1268     	 ldr r2,[r2]
+ 305 0132 1A60     	 str r2,[r3]
+ 306 0134 0323     	 movs r3,#3
+ 307              	.L123:
+ 308 0136 5B4A     	 ldr r2,.L236+16
+ 309 0138 2370     	 strb r3,[r4]
+ 310 013a 0123     	 movs r3,#1
+ 311 013c 1360     	 str r3,[r2]
+ 312 013e BDE8F883 	 pop {r3,r4,r5,r6,r7,r8,r9,pc}
+ 313              	.L40:
+ 314 0142 5A48     	 ldr r0,.L236+24
+ 315 0144 0368     	 ldr r3,[r0]
+ 316 0146 012B     	 cmp r3,#1
+ 317 0148 00F0D080 	 beq .L219
+ 318              	.L52:
+ 319 014c 5A48     	 ldr r0,.L236+36
+ 320 014e 0368     	 ldr r3,[r0]
+ 321 0150 012B     	 cmp r3,#1
+ 322 0152 00F0E380 	 beq .L220
+ 323              	.L53:
+ 324 0156 5948     	 ldr r0,.L236+40
+ 325 0158 0368     	 ldr r3,[r0]
+ 326 015a 012B     	 cmp r3,#1
+ 327 015c 00F0F380 	 beq .L221
+ 328              	.L54:
+ 329 0160 5748     	 ldr r0,.L236+44
+ 330 0162 0368     	 ldr r3,[r0]
+ 331 0164 012B     	 cmp r3,#1
+ 332 0166 00F0F180 	 beq .L222
+ 333              	.L55:
+ 334 016a 5648     	 ldr r0,.L236+48
+ 335 016c 0368     	 ldr r3,[r0]
+ 336 016e 012B     	 cmp r3,#1
+ 337 0170 00F0CB80 	 beq .L223
+ 338              	.L56:
+ 339 0174 5448     	 ldr r0,.L236+52
+ 340 0176 0368     	 ldr r3,[r0]
+ 341 0178 012B     	 cmp r3,#1
+ 342 017a 00F0C980 	 beq .L224
+ 343              	.L57:
+ 344 017e 5348     	 ldr r0,.L236+56
+ 345 0180 0368     	 ldr r3,[r0]
+ 346 0182 012B     	 cmp r3,#1
+ 347 0184 00F0C780 	 beq .L225
+ 348              	.L58:
+ 349 0188 5148     	 ldr r0,.L236+60
+ 350 018a 0368     	 ldr r3,[r0]
+ 351 018c 012B     	 cmp r3,#1
+ 352 018e 75D0     	 beq .L226
+ 353              	.L59:
+ 354 0190 4849     	 ldr r1,.L236+32
+ 355 0192 0B68     	 ldr r3,[r1]
+ 356 0194 002B     	 cmp r3,#0
+ 357 0196 62D0     	 beq .L60
+ 358 0198 4E4D     	 ldr r5,.L236+64
+ 359 019a 4348     	 ldr r0,.L236+20
+ 360 019c 2A68     	 ldr r2,[r5]
+ 361 019e 4E4E     	 ldr r6,.L236+68
+ 362 01a0 013B     	 subs r3,r3,#1
+ 363 01a2 0B60     	 str r3,[r1]
+ 364              	.L61:
+ 365 01a4 531C     	 adds r3,r2,#1
+ 366 01a6 B3F57A7F 	 cmp r3,#1000
+ 367 01aa 28BF     	 it cs
+ 368 01ac 0023     	 movcs r3,#0
+ 369 01ae 2B60     	 str r3,[r5]
+ 370 01b0 0368     	 ldr r3,[r0]
+ 371 01b2 3260     	 str r2,[r6]
+ 372 01b4 012B     	 cmp r3,#1
+ 373 01b6 4CD1     	 bne .L35
+ 374 01b8 3D4B     	 ldr r3,.L236+28
+ 375 01ba 4849     	 ldr r1,.L236+72
+ 376 01bc 1B68     	 ldr r3,[r3]
+ 377 01be 0222     	 movs r2,#2
+ 378 01c0 C3F57973 	 rsb r3,r3,#996
+ 379 01c4 0233     	 adds r3,r3,#2
+ 380 01c6 2270     	 strb r2,[r4]
+ 381 01c8 0B60     	 str r3,[r1]
+ 382 01ca BDE8F883 	 pop {r3,r4,r5,r6,r7,r8,r9,pc}
+ 383              	.L38:
+ 384 01ce DFF8D490 	 ldr r9,.L236+16
+ 385 01d2 DFF8D480 	 ldr r8,.L236+20
+ 386 01d6 3548     	 ldr r0,.L236+24
+ 387 01d8 DFF8FCC0 	 ldr ip,.L236+68
+ 388 01dc 304A     	 ldr r2,.L236+12
+ 389 01de 3F4F     	 ldr r7,.L236+72
+ 390 01e0 3C4D     	 ldr r5,.L236+64
+ 391 01e2 334E     	 ldr r6,.L236+28
+ 392 01e4 3349     	 ldr r1,.L236+32
+ 393 01e6 0023     	 movs r3,#0
+ 394 01e8 C9F80030 	 str r3,[r9]
+ 395 01ec CCF80030 	 str r3,[ip]
+ 396 01f0 C8F80030 	 str r3,[r8]
+ 397 01f4 1360     	 str r3,[r2]
+ 398 01f6 3B60     	 str r3,[r7]
+ 399 01f8 2B60     	 str r3,[r5]
+ 400 01fa 0368     	 ldr r3,[r0]
+ 401 01fc 3668     	 ldr r6,[r6]
+ 402 01fe 0E60     	 str r6,[r1]
+ 403 0200 012B     	 cmp r3,#1
+ 404 0202 7CD0     	 beq .L227
+ 405              	.L43:
+ 406 0204 2C48     	 ldr r0,.L236+36
+ 407 0206 0368     	 ldr r3,[r0]
+ 408 0208 012B     	 cmp r3,#1
+ 409 020a 7BD0     	 beq .L228
+ 410              	.L44:
+ 411 020c 2B48     	 ldr r0,.L236+40
+ 412 020e 0368     	 ldr r3,[r0]
+ 413 0210 012B     	 cmp r3,#1
+ 414 0212 00F08680 	 beq .L229
+ 415              	.L45:
+ 416 0216 2A48     	 ldr r0,.L236+44
+ 417 0218 0368     	 ldr r3,[r0]
+ 418 021a 012B     	 cmp r3,#1
+ 419 021c 00F08480 	 beq .L230
+ 420              	.L46:
+ 421 0220 2848     	 ldr r0,.L236+48
+ 422 0222 0368     	 ldr r3,[r0]
+ 423 0224 012B     	 cmp r3,#1
+ 424 0226 00F08280 	 beq .L231
+ 425              	.L47:
+ 426 022a 2748     	 ldr r0,.L236+52
+ 427 022c 0368     	 ldr r3,[r0]
+ 428 022e 012B     	 cmp r3,#1
+ 429 0230 00F08080 	 beq .L232
+ 430              	.L48:
+ 431 0234 2548     	 ldr r0,.L236+56
+ 432 0236 0368     	 ldr r3,[r0]
+ 433 0238 012B     	 cmp r3,#1
+ 434 023a 25D0     	 beq .L233
+ 435              	.L49:
+ 436 023c 2448     	 ldr r0,.L236+60
+ 437 023e 0368     	 ldr r3,[r0]
+ 438 0240 012B     	 cmp r3,#1
+ 439 0242 18D0     	 beq .L234
+ 440              	.L50:
+ 441 0244 0123     	 movs r3,#1
+ 442 0246 2370     	 strb r3,[r4]
+ 443 0248 2B60     	 str r3,[r5]
+ 444 024a BDE8F883 	 pop {r3,r4,r5,r6,r7,r8,r9,pc}
+ 445              	.L37:
+ 446 024e 0023     	 movs r3,#0
+ 447 0250 2370     	 strb r3,[r4]
+ 448              	.L35:
+ 449 0252 BDE8F883 	 pop {r3,r4,r5,r6,r7,r8,r9,pc}
+ 450              	.L183:
+ 451 0256 013B     	 subs r3,r3,#1
+ 452 0258 1360     	 str r3,[r2]
+ 453 025a BDE8F883 	 pop {r3,r4,r5,r6,r7,r8,r9,pc}
+ 454              	.L60:
+ 455 025e 224A     	 ldr r2,.L236+84
+ 456 0260 1378     	 ldrb r3,[r2]
+ 457 0262 013B     	 subs r3,r3,#1
+ 458 0264 072B     	 cmp r3,#7
+ 459 0266 00F25181 	 bhi .L62
+ 460 026a DFE803F0 	 tbb [pc,r3]
+ 461              	.L64:
+ 462 026e 78       	 .byte (.L135-.L64)/2
+ 463 026f 83       	 .byte (.L65-.L64)/2
+ 464 0270 8F       	 .byte (.L66-.L64)/2
+ 465 0271 8D       	 .byte (.L67-.L64)/2
+ 466 0272 8B       	 .byte (.L68-.L64)/2
+ 467 0273 89       	 .byte (.L69-.L64)/2
+ 468 0274 87       	 .byte (.L70-.L64)/2
+ 469 0275 85       	 .byte (.L71-.L64)/2
+ 470              	 .p2align 1
+ 471              	.L234:
+ 472 0276 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 473 027a E3E7     	 b .L50
+ 474              	.L226:
+ 475 027c FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 476 0280 86E7     	 b .L59
+ 477              	.L217:
+ 478 0282 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 479 0286 3DE7     	 b .L118
+ 480              	.L233:
+ 481 0288 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 482 028c D6E7     	 b .L49
+ 483              	.L210:
+ 484 028e FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 485 0292 14E7     	 b .L111
+ 486              	.L237:
+ 487              	 .align 2
+ 488              	.L236:
+ 489 0294 00000000 	 .word .LANCHOR9
+ 490 0298 00000000 	 .word .LANCHOR11
+ 491 029c 00000000 	 .word .LANCHOR10
+ 492 02a0 00000000 	 .word .LANCHOR13
+ 493 02a4 00000000 	 .word ProbeScope_DataRdyFlag
+ 494 02a8 00000000 	 .word ProbeScope_TrigFlag
+ 495 02ac 00000000 	 .word .LANCHOR1
+ 496 02b0 00000000 	 .word ProbeScope_TrigDispPos
+ 497 02b4 00000000 	 .word .LANCHOR15
+ 498 02b8 00000000 	 .word .LANCHOR2
+ 499 02bc 00000000 	 .word .LANCHOR3
+ 500 02c0 00000000 	 .word .LANCHOR4
+ 501 02c4 00000000 	 .word .LANCHOR5
+ 502 02c8 00000000 	 .word .LANCHOR6
+ 503 02cc 00000000 	 .word .LANCHOR7
+ 504 02d0 00000000 	 .word .LANCHOR8
+ 505 02d4 00000000 	 .word .LANCHOR0
+ 506 02d8 00000000 	 .word .LANCHOR12
+ 507 02dc 00000000 	 .word .LANCHOR14
+ 508 02e0 00000000 	 .word .LANCHOR18
+ 509 02e4 00000000 	 .word ProbeScope_TrigHoldOff
+ 510 02e8 00000000 	 .word .LANCHOR16
+ 511              	.L219:
+ 512 02ec FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 513 02f0 2CE7     	 b .L52
+ 514              	.L215:
+ 515 02f2 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 516 02f6 FBE6     	 b .L116
+ 517              	.L216:
+ 518 02f8 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 519 02fc FDE6     	 b .L117
+ 520              	.L227:
+ 521 02fe FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 522 0302 7FE7     	 b .L43
+ 523              	.L228:
+ 524 0304 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 525 0308 80E7     	 b .L44
+ 526              	.L223:
+ 527 030a FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 528 030e 31E7     	 b .L56
+ 529              	.L224:
+ 530 0310 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 531 0314 33E7     	 b .L57
+ 532              	.L225:
+ 533 0316 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 534 031a 35E7     	 b .L58
+ 535              	.L220:
+ 536 031c FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 537 0320 19E7     	 b .L53
+ 538              	.L229:
+ 539 0322 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 540 0326 76E7     	 b .L45
+ 541              	.L230:
+ 542 0328 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 543 032c 78E7     	 b .L46
+ 544              	.L231:
+ 545 032e FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 546 0332 7AE7     	 b .L47
+ 547              	.L232:
+ 548 0334 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 549 0338 7CE7     	 b .L48
+ 550              	.L211:
+ 551 033a FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 552 033e C3E6     	 b .L112
+ 553              	.L212:
+ 554 0340 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 555 0344 C5E6     	 b .L113
+ 556              	.L221:
+ 557 0346 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 558 034a 09E7     	 b .L54
+ 559              	.L222:
+ 560 034c FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 561 0350 0BE7     	 b .L55
+ 562              	.L213:
+ 563 0352 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 564 0356 C1E6     	 b .L114
+ 565              	.L214:
+ 566 0358 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 567 035c C3E6     	 b .L115
+ 568              	.L135:
+ 569 035e B84B     	 ldr r3,.L238
+ 570              	.L63:
+ 571 0360 1A68     	 ldr r2,[r3]
+ 572 0362 B848     	 ldr r0,.L238+4
+ 573 0364 0021     	 movs r1,#0
+ 574 0366 012A     	 cmp r2,#1
+ 575 0368 0160     	 str r1,[r0]
+ 576 036a 13D0     	 beq .L72
+ 577 036c B64D     	 ldr r5,.L238+8
+ 578 036e B74E     	 ldr r6,.L238+12
+ 579 0370 2A68     	 ldr r2,[r5]
+ 580 0372 17E7     	 b .L61
+ 581              	.L65:
+ 582 0374 B64B     	 ldr r3,.L238+16
+ 583 0376 F3E7     	 b .L63
+ 584              	.L71:
+ 585 0378 B64B     	 ldr r3,.L238+20
+ 586 037a F1E7     	 b .L63
+ 587              	.L70:
+ 588 037c B64B     	 ldr r3,.L238+24
+ 589 037e EFE7     	 b .L63
+ 590              	.L69:
+ 591 0380 B64B     	 ldr r3,.L238+28
+ 592 0382 EDE7     	 b .L63
+ 593              	.L68:
+ 594 0384 B64B     	 ldr r3,.L238+32
+ 595 0386 EBE7     	 b .L63
+ 596              	.L67:
+ 597 0388 B64B     	 ldr r3,.L238+36
+ 598 038a E9E7     	 b .L63
+ 599              	.L66:
+ 600 038c B64B     	 ldr r3,.L238+40
+ 601 038e E7E7     	 b .L63
+ 602              	.L218:
+ 603 0390 1370     	 strb r3,[r2]
+ 604 0392 D0E6     	 b .L123
+ 605              	.L72:
+ 606 0394 B54A     	 ldr r2,.L238+44
+ 607 0396 AD4E     	 ldr r6,.L238+12
+ 608 0398 1768     	 ldr r7,[r2]
+ 609 039a AB4D     	 ldr r5,.L238+8
+ 610 039c 3168     	 ldr r1,[r6]
+ 611 039e 2A68     	 ldr r2,[r5]
+ 612 03a0 012F     	 cmp r7,#1
+ 613 03a2 1F79     	 ldrb r7,[r3,#4]
+ 614 03a4 00F0B680 	 beq .L235
+ 615 03a8 062F     	 cmp r7,#6
+ 616 03aa 3FF6FBAE 	 bhi .L61
+ 617 03ae DFE807F0 	 tbb [pc,r7]
+ 618              	.L92:
+ 619 03b2 84       	 .byte (.L91-.L92)/2
+ 620 03b3 72       	 .byte (.L93-.L92)/2
+ 621 03b4 61       	 .byte (.L94-.L92)/2
+ 622 03b5 4F       	 .byte (.L95-.L92)/2
+ 623 03b6 3A       	 .byte (.L96-.L92)/2
+ 624 03b7 25       	 .byte (.L97-.L92)/2
+ 625 03b8 04       	 .byte (.L98-.L92)/2
+ 626 03b9 00       	 .p2align 1
+ 627              	.L98:
+ 628 03ba 03EB8101 	 add r1,r3,r1,lsl#2
+ 629 03be 03EB8207 	 add r7,r3,r2,lsl#2
+ 630 03c2 91ED067A 	 flds s14,[r1,#24]
+ 631 03c6 D7ED067A 	 flds s15,[r7,#24]
+ 632 03ca B4EEE77A 	 fcmpes s14,s15
+ 633 03ce F1EE10FA 	 fmstat
+ 634 03d2 7FF7E7AE 	 ble .L61
+ 635 03d6 D3ED056A 	 flds s13,[r3,#20]
+ 636 03da B4EEE67A 	 fcmpes s14,s13
+ 637 03de F1EE10FA 	 fmstat
+ 638 03e2 FFF6DFAE 	 blt .L61
+ 639 03e6 F4EEE67A 	 fcmpes s15,s13
+ 640 03ea F1EE10FA 	 fmstat
+ 641 03ee 3FF6D9AE 	 bhi .L61
+ 642              	.L179:
+ 643 03f2 9F4B     	 ldr r3,.L238+48
+ 644 03f4 0121     	 movs r1,#1
+ 645 03f6 0160     	 str r1,[r0]
+ 646 03f8 1A60     	 str r2,[r3]
+ 647 03fa D3E6     	 b .L61
+ 648              	.L97:
+ 649 03fc 9F68     	 ldr r7,[r3,#8]
+ 650 03fe 002F     	 cmp r7,#0
+ 651 0400 40F03881 	 bne .L104
+ 652 0404 8F1D     	 adds r7,r1,#6
+ 653 0406 911D     	 adds r1,r2,#6
+ 654 0408 53F82770 	 ldr r7,[r3,r7,lsl#2]
+ 655 040c 53F82110 	 ldr r1,[r3,r1,lsl#2]
+ 656 0410 8F42     	 cmp r7,r1
+ 657 0412 7FF7C7AE 	 ble .L61
+ 658 0416 5B69     	 ldr r3,[r3,#20]
+ 659 0418 9F42     	 cmp r7,r3
+ 660 041a FFF6C3AE 	 blt .L61
+ 661              	.L187:
+ 662 041e 9942     	 cmp r1,r3
+ 663 0420 3FF7C0AE 	 bgt .L61
+ 664 0424 E5E7     	 b .L179
+ 665              	.L96:
+ 666 0426 9F68     	 ldr r7,[r3,#8]
+ 667 0428 002F     	 cmp r7,#0
+ 668 042a 40F02381 	 bne .L104
+ 669 042e 8F1D     	 adds r7,r1,#6
+ 670 0430 911D     	 adds r1,r2,#6
+ 671 0432 53F82770 	 ldr r7,[r3,r7,lsl#2]
+ 672 0436 53F82110 	 ldr r1,[r3,r1,lsl#2]
+ 673 043a 8F42     	 cmp r7,r1
+ 674 043c 7FF6B2AE 	 bls .L61
+ 675 0440 5B69     	 ldr r3,[r3,#20]
+ 676 0442 9F42     	 cmp r7,r3
+ 677 0444 FFF4AEAE 	 bcc .L61
+ 678              	.L191:
+ 679 0448 9942     	 cmp r1,r3
+ 680 044a 3FF6ABAE 	 bhi .L61
+ 681 044e D0E7     	 b .L179
+ 682              	.L95:
+ 683 0450 9F68     	 ldr r7,[r3,#8]
+ 684 0452 002F     	 cmp r7,#0
+ 685 0454 40F04281 	 bne .L102
+ 686 0458 8F1D     	 adds r7,r1,#6
+ 687 045a 911D     	 adds r1,r2,#6
+ 688 045c 33F92770 	 ldrsh r7,[r3,r7,lsl#2]
+ 689 0460 33F92110 	 ldrsh r1,[r3,r1,lsl#2]
+ 690 0464 8F42     	 cmp r7,r1
+ 691 0466 7FF79DAE 	 ble .L61
+ 692 046a B3F91430 	 ldrsh r3,[r3,#20]
+ 693 046e 9F42     	 cmp r7,r3
+ 694 0470 D5DA     	 bge .L187
+ 695 0472 97E6     	 b .L61
+ 696              	.L94:
+ 697 0474 9F68     	 ldr r7,[r3,#8]
+ 698 0476 002F     	 cmp r7,#0
+ 699 0478 40F01681 	 bne .L101
+ 700 047c 8F1D     	 adds r7,r1,#6
+ 701 047e 911D     	 adds r1,r2,#6
+ 702 0480 33F82770 	 ldrh r7,[r3,r7,lsl#2]
+ 703 0484 33F82110 	 ldrh r1,[r3,r1,lsl#2]
+ 704 0488 8F42     	 cmp r7,r1
+ 705 048a 7FF68BAE 	 bls .L61
+ 706 048e 9B8A     	 ldrh r3,[r3,#20]
+ 707 0490 9F42     	 cmp r7,r3
+ 708 0492 D9D2     	 bcs .L191
+ 709 0494 86E6     	 b .L61
+ 710              	.L93:
+ 711 0496 9F68     	 ldr r7,[r3,#8]
+ 712 0498 002F     	 cmp r7,#0
+ 713 049a 40F01281 	 bne .L100
+ 714 049e 8F1D     	 adds r7,r1,#6
+ 715 04a0 911D     	 adds r1,r2,#6
+ 716 04a2 13F92770 	 ldrsb r7,[r3,r7,lsl#2]
+ 717 04a6 13F92110 	 ldrsb r1,[r3,r1,lsl#2]
+ 718 04aa 8F42     	 cmp r7,r1
+ 719 04ac 7FF77AAE 	 ble .L61
+ 720 04b0 93F91430 	 ldrsb r3,[r3,#20]
+ 721 04b4 9F42     	 cmp r7,r3
+ 722 04b6 B2DA     	 bge .L187
+ 723 04b8 74E6     	 b .L61
+ 724              	.L91:
+ 725 04ba 9F68     	 ldr r7,[r3,#8]
+ 726 04bc 002F     	 cmp r7,#0
+ 727 04be 40F0E680 	 bne .L99
+ 728 04c2 8F1D     	 adds r7,r1,#6
+ 729 04c4 911D     	 adds r1,r2,#6
+ 730 04c6 13F82770 	 ldrb r7,[r3,r7,lsl#2]
+ 731 04ca 13F82110 	 ldrb r1,[r3,r1,lsl#2]
+ 732 04ce 8F42     	 cmp r7,r1
+ 733 04d0 7FF668AE 	 bls .L61
+ 734 04d4 1B7D     	 ldrb r3,[r3,#20]
+ 735 04d6 9F42     	 cmp r7,r3
+ 736 04d8 B6D2     	 bcs .L191
+ 737 04da 63E6     	 b .L61
+ 738              	.L209:
+ 739 04dc FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 740 04e0 DCE5     	 b .L133
+ 741              	.L205:
+ 742 04e2 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 743 04e6 C5E5     	 b .L129
+ 744              	.L204:
+ 745 04e8 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 746 04ec BDE5     	 b .L128
+ 747              	.L203:
+ 748 04ee FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 749 04f2 B5E5     	 b .L127
+ 750              	.L202:
+ 751 04f4 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 752 04f8 ADE5     	 b .L126
+ 753              	.L207:
+ 754 04fa FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 755 04fe C3E5     	 b .L131
+ 756              	.L206:
+ 757 0500 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 758 0504 BBE5     	 b .L130
+ 759              	.L208:
+ 760 0506 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 761 050a C2E5     	 b .L132
+ 762              	.L62:
+ 763 050c 0123     	 movs r3,#1
+ 764 050e 1370     	 strb r3,[r2]
+ 765 0510 4B4B     	 ldr r3,.L238
+ 766 0512 25E7     	 b .L63
+ 767              	.L235:
+ 768 0514 062F     	 cmp r7,#6
+ 769 0516 3FF645AE 	 bhi .L61
+ 770 051a DFE807F0 	 tbb [pc,r7]
+ 771              	.L75:
+ 772 051e 6E       	 .byte (.L74-.L75)/2
+ 773 051f 7F       	 .byte (.L76-.L75)/2
+ 774 0520 5D       	 .byte (.L77-.L75)/2
+ 775 0521 4B       	 .byte (.L78-.L75)/2
+ 776 0522 36       	 .byte (.L79-.L75)/2
+ 777 0523 21       	 .byte (.L80-.L75)/2
+ 778 0524 04       	 .byte (.L81-.L75)/2
+ 779 0525 00       	 .p2align 1
+ 780              	.L81:
+ 781 0526 03EB8107 	 add r7,r3,r1,lsl#2
+ 782 052a 03EB8201 	 add r1,r3,r2,lsl#2
+ 783 052e D7ED066A 	 flds s13,[r7,#24]
+ 784 0532 91ED067A 	 flds s14,[r1,#24]
+ 785 0536 F4EEC76A 	 fcmpes s13,s14
+ 786 053a F1EE10FA 	 fmstat
+ 787 053e 7FF531AE 	 bpl .L61
+ 788 0542 D3ED057A 	 flds s15,[r3,#20]
+ 789 0546 F4EEE76A 	 fcmpes s13,s15
+ 790 054a F1EE10FA 	 fmstat
+ 791 054e 3FF629AE 	 bhi .L61
+ 792 0552 B4EEE77A 	 fcmpes s14,s15
+ 793 0556 F1EE10FA 	 fmstat
+ 794 055a FFF623AE 	 blt .L61
+ 795 055e 48E7     	 b .L179
+ 796              	.L80:
+ 797 0560 9F68     	 ldr r7,[r3,#8]
+ 798 0562 002F     	 cmp r7,#0
+ 799 0564 40F0C780 	 bne .L87
+ 800 0568 8F1D     	 adds r7,r1,#6
+ 801 056a 911D     	 adds r1,r2,#6
+ 802 056c 53F82770 	 ldr r7,[r3,r7,lsl#2]
+ 803 0570 53F82110 	 ldr r1,[r3,r1,lsl#2]
+ 804 0574 8F42     	 cmp r7,r1
+ 805 0576 BFF615AE 	 bge .L61
+ 806 057a 5B69     	 ldr r3,[r3,#20]
+ 807 057c 9F42     	 cmp r7,r3
+ 808 057e 3FF711AE 	 bgt .L61
+ 809              	.L195:
+ 810 0582 9942     	 cmp r1,r3
+ 811 0584 FFF60EAE 	 blt .L61
+ 812 0588 33E7     	 b .L179
+ 813              	.L79:
+ 814 058a 9F68     	 ldr r7,[r3,#8]
+ 815 058c 002F     	 cmp r7,#0
+ 816 058e 40F0B280 	 bne .L87
+ 817 0592 8F1D     	 adds r7,r1,#6
+ 818 0594 911D     	 adds r1,r2,#6
+ 819 0596 53F82770 	 ldr r7,[r3,r7,lsl#2]
+ 820 059a 53F82110 	 ldr r1,[r3,r1,lsl#2]
+ 821 059e 8F42     	 cmp r7,r1
+ 822 05a0 BFF400AE 	 bcs .L61
+ 823 05a4 5B69     	 ldr r3,[r3,#20]
+ 824 05a6 9F42     	 cmp r7,r3
+ 825 05a8 3FF6FCAD 	 bhi .L61
+ 826              	.L189:
+ 827 05ac 9942     	 cmp r1,r3
+ 828 05ae FFF4F9AD 	 bcc .L61
+ 829 05b2 1EE7     	 b .L179
+ 830              	.L78:
+ 831 05b4 9F68     	 ldr r7,[r3,#8]
+ 832 05b6 002F     	 cmp r7,#0
+ 833 05b8 40F0C480 	 bne .L85
+ 834 05bc 8F1D     	 adds r7,r1,#6
+ 835 05be 911D     	 adds r1,r2,#6
+ 836 05c0 33F92770 	 ldrsh r7,[r3,r7,lsl#2]
+ 837 05c4 33F92110 	 ldrsh r1,[r3,r1,lsl#2]
+ 838 05c8 8F42     	 cmp r7,r1
+ 839 05ca BFF6EBAD 	 bge .L61
+ 840 05ce B3F91430 	 ldrsh r3,[r3,#20]
+ 841 05d2 9F42     	 cmp r7,r3
+ 842 05d4 D5DD     	 ble .L195
+ 843 05d6 E5E5     	 b .L61
+ 844              	.L77:
+ 845 05d8 9F68     	 ldr r7,[r3,#8]
+ 846 05da 002F     	 cmp r7,#0
+ 847 05dc 40F0A580 	 bne .L84
+ 848 05e0 8F1D     	 adds r7,r1,#6
+ 849 05e2 911D     	 adds r1,r2,#6
+ 850 05e4 33F82770 	 ldrh r7,[r3,r7,lsl#2]
+ 851 05e8 33F82110 	 ldrh r1,[r3,r1,lsl#2]
+ 852 05ec 8F42     	 cmp r7,r1
+ 853 05ee BFF4D9AD 	 bcs .L61
+ 854 05f2 9B8A     	 ldrh r3,[r3,#20]
+ 855 05f4 9F42     	 cmp r7,r3
+ 856 05f6 D9D9     	 bls .L189
+ 857 05f8 D4E5     	 b .L61
+ 858              	.L74:
+ 859 05fa 9F68     	 ldr r7,[r3,#8]
+ 860 05fc 002F     	 cmp r7,#0
+ 861 05fe 40F0AE80 	 bne .L82
+ 862 0602 8F1D     	 adds r7,r1,#6
+ 863 0604 911D     	 adds r1,r2,#6
+ 864 0606 13F82770 	 ldrb r7,[r3,r7,lsl#2]
+ 865 060a 13F82110 	 ldrb r1,[r3,r1,lsl#2]
+ 866 060e 8F42     	 cmp r7,r1
+ 867 0610 BFF4C8AD 	 bcs .L61
+ 868 0614 1B7D     	 ldrb r3,[r3,#20]
+ 869 0616 9F42     	 cmp r7,r3
+ 870 0618 C8D9     	 bls .L189
+ 871 061a C3E5     	 b .L61
+ 872              	.L76:
+ 873 061c 9F68     	 ldr r7,[r3,#8]
+ 874 061e 002F     	 cmp r7,#0
+ 875 0620 76D1     	 bne .L83
+ 876 0622 8F1D     	 adds r7,r1,#6
+ 877 0624 911D     	 adds r1,r2,#6
+ 878 0626 13F92770 	 ldrsb r7,[r3,r7,lsl#2]
+ 879 062a 13F92110 	 ldrsb r1,[r3,r1,lsl#2]
+ 880 062e 8F42     	 cmp r7,r1
+ 881 0630 BFF6B8AD 	 bge .L61
+ 882 0634 93F91430 	 ldrsb r3,[r3,#20]
+ 883 0638 9F42     	 cmp r7,r3
+ 884 063a A2DD     	 ble .L195
+ 885 063c B2E5     	 b .L61
+ 886              	.L239:
+ 887 063e 00BF     	 .align 2
+ 888              	.L238:
+ 889 0640 00000000 	 .word .LANCHOR1
+ 890 0644 00000000 	 .word ProbeScope_TrigFlag
+ 891 0648 00000000 	 .word .LANCHOR0
+ 892 064c 00000000 	 .word .LANCHOR12
+ 893 0650 00000000 	 .word .LANCHOR2
+ 894 0654 00000000 	 .word .LANCHOR8
+ 895 0658 00000000 	 .word .LANCHOR7
+ 896 065c 00000000 	 .word .LANCHOR6
+ 897 0660 00000000 	 .word .LANCHOR5
+ 898 0664 00000000 	 .word .LANCHOR4
+ 899 0668 00000000 	 .word .LANCHOR3
+ 900 066c 00000000 	 .word .LANCHOR17
+ 901 0670 00000000 	 .word ProbeScope_TrigIx
+ 902              	.L104:
+ 903 0674 0631     	 adds r1,r1,#6
+ 904 0676 53F82110 	 ldr r1,[r3,r1,lsl#2]
+ 905 067a 0029     	 cmp r1,#0
+ 906 067c 3FF492AD 	 beq .L61
+ 907 0680 911D     	 adds r1,r2,#6
+ 908 0682 53F82130 	 ldr r3,[r3,r1,lsl#2]
+ 909 0686 002B     	 cmp r3,#0
+ 910 0688 7FF48CAD 	 bne .L61
+ 911 068c B1E6     	 b .L179
+ 912              	.L99:
+ 913 068e 0631     	 adds r1,r1,#6
+ 914 0690 13F82110 	 ldrb r1,[r3,r1,lsl#2]
+ 915 0694 0029     	 cmp r1,#0
+ 916 0696 3FF485AD 	 beq .L61
+ 917 069a 911D     	 adds r1,r2,#6
+ 918 069c 13F82130 	 ldrb r3,[r3,r1,lsl#2]
+ 919 06a0 002B     	 cmp r3,#0
+ 920 06a2 7FF47FAD 	 bne .L61
+ 921 06a6 A4E6     	 b .L179
+ 922              	.L101:
+ 923 06a8 0631     	 adds r1,r1,#6
+ 924 06aa 33F82110 	 ldrh r1,[r3,r1,lsl#2]
+ 925 06ae 0029     	 cmp r1,#0
+ 926 06b0 3FF478AD 	 beq .L61
+ 927 06b4 911D     	 adds r1,r2,#6
+ 928 06b6 33F82130 	 ldrh r3,[r3,r1,lsl#2]
+ 929 06ba 002B     	 cmp r3,#0
+ 930 06bc 7FF472AD 	 bne .L61
+ 931 06c0 97E6     	 b .L179
+ 932              	.L100:
+ 933 06c2 0631     	 adds r1,r1,#6
+ 934 06c4 13F92110 	 ldrsb r1,[r3,r1,lsl#2]
+ 935 06c8 0029     	 cmp r1,#0
+ 936 06ca 3FF46BAD 	 beq .L61
+ 937 06ce 911D     	 adds r1,r2,#6
+ 938 06d0 13F92130 	 ldrsb r3,[r3,r1,lsl#2]
+ 939 06d4 002B     	 cmp r3,#0
+ 940 06d6 7FF465AD 	 bne .L61
+ 941 06da 8AE6     	 b .L179
+ 942              	.L102:
+ 943 06dc 0631     	 adds r1,r1,#6
+ 944 06de 33F92110 	 ldrsh r1,[r3,r1,lsl#2]
+ 945 06e2 0029     	 cmp r1,#0
+ 946 06e4 3FF45EAD 	 beq .L61
+ 947 06e8 911D     	 adds r1,r2,#6
+ 948 06ea 33F92130 	 ldrsh r3,[r3,r1,lsl#2]
+ 949 06ee 002B     	 cmp r3,#0
+ 950 06f0 7FF458AD 	 bne .L61
+ 951 06f4 7DE6     	 b .L179
+ 952              	.L87:
+ 953 06f6 0631     	 adds r1,r1,#6
+ 954 06f8 53F82110 	 ldr r1,[r3,r1,lsl#2]
+ 955 06fc 0029     	 cmp r1,#0
+ 956 06fe 7FF451AD 	 bne .L61
+ 957 0702 911D     	 adds r1,r2,#6
+ 958 0704 53F82130 	 ldr r3,[r3,r1,lsl#2]
+ 959 0708 002B     	 cmp r3,#0
+ 960 070a 3FF44BAD 	 beq .L61
+ 961 070e 70E6     	 b .L179
+ 962              	.L83:
+ 963 0710 0631     	 adds r1,r1,#6
+ 964 0712 13F92110 	 ldrsb r1,[r3,r1,lsl#2]
+ 965 0716 0029     	 cmp r1,#0
+ 966 0718 7FF444AD 	 bne .L61
+ 967 071c 911D     	 adds r1,r2,#6
+ 968 071e 13F92130 	 ldrsb r3,[r3,r1,lsl#2]
+ 969 0722 002B     	 cmp r3,#0
+ 970 0724 3FF43EAD 	 beq .L61
+ 971 0728 63E6     	 b .L179
+ 972              	.L84:
+ 973 072a 0631     	 adds r1,r1,#6
+ 974 072c 33F82110 	 ldrh r1,[r3,r1,lsl#2]
+ 975 0730 0029     	 cmp r1,#0
+ 976 0732 7FF437AD 	 bne .L61
+ 977 0736 911D     	 adds r1,r2,#6
+ 978 0738 33F82130 	 ldrh r3,[r3,r1,lsl#2]
+ 979 073c 002B     	 cmp r3,#0
+ 980 073e 3FF431AD 	 beq .L61
+ 981 0742 56E6     	 b .L179
+ 982              	.L85:
+ 983 0744 0631     	 adds r1,r1,#6
+ 984 0746 33F92110 	 ldrsh r1,[r3,r1,lsl#2]
+ 985 074a 0029     	 cmp r1,#0
+ 986 074c 7FF42AAD 	 bne .L61
+ 987 0750 911D     	 adds r1,r2,#6
+ 988 0752 33F92130 	 ldrsh r3,[r3,r1,lsl#2]
+ 989 0756 002B     	 cmp r3,#0
+ 990 0758 3FF424AD 	 beq .L61
+ 991 075c 49E6     	 b .L179
+ 992              	.L82:
+ 993 075e 0631     	 adds r1,r1,#6
+ 994 0760 13F82110 	 ldrb r1,[r3,r1,lsl#2]
+ 995 0764 0029     	 cmp r1,#0
+ 996 0766 7FF41DAD 	 bne .L61
+ 997 076a 911D     	 adds r1,r2,#6
+ 998 076c 13F82130 	 ldrb r3,[r3,r1,lsl#2]
+ 999 0770 002B     	 cmp r3,#0
+ 1000 0772 3FF417AD 	 beq .L61
+ 1001 0776 3CE6     	 b .L179
+ 1003              	 .section .text.ProbeScope_Init,"ax",%progbits
+ 1004              	 .align 2
+ 1005              	 .global ProbeScope_Init
+ 1006              	 .thumb
+ 1007              	 .thumb_func
+ 1009              	ProbeScope_Init:
+ 1010              	 
+ 1011              	 
+ 1012 0000 2DE9F04F 	 push {r4,r5,r6,r7,r8,r9,r10,fp,lr}
+ 1013 0004 324A     	 ldr r2,.L242
+ 1014 0006 DFF808B1 	 ldr fp,.L242+64
+ 1015 000a DFF80881 	 ldr r8,.L242+68
+ 1016 000e DFF808E1 	 ldr lr,.L242+72
+ 1017 0012 304F     	 ldr r7,.L242+4
+ 1018 0014 304D     	 ldr r5,.L242+8
+ 1019 0016 314C     	 ldr r4,.L242+12
+ 1020 0018 3149     	 ldr r1,.L242+16
+ 1021 001a DFF800C1 	 ldr ip,.L242+76
+ 1022 001e 314E     	 ldr r6,.L242+20
+ 1023 0020 DFF8FCA0 	 ldr r10,.L242+80
+ 1024 0024 DFF8FC90 	 ldr r9,.L242+84
+ 1025 0028 0023     	 movs r3,#0
+ 1026 002a CBF80030 	 str r3,[fp]
+ 1027 002e 1360     	 str r3,[r2]
+ 1028 0030 C8F80030 	 str r3,[r8]
+ 1029 0034 CEF80030 	 str r3,[lr]
+ 1030 0038 D2F80080 	 ldr r8,[r2]
+ 1031 003c B7F800E0 	 ldrh lr,[r7]
+ 1032 0040 2A78     	 ldrb r2,[r5]
+ 1033 0042 2768     	 ldr r7,[r4]
+ 1034 0044 0968     	 ldr r1,[r1]
+ 1035 0046 284D     	 ldr r5,.L242+24
+ 1036 0048 284C     	 ldr r4,.L242+28
+ 1037 004a DFF8DCB0 	 ldr fp,.L242+88
+ 1038 004e CCF80080 	 str r8,[ip]
+ 1039 0052 3944     	 add r1,r1,r7
+ 1040 0054 11FA8EF1 	 uxtah r1,r1,lr
+ 1041 0058 DFF8D0E0 	 ldr lr,.L242+92
+ 1042 005c 3360     	 str r3,[r6]
+ 1043 005e 2B60     	 str r3,[r5]
+ 1044 0060 2360     	 str r3,[r4]
+ 1045 0062 DFF8CC80 	 ldr r8,.L242+96
+ 1046 0066 DFF8CCC0 	 ldr ip,.L242+100
+ 1047 006a 214F     	 ldr r7,.L242+32
+ 1048 006c 214E     	 ldr r6,.L242+36
+ 1049 006e 224D     	 ldr r5,.L242+40
+ 1050 0070 224C     	 ldr r4,.L242+44
+ 1051 0072 CBF80030 	 str r3,[fp]
+ 1052 0076 CEF80030 	 str r3,[lr]
+ 1053 007a DFF8BCB0 	 ldr fp,.L242+104
+ 1054 007e DFF8BCE0 	 ldr lr,.L242+108
+ 1055 0082 C8F80030 	 str r3,[r8]
+ 1056 0086 CCF80030 	 str r3,[ip]
+ 1057 008a 3B60     	 str r3,[r7]
+ 1058 008c 3370     	 strb r3,[r6]
+ 1059 008e 2B70     	 strb r3,[r5]
+ 1060 0090 2360     	 str r3,[r4]
+ 1061 0092 1144     	 add r1,r1,r2
+ 1062 0094 DFF8A880 	 ldr r8,.L242+112
+ 1063 0098 DFF8A8C0 	 ldr ip,.L242+116
+ 1064 009c 184F     	 ldr r7,.L242+48
+ 1065 009e 194E     	 ldr r6,.L242+52
+ 1066 00a0 194D     	 ldr r5,.L242+56
+ 1067 00a2 1A4C     	 ldr r4,.L242+60
+ 1068 00a4 CBF80030 	 str r3,[fp]
+ 1069 00a8 0122     	 movs r2,#1
+ 1070 00aa 4FF47A7B 	 mov fp,#1000
+ 1071 00ae 8EF80020 	 strb r2,[lr]
+ 1072 00b2 CAF80000 	 str r0,[r10]
+ 1073 00b6 C9F80010 	 str r1,[r9]
+ 1074 00ba C8F80030 	 str r3,[r8]
+ 1075 00be ACF80030 	 strh r3,[ip]
+ 1076 00c2 3A60     	 str r2,[r7]
+ 1077 00c4 3280     	 strh r2,[r6]
+ 1078 00c6 2A60     	 str r2,[r5]
+ 1079 00c8 C4F800B0 	 str fp,[r4]
+ 1080 00cc BDE8F08F 	 pop {r4,r5,r6,r7,r8,r9,r10,fp,pc}
+ 1081              	.L243:
+ 1082              	 .align 2
+ 1083              	.L242:
+ 1084 00d0 00000000 	 .word ProbeScope_TrigDispPos
+ 1085 00d4 00000000 	 .word .LANCHOR19
+ 1086 00d8 00000000 	 .word .LANCHOR20
+ 1087 00dc 00000000 	 .word .LANCHOR21
+ 1088 00e0 00000000 	 .word .LANCHOR22
+ 1089 00e4 00000000 	 .word .LANCHOR1
+ 1090 00e8 00000000 	 .word .LANCHOR2
+ 1091 00ec 00000000 	 .word .LANCHOR3
+ 1092 00f0 00000000 	 .word .LANCHOR8
+ 1093 00f4 00000000 	 .word .LANCHOR18
+ 1094 00f8 00000000 	 .word .LANCHOR11
+ 1095 00fc 00000000 	 .word .LANCHOR12
+ 1096 0100 00000000 	 .word .LANCHOR17
+ 1097 0104 00000000 	 .word .LANCHOR9
+ 1098 0108 00000000 	 .word ProbeScope_InitFlag
+ 1099 010c 00000000 	 .word .LANCHOR14
+ 1100 0110 00000000 	 .word ProbeScope_TrigFlag
+ 1101 0114 00000000 	 .word ProbeScope_TrigHoldOff
+ 1102 0118 00000000 	 .word ProbeScope_DataRdyFlag
+ 1103 011c 00000000 	 .word .LANCHOR15
+ 1104 0120 00000000 	 .word ProbeScope_SamplingClkHz
+ 1105 0124 00000000 	 .word .LANCHOR23
+ 1106 0128 00000000 	 .word .LANCHOR4
+ 1107 012c 00000000 	 .word .LANCHOR7
+ 1108 0130 00000000 	 .word .LANCHOR5
+ 1109 0134 00000000 	 .word .LANCHOR6
+ 1110 0138 00000000 	 .word .LANCHOR0
+ 1111 013c 00000000 	 .word .LANCHOR16
+ 1112 0140 00000000 	 .word .LANCHOR13
+ 1113 0144 00000000 	 .word .LANCHOR10
+ 1115              	 .section .text.ProbeScope_Sampling,"ax",%progbits
+ 1116              	 .align 2
+ 1117              	 .global ProbeScope_Sampling
+ 1118              	 .thumb
+ 1119              	 .thumb_func
+ 1121              	ProbeScope_Sampling:
+ 1122              	 
+ 1123              	 
+ 1124 0000 38B5     	 push {r3,r4,r5,lr}
+ 1125 0002 3E4B     	 ldr r3,.L278
+ 1126 0004 1B78     	 ldrb r3,[r3]
+ 1127 0006 032B     	 cmp r3,#3
+ 1128 0008 09D8     	 bhi .L244
+ 1129 000a DFE803F0 	 tbb [pc,r3]
+ 1130              	.L247:
+ 1131 000e 09       	 .byte (.L246-.L247)/2
+ 1132 000f 02       	 .byte (.L250-.L247)/2
+ 1133 0010 13       	 .byte (.L249-.L247)/2
+ 1134 0011 02       	 .byte (.L250-.L247)/2
+ 1135              	 .p2align 1
+ 1136              	.L250:
+ 1137 0012 3B4A     	 ldr r2,.L278+4
+ 1138 0014 1388     	 ldrh r3,[r2]
+ 1139 0016 012B     	 cmp r3,#1
+ 1140 0018 1BD9     	 bls .L251
+ 1141 001a 013B     	 subs r3,r3,#1
+ 1142 001c 1380     	 strh r3,[r2]
+ 1143              	.L244:
+ 1144 001e 38BD     	 pop {r3,r4,r5,pc}
+ 1145              	.L246:
+ 1146 0020 384B     	 ldr r3,.L278+8
+ 1147 0022 3949     	 ldr r1,.L278+12
+ 1148 0024 1A88     	 ldrh r2,[r3]
+ 1149 0026 0020     	 movs r0,#0
+ 1150 0028 0870     	 strb r0,[r1]
+ 1151 002a 002A     	 cmp r2,#0
+ 1152 002c F7D1     	 bne .L244
+ 1153 002e 0122     	 movs r2,#1
+ 1154 0030 1A80     	 strh r2,[r3]
+ 1155 0032 38BD     	 pop {r3,r4,r5,pc}
+ 1156              	.L249:
+ 1157 0034 354C     	 ldr r4,.L278+16
+ 1158 0036 2368     	 ldr r3,[r4]
+ 1159 0038 3BB9     	 cbnz r3,.L253
+ 1160 003a 3149     	 ldr r1,.L278+4
+ 1161 003c 344D     	 ldr r5,.L278+20
+ 1162 003e 0A88     	 ldrh r2,[r1]
+ 1163 0040 2B60     	 str r3,[r5]
+ 1164 0042 012A     	 cmp r2,#1
+ 1165 0044 09D9     	 bls .L254
+ 1166 0046 013A     	 subs r2,r2,#1
+ 1167 0048 0A80     	 strh r2,[r1]
+ 1168              	.L253:
+ 1169 004a 2F4B     	 ldr r3,.L278+12
+ 1170 004c 0022     	 movs r2,#0
+ 1171 004e 1A70     	 strb r2,[r3]
+ 1172 0050 38BD     	 pop {r3,r4,r5,pc}
+ 1173              	.L251:
+ 1174 0052 BDE83840 	 pop {r3,r4,r5,lr}
+ 1175 0056 FFF7FEBF 	 b ProbeScope_ModeTrig.part.1
+ 1176              	.L254:
+ 1177 005a 2A4A     	 ldr r2,.L278+8
+ 1178 005c 1388     	 ldrh r3,[r2]
+ 1179 005e 0BB9     	 cbnz r3,.L255
+ 1180 0060 0123     	 movs r3,#1
+ 1181 0062 1380     	 strh r3,[r2]
+ 1182              	.L255:
+ 1183 0064 2B48     	 ldr r0,.L278+24
+ 1184 0066 0B80     	 strh r3,[r1]
+ 1185 0068 0368     	 ldr r3,[r0]
+ 1186 006a 012B     	 cmp r3,#1
+ 1187 006c 42D0     	 beq .L270
+ 1188              	.L256:
+ 1189 006e 2A48     	 ldr r0,.L278+28
+ 1190 0070 0368     	 ldr r3,[r0]
+ 1191 0072 012B     	 cmp r3,#1
+ 1192 0074 3BD0     	 beq .L271
+ 1193              	.L257:
+ 1194 0076 2948     	 ldr r0,.L278+32
+ 1195 0078 0368     	 ldr r3,[r0]
+ 1196 007a 012B     	 cmp r3,#1
+ 1197 007c 34D0     	 beq .L272
+ 1198              	.L258:
+ 1199 007e 2848     	 ldr r0,.L278+36
+ 1200 0080 0368     	 ldr r3,[r0]
+ 1201 0082 012B     	 cmp r3,#1
+ 1202 0084 2DD0     	 beq .L273
+ 1203              	.L259:
+ 1204 0086 2748     	 ldr r0,.L278+40
+ 1205 0088 0368     	 ldr r3,[r0]
+ 1206 008a 012B     	 cmp r3,#1
+ 1207 008c 26D0     	 beq .L274
+ 1208              	.L260:
+ 1209 008e 2648     	 ldr r0,.L278+44
+ 1210 0090 0368     	 ldr r3,[r0]
+ 1211 0092 012B     	 cmp r3,#1
+ 1212 0094 1FD0     	 beq .L275
+ 1213              	.L261:
+ 1214 0096 2548     	 ldr r0,.L278+48
+ 1215 0098 0368     	 ldr r3,[r0]
+ 1216 009a 012B     	 cmp r3,#1
+ 1217 009c 18D0     	 beq .L276
+ 1218              	.L262:
+ 1219 009e 2448     	 ldr r0,.L278+52
+ 1220 00a0 0368     	 ldr r3,[r0]
+ 1221 00a2 012B     	 cmp r3,#1
+ 1222 00a4 11D0     	 beq .L277
+ 1223              	.L263:
+ 1224 00a6 234A     	 ldr r2,.L278+56
+ 1225 00a8 2349     	 ldr r1,.L278+60
+ 1226 00aa 1368     	 ldr r3,[r2]
+ 1227 00ac 0B60     	 str r3,[r1]
+ 1228 00ae 0133     	 adds r3,r3,#1
+ 1229 00b0 B3F57A7F 	 cmp r3,#1000
+ 1230 00b4 1360     	 str r3,[r2]
+ 1231 00b6 05D3     	 bcc .L264
+ 1232 00b8 0023     	 movs r3,#0
+ 1233 00ba 1360     	 str r3,[r2]
+ 1234              	.L265:
+ 1235 00bc 0123     	 movs r3,#1
+ 1236 00be 2360     	 str r3,[r4]
+ 1237 00c0 2B60     	 str r3,[r5]
+ 1238 00c2 C2E7     	 b .L253
+ 1239              	.L264:
+ 1240 00c4 002B     	 cmp r3,#0
+ 1241 00c6 C0D1     	 bne .L253
+ 1242 00c8 F8E7     	 b .L265
+ 1243              	.L277:
+ 1244 00ca FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 1245 00ce EAE7     	 b .L263
+ 1246              	.L276:
+ 1247 00d0 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 1248 00d4 E3E7     	 b .L262
+ 1249              	.L275:
+ 1250 00d6 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 1251 00da DCE7     	 b .L261
+ 1252              	.L274:
+ 1253 00dc FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 1254 00e0 D5E7     	 b .L260
+ 1255              	.L273:
+ 1256 00e2 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 1257 00e6 CEE7     	 b .L259
+ 1258              	.L272:
+ 1259 00e8 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 1260 00ec C7E7     	 b .L258
+ 1261              	.L271:
+ 1262 00ee FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 1263 00f2 C0E7     	 b .L257
+ 1264              	.L270:
+ 1265 00f4 FFF7FEFF 	 bl ProbeScope_SampleCh.part.0
+ 1266 00f8 B9E7     	 b .L256
+ 1267              	.L279:
+ 1268 00fa 00BF     	 .align 2
+ 1269              	.L278:
+ 1270 00fc 00000000 	 .word .LANCHOR18
+ 1271 0100 00000000 	 .word .LANCHOR10
+ 1272 0104 00000000 	 .word .LANCHOR9
+ 1273 0108 00000000 	 .word .LANCHOR11
+ 1274 010c 00000000 	 .word ProbeScope_DataRdyFlag
+ 1275 0110 00000000 	 .word ProbeScope_TrigFlag
+ 1276 0114 00000000 	 .word .LANCHOR1
+ 1277 0118 00000000 	 .word .LANCHOR2
+ 1278 011c 00000000 	 .word .LANCHOR3
+ 1279 0120 00000000 	 .word .LANCHOR4
+ 1280 0124 00000000 	 .word .LANCHOR5
+ 1281 0128 00000000 	 .word .LANCHOR6
+ 1282 012c 00000000 	 .word .LANCHOR7
+ 1283 0130 00000000 	 .word .LANCHOR8
+ 1284 0134 00000000 	 .word .LANCHOR0
+ 1285 0138 00000000 	 .word .LANCHOR12
+ 1287              	 .comm ProbeScope_SamplingClkHz,4,4
+ 1288              	 .comm ProbeScope_TrigIx,4,4
+ 1289              	 .comm ProbeScope_TrigHoldOff,4,4
+ 1290              	 .comm ProbeScope_TrigFlag,4,4
+ 1291              	 .comm ProbeScope_TrigDispPos,4,4
+ 1292              	 .comm ProbeScope_InitFlag,4,4
+ 1293              	 .comm ProbeScope_DataRdyFlag,4,4
+ 1294              	 .section .bss.ProbeScope_SamplingClkDiv,"aw",%nobits
+ 1295              	 .align 1
+ 1296              	 .set .LANCHOR9,.+0
+ 1299              	ProbeScope_SamplingClkDiv:
+ 1300 0000 0000     	 .space 2
+ 1301              	 .section .bss.ProbeScope_SamplesPreTrigCtr,"aw",%nobits
+ 1302              	 .align 2
+ 1303              	 .set .LANCHOR15,.+0
+ 1306              	ProbeScope_SamplesPreTrigCtr:
+ 1307 0000 00000000 	 .space 4
+ 1308              	 .section .bss.ProbeScope_SampleIxPrev,"aw",%nobits
+ 1309              	 .align 2
+ 1310              	 .set .LANCHOR12,.+0
+ 1313              	ProbeScope_SampleIxPrev:
+ 1314 0000 00000000 	 .space 4
+ 1315              	 .section .data.ProbeScopeDbg_MaxCh,"aw",%progbits
+ 1316              	 .set .LANCHOR20,.+0
+ 1319              	ProbeScopeDbg_MaxCh:
+ 1320 0000 08       	 .byte 8
+ 1321              	 .section .bss.ProbeScope_State,"aw",%nobits
+ 1322              	 .set .LANCHOR11,.+0
+ 1325              	ProbeScope_State:
+ 1326 0000 00       	 .space 1
+ 1327              	 .section .bss.ProbeScope_SamplingClkDivCtr,"aw",%nobits
+ 1328              	 .align 1
+ 1329              	 .set .LANCHOR10,.+0
+ 1332              	ProbeScope_SamplingClkDivCtr:
+ 1333 0000 0000     	 .space 2
+ 1334              	 .section .bss.ProbeScope_Ch1,"aw",%nobits
+ 1335              	 .align 2
+ 1336              	 .set .LANCHOR1,.+0
+ 1339              	ProbeScope_Ch1:
+ 1340 0000 00000000 	 .space 4024
+ 1340      00000000 
+ 1340      00000000 
+ 1340      00000000 
+ 1340      00000000 
+ 1341              	 .section .bss.ProbeScope_Ch2,"aw",%nobits
+ 1342              	 .align 2
+ 1343              	 .set .LANCHOR2,.+0
+ 1346              	ProbeScope_Ch2:
+ 1347 0000 00000000 	 .space 4024
+ 1347      00000000 
+ 1347      00000000 
+ 1347      00000000 
+ 1347      00000000 
+ 1348              	 .section .bss.ProbeScope_Ch3,"aw",%nobits
+ 1349              	 .align 2
+ 1350              	 .set .LANCHOR3,.+0
+ 1353              	ProbeScope_Ch3:
+ 1354 0000 00000000 	 .space 4024
+ 1354      00000000 
+ 1354      00000000 
+ 1354      00000000 
+ 1354      00000000 
+ 1355              	 .section .bss.ProbeScope_Ch4,"aw",%nobits
+ 1356              	 .align 2
+ 1357              	 .set .LANCHOR4,.+0
+ 1360              	ProbeScope_Ch4:
+ 1361 0000 00000000 	 .space 4024
+ 1361      00000000 
+ 1361      00000000 
+ 1361      00000000 
+ 1361      00000000 
+ 1362              	 .section .bss.ProbeScope_Ch5,"aw",%nobits
+ 1363              	 .align 2
+ 1364              	 .set .LANCHOR5,.+0
+ 1367              	ProbeScope_Ch5:
+ 1368 0000 00000000 	 .space 4024
+ 1368      00000000 
+ 1368      00000000 
+ 1368      00000000 
+ 1368      00000000 
+ 1369              	 .section .bss.ProbeScope_Ch6,"aw",%nobits
+ 1370              	 .align 2
+ 1371              	 .set .LANCHOR6,.+0
+ 1374              	ProbeScope_Ch6:
+ 1375 0000 00000000 	 .space 4024
+ 1375      00000000 
+ 1375      00000000 
+ 1375      00000000 
+ 1375      00000000 
+ 1376              	 .section .bss.ProbeScope_Ch7,"aw",%nobits
+ 1377              	 .align 2
+ 1378              	 .set .LANCHOR7,.+0
+ 1381              	ProbeScope_Ch7:
+ 1382 0000 00000000 	 .space 4024
+ 1382      00000000 
+ 1382      00000000 
+ 1382      00000000 
+ 1382      00000000 
+ 1383              	 .section .bss.ProbeScope_Ch8,"aw",%nobits
+ 1384              	 .align 2
+ 1385              	 .set .LANCHOR8,.+0
+ 1388              	ProbeScope_Ch8:
+ 1389 0000 00000000 	 .space 4024
+ 1389      00000000 
+ 1389      00000000 
+ 1389      00000000 
+ 1389      00000000 
+ 1390              	 .section .bss.temp.4203,"aw",%nobits
+ 1391              	 .align 2
+ 1392              	 .set .LANCHOR23,.+0
+ 1395              	temp.4203:
+ 1396 0000 00000000 	 .space 4
+ 1397              	 .section .bss.ProbeScope_TrigChSel,"aw",%nobits
+ 1398              	 .set .LANCHOR16,.+0
+ 1401              	ProbeScope_TrigChSel:
+ 1402 0000 00       	 .space 1
+ 1403              	 .section .bss.ProbeScope_Mode,"aw",%nobits
+ 1404              	 .set .LANCHOR18,.+0
+ 1407              	ProbeScope_Mode:
+ 1408 0000 00       	 .space 1
+ 1409              	 .section .bss.ProbeScope_TrigHoldOffCtr,"aw",%nobits
+ 1410              	 .align 2
+ 1411              	 .set .LANCHOR13,.+0
+ 1414              	ProbeScope_TrigHoldOffCtr:
+ 1415 0000 00000000 	 .space 4
+ 1416              	 .section .data.ProbeScopeDbg_32BitEn,"aw",%progbits
+ 1417              	 .align 2
+ 1418              	 .set .LANCHOR22,.+0
+ 1421              	ProbeScopeDbg_32BitEn:
+ 1422 0000 01000000 	 .word 1
+ 1423              	 .section .bss.ProbeScope_SamplesPostTrigCtr,"aw",%nobits
+ 1424              	 .align 2
+ 1425              	 .set .LANCHOR14,.+0
+ 1428              	ProbeScope_SamplesPostTrigCtr:
+ 1429 0000 00000000 	 .space 4
+ 1430              	 .section .data.ProbeScopeDbg_MaxSamples,"aw",%progbits
+ 1431              	 .align 1
+ 1432              	 .set .LANCHOR19,.+0
+ 1435              	ProbeScopeDbg_MaxSamples:
+ 1436 0000 E803     	 .short 1000
+ 1437              	 .section .data.ProbeScopeDbg_16BitEn,"aw",%progbits
+ 1438              	 .align 2
+ 1439              	 .set .LANCHOR21,.+0
+ 1442              	ProbeScopeDbg_16BitEn:
+ 1443 0000 01000000 	 .word 1
+ 1444              	 .section .bss.ProbeScope_TrigSlope,"aw",%nobits
+ 1445              	 .align 2
+ 1446              	 .set .LANCHOR17,.+0
+ 1449              	ProbeScope_TrigSlope:
+ 1450 0000 00000000 	 .space 4
+ 1451              	 .section .bss.ProbeScope_SampleIxCur,"aw",%nobits
+ 1452              	 .align 2
+ 1453              	 .set .LANCHOR0,.+0
+ 1456              	ProbeScope_SampleIxCur:
+ 1457 0000 00000000 	 .space 4
+ 1458              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 probe_scope.c
+    {standard input}:17     .text.ProbeScope_SampleCh.part.0:00000000 $t
+    {standard input}:21     .text.ProbeScope_SampleCh.part.0:00000000 ProbeScope_SampleCh.part.0
+    {standard input}:33     .text.ProbeScope_SampleCh.part.0:00000010 $d
+    {standard input}:147    .text.ProbeScope_SampleCh.part.0:000000f8 $d
+    {standard input}:150    .text.ProbeScope_ModeTrig.part.1:00000000 $t
+    {standard input}:154    .text.ProbeScope_ModeTrig.part.1:00000000 ProbeScope_ModeTrig.part.1
+    {standard input}:172    .text.ProbeScope_ModeTrig.part.1:00000020 $d
+    {standard input}:176    .text.ProbeScope_ModeTrig.part.1:00000028 $t
+    {standard input}:462    .text.ProbeScope_ModeTrig.part.1:0000026e $d
+    {standard input}:470    .text.ProbeScope_ModeTrig.part.1:00000276 $t
+    {standard input}:489    .text.ProbeScope_ModeTrig.part.1:00000294 $d
+                            *COM*:00000004 ProbeScope_DataRdyFlag
+                            *COM*:00000004 ProbeScope_TrigFlag
+                            *COM*:00000004 ProbeScope_TrigDispPos
+                            *COM*:00000004 ProbeScope_TrigHoldOff
+    {standard input}:512    .text.ProbeScope_ModeTrig.part.1:000002ec $t
+    {standard input}:619    .text.ProbeScope_ModeTrig.part.1:000003b2 $d
+    {standard input}:772    .text.ProbeScope_ModeTrig.part.1:0000051e $d
+    {standard input}:889    .text.ProbeScope_ModeTrig.part.1:00000640 $d
+                            *COM*:00000004 ProbeScope_TrigIx
+    {standard input}:903    .text.ProbeScope_ModeTrig.part.1:00000674 $t
+    {standard input}:1004   .text.ProbeScope_Init:00000000 $t
+    {standard input}:1009   .text.ProbeScope_Init:00000000 ProbeScope_Init
+    {standard input}:1084   .text.ProbeScope_Init:000000d0 $d
+                            *COM*:00000004 ProbeScope_InitFlag
+                            *COM*:00000004 ProbeScope_SamplingClkHz
+    {standard input}:1116   .text.ProbeScope_Sampling:00000000 $t
+    {standard input}:1121   .text.ProbeScope_Sampling:00000000 ProbeScope_Sampling
+    {standard input}:1131   .text.ProbeScope_Sampling:0000000e $d
+    {standard input}:1135   .text.ProbeScope_Sampling:00000012 $t
+    {standard input}:1270   .text.ProbeScope_Sampling:000000fc $d
+    {standard input}:1295   .bss.ProbeScope_SamplingClkDiv:00000000 $d
+    {standard input}:1299   .bss.ProbeScope_SamplingClkDiv:00000000 ProbeScope_SamplingClkDiv
+    {standard input}:1302   .bss.ProbeScope_SamplesPreTrigCtr:00000000 $d
+    {standard input}:1306   .bss.ProbeScope_SamplesPreTrigCtr:00000000 ProbeScope_SamplesPreTrigCtr
+    {standard input}:1309   .bss.ProbeScope_SampleIxPrev:00000000 $d
+    {standard input}:1313   .bss.ProbeScope_SampleIxPrev:00000000 ProbeScope_SampleIxPrev
+    {standard input}:1319   .data.ProbeScopeDbg_MaxCh:00000000 ProbeScopeDbg_MaxCh
+    {standard input}:1325   .bss.ProbeScope_State:00000000 ProbeScope_State
+    {standard input}:1326   .bss.ProbeScope_State:00000000 $d
+    {standard input}:1328   .bss.ProbeScope_SamplingClkDivCtr:00000000 $d
+    {standard input}:1332   .bss.ProbeScope_SamplingClkDivCtr:00000000 ProbeScope_SamplingClkDivCtr
+    {standard input}:1335   .bss.ProbeScope_Ch1:00000000 $d
+    {standard input}:1339   .bss.ProbeScope_Ch1:00000000 ProbeScope_Ch1
+    {standard input}:1342   .bss.ProbeScope_Ch2:00000000 $d
+    {standard input}:1346   .bss.ProbeScope_Ch2:00000000 ProbeScope_Ch2
+    {standard input}:1349   .bss.ProbeScope_Ch3:00000000 $d
+    {standard input}:1353   .bss.ProbeScope_Ch3:00000000 ProbeScope_Ch3
+    {standard input}:1356   .bss.ProbeScope_Ch4:00000000 $d
+    {standard input}:1360   .bss.ProbeScope_Ch4:00000000 ProbeScope_Ch4
+    {standard input}:1363   .bss.ProbeScope_Ch5:00000000 $d
+    {standard input}:1367   .bss.ProbeScope_Ch5:00000000 ProbeScope_Ch5
+    {standard input}:1370   .bss.ProbeScope_Ch6:00000000 $d
+    {standard input}:1374   .bss.ProbeScope_Ch6:00000000 ProbeScope_Ch6
+    {standard input}:1377   .bss.ProbeScope_Ch7:00000000 $d
+    {standard input}:1381   .bss.ProbeScope_Ch7:00000000 ProbeScope_Ch7
+    {standard input}:1384   .bss.ProbeScope_Ch8:00000000 $d
+    {standard input}:1388   .bss.ProbeScope_Ch8:00000000 ProbeScope_Ch8
+    {standard input}:1391   .bss.temp.4203:00000000 $d
+    {standard input}:1395   .bss.temp.4203:00000000 temp.4203
+    {standard input}:1401   .bss.ProbeScope_TrigChSel:00000000 ProbeScope_TrigChSel
+    {standard input}:1402   .bss.ProbeScope_TrigChSel:00000000 $d
+    {standard input}:1407   .bss.ProbeScope_Mode:00000000 ProbeScope_Mode
+    {standard input}:1408   .bss.ProbeScope_Mode:00000000 $d
+    {standard input}:1410   .bss.ProbeScope_TrigHoldOffCtr:00000000 $d
+    {standard input}:1414   .bss.ProbeScope_TrigHoldOffCtr:00000000 ProbeScope_TrigHoldOffCtr
+    {standard input}:1417   .data.ProbeScopeDbg_32BitEn:00000000 $d
+    {standard input}:1421   .data.ProbeScopeDbg_32BitEn:00000000 ProbeScopeDbg_32BitEn
+    {standard input}:1424   .bss.ProbeScope_SamplesPostTrigCtr:00000000 $d
+    {standard input}:1428   .bss.ProbeScope_SamplesPostTrigCtr:00000000 ProbeScope_SamplesPostTrigCtr
+    {standard input}:1431   .data.ProbeScopeDbg_MaxSamples:00000000 $d
+    {standard input}:1435   .data.ProbeScopeDbg_MaxSamples:00000000 ProbeScopeDbg_MaxSamples
+    {standard input}:1438   .data.ProbeScopeDbg_16BitEn:00000000 $d
+    {standard input}:1442   .data.ProbeScopeDbg_16BitEn:00000000 ProbeScopeDbg_16BitEn
+    {standard input}:1445   .bss.ProbeScope_TrigSlope:00000000 $d
+    {standard input}:1449   .bss.ProbeScope_TrigSlope:00000000 ProbeScope_TrigSlope
+    {standard input}:1452   .bss.ProbeScope_SampleIxCur:00000000 $d
+    {standard input}:1456   .bss.ProbeScope_SampleIxCur:00000000 ProbeScope_SampleIxCur
+    {standard input}:40     .text.ProbeScope_SampleCh.part.0:00000017 $d
+    {standard input}:40     .text.ProbeScope_SampleCh.part.0:00000018 $t
+    {standard input}:626    .text.ProbeScope_ModeTrig.part.1:000003b9 $d
+    {standard input}:626    .text.ProbeScope_ModeTrig.part.1:000003ba $t
+    {standard input}:779    .text.ProbeScope_ModeTrig.part.1:00000525 $d
+    {standard input}:779    .text.ProbeScope_ModeTrig.part.1:00000526 $t
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,313 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc_fce.c"
+  16              	 .section .text.XMC_FCE_Init,"ax",%progbits
+  17              	 .align 2
+  18              	 .global XMC_FCE_Init
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	XMC_FCE_Init:
+  23              	 
+  24              	 
+  25              	 
+  26 0000 0346     	 mov r3,r0
+  27 0002 0020     	 movs r0,#0
+  28 0004 1A68     	 ldr r2,[r3]
+  29 0006 5968     	 ldr r1,[r3,#4]
+  30 0008 9B68     	 ldr r3,[r3,#8]
+  31 000a 9160     	 str r1,[r2,#8]
+  32 000c 9361     	 str r3,[r2,#24]
+  33 000e 7047     	 bx lr
+  35              	 .section .text.XMC_FCE_Disable,"ax",%progbits
+  36              	 .align 2
+  37              	 .global XMC_FCE_Disable
+  38              	 .thumb
+  39              	 .thumb_func
+  41              	XMC_FCE_Disable:
+  42              	 
+  43              	 
+  44 0000 074A     	 ldr r2,.L4
+  45 0002 10B5     	 push {r4,lr}
+  46 0004 1368     	 ldr r3,[r2]
+  47 0006 074C     	 ldr r4,.L4+4
+  48 0008 43F00103 	 orr r3,r3,#1
+  49 000c 2046     	 mov r0,r4
+  50 000e 1360     	 str r3,[r2]
+  51 0010 FFF7FEFF 	 bl XMC_SCU_RESET_AssertPeripheralReset
+  52 0014 2046     	 mov r0,r4
+  53 0016 BDE81040 	 pop {r4,lr}
+  54 001a FFF7FEBF 	 b XMC_SCU_CLOCK_GatePeripheralClock
+  55              	.L5:
+  56 001e 00BF     	 .align 2
+  57              	.L4:
+  58 0020 00000250 	 .word 1342308352
+  59 0024 40000020 	 .word 536870976
+  61              	 .section .text.XMC_FCE_Enable,"ax",%progbits
+  62              	 .align 2
+  63              	 .global XMC_FCE_Enable
+  64              	 .thumb
+  65              	 .thumb_func
+  67              	XMC_FCE_Enable:
+  68              	 
+  69              	 
+  70 0000 10B5     	 push {r4,lr}
+  71 0002 064C     	 ldr r4,.L8
+  72 0004 2046     	 mov r0,r4
+  73 0006 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  74 000a 2046     	 mov r0,r4
+  75 000c FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+  76 0010 034A     	 ldr r2,.L8+4
+  77 0012 1368     	 ldr r3,[r2]
+  78 0014 23F00103 	 bic r3,r3,#1
+  79 0018 1360     	 str r3,[r2]
+  80 001a 10BD     	 pop {r4,pc}
+  81              	.L9:
+  82              	 .align 2
+  83              	.L8:
+  84 001c 40000020 	 .word 536870976
+  85 0020 00000250 	 .word 1342308352
+  87              	 .section .text.XMC_FCE_CalculateCRC8,"ax",%progbits
+  88              	 .align 2
+  89              	 .global XMC_FCE_CalculateCRC8
+  90              	 .thumb
+  91              	 .thumb_func
+  93              	XMC_FCE_CalculateCRC8:
+  94              	 
+  95              	 
+  96              	 
+  97 0000 0AB9     	 cbnz r2,.L18
+  98 0002 0220     	 movs r0,#2
+  99 0004 7047     	 bx lr
+ 100              	.L18:
+ 101 0006 10B4     	 push {r4}
+ 102 0008 0468     	 ldr r4,[r0]
+ 103 000a 0A44     	 add r2,r2,r1
+ 104              	.L12:
+ 105 000c 11F8010B 	 ldrb r0,[r1],#1
+ 106 0010 2060     	 str r0,[r4]
+ 107 0012 9142     	 cmp r1,r2
+ 108 0014 FAD1     	 bne .L12
+ 109 0016 A269     	 ldr r2,[r4,#24]
+ 110 0018 1A70     	 strb r2,[r3]
+ 111 001a 0020     	 movs r0,#0
+ 112 001c 5DF8044B 	 ldr r4,[sp],#4
+ 113 0020 7047     	 bx lr
+ 115 0022 00BF     	 .section .text.XMC_FCE_CalculateCRC16,"ax",%progbits
+ 116              	 .align 2
+ 117              	 .global XMC_FCE_CalculateCRC16
+ 118              	 .thumb
+ 119              	 .thumb_func
+ 121              	XMC_FCE_CalculateCRC16:
+ 122              	 
+ 123              	 
+ 124              	 
+ 125 0000 12F0010F 	 tst r2,#1
+ 126 0004 01D0     	 beq .L28
+ 127 0006 0220     	 movs r0,#2
+ 128 0008 7047     	 bx lr
+ 129              	.L28:
+ 130 000a 10B4     	 push {r4}
+ 131 000c 0468     	 ldr r4,[r0]
+ 132 000e 22B1     	 cbz r2,.L22
+ 133              	.L23:
+ 134 0010 31F8020B 	 ldrh r0,[r1],#2
+ 135 0014 2060     	 str r0,[r4]
+ 136 0016 023A     	 subs r2,r2,#2
+ 137 0018 FAD1     	 bne .L23
+ 138              	.L22:
+ 139 001a A269     	 ldr r2,[r4,#24]
+ 140 001c 1A80     	 strh r2,[r3]
+ 141 001e 0020     	 movs r0,#0
+ 142 0020 5DF8044B 	 ldr r4,[sp],#4
+ 143 0024 7047     	 bx lr
+ 145 0026 00BF     	 .section .text.XMC_FCE_CalculateCRC32,"ax",%progbits
+ 146              	 .align 2
+ 147              	 .global XMC_FCE_CalculateCRC32
+ 148              	 .thumb
+ 149              	 .thumb_func
+ 151              	XMC_FCE_CalculateCRC32:
+ 152              	 
+ 153              	 
+ 154              	 
+ 155 0000 12F0030F 	 tst r2,#3
+ 156 0004 01D0     	 beq .L38
+ 157 0006 0220     	 movs r0,#2
+ 158 0008 7047     	 bx lr
+ 159              	.L38:
+ 160 000a 10B4     	 push {r4}
+ 161 000c 0468     	 ldr r4,[r0]
+ 162 000e 22B1     	 cbz r2,.L32
+ 163              	.L33:
+ 164 0010 51F8040B 	 ldr r0,[r1],#4
+ 165 0014 2060     	 str r0,[r4]
+ 166 0016 043A     	 subs r2,r2,#4
+ 167 0018 FAD1     	 bne .L33
+ 168              	.L32:
+ 169 001a A269     	 ldr r2,[r4,#24]
+ 170 001c 1A60     	 str r2,[r3]
+ 171 001e 0020     	 movs r0,#0
+ 172 0020 5DF8044B 	 ldr r4,[sp],#4
+ 173 0024 7047     	 bx lr
+ 175 0026 00BF     	 .section .text.XMC_FCE_TriggerMismatch,"ax",%progbits
+ 176              	 .align 2
+ 177              	 .global XMC_FCE_TriggerMismatch
+ 178              	 .thumb
+ 179              	 .thumb_func
+ 181              	XMC_FCE_TriggerMismatch:
+ 182              	 
+ 183              	 
+ 184              	 
+ 185 0000 0368     	 ldr r3,[r0]
+ 186 0002 D869     	 ldr r0,[r3,#28]
+ 187 0004 10B4     	 push {r4}
+ 188 0006 CC43     	 mvns r4,r1
+ 189 0008 2040     	 ands r0,r0,r4
+ 190 000a D861     	 str r0,[r3,#28]
+ 191 000c D869     	 ldr r0,[r3,#28]
+ 192 000e 0143     	 orrs r1,r1,r0
+ 193 0010 D961     	 str r1,[r3,#28]
+ 194 0012 DA69     	 ldr r2,[r3,#28]
+ 195 0014 2240     	 ands r2,r2,r4
+ 196 0016 DA61     	 str r2,[r3,#28]
+ 197 0018 5DF8044B 	 ldr r4,[sp],#4
+ 198 001c 7047     	 bx lr
+ 200 001e 00BF     	 .section .text.XMC_FCE_LittleEndian16bit,"ax",%progbits
+ 201              	 .align 2
+ 202              	 .global XMC_FCE_LittleEndian16bit
+ 203              	 .thumb
+ 204              	 .thumb_func
+ 206              	XMC_FCE_LittleEndian16bit:
+ 207              	 
+ 208              	 
+ 209 0000 2DE9F041 	 push {r4,r5,r6,r7,r8,lr}
+ 210 0004 12F00107 	 ands r7,r2,#1
+ 211 0008 1446     	 mov r4,r2
+ 212 000a 1FD1     	 bne .L41
+ 213 000c 5FEA5208 	 lsrs r8,r2,#1
+ 214 0010 0546     	 mov r5,r0
+ 215 0012 0E46     	 mov r6,r1
+ 216 0014 1CD0     	 beq .L43
+ 217 0016 08F1FF32 	 add r2,r8,#-1
+ 218 001a 92B2     	 uxth r2,r2
+ 219 001c 0132     	 adds r2,r2,#1
+ 220 001e 0846     	 mov r0,r1
+ 221 0020 5200     	 lsls r2,r2,#1
+ 222 0022 3946     	 mov r1,r7
+ 223 0024 FFF7FEFF 	 bl memset
+ 224 0028 26F81870 	 strh r7,[r6,r8,lsl#1]
+ 225              	.L44:
+ 226 002c 0022     	 movs r2,#0
+ 227              	.L46:
+ 228 002e 5300     	 lsls r3,r2,#1
+ 229 0030 9BB2     	 uxth r3,r3
+ 230 0032 E918     	 adds r1,r5,r3
+ 231 0034 E85C     	 ldrb r0,[r5,r3]
+ 232 0036 4B78     	 ldrb r3,[r1,#1]
+ 233 0038 023C     	 subs r4,r4,#2
+ 234 003a 91B2     	 uxth r1,r2
+ 235 003c 43EA0023 	 orr r3,r3,r0,lsl#8
+ 236 0040 A4B2     	 uxth r4,r4
+ 237 0042 26F81130 	 strh r3,[r6,r1,lsl#1]
+ 238 0046 0132     	 adds r2,r2,#1
+ 239 0048 002C     	 cmp r4,#0
+ 240 004a F0D1     	 bne .L46
+ 241              	.L41:
+ 242 004c BDE8F081 	 pop {r4,r5,r6,r7,r8,pc}
+ 243              	.L43:
+ 244 0050 A1F80080 	 strh r8,[r1]
+ 245 0054 002A     	 cmp r2,#0
+ 246 0056 F9D0     	 beq .L41
+ 247 0058 E8E7     	 b .L44
+ 249 005a 00BF     	 .section .text.XMC_FCE_LittleEndian32bit,"ax",%progbits
+ 250              	 .align 2
+ 251              	 .global XMC_FCE_LittleEndian32bit
+ 252              	 .thumb
+ 253              	 .thumb_func
+ 255              	XMC_FCE_LittleEndian32bit:
+ 256              	 
+ 257              	 
+ 258 0000 2DE9F041 	 push {r4,r5,r6,r7,r8,lr}
+ 259 0004 12F00307 	 ands r7,r2,#3
+ 260 0008 1446     	 mov r4,r2
+ 261 000a 25D1     	 bne .L52
+ 262 000c 5FEA9208 	 lsrs r8,r2,#2
+ 263 0010 0546     	 mov r5,r0
+ 264 0012 0E46     	 mov r6,r1
+ 265 0014 22D0     	 beq .L54
+ 266 0016 08F1FF32 	 add r2,r8,#-1
+ 267 001a 92B2     	 uxth r2,r2
+ 268 001c 0132     	 adds r2,r2,#1
+ 269 001e 0846     	 mov r0,r1
+ 270 0020 9200     	 lsls r2,r2,#2
+ 271 0022 3946     	 mov r1,r7
+ 272 0024 FFF7FEFF 	 bl memset
+ 273 0028 46F82870 	 str r7,[r6,r8,lsl#2]
+ 274              	.L55:
+ 275 002c 0020     	 movs r0,#0
+ 276              	.L57:
+ 277 002e 8300     	 lsls r3,r0,#2
+ 278 0030 9BB2     	 uxth r3,r3
+ 279 0032 EF18     	 adds r7,r5,r3
+ 280 0034 E95C     	 ldrb r1,[r5,r3]
+ 281 0036 FA78     	 ldrb r2,[r7,#3]
+ 282 0038 7B78     	 ldrb r3,[r7,#1]
+ 283 003a BF78     	 ldrb r7,[r7,#2]
+ 284 003c 42EA0161 	 orr r1,r2,r1,lsl#24
+ 285 0040 043C     	 subs r4,r4,#4
+ 286 0042 82B2     	 uxth r2,r0
+ 287 0044 41EA0343 	 orr r3,r1,r3,lsl#16
+ 288 0048 43EA0723 	 orr r3,r3,r7,lsl#8
+ 289 004c A4B2     	 uxth r4,r4
+ 290 004e 46F82230 	 str r3,[r6,r2,lsl#2]
+ 291 0052 0130     	 adds r0,r0,#1
+ 292 0054 002C     	 cmp r4,#0
+ 293 0056 EAD1     	 bne .L57
+ 294              	.L52:
+ 295 0058 BDE8F081 	 pop {r4,r5,r6,r7,r8,pc}
+ 296              	.L54:
+ 297 005c C1F80080 	 str r8,[r1]
+ 298 0060 002A     	 cmp r2,#0
+ 299 0062 F9D0     	 beq .L52
+ 300 0064 E2E7     	 b .L55
+ 302 0066 00BF     	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_fce.c
+    {standard input}:17     .text.XMC_FCE_Init:00000000 $t
+    {standard input}:22     .text.XMC_FCE_Init:00000000 XMC_FCE_Init
+    {standard input}:36     .text.XMC_FCE_Disable:00000000 $t
+    {standard input}:41     .text.XMC_FCE_Disable:00000000 XMC_FCE_Disable
+    {standard input}:58     .text.XMC_FCE_Disable:00000020 $d
+    {standard input}:62     .text.XMC_FCE_Enable:00000000 $t
+    {standard input}:67     .text.XMC_FCE_Enable:00000000 XMC_FCE_Enable
+    {standard input}:84     .text.XMC_FCE_Enable:0000001c $d
+    {standard input}:88     .text.XMC_FCE_CalculateCRC8:00000000 $t
+    {standard input}:93     .text.XMC_FCE_CalculateCRC8:00000000 XMC_FCE_CalculateCRC8
+    {standard input}:116    .text.XMC_FCE_CalculateCRC16:00000000 $t
+    {standard input}:121    .text.XMC_FCE_CalculateCRC16:00000000 XMC_FCE_CalculateCRC16
+    {standard input}:146    .text.XMC_FCE_CalculateCRC32:00000000 $t
+    {standard input}:151    .text.XMC_FCE_CalculateCRC32:00000000 XMC_FCE_CalculateCRC32
+    {standard input}:176    .text.XMC_FCE_TriggerMismatch:00000000 $t
+    {standard input}:181    .text.XMC_FCE_TriggerMismatch:00000000 XMC_FCE_TriggerMismatch
+    {standard input}:201    .text.XMC_FCE_LittleEndian16bit:00000000 $t
+    {standard input}:206    .text.XMC_FCE_LittleEndian16bit:00000000 XMC_FCE_LittleEndian16bit
+    {standard input}:250    .text.XMC_FCE_LittleEndian32bit:00000000 $t
+    {standard input}:255    .text.XMC_FCE_LittleEndian32bit:00000000 XMC_FCE_LittleEndian32bit
+
+UNDEFINED SYMBOLS
+XMC_SCU_RESET_AssertPeripheralReset
+XMC_SCU_CLOCK_GatePeripheralClock
+XMC_SCU_CLOCK_UngatePeripheralClock
+XMC_SCU_RESET_DeassertPeripheralReset
+memset

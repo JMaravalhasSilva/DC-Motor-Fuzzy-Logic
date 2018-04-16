@@ -1,0 +1,1061 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "pwm_ccu8.c"
+  16              	 .section .text.PWM_CCU8_GetAppVersion,"ax",%progbits
+  17              	 .align 2
+  18              	 .global PWM_CCU8_GetAppVersion
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	PWM_CCU8_GetAppVersion:
+  23              	 
+  24              	 
+  25              	 
+  26 0000 0423     	 movs r3,#4
+  27 0002 0020     	 movs r0,#0
+  28 0004 63F30700 	 bfi r0,r3,#0,#8
+  29 0008 0123     	 movs r3,#1
+  30 000a 63F30F20 	 bfi r0,r3,#8,#8
+  31 000e 1A23     	 movs r3,#26
+  32 0010 63F31740 	 bfi r0,r3,#16,#8
+  33 0014 82B0     	 sub sp,sp,#8
+  34 0016 02B0     	 add sp,sp,#8
+  35              	 
+  36 0018 7047     	 bx lr
+  38 001a 00BF     	 .section .text.PWM_CCU8_Init,"ax",%progbits
+  39              	 .align 2
+  40              	 .global PWM_CCU8_Init
+  41              	 .thumb
+  42              	 .thumb_func
+  44              	PWM_CCU8_Init:
+  45              	 
+  46              	 
+  47 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+  48 0002 057F     	 ldrb r5,[r0,#28]
+  49 0004 83B0     	 sub sp,sp,#12
+  50 0006 15B1     	 cbz r5,.L96
+  51 0008 0220     	 movs r0,#2
+  52              	.L4:
+  53 000a 03B0     	 add sp,sp,#12
+  54              	 
+  55 000c F0BD     	 pop {r4,r5,r6,r7,pc}
+  56              	.L96:
+  57 000e 0368     	 ldr r3,[r0]
+  58 0010 0446     	 mov r4,r0
+  59 0012 D3F88C00 	 ldr r0,[r3,#140]
+  60 0016 FFF7FEFF 	 bl GLOBAL_CCU8_Init
+  61 001a 0646     	 mov r6,r0
+  62 001c 18B1     	 cbz r0,.L97
+  63 001e 0120     	 movs r0,#1
+  64 0020 2577     	 strb r5,[r4,#28]
+  65 0022 03B0     	 add sp,sp,#12
+  66              	 
+  67 0024 F0BD     	 pop {r4,r5,r6,r7,pc}
+  68              	.L97:
+  69 0026 2368     	 ldr r3,[r4]
+  70 0028 A068     	 ldr r0,[r4,#8]
+  71 002a 996C     	 ldr r1,[r3,#72]
+  72 002c FFF7FEFF 	 bl XMC_CCU8_SLICE_CompareInit
+  73 0030 2368     	 ldr r3,[r4]
+  74 0032 A068     	 ldr r0,[r4,#8]
+  75 0034 5988     	 ldrh r1,[r3,#2]
+  76 0036 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+  77 003a 2368     	 ldr r3,[r4]
+  78 003c A068     	 ldr r0,[r4,#8]
+  79 003e 9A88     	 ldrh r2,[r3,#4]
+  80 0040 3146     	 mov r1,r6
+  81 0042 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+  82 0046 2368     	 ldr r3,[r4]
+  83 0048 A068     	 ldr r0,[r4,#8]
+  84 004a DA88     	 ldrh r2,[r3,#6]
+  85 004c 0121     	 movs r1,#1
+  86 004e FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+  87 0052 2268     	 ldr r2,[r4]
+  88 0054 936C     	 ldr r3,[r2,#72]
+  89 0056 DB78     	 ldrb r3,[r3,#3]
+  90 0058 13F0060F 	 tst r3,#6
+  91 005c 40F06681 	 bne .L98
+  92              	.L6:
+  93 0060 A068     	 ldr r0,[r4,#8]
+  94 0062 92F84450 	 ldrb r5,[r2,#68]
+  95 0066 D0F8B430 	 ldr r3,[r0,#180]
+  96 006a 116C     	 ldr r1,[r2,#64]
+  97 006c 6668     	 ldr r6,[r4,#4]
+  98 006e D4F810E0 	 ldr lr,[r4,#16]
+  99 0072 6769     	 ldr r7,[r4,#20]
+ 100 0074 6D00     	 lsls r5,r5,#1
+ 101 0076 23F00C02 	 bic r2,r3,#12
+ 102 007a 05F00603 	 and r3,r5,#6
+ 103 007e 1343     	 orrs r3,r3,r2
+ 104 0080 C0F8B430 	 str r3,[r0,#180]
+ 105 0084 C6F810E0 	 str lr,[r6,#16]
+ 106 0088 3761     	 str r7,[r6,#16]
+ 107 008a FFF7FEFF 	 bl XMC_CCU8_SLICE_DeadTimeInit
+ 108 008e 2368     	 ldr r3,[r4]
+ 109 0090 A068     	 ldr r0,[r4,#8]
+ 110 0092 DA69     	 ldr r2,[r3,#28]
+ 111 0094 0121     	 movs r1,#1
+ 112 0096 FFF7FEFF 	 bl XMC_CCU8_SLICE_ConfigureEvent
+ 113 009a 2368     	 ldr r3,[r4]
+ 114 009c A068     	 ldr r0,[r4,#8]
+ 115 009e 1A6A     	 ldr r2,[r3,#32]
+ 116 00a0 0221     	 movs r1,#2
+ 117 00a2 FFF7FEFF 	 bl XMC_CCU8_SLICE_ConfigureEvent
+ 118 00a6 2368     	 ldr r3,[r4]
+ 119 00a8 A068     	 ldr r0,[r4,#8]
+ 120 00aa 5A6A     	 ldr r2,[r3,#36]
+ 121 00ac 0321     	 movs r1,#3
+ 122 00ae FFF7FEFF 	 bl XMC_CCU8_SLICE_ConfigureEvent
+ 123 00b2 2368     	 ldr r3,[r4]
+ 124 00b4 93F82810 	 ldrb r1,[r3,#40]
+ 125 00b8 0029     	 cmp r1,#0
+ 126 00ba 40F03081 	 bne .L99
+ 127              	.L7:
+ 128 00be 93F82A10 	 ldrb r1,[r3,#42]
+ 129 00c2 0029     	 cmp r1,#0
+ 130 00c4 40F02481 	 bne .L100
+ 131              	.L8:
+ 132 00c8 93F82C10 	 ldrb r1,[r3,#44]
+ 133 00cc 0029     	 cmp r1,#0
+ 134 00ce 40F01A81 	 bne .L101
+ 135              	.L9:
+ 136 00d2 93F82D10 	 ldrb r1,[r3,#45]
+ 137 00d6 0029     	 cmp r1,#0
+ 138 00d8 40F01081 	 bne .L102
+ 139              	.L10:
+ 140 00dc 93F82E10 	 ldrb r1,[r3,#46]
+ 141 00e0 0029     	 cmp r1,#0
+ 142 00e2 40F00681 	 bne .L103
+ 143              	.L11:
+ 144 00e6 93F82F10 	 ldrb r1,[r3,#47]
+ 145 00ea 0029     	 cmp r1,#0
+ 146 00ec 40F0F680 	 bne .L104
+ 147              	.L12:
+ 148 00f0 93F83110 	 ldrb r1,[r3,#49]
+ 149 00f4 0029     	 cmp r1,#0
+ 150 00f6 40F0E680 	 bne .L105
+ 151              	.L13:
+ 152 00fa 93F83720 	 ldrb r2,[r3,#55]
+ 153 00fe A068     	 ldr r0,[r4,#8]
+ 154 0100 032A     	 cmp r2,#3
+ 155 0102 00F01981 	 beq .L106
+ 156              	.L15:
+ 157 0106 9A8E     	 ldrh r2,[r3,#52]
+ 158 0108 42B1     	 cbz r2,.L17
+ 159 010a 196A     	 ldr r1,[r3,#32]
+ 160 010c 5A6A     	 ldr r2,[r3,#36]
+ 161 010e FFF7FEFF 	 bl XMC_CCU8_SLICE_ConfigureStatusBitOverrideEvent
+ 162 0112 A068     	 ldr r0,[r4,#8]
+ 163 0114 FFF7FEFF 	 bl XMC_CCU8_SLICE_StatusBitOverrideConfig
+ 164 0118 2368     	 ldr r3,[r4]
+ 165 011a A068     	 ldr r0,[r4,#8]
+ 166              	.L17:
+ 167 011c 5A7C     	 ldrb r2,[r3,#17]
+ 168 011e 0021     	 movs r1,#0
+ 169 0120 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetInterruptNode
+ 170 0124 2368     	 ldr r3,[r4]
+ 171 0126 A068     	 ldr r0,[r4,#8]
+ 172 0128 9A7C     	 ldrb r2,[r3,#18]
+ 173 012a 0221     	 movs r1,#2
+ 174 012c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetInterruptNode
+ 175 0130 2368     	 ldr r3,[r4]
+ 176 0132 A068     	 ldr r0,[r4,#8]
+ 177 0134 DA7C     	 ldrb r2,[r3,#19]
+ 178 0136 0321     	 movs r1,#3
+ 179 0138 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetInterruptNode
+ 180 013c 2368     	 ldr r3,[r4]
+ 181 013e A068     	 ldr r0,[r4,#8]
+ 182 0140 1A7D     	 ldrb r2,[r3,#20]
+ 183 0142 0421     	 movs r1,#4
+ 184 0144 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetInterruptNode
+ 185 0148 2368     	 ldr r3,[r4]
+ 186 014a A068     	 ldr r0,[r4,#8]
+ 187 014c 5A7D     	 ldrb r2,[r3,#21]
+ 188 014e 0521     	 movs r1,#5
+ 189 0150 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetInterruptNode
+ 190 0154 2368     	 ldr r3,[r4]
+ 191 0156 A068     	 ldr r0,[r4,#8]
+ 192 0158 9A7D     	 ldrb r2,[r3,#22]
+ 193 015a 0121     	 movs r1,#1
+ 194 015c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetInterruptNode
+ 195 0160 2368     	 ldr r3,[r4]
+ 196 0162 A068     	 ldr r0,[r4,#8]
+ 197 0164 DA7D     	 ldrb r2,[r3,#23]
+ 198 0166 0821     	 movs r1,#8
+ 199 0168 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetInterruptNode
+ 200 016c 2368     	 ldr r3,[r4]
+ 201 016e A068     	 ldr r0,[r4,#8]
+ 202 0170 1A7E     	 ldrb r2,[r3,#24]
+ 203 0172 0921     	 movs r1,#9
+ 204 0174 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetInterruptNode
+ 205 0178 2368     	 ldr r3,[r4]
+ 206 017a A068     	 ldr r0,[r4,#8]
+ 207 017c 5A7E     	 ldrb r2,[r3,#25]
+ 208 017e 0A21     	 movs r1,#10
+ 209 0180 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetInterruptNode
+ 210 0184 2368     	 ldr r3,[r4]
+ 211 0186 1A7A     	 ldrb r2,[r3,#8]
+ 212 0188 32B1     	 cbz r2,.L18
+ 213 018a A168     	 ldr r1,[r4,#8]
+ 214 018c D1F8A420 	 ldr r2,[r1,#164]
+ 215 0190 42F00102 	 orr r2,r2,#1
+ 216 0194 C1F8A420 	 str r2,[r1,#164]
+ 217              	.L18:
+ 218 0198 5A7A     	 ldrb r2,[r3,#9]
+ 219 019a 32B1     	 cbz r2,.L19
+ 220 019c A168     	 ldr r1,[r4,#8]
+ 221 019e D1F8A420 	 ldr r2,[r1,#164]
+ 222 01a2 42F00402 	 orr r2,r2,#4
+ 223 01a6 C1F8A420 	 str r2,[r1,#164]
+ 224              	.L19:
+ 225 01aa 9A7A     	 ldrb r2,[r3,#10]
+ 226 01ac 32B1     	 cbz r2,.L20
+ 227 01ae A168     	 ldr r1,[r4,#8]
+ 228 01b0 D1F8A420 	 ldr r2,[r1,#164]
+ 229 01b4 42F00802 	 orr r2,r2,#8
+ 230 01b8 C1F8A420 	 str r2,[r1,#164]
+ 231              	.L20:
+ 232 01bc DA7A     	 ldrb r2,[r3,#11]
+ 233 01be 32B1     	 cbz r2,.L21
+ 234 01c0 A168     	 ldr r1,[r4,#8]
+ 235 01c2 D1F8A420 	 ldr r2,[r1,#164]
+ 236 01c6 42F01002 	 orr r2,r2,#16
+ 237 01ca C1F8A420 	 str r2,[r1,#164]
+ 238              	.L21:
+ 239 01ce 1A7B     	 ldrb r2,[r3,#12]
+ 240 01d0 32B1     	 cbz r2,.L22
+ 241 01d2 A168     	 ldr r1,[r4,#8]
+ 242 01d4 D1F8A420 	 ldr r2,[r1,#164]
+ 243 01d8 42F02002 	 orr r2,r2,#32
+ 244 01dc C1F8A420 	 str r2,[r1,#164]
+ 245              	.L22:
+ 246 01e0 5A7B     	 ldrb r2,[r3,#13]
+ 247 01e2 32B1     	 cbz r2,.L23
+ 248 01e4 A168     	 ldr r1,[r4,#8]
+ 249 01e6 D1F8A420 	 ldr r2,[r1,#164]
+ 250 01ea 42F00202 	 orr r2,r2,#2
+ 251 01ee C1F8A420 	 str r2,[r1,#164]
+ 252              	.L23:
+ 253 01f2 9A7B     	 ldrb r2,[r3,#14]
+ 254 01f4 32B1     	 cbz r2,.L24
+ 255 01f6 A168     	 ldr r1,[r4,#8]
+ 256 01f8 D1F8A420 	 ldr r2,[r1,#164]
+ 257 01fc 42F48072 	 orr r2,r2,#256
+ 258 0200 C1F8A420 	 str r2,[r1,#164]
+ 259              	.L24:
+ 260 0204 DA7B     	 ldrb r2,[r3,#15]
+ 261 0206 32B1     	 cbz r2,.L25
+ 262 0208 A168     	 ldr r1,[r4,#8]
+ 263 020a D1F8A420 	 ldr r2,[r1,#164]
+ 264 020e 42F40072 	 orr r2,r2,#512
+ 265 0212 C1F8A420 	 str r2,[r1,#164]
+ 266              	.L25:
+ 267 0216 1A7C     	 ldrb r2,[r3,#16]
+ 268 0218 32B1     	 cbz r2,.L26
+ 269 021a A168     	 ldr r1,[r4,#8]
+ 270 021c D1F8A420 	 ldr r2,[r1,#164]
+ 271 0220 42F48062 	 orr r2,r2,#1024
+ 272 0224 C1F8A420 	 str r2,[r1,#164]
+ 273              	.L26:
+ 274 0228 93F84C20 	 ldrb r2,[r3,#76]
+ 275 022c 002A     	 cmp r2,#0
+ 276 022e 42D1     	 bne .L107
+ 277 0230 1D46     	 mov r5,r3
+ 278              	.L27:
+ 279 0232 95F85C30 	 ldrb r3,[r5,#92]
+ 280 0236 002B     	 cmp r3,#0
+ 281 0238 35D1     	 bne .L108
+ 282              	.L28:
+ 283 023a 95F86C30 	 ldrb r3,[r5,#108]
+ 284 023e 53BB     	 cbnz r3,.L109
+ 285              	.L29:
+ 286 0240 95F87C30 	 ldrb r3,[r5,#124]
+ 287 0244 43B1     	 cbz r3,.L30
+ 288 0246 D5F88000 	 ldr r0,[r5,#128]
+ 289 024a 95F88410 	 ldrb r1,[r5,#132]
+ 290 024e D5F88820 	 ldr r2,[r5,#136]
+ 291 0252 FFF7FEFF 	 bl XMC_GPIO_Init
+ 292 0256 2568     	 ldr r5,[r4]
+ 293              	.L30:
+ 294 0258 AA6C     	 ldr r2,[r5,#72]
+ 295 025a D5F88C30 	 ldr r3,[r5,#140]
+ 296 025e 127B     	 ldrb r2,[r2,#12]
+ 297 0260 1B68     	 ldr r3,[r3]
+ 298 0262 2878     	 ldrb r0,[r5]
+ 299 0264 02F00F02 	 and r2,r2,#15
+ 300 0268 D340     	 lsrs r3,r3,r2
+ 301 026a 0122     	 movs r2,#1
+ 302 026c 2362     	 str r3,[r4,#32]
+ 303 026e 2277     	 strb r2,[r4,#28]
+ 304 0270 0028     	 cmp r0,#0
+ 305 0272 3FF4CAAE 	 beq .L4
+ 306 0276 6168     	 ldr r1,[r4,#4]
+ 307 0278 667B     	 ldrb r6,[r4,#13]
+ 308 027a CB68     	 ldr r3,[r1,#12]
+ 309 027c 95F82800 	 ldrb r0,[r5,#40]
+ 310 0280 02FA06F5 	 lsl r5,r2,r6
+ 311 0284 2B43     	 orrs r3,r3,r5
+ 312 0286 CB60     	 str r3,[r1,#12]
+ 313 0288 08B9     	 cbnz r0,.L31
+ 314 028a A368     	 ldr r3,[r4,#8]
+ 315 028c DA60     	 str r2,[r3,#12]
+ 316              	.L31:
+ 317 028e 0223     	 movs r3,#2
+ 318 0290 2377     	 strb r3,[r4,#28]
+ 319 0292 0020     	 movs r0,#0
+ 320 0294 B9E6     	 b .L4
+ 321              	.L109:
+ 322 0296 286F     	 ldr r0,[r5,#112]
+ 323 0298 95F87410 	 ldrb r1,[r5,#116]
+ 324 029c AA6F     	 ldr r2,[r5,#120]
+ 325 029e FFF7FEFF 	 bl XMC_GPIO_Init
+ 326 02a2 2568     	 ldr r5,[r4]
+ 327 02a4 CCE7     	 b .L29
+ 328              	.L108:
+ 329 02a6 286E     	 ldr r0,[r5,#96]
+ 330 02a8 95F86410 	 ldrb r1,[r5,#100]
+ 331 02ac AA6E     	 ldr r2,[r5,#104]
+ 332 02ae FFF7FEFF 	 bl XMC_GPIO_Init
+ 333 02b2 2568     	 ldr r5,[r4]
+ 334 02b4 C1E7     	 b .L28
+ 335              	.L107:
+ 336 02b6 186D     	 ldr r0,[r3,#80]
+ 337 02b8 93F85410 	 ldrb r1,[r3,#84]
+ 338 02bc 9A6D     	 ldr r2,[r3,#88]
+ 339 02be FFF7FEFF 	 bl XMC_GPIO_Init
+ 340 02c2 2568     	 ldr r5,[r4]
+ 341 02c4 B5E7     	 b .L27
+ 342              	.L105:
+ 343 02c6 93F83220 	 ldrb r2,[r3,#50]
+ 344 02ca 93F83330 	 ldrb r3,[r3,#51]
+ 345 02ce A068     	 ldr r0,[r4,#8]
+ 346 02d0 0093     	 str r3,[sp]
+ 347 02d2 0323     	 movs r3,#3
+ 348 02d4 FFF7FEFF 	 bl XMC_CCU8_SLICE_ModulationConfig
+ 349 02d8 2368     	 ldr r3,[r4]
+ 350 02da 0EE7     	 b .L13
+ 351              	.L104:
+ 352 02dc A068     	 ldr r0,[r4,#8]
+ 353 02de FFF7FEFF 	 bl XMC_CCU8_SLICE_LoadConfig
+ 354 02e2 2368     	 ldr r3,[r4]
+ 355 02e4 A068     	 ldr r0,[r4,#8]
+ 356 02e6 93F83010 	 ldrb r1,[r3,#48]
+ 357 02ea FFF7FEFF 	 bl XMC_CCU8_SLICE_LoadSelector
+ 358 02ee 2368     	 ldr r3,[r4]
+ 359 02f0 FEE6     	 b .L12
+ 360              	.L103:
+ 361 02f2 A068     	 ldr r0,[r4,#8]
+ 362 02f4 FFF7FEFF 	 bl XMC_CCU8_SLICE_CountConfig
+ 363 02f8 2368     	 ldr r3,[r4]
+ 364 02fa F4E6     	 b .L11
+ 365              	.L102:
+ 366 02fc A068     	 ldr r0,[r4,#8]
+ 367 02fe FFF7FEFF 	 bl XMC_CCU8_SLICE_GateConfig
+ 368 0302 2368     	 ldr r3,[r4]
+ 369 0304 EAE6     	 b .L10
+ 370              	.L101:
+ 371 0306 A068     	 ldr r0,[r4,#8]
+ 372 0308 FFF7FEFF 	 bl XMC_CCU8_SLICE_DirectionConfig
+ 373 030c 2368     	 ldr r3,[r4]
+ 374 030e E0E6     	 b .L9
+ 375              	.L100:
+ 376 0310 93F82B20 	 ldrb r2,[r3,#43]
+ 377 0314 A068     	 ldr r0,[r4,#8]
+ 378 0316 FFF7FEFF 	 bl XMC_CCU8_SLICE_StopConfig
+ 379 031a 2368     	 ldr r3,[r4]
+ 380 031c D4E6     	 b .L8
+ 381              	.L99:
+ 382 031e 93F82920 	 ldrb r2,[r3,#41]
+ 383 0322 A068     	 ldr r0,[r4,#8]
+ 384 0324 FFF7FEFF 	 bl XMC_CCU8_SLICE_StartConfig
+ 385 0328 2368     	 ldr r3,[r4]
+ 386 032a C8E6     	 b .L7
+ 387              	.L98:
+ 388 032c D16B     	 ldr r1,[r2,#60]
+ 389 032e 6068     	 ldr r0,[r4,#4]
+ 390 0330 FFF7FEFF 	 bl XMC_CCU8_SetMultiChannelShadowTransferMode
+ 391 0334 2268     	 ldr r2,[r4]
+ 392 0336 93E6     	 b .L6
+ 393              	.L106:
+ 394 0338 93F83820 	 ldrb r2,[r3,#56]
+ 395 033c 93F83910 	 ldrb r1,[r3,#57]
+ 396 0340 FFF7FEFF 	 bl XMC_CCU8_SLICE_TrapConfig
+ 397 0344 2368     	 ldr r3,[r4]
+ 398 0346 A068     	 ldr r0,[r4,#8]
+ 399 0348 93F83620 	 ldrb r2,[r3,#54]
+ 400 034c 002A     	 cmp r2,#0
+ 401 034e 3FF4DAAE 	 beq .L15
+ 402 0352 4269     	 ldr r2,[r0,#20]
+ 403 0354 42F4F012 	 orr r2,r2,#1966080
+ 404 0358 4261     	 str r2,[r0,#20]
+ 405 035a D4E6     	 b .L15
+ 407              	 .section .text.PWM_CCU8_Start,"ax",%progbits
+ 408              	 .align 2
+ 409              	 .global PWM_CCU8_Start
+ 410              	 .thumb
+ 411              	 .thumb_func
+ 413              	PWM_CCU8_Start:
+ 414              	 
+ 415              	 
+ 416              	 
+ 417 0000 037F     	 ldrb r3,[r0,#28]
+ 418 0002 03F0FD03 	 and r3,r3,#253
+ 419 0006 012B     	 cmp r3,#1
+ 420 0008 01D0     	 beq .L116
+ 421 000a 0120     	 movs r0,#1
+ 422 000c 7047     	 bx lr
+ 423              	.L116:
+ 424 000e 30B4     	 push {r4,r5}
+ 425 0010 4168     	 ldr r1,[r0,#4]
+ 426 0012 457B     	 ldrb r5,[r0,#13]
+ 427 0014 0468     	 ldr r4,[r0]
+ 428 0016 CA68     	 ldr r2,[r1,#12]
+ 429 0018 94F82840 	 ldrb r4,[r4,#40]
+ 430 001c 03FA05F5 	 lsl r5,r3,r5
+ 431 0020 2A43     	 orrs r2,r2,r5
+ 432 0022 CA60     	 str r2,[r1,#12]
+ 433 0024 0CB9     	 cbnz r4,.L112
+ 434 0026 8268     	 ldr r2,[r0,#8]
+ 435 0028 D360     	 str r3,[r2,#12]
+ 436              	.L112:
+ 437 002a 0223     	 movs r3,#2
+ 438 002c 0377     	 strb r3,[r0,#28]
+ 439 002e 30BC     	 pop {r4,r5}
+ 440 0030 0020     	 movs r0,#0
+ 441 0032 7047     	 bx lr
+ 443              	 .section .text.PWM_CCU8_Stop,"ax",%progbits
+ 444              	 .align 2
+ 445              	 .global PWM_CCU8_Stop
+ 446              	 .thumb
+ 447              	 .thumb_func
+ 449              	PWM_CCU8_Stop:
+ 450              	 
+ 451              	 
+ 452              	 
+ 453 0000 027F     	 ldrb r2,[r0,#28]
+ 454 0002 0346     	 mov r3,r0
+ 455 0004 5AB1     	 cbz r2,.L119
+ 456 0006 8268     	 ldr r2,[r0,#8]
+ 457 0008 10B4     	 push {r4}
+ 458 000a 0120     	 movs r0,#1
+ 459 000c 0224     	 movs r4,#2
+ 460 000e 0321     	 movs r1,#3
+ 461 0010 1061     	 str r0,[r2,#16]
+ 462 0012 1461     	 str r4,[r2,#16]
+ 463 0014 0020     	 movs r0,#0
+ 464 0016 1977     	 strb r1,[r3,#28]
+ 465 0018 5DF8044B 	 ldr r4,[sp],#4
+ 466 001c 7047     	 bx lr
+ 467              	.L119:
+ 468 001e 0120     	 movs r0,#1
+ 469 0020 7047     	 bx lr
+ 471 0022 00BF     	 .section .text.PWM_CCU8_GetTimerValue,"ax",%progbits
+ 472              	 .align 2
+ 473              	 .global PWM_CCU8_GetTimerValue
+ 474              	 .thumb
+ 475              	 .thumb_func
+ 477              	PWM_CCU8_GetTimerValue:
+ 478              	 
+ 479              	 
+ 480              	 
+ 481 0000 8368     	 ldr r3,[r0,#8]
+ 482 0002 186F     	 ldr r0,[r3,#112]
+ 483 0004 80B2     	 uxth r0,r0
+ 484 0006 7047     	 bx lr
+ 486              	 .section .text.PWM_CCU8_GetTimerStatus,"ax",%progbits
+ 487              	 .align 2
+ 488              	 .global PWM_CCU8_GetTimerStatus
+ 489              	 .thumb
+ 490              	 .thumb_func
+ 492              	PWM_CCU8_GetTimerStatus:
+ 493              	 
+ 494              	 
+ 495              	 
+ 496 0000 8368     	 ldr r3,[r0,#8]
+ 497 0002 9868     	 ldr r0,[r3,#8]
+ 498 0004 00F00100 	 and r0,r0,#1
+ 499 0008 7047     	 bx lr
+ 501 000a 00BF     	 .section .text.PWM_CCU8_SetFreqSymmetric,"ax",%progbits
+ 502              	 .align 2
+ 503              	 .global PWM_CCU8_SetFreqSymmetric
+ 504              	 .thumb
+ 505              	 .thumb_func
+ 507              	PWM_CCU8_SetFreqSymmetric:
+ 508              	 
+ 509              	 
+ 510 0000 F8B5     	 push {r3,r4,r5,r6,r7,lr}
+ 511 0002 047F     	 ldrb r4,[r0,#28]
+ 512 0004 74B1     	 cbz r4,.L129
+ 513 0006 69B1     	 cbz r1,.L129
+ 514 0008 0268     	 ldr r2,[r0]
+ 515 000a 036A     	 ldr r3,[r0,#32]
+ 516 000c 946C     	 ldr r4,[r2,#72]
+ 517 000e B3FBF1F3 	 udiv r3,r3,r1
+ 518 0012 2278     	 ldrb r2,[r4]
+ 519 0014 D207     	 lsls r2,r2,#31
+ 520 0016 48BF     	 it mi
+ 521 0018 5B08     	 lsrmi r3,r3,#1
+ 522 001a 591E     	 subs r1,r3,#1
+ 523 001c 4FF6FE72 	 movw r2,#65534
+ 524 0020 9142     	 cmp r1,r2
+ 525 0022 01D9     	 bls .L134
+ 526              	.L129:
+ 527 0024 0120     	 movs r0,#1
+ 528 0026 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 529              	.L134:
+ 530 0028 426A     	 ldr r2,[r0,#36]
+ 531 002a 856A     	 ldr r5,[r0,#40]
+ 532 002c 124E     	 ldr r6,.L135
+ 533 002e C2F51C52 	 rsb r2,r2,#9984
+ 534 0032 1032     	 adds r2,r2,#16
+ 535 0034 C5F51C55 	 rsb r5,r5,#9984
+ 536 0038 02FB03F7 	 mul r7,r2,r3
+ 537 003c 0446     	 mov r4,r0
+ 538 003e 89B2     	 uxth r1,r1
+ 539 0040 8068     	 ldr r0,[r0,#8]
+ 540 0042 1035     	 adds r5,r5,#16
+ 541 0044 05FB03F5 	 mul r5,r5,r3
+ 542 0048 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 543 004c A6FB0732 	 umull r3,r2,r6,r7
+ 544 0050 A068     	 ldr r0,[r4,#8]
+ 545 0052 C2F34F32 	 ubfx r2,r2,#13,#16
+ 546 0056 0021     	 movs r1,#0
+ 547 0058 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 548 005c A6FB0532 	 umull r3,r2,r6,r5
+ 549 0060 A068     	 ldr r0,[r4,#8]
+ 550 0062 C2F34F32 	 ubfx r2,r2,#13,#16
+ 551 0066 0121     	 movs r1,#1
+ 552 0068 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 553 006c 6368     	 ldr r3,[r4,#4]
+ 554 006e 2269     	 ldr r2,[r4,#16]
+ 555 0070 1A61     	 str r2,[r3,#16]
+ 556 0072 0020     	 movs r0,#0
+ 557 0074 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 558              	.L136:
+ 559 0076 00BF     	 .align 2
+ 560              	.L135:
+ 561 0078 5917B7D1 	 .word -776530087
+ 563              	 .section .text.PWM_CCU8_SetDutyCycleSymmetric,"ax",%progbits
+ 564              	 .align 2
+ 565              	 .global PWM_CCU8_SetDutyCycleSymmetric
+ 566              	 .thumb
+ 567              	 .thumb_func
+ 569              	PWM_CCU8_SetDutyCycleSymmetric:
+ 570              	 
+ 571              	 
+ 572 0000 F8B5     	 push {r3,r4,r5,r6,r7,lr}
+ 573 0002 037F     	 ldrb r3,[r0,#28]
+ 574 0004 1BB1     	 cbz r3,.L141
+ 575 0006 42F21073 	 movw r3,#10000
+ 576 000a 9A42     	 cmp r2,r3
+ 577 000c 01D9     	 bls .L143
+ 578              	.L141:
+ 579 000e 0120     	 movs r0,#1
+ 580 0010 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 581              	.L143:
+ 582 0012 0446     	 mov r4,r0
+ 583 0014 8068     	 ldr r0,[r0,#8]
+ 584 0016 0D4F     	 ldr r7,.L145
+ 585 0018 1546     	 mov r5,r2
+ 586 001a 026B     	 ldr r2,[r0,#48]
+ 587 001c C5F51C53 	 rsb r3,r5,#9984
+ 588 0020 92B2     	 uxth r2,r2
+ 589 0022 1033     	 adds r3,r3,#16
+ 590 0024 02FB0333 	 mla r3,r2,r3,r3
+ 591 0028 A7FB0332 	 umull r3,r2,r7,r3
+ 592 002c C2F34F32 	 ubfx r2,r2,#13,#16
+ 593 0030 0E46     	 mov r6,r1
+ 594 0032 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 595 0036 6368     	 ldr r3,[r4,#4]
+ 596 0038 2269     	 ldr r2,[r4,#16]
+ 597 003a 1A61     	 str r2,[r3,#16]
+ 598 003c 16B1     	 cbz r6,.L144
+ 599 003e A562     	 str r5,[r4,#40]
+ 600 0040 0020     	 movs r0,#0
+ 601 0042 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 602              	.L144:
+ 603 0044 6562     	 str r5,[r4,#36]
+ 604 0046 3046     	 mov r0,r6
+ 605 0048 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 606              	.L146:
+ 607 004a 00BF     	 .align 2
+ 608              	.L145:
+ 609 004c 5917B7D1 	 .word -776530087
+ 611              	 .section .text.PWM_CCU8_SetFreqAndDutyCycleSymmetric,"ax",%progbits
+ 612              	 .align 2
+ 613              	 .global PWM_CCU8_SetFreqAndDutyCycleSymmetric
+ 614              	 .thumb
+ 615              	 .thumb_func
+ 617              	PWM_CCU8_SetFreqAndDutyCycleSymmetric:
+ 618              	 
+ 619              	 
+ 620 0000 2DE9F041 	 push {r4,r5,r6,r7,r8,lr}
+ 621 0004 047F     	 ldrb r4,[r0,#28]
+ 622 0006 002C     	 cmp r4,#0
+ 623 0008 40D0     	 beq .L154
+ 624 000a 0029     	 cmp r1,#0
+ 625 000c 3ED0     	 beq .L154
+ 626 000e 42F21074 	 movw r4,#10000
+ 627 0012 A242     	 cmp r2,r4
+ 628 0014 3AD8     	 bhi .L154
+ 629 0016 A342     	 cmp r3,r4
+ 630 0018 38D8     	 bhi .L154
+ 631 001a 0468     	 ldr r4,[r0]
+ 632 001c 076A     	 ldr r7,[r0,#32]
+ 633 001e A46C     	 ldr r4,[r4,#72]
+ 634 0020 B7FBF1F7 	 udiv r7,r7,r1
+ 635 0024 2178     	 ldrb r1,[r4]
+ 636 0026 C907     	 lsls r1,r1,#31
+ 637 0028 48BF     	 it mi
+ 638 002a 7F08     	 lsrmi r7,r7,#1
+ 639 002c 791E     	 subs r1,r7,#1
+ 640 002e 4FF6FE74 	 movw r4,#65534
+ 641 0032 A142     	 cmp r1,r4
+ 642 0034 2AD8     	 bhi .L154
+ 643 0036 0446     	 mov r4,r0
+ 644 0038 1546     	 mov r5,r2
+ 645 003a 89B2     	 uxth r1,r1
+ 646 003c 8068     	 ldr r0,[r0,#8]
+ 647 003e DFF85480 	 ldr r8,.L159
+ 648 0042 1E46     	 mov r6,r3
+ 649 0044 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 650 0048 C5F51C53 	 rsb r3,r5,#9984
+ 651 004c 1033     	 adds r3,r3,#16
+ 652 004e 03FB07F3 	 mul r3,r3,r7
+ 653 0052 A8FB0332 	 umull r3,r2,r8,r3
+ 654 0056 A068     	 ldr r0,[r4,#8]
+ 655 0058 C2F34F32 	 ubfx r2,r2,#13,#16
+ 656 005c 0021     	 movs r1,#0
+ 657 005e FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 658 0062 C6F51C51 	 rsb r1,r6,#9984
+ 659 0066 1031     	 adds r1,r1,#16
+ 660 0068 01FB07F1 	 mul r1,r1,r7
+ 661 006c A8FB0132 	 umull r3,r2,r8,r1
+ 662 0070 A068     	 ldr r0,[r4,#8]
+ 663 0072 C2F34F32 	 ubfx r2,r2,#13,#16
+ 664 0076 0121     	 movs r1,#1
+ 665 0078 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 666 007c 6368     	 ldr r3,[r4,#4]
+ 667 007e 2269     	 ldr r2,[r4,#16]
+ 668 0080 1A61     	 str r2,[r3,#16]
+ 669 0082 0020     	 movs r0,#0
+ 670 0084 6562     	 str r5,[r4,#36]
+ 671 0086 A662     	 str r6,[r4,#40]
+ 672 0088 BDE8F081 	 pop {r4,r5,r6,r7,r8,pc}
+ 673              	.L154:
+ 674 008c 0120     	 movs r0,#1
+ 675 008e BDE8F081 	 pop {r4,r5,r6,r7,r8,pc}
+ 676              	.L160:
+ 677 0092 00BF     	 .align 2
+ 678              	.L159:
+ 679 0094 5917B7D1 	 .word -776530087
+ 681              	 .section .text.PWM_CCU8_SetFreqAsymmetric,"ax",%progbits
+ 682              	 .align 2
+ 683              	 .global PWM_CCU8_SetFreqAsymmetric
+ 684              	 .thumb
+ 685              	 .thumb_func
+ 687              	PWM_CCU8_SetFreqAsymmetric:
+ 688              	 
+ 689              	 
+ 690 0000 037F     	 ldrb r3,[r0,#28]
+ 691 0002 002B     	 cmp r3,#0
+ 692 0004 3BD0     	 beq .L165
+ 693 0006 0029     	 cmp r1,#0
+ 694 0008 39D0     	 beq .L165
+ 695 000a 0268     	 ldr r2,[r0]
+ 696 000c 036A     	 ldr r3,[r0,#32]
+ 697 000e 926C     	 ldr r2,[r2,#72]
+ 698 0010 B3FBF1F3 	 udiv r3,r3,r1
+ 699 0014 2DE9F041 	 push {r4,r5,r6,r7,r8,lr}
+ 700 0018 0446     	 mov r4,r0
+ 701 001a 1078     	 ldrb r0,[r2]
+ 702 001c E56A     	 ldr r5,[r4,#44]
+ 703 001e 226B     	 ldr r2,[r4,#48]
+ 704 0020 10F00106 	 ands r6,r0,#1
+ 705 0024 2DD0     	 beq .L163
+ 706 0026 5B08     	 lsrs r3,r3,#1
+ 707 0028 591E     	 subs r1,r3,#1
+ 708 002a 4FF6FE70 	 movw r0,#65534
+ 709 002e 8142     	 cmp r1,r0
+ 710 0030 2AD8     	 bhi .L167
+ 711 0032 1544     	 add r5,r5,r2
+ 712 0034 C5F51C56 	 rsb r6,r5,#9984
+ 713 0038 5200     	 lsls r2,r2,#1
+ 714 003a DFF88080 	 ldr r8,.L172
+ 715 003e A068     	 ldr r0,[r4,#8]
+ 716 0040 1036     	 adds r6,r6,#16
+ 717 0042 03FB02F7 	 mul r7,r3,r2
+ 718 0046 89B2     	 uxth r1,r1
+ 719 0048 7600     	 lsls r6,r6,#1
+ 720 004a 03FB06F5 	 mul r5,r3,r6
+ 721 004e FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 722 0052 A8FB0732 	 umull r3,r2,r8,r7
+ 723 0056 C2F34F32 	 ubfx r2,r2,#13,#16
+ 724 005a A068     	 ldr r0,[r4,#8]
+ 725 005c 0021     	 movs r1,#0
+ 726 005e FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 727 0062 A8FB0532 	 umull r3,r2,r8,r5
+ 728              	.L170:
+ 729 0066 A068     	 ldr r0,[r4,#8]
+ 730 0068 C2F34F32 	 ubfx r2,r2,#13,#16
+ 731 006c 0121     	 movs r1,#1
+ 732 006e FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 733 0072 6368     	 ldr r3,[r4,#4]
+ 734 0074 2269     	 ldr r2,[r4,#16]
+ 735 0076 1A61     	 str r2,[r3,#16]
+ 736 0078 0020     	 movs r0,#0
+ 737 007a BDE8F081 	 pop {r4,r5,r6,r7,r8,pc}
+ 738              	.L165:
+ 739 007e 0120     	 movs r0,#1
+ 740 0080 7047     	 bx lr
+ 741              	.L163:
+ 742 0082 B3F5803F 	 cmp r3,#65536
+ 743 0086 02D3     	 bcc .L171
+ 744              	.L167:
+ 745 0088 0120     	 movs r0,#1
+ 746 008a BDE8F081 	 pop {r4,r5,r6,r7,r8,pc}
+ 747              	.L171:
+ 748 008e 591E     	 subs r1,r3,#1
+ 749 0090 0A4F     	 ldr r7,.L172
+ 750 0092 A068     	 ldr r0,[r4,#8]
+ 751 0094 02FB03F8 	 mul r8,r2,r3
+ 752 0098 1544     	 add r5,r5,r2
+ 753 009a 89B2     	 uxth r1,r1
+ 754 009c 05FB03F5 	 mul r5,r5,r3
+ 755 00a0 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 756 00a4 A7FB0832 	 umull r3,r2,r7,r8
+ 757 00a8 C2F34F32 	 ubfx r2,r2,#13,#16
+ 758 00ac A068     	 ldr r0,[r4,#8]
+ 759 00ae 3146     	 mov r1,r6
+ 760 00b0 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 761 00b4 A7FB0532 	 umull r3,r2,r7,r5
+ 762 00b8 D5E7     	 b .L170
+ 763              	.L173:
+ 764 00ba 00BF     	 .align 2
+ 765              	.L172:
+ 766 00bc 5917B7D1 	 .word -776530087
+ 768              	 .section .text.PWM_CCU8_SetDutyCycleAsymmetric,"ax",%progbits
+ 769              	 .align 2
+ 770              	 .global PWM_CCU8_SetDutyCycleAsymmetric
+ 771              	 .thumb
+ 772              	 .thumb_func
+ 774              	PWM_CCU8_SetDutyCycleAsymmetric:
+ 775              	 
+ 776              	 
+ 777 0000 037F     	 ldrb r3,[r0,#28]
+ 778 0002 002B     	 cmp r3,#0
+ 779 0004 45D0     	 beq .L177
+ 780 0006 0368     	 ldr r3,[r0]
+ 781 0008 9B6C     	 ldr r3,[r3,#72]
+ 782 000a 2DE9F047 	 push {r4,r5,r6,r7,r8,r9,r10,lr}
+ 783 000e 0446     	 mov r4,r0
+ 784 0010 1878     	 ldrb r0,[r3]
+ 785 0012 10F00105 	 ands r5,r0,#1
+ 786 0016 1746     	 mov r7,r2
+ 787 0018 0E46     	 mov r6,r1
+ 788 001a 31D0     	 beq .L176
+ 789 001c 8D18     	 adds r5,r1,r2
+ 790 001e A5F59C53 	 sub r3,r5,#4992
+ 791 0022 083B     	 subs r3,r3,#8
+ 792 0024 41F28832 	 movw r2,#5000
+ 793 0028 9342     	 cmp r3,r2
+ 794 002a 2FD8     	 bhi .L180
+ 795 002c 41F28733 	 movw r3,#4999
+ 796 0030 9942     	 cmp r1,r3
+ 797 0032 2BD8     	 bhi .L180
+ 798 0034 A068     	 ldr r0,[r4,#8]
+ 799 0036 DFF88890 	 ldr r9,.L184
+ 800 003a 036B     	 ldr r3,[r0,#48]
+ 801 003c 1FFA83F8 	 uxth r8,r3
+ 802 0040 4FEA4808 	 lsl r8,r8,#1
+ 803 0044 08FB01F2 	 mul r2,r8,r1
+ 804 0048 C5F51C55 	 rsb r5,r5,#9984
+ 805 004c A9FB0232 	 umull r3,r2,r9,r2
+ 806 0050 1035     	 adds r5,r5,#16
+ 807 0052 C2F34F32 	 ubfx r2,r2,#13,#16
+ 808 0056 0021     	 movs r1,#0
+ 809 0058 08FB05F5 	 mul r5,r8,r5
+ 810 005c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 811 0060 A9FB0532 	 umull r3,r2,r9,r5
+ 812              	.L182:
+ 813 0064 A068     	 ldr r0,[r4,#8]
+ 814 0066 C2F34F32 	 ubfx r2,r2,#13,#16
+ 815 006a 0121     	 movs r1,#1
+ 816 006c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 817 0070 6368     	 ldr r3,[r4,#4]
+ 818 0072 2269     	 ldr r2,[r4,#16]
+ 819 0074 1A61     	 str r2,[r3,#16]
+ 820 0076 0020     	 movs r0,#0
+ 821 0078 E762     	 str r7,[r4,#44]
+ 822 007a 2663     	 str r6,[r4,#48]
+ 823 007c BDE8F087 	 pop {r4,r5,r6,r7,r8,r9,r10,pc}
+ 824              	.L176:
+ 825 0080 01EB0209 	 add r9,r1,r2
+ 826 0084 42F21073 	 movw r3,#10000
+ 827 0088 9945     	 cmp r9,r3
+ 828 008a 04D9     	 bls .L183
+ 829              	.L180:
+ 830 008c 0120     	 movs r0,#1
+ 831 008e BDE8F087 	 pop {r4,r5,r6,r7,r8,r9,r10,pc}
+ 832              	.L177:
+ 833 0092 0120     	 movs r0,#1
+ 834 0094 7047     	 bx lr
+ 835              	.L183:
+ 836 0096 A068     	 ldr r0,[r4,#8]
+ 837 0098 DFF824A0 	 ldr r10,.L184
+ 838 009c 026B     	 ldr r2,[r0,#48]
+ 839 009e 1FFA82F8 	 uxth r8,r2
+ 840 00a2 08FB01F2 	 mul r2,r8,r1
+ 841 00a6 AAFB0232 	 umull r3,r2,r10,r2
+ 842 00aa C2F34F32 	 ubfx r2,r2,#13,#16
+ 843 00ae 2946     	 mov r1,r5
+ 844 00b0 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 845 00b4 08FB09F2 	 mul r2,r8,r9
+ 846 00b8 AAFB0232 	 umull r3,r2,r10,r2
+ 847 00bc D2E7     	 b .L182
+ 848              	.L185:
+ 849 00be 00BF     	 .align 2
+ 850              	.L184:
+ 851 00c0 5917B7D1 	 .word -776530087
+ 853              	 .section .text.PWM_CCU8_SetFreqAndDutyCycleAsymmetric,"ax",%progbits
+ 854              	 .align 2
+ 855              	 .global PWM_CCU8_SetFreqAndDutyCycleAsymmetric
+ 856              	 .thumb
+ 857              	 .thumb_func
+ 859              	PWM_CCU8_SetFreqAndDutyCycleAsymmetric:
+ 860              	 
+ 861              	 
+ 862 0000 2DE9F047 	 push {r4,r5,r6,r7,r8,r9,r10,lr}
+ 863 0004 047F     	 ldrb r4,[r0,#28]
+ 864 0006 04B3     	 cbz r4,.L195
+ 865 0008 F9B1     	 cbz r1,.L195
+ 866 000a 1F46     	 mov r7,r3
+ 867 000c 0368     	 ldr r3,[r0]
+ 868 000e 9B6C     	 ldr r3,[r3,#72]
+ 869 0010 1646     	 mov r6,r2
+ 870 0012 0446     	 mov r4,r0
+ 871 0014 026A     	 ldr r2,[r0,#32]
+ 872 0016 1878     	 ldrb r0,[r3]
+ 873 0018 B2FBF1F8 	 udiv r8,r2,r1
+ 874 001c 10F00105 	 ands r5,r0,#1
+ 875 0020 16D0     	 beq .L188
+ 876 0022 F519     	 adds r5,r6,r7
+ 877 0024 A5F59C53 	 sub r3,r5,#4992
+ 878 0028 083B     	 subs r3,r3,#8
+ 879 002a 41F28832 	 movw r2,#5000
+ 880 002e 9342     	 cmp r3,r2
+ 881 0030 0BD8     	 bhi .L195
+ 882 0032 41F28733 	 movw r3,#4999
+ 883 0036 9E42     	 cmp r6,r3
+ 884 0038 07D8     	 bhi .L195
+ 885 003a 4FEA5808 	 lsr r8,r8,#1
+ 886 003e 08F1FF31 	 add r1,r8,#-1
+ 887 0042 4FF6FE73 	 movw r3,#65534
+ 888 0046 9942     	 cmp r1,r3
+ 889 0048 2FD9     	 bls .L198
+ 890              	.L195:
+ 891 004a 0120     	 movs r0,#1
+ 892 004c BDE8F087 	 pop {r4,r5,r6,r7,r8,r9,r10,pc}
+ 893              	.L188:
+ 894 0050 B8F5803F 	 cmp r8,#65536
+ 895 0054 F9D2     	 bcs .L195
+ 896 0056 06EB0709 	 add r9,r6,r7
+ 897 005a 42F21073 	 movw r3,#10000
+ 898 005e 9945     	 cmp r9,r3
+ 899 0060 F3D8     	 bhi .L195
+ 900 0062 08F1FF31 	 add r1,r8,#-1
+ 901 0066 89B2     	 uxth r1,r1
+ 902 0068 A068     	 ldr r0,[r4,#8]
+ 903 006a DFF874A0 	 ldr r10,.L199
+ 904 006e FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 905 0072 06FB08F2 	 mul r2,r6,r8
+ 906 0076 AAFB0232 	 umull r3,r2,r10,r2
+ 907 007a C2F34F32 	 ubfx r2,r2,#13,#16
+ 908 007e 2946     	 mov r1,r5
+ 909 0080 A068     	 ldr r0,[r4,#8]
+ 910 0082 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 911 0086 09FB08F1 	 mul r1,r9,r8
+ 912 008a AAFB0132 	 umull r3,r2,r10,r1
+ 913              	.L197:
+ 914 008e A068     	 ldr r0,[r4,#8]
+ 915 0090 C2F34F32 	 ubfx r2,r2,#13,#16
+ 916 0094 0121     	 movs r1,#1
+ 917 0096 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 918 009a 6368     	 ldr r3,[r4,#4]
+ 919 009c 2269     	 ldr r2,[r4,#16]
+ 920 009e 1A61     	 str r2,[r3,#16]
+ 921 00a0 0020     	 movs r0,#0
+ 922 00a2 E762     	 str r7,[r4,#44]
+ 923 00a4 2663     	 str r6,[r4,#48]
+ 924 00a6 BDE8F087 	 pop {r4,r5,r6,r7,r8,r9,r10,pc}
+ 925              	.L198:
+ 926 00aa 89B2     	 uxth r1,r1
+ 927 00ac A068     	 ldr r0,[r4,#8]
+ 928 00ae DFF83090 	 ldr r9,.L199
+ 929 00b2 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 930 00b6 7200     	 lsls r2,r6,#1
+ 931 00b8 08FB02F2 	 mul r2,r8,r2
+ 932 00bc A9FB0232 	 umull r3,r2,r9,r2
+ 933 00c0 C5F51C55 	 rsb r5,r5,#9984
+ 934 00c4 C2F34F32 	 ubfx r2,r2,#13,#16
+ 935 00c8 A068     	 ldr r0,[r4,#8]
+ 936 00ca 0021     	 movs r1,#0
+ 937 00cc 1035     	 adds r5,r5,#16
+ 938 00ce FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 939 00d2 05FB08F2 	 mul r2,r5,r8
+ 940 00d6 5200     	 lsls r2,r2,#1
+ 941 00d8 A9FB0232 	 umull r3,r2,r9,r2
+ 942 00dc D7E7     	 b .L197
+ 943              	.L200:
+ 944 00de 00BF     	 .align 2
+ 945              	.L199:
+ 946 00e0 5917B7D1 	 .word -776530087
+ 948              	 .section .text.PWM_CCU8_SetDither,"ax",%progbits
+ 949              	 .align 2
+ 950              	 .global PWM_CCU8_SetDither
+ 951              	 .thumb
+ 952              	 .thumb_func
+ 954              	PWM_CCU8_SetDither:
+ 955              	 
+ 956              	 
+ 957 0000 10B5     	 push {r4,lr}
+ 958 0002 0446     	 mov r4,r0
+ 959 0004 8068     	 ldr r0,[r0,#8]
+ 960 0006 FFF7FEFF 	 bl XMC_CCU8_SLICE_EnableDithering
+ 961 000a 6368     	 ldr r3,[r4,#4]
+ 962 000c 6269     	 ldr r2,[r4,#20]
+ 963 000e 1A61     	 str r2,[r3,#16]
+ 964 0010 10BD     	 pop {r4,pc}
+ 966 0012 00BF     	 .section .text.PWM_CCU8_ClearTrap,"ax",%progbits
+ 967              	 .align 2
+ 968              	 .global PWM_CCU8_ClearTrap
+ 969              	 .thumb
+ 970              	 .thumb_func
+ 972              	PWM_CCU8_ClearTrap:
+ 973              	 
+ 974              	 
+ 975              	 
+ 976 0000 8268     	 ldr r2,[r0,#8]
+ 977 0002 D2F8B030 	 ldr r3,[r2,#176]
+ 978 0006 43F48063 	 orr r3,r3,#1024
+ 979 000a C2F8B030 	 str r3,[r2,#176]
+ 980 000e 7047     	 bx lr
+ 982              	 .section .text.PWM_CCU8_SetDeadTime,"ax",%progbits
+ 983              	 .align 2
+ 984              	 .global PWM_CCU8_SetDeadTime
+ 985              	 .thumb
+ 986              	 .thumb_func
+ 988              	PWM_CCU8_SetDeadTime:
+ 989              	 
+ 990              	 
+ 991              	 
+ 992 0000 8068     	 ldr r0,[r0,#8]
+ 993 0002 FFF7FEBF 	 b XMC_CCU8_SLICE_SetDeadTimeValue
+ 995 0006 00BF     	 .section .text.PWM_CCU8_GetInterruptStatus,"ax",%progbits
+ 996              	 .align 2
+ 997              	 .global PWM_CCU8_GetInterruptStatus
+ 998              	 .thumb
+ 999              	 .thumb_func
+ 1001              	PWM_CCU8_GetInterruptStatus:
+ 1002              	 
+ 1003              	 
+ 1004              	 
+ 1005 0000 8368     	 ldr r3,[r0,#8]
+ 1006 0002 D3F8A000 	 ldr r0,[r3,#160]
+ 1007 0006 C840     	 lsrs r0,r0,r1
+ 1008 0008 00F00100 	 and r0,r0,#1
+ 1009 000c 7047     	 bx lr
+ 1011 000e 00BF     	 .section .text.PWM_CCU8_ClearEvent,"ax",%progbits
+ 1012              	 .align 2
+ 1013              	 .global PWM_CCU8_ClearEvent
+ 1014              	 .thumb
+ 1015              	 .thumb_func
+ 1017              	PWM_CCU8_ClearEvent:
+ 1018              	 
+ 1019              	 
+ 1020              	 
+ 1021 0000 8068     	 ldr r0,[r0,#8]
+ 1022 0002 0122     	 movs r2,#1
+ 1023 0004 D0F8B030 	 ldr r3,[r0,#176]
+ 1024 0008 8A40     	 lsls r2,r2,r1
+ 1025 000a 1343     	 orrs r3,r3,r2
+ 1026 000c C0F8B030 	 str r3,[r0,#176]
+ 1027 0010 7047     	 bx lr
+ 1029 0012 00BF     	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pwm_ccu8.c
+    {standard input}:17     .text.PWM_CCU8_GetAppVersion:00000000 $t
+    {standard input}:22     .text.PWM_CCU8_GetAppVersion:00000000 PWM_CCU8_GetAppVersion
+    {standard input}:39     .text.PWM_CCU8_Init:00000000 $t
+    {standard input}:44     .text.PWM_CCU8_Init:00000000 PWM_CCU8_Init
+    {standard input}:408    .text.PWM_CCU8_Start:00000000 $t
+    {standard input}:413    .text.PWM_CCU8_Start:00000000 PWM_CCU8_Start
+    {standard input}:444    .text.PWM_CCU8_Stop:00000000 $t
+    {standard input}:449    .text.PWM_CCU8_Stop:00000000 PWM_CCU8_Stop
+    {standard input}:472    .text.PWM_CCU8_GetTimerValue:00000000 $t
+    {standard input}:477    .text.PWM_CCU8_GetTimerValue:00000000 PWM_CCU8_GetTimerValue
+    {standard input}:487    .text.PWM_CCU8_GetTimerStatus:00000000 $t
+    {standard input}:492    .text.PWM_CCU8_GetTimerStatus:00000000 PWM_CCU8_GetTimerStatus
+    {standard input}:502    .text.PWM_CCU8_SetFreqSymmetric:00000000 $t
+    {standard input}:507    .text.PWM_CCU8_SetFreqSymmetric:00000000 PWM_CCU8_SetFreqSymmetric
+    {standard input}:561    .text.PWM_CCU8_SetFreqSymmetric:00000078 $d
+    {standard input}:564    .text.PWM_CCU8_SetDutyCycleSymmetric:00000000 $t
+    {standard input}:569    .text.PWM_CCU8_SetDutyCycleSymmetric:00000000 PWM_CCU8_SetDutyCycleSymmetric
+    {standard input}:609    .text.PWM_CCU8_SetDutyCycleSymmetric:0000004c $d
+    {standard input}:612    .text.PWM_CCU8_SetFreqAndDutyCycleSymmetric:00000000 $t
+    {standard input}:617    .text.PWM_CCU8_SetFreqAndDutyCycleSymmetric:00000000 PWM_CCU8_SetFreqAndDutyCycleSymmetric
+    {standard input}:679    .text.PWM_CCU8_SetFreqAndDutyCycleSymmetric:00000094 $d
+    {standard input}:682    .text.PWM_CCU8_SetFreqAsymmetric:00000000 $t
+    {standard input}:687    .text.PWM_CCU8_SetFreqAsymmetric:00000000 PWM_CCU8_SetFreqAsymmetric
+    {standard input}:766    .text.PWM_CCU8_SetFreqAsymmetric:000000bc $d
+    {standard input}:769    .text.PWM_CCU8_SetDutyCycleAsymmetric:00000000 $t
+    {standard input}:774    .text.PWM_CCU8_SetDutyCycleAsymmetric:00000000 PWM_CCU8_SetDutyCycleAsymmetric
+    {standard input}:851    .text.PWM_CCU8_SetDutyCycleAsymmetric:000000c0 $d
+    {standard input}:854    .text.PWM_CCU8_SetFreqAndDutyCycleAsymmetric:00000000 $t
+    {standard input}:859    .text.PWM_CCU8_SetFreqAndDutyCycleAsymmetric:00000000 PWM_CCU8_SetFreqAndDutyCycleAsymmetric
+    {standard input}:946    .text.PWM_CCU8_SetFreqAndDutyCycleAsymmetric:000000e0 $d
+    {standard input}:949    .text.PWM_CCU8_SetDither:00000000 $t
+    {standard input}:954    .text.PWM_CCU8_SetDither:00000000 PWM_CCU8_SetDither
+    {standard input}:967    .text.PWM_CCU8_ClearTrap:00000000 $t
+    {standard input}:972    .text.PWM_CCU8_ClearTrap:00000000 PWM_CCU8_ClearTrap
+    {standard input}:983    .text.PWM_CCU8_SetDeadTime:00000000 $t
+    {standard input}:988    .text.PWM_CCU8_SetDeadTime:00000000 PWM_CCU8_SetDeadTime
+    {standard input}:996    .text.PWM_CCU8_GetInterruptStatus:00000000 $t
+    {standard input}:1001   .text.PWM_CCU8_GetInterruptStatus:00000000 PWM_CCU8_GetInterruptStatus
+    {standard input}:1012   .text.PWM_CCU8_ClearEvent:00000000 $t
+    {standard input}:1017   .text.PWM_CCU8_ClearEvent:00000000 PWM_CCU8_ClearEvent
+
+UNDEFINED SYMBOLS
+GLOBAL_CCU8_Init
+XMC_CCU8_SLICE_CompareInit
+XMC_CCU8_SLICE_SetTimerPeriodMatch
+XMC_CCU8_SLICE_SetTimerCompareMatch
+XMC_CCU8_SLICE_DeadTimeInit
+XMC_CCU8_SLICE_ConfigureEvent
+XMC_CCU8_SLICE_ConfigureStatusBitOverrideEvent
+XMC_CCU8_SLICE_StatusBitOverrideConfig
+XMC_CCU8_SLICE_SetInterruptNode
+XMC_GPIO_Init
+XMC_CCU8_SLICE_ModulationConfig
+XMC_CCU8_SLICE_LoadConfig
+XMC_CCU8_SLICE_LoadSelector
+XMC_CCU8_SLICE_CountConfig
+XMC_CCU8_SLICE_GateConfig
+XMC_CCU8_SLICE_DirectionConfig
+XMC_CCU8_SLICE_StopConfig
+XMC_CCU8_SLICE_StartConfig
+XMC_CCU8_SetMultiChannelShadowTransferMode
+XMC_CCU8_SLICE_TrapConfig
+XMC_CCU8_SLICE_EnableDithering
+XMC_CCU8_SLICE_SetDeadTimeValue

@@ -1,0 +1,129 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "digital_io_conf.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .global TEST_PIN
+  20              	 .global INH_2
+  21              	 .global INH_1
+  22              	 .global ENC_A
+  23              	 .global ENC_B
+  24              	 .global LED2
+  25              	 .global LED1
+  26              	 .section .rodata.TEST_PIN,"a",%progbits
+  27              	 .align 2
+  30              	TEST_PIN:
+  31 0000 00850248 	 .word 1208124672
+  32 0004 80       	 .byte -128
+  33 0005 000000   	 .space 3
+  34 0008 00000100 	 .word 65536
+  35 000c 00000000 	 .space 4
+  36 0010 0A       	 .byte 10
+  37 0011 00       	 .byte 0
+  38 0012 0000     	 .space 2
+  39              	 .section .rodata.LED1,"a",%progbits
+  40              	 .align 2
+  43              	LED1:
+  44 0000 00850248 	 .word 1208124672
+  45 0004 80       	 .byte -128
+  46 0005 000000   	 .space 3
+  47 0008 00000100 	 .word 65536
+  48 000c 00000000 	 .space 4
+  49 0010 09       	 .byte 9
+  50 0011 00       	 .byte 0
+  51 0012 0000     	 .space 2
+  52              	 .section .rodata.LED2,"a",%progbits
+  53              	 .align 2
+  56              	LED2:
+  57 0000 00850248 	 .word 1208124672
+  58 0004 80       	 .byte -128
+  59 0005 000000   	 .space 3
+  60 0008 00000100 	 .word 65536
+  61 000c 00000000 	 .space 4
+  62 0010 08       	 .byte 8
+  63 0011 00       	 .byte 0
+  64 0012 0000     	 .space 2
+  65              	 .section .rodata.INH_2,"a",%progbits
+  66              	 .align 2
+  69              	INH_2:
+  70 0000 00800248 	 .word 1208123392
+  71 0004 80       	 .byte -128
+  72 0005 000000   	 .space 3
+  73 0008 00000100 	 .word 65536
+  74 000c 00000000 	 .space 4
+  75 0010 0A       	 .byte 10
+  76 0011 00       	 .byte 0
+  77 0012 0000     	 .space 2
+  78              	 .section .rodata.ENC_A,"a",%progbits
+  79              	 .align 2
+  82              	ENC_A:
+  83 0000 00800248 	 .word 1208123392
+  84 0004 00       	 .byte 0
+  85 0005 00000000 	 .space 11
+  85      00000000 
+  85      000000
+  86 0010 05       	 .byte 5
+  87 0011 00       	 .byte 0
+  88 0012 0000     	 .space 2
+  89              	 .section .rodata.ENC_B,"a",%progbits
+  90              	 .align 2
+  93              	ENC_B:
+  94 0000 00800248 	 .word 1208123392
+  95 0004 00       	 .byte 0
+  96 0005 00000000 	 .space 11
+  96      00000000 
+  96      000000
+  97 0010 06       	 .byte 6
+  98 0011 00       	 .byte 0
+  99 0012 0000     	 .space 2
+ 100              	 .section .rodata.INH_1,"a",%progbits
+ 101              	 .align 2
+ 104              	INH_1:
+ 105 0000 00800248 	 .word 1208123392
+ 106 0004 80       	 .byte -128
+ 107 0005 000000   	 .space 3
+ 108 0008 00000100 	 .word 65536
+ 109 000c 00000000 	 .space 4
+ 110 0010 01       	 .byte 1
+ 111 0011 00       	 .byte 0
+ 112 0012 0000     	 .space 2
+ 113              	 .text
+ 114              	.Letext0:
+ 115              	 .file 1 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 116              	 .file 2 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 117              	 .file 3 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/XMCLib/inc/xmc_gpio.h"
+ 118              	 .file 4 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/XMCLib/inc/xmc4_gpio.h"
+ 119              	 .file 5 "../Dave/Generated/DIGITAL_IO/digital_io.h"
+ 120              	 .file 6 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/CMSIS/Include/core_cm4.h"
+ 121              	 .file 7 "../Dave/Generated/DIGITAL_IO/digital_io_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 digital_io_conf.c
+    {standard input}:30     .rodata.TEST_PIN:00000000 TEST_PIN
+    {standard input}:69     .rodata.INH_2:00000000 INH_2
+    {standard input}:104    .rodata.INH_1:00000000 INH_1
+    {standard input}:82     .rodata.ENC_A:00000000 ENC_A
+    {standard input}:93     .rodata.ENC_B:00000000 ENC_B
+    {standard input}:56     .rodata.LED2:00000000 LED2
+    {standard input}:43     .rodata.LED1:00000000 LED1
+    {standard input}:27     .rodata.TEST_PIN:00000000 $d
+    {standard input}:40     .rodata.LED1:00000000 $d
+    {standard input}:53     .rodata.LED2:00000000 $d
+    {standard input}:66     .rodata.INH_2:00000000 $d
+    {standard input}:79     .rodata.ENC_A:00000000 $d
+    {standard input}:90     .rodata.ENC_B:00000000 $d
+    {standard input}:101    .rodata.INH_1:00000000 $d
+
+NO UNDEFINED SYMBOLS

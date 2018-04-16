@@ -1,0 +1,626 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "UserTasks.c"
+  16              	 .section .text.lcdTask,"ax",%progbits
+  17              	 .align 2
+  18              	 .thumb
+  19              	 .thumb_func
+  21              	lcdTask:
+  22              	 
+  23              	 
+  24 0000 70B5     	 push {r4,r5,r6,lr}
+  25 0002 8CB0     	 sub sp,sp,#48
+  26 0004 FFF7FEFF 	 bl xTaskGetTickCount
+  27 0008 2B4B     	 ldr r3,.L5
+  28 000a 2C4C     	 ldr r4,.L5+4
+  29 000c 1860     	 str r0,[r3]
+  30 000e 2C48     	 ldr r0,.L5+8
+  31 0010 2C4E     	 ldr r6,.L5+12
+  32 0012 FFF7FEFF 	 bl GUI_SetFont
+  33 0016 6D46     	 mov r5,sp
+  34              	.L2:
+  35 0018 2846     	 mov r0,r5
+  36 001a FFF7FEFF 	 bl getMotorData
+  37 001e 95E80700 	 ldmia r5,{r0,r1,r2}
+  38 0022 84E80700 	 stmia r4,{r0,r1,r2}
+  39 0026 FFF7FEFF 	 bl GUI_Clear
+  40 002a 2748     	 ldr r0,.L5+16
+  41 002c FFF7FEFF 	 bl GUI_SetColor
+  42 0030 2648     	 ldr r0,.L5+20
+  43 0032 0021     	 movs r1,#0
+  44 0034 1222     	 movs r2,#18
+  45 0036 FFF7FEFF 	 bl GUI_DispStringAt
+  46 003a 2548     	 ldr r0,.L5+24
+  47 003c 0021     	 movs r1,#0
+  48 003e 2622     	 movs r2,#38
+  49 0040 FFF7FEFF 	 bl GUI_DispStringAt
+  50 0044 0021     	 movs r1,#0
+  51 0046 3A22     	 movs r2,#58
+  52 0048 2248     	 ldr r0,.L5+28
+  53 004a FFF7FEFF 	 bl GUI_DispStringAt
+  54 004e 6FF07F40 	 mvn r0,#-16777216
+  55 0052 FFF7FEFF 	 bl GUI_SetColor
+  56 0056 0923     	 movs r3,#9
+  57 0058 04A8     	 add r0,sp,#16
+  58 005a 1F49     	 ldr r1,.L5+32
+  59 005c 2660     	 str r6,[r4]
+  60 005e 1122     	 movs r2,#17
+  61 0060 FFF7FEFF 	 bl sprintf
+  62 0064 04A8     	 add r0,sp,#16
+  63 0066 3C21     	 movs r1,#60
+  64 0068 1222     	 movs r2,#18
+  65 006a FFF7FEFF 	 bl GUI_DispStringAt
+  66 006e D4ED017A 	 flds s15,[r4,#4]
+  67 0072 1A49     	 ldr r1,.L5+36
+  68 0074 FDEEE77A 	 ftosizs s15,s15
+  69 0078 04A8     	 add r0,sp,#16
+  70 007a 17EE902A 	 fmrs r2,s15
+  71 007e FFF7FEFF 	 bl sprintf
+  72 0082 04A8     	 add r0,sp,#16
+  73 0084 3C21     	 movs r1,#60
+  74 0086 2622     	 movs r2,#38
+  75 0088 FFF7FEFF 	 bl GUI_DispStringAt
+  76 008c D4ED027A 	 flds s15,[r4,#8]
+  77 0090 1249     	 ldr r1,.L5+36
+  78 0092 FDEEE77A 	 ftosizs s15,s15
+  79 0096 04A8     	 add r0,sp,#16
+  80 0098 17EE902A 	 fmrs r2,s15
+  81 009c FFF7FEFF 	 bl sprintf
+  82 00a0 04A8     	 add r0,sp,#16
+  83 00a2 3C21     	 movs r1,#60
+  84 00a4 3A22     	 movs r2,#58
+  85 00a6 FFF7FEFF 	 bl GUI_DispStringAt
+  86 00aa 0348     	 ldr r0,.L5
+  87 00ac 4FF4FA71 	 mov r1,#500
+  88 00b0 FFF7FEFF 	 bl vTaskDelayUntil
+  89 00b4 B0E7     	 b .L2
+  90              	.L6:
+  91 00b6 00BF     	 .align 2
+  92              	.L5:
+  93 00b8 00000000 	 .word .LANCHOR0
+  94 00bc 00000000 	 .word .LANCHOR1
+  95 00c0 00000000 	 .word GUI_Font16B_1
+  96 00c4 52B88841 	 .word 1099479122
+  97 00c8 80FFFF00 	 .word 16777088
+  98 00cc 00000000 	 .word .LC0
+  99 00d0 0C000000 	 .word .LC1
+ 100 00d4 14000000 	 .word .LC2
+ 101 00d8 1C000000 	 .word .LC3
+ 102 00dc 24000000 	 .word .LC4
+ 104              	 .global __aeabi_l2f
+ 105              	 .global __aeabi_f2d
+ 106              	 .global __aeabi_dadd
+ 107              	 .global __aeabi_dmul
+ 108              	 .global __aeabi_d2f
+ 109              	 .section .text.controlTask,"ax",%progbits
+ 110              	 .align 2
+ 111              	 .thumb
+ 112              	 .thumb_func
+ 114              	controlTask:
+ 115              	 
+ 116              	 
+ 117 0000 2DE9F04F 	 push {r4,r5,r6,r7,r8,r9,r10,fp,lr}
+ 118 0004 2DED068B 	 fstmfdd sp!,{d8,d9,d10}
+ 119 0008 8FB0     	 sub sp,sp,#60
+ 120 000a FFF7FEFF 	 bl setupFuzzyController
+ 121 000e A44B     	 ldr r3,.L25
+ 122 0010 A44A     	 ldr r2,.L25+4
+ 123 0012 1C7C     	 ldrb r4,[r3,#16]
+ 124 0014 1B68     	 ldr r3,[r3]
+ 125 0016 92F810E0 	 ldrb lr,[r2,#16]
+ 126 001a 1168     	 ldr r1,[r2]
+ 127 001c A248     	 ldr r0,.L25+8
+ 128 001e DFF8ECA2 	 ldr r10,.L25+108
+ 129 0022 DFF8AC92 	 ldr r9,.L25+48
+ 130 0026 DFF8E882 	 ldr r8,.L25+112
+ 131 002a A04F     	 ldr r7,.L25+12
+ 132 002c A04E     	 ldr r6,.L25+16
+ 133 002e DFF8B8B2 	 ldr fp,.L25+72
+ 134 0032 DFEDA09A 	 flds s19,.L25+20
+ 135 0036 9FEDA09A 	 flds s18,.L25+24
+ 136 003a 9FEDA0AA 	 flds s20,.L25+28
+ 137 003e DFEDA08A 	 flds s17,.L25+32
+ 138 0042 1D46     	 mov r5,r3
+ 139 0044 0123     	 movs r3,#1
+ 140 0046 03FA0EF2 	 lsl r2,r3,lr
+ 141 004a 03FA04F4 	 lsl r4,r3,r4
+ 142 004e 4A60     	 str r2,[r1,#4]
+ 143 0050 6C60     	 str r4,[r5,#4]
+ 144 0052 0493     	 str r3,[sp,#16]
+ 145 0054 FFF7FEFF 	 bl PWM_CCU8_Start
+ 146 0058 0021     	 movs r1,#0
+ 147 005a 41F28832 	 movw r2,#5000
+ 148 005e 9248     	 ldr r0,.L25+8
+ 149 0060 FFF7FEFF 	 bl PWM_CCU8_SetDutyCycleSymmetric
+ 150 0064 FFF7FEFF 	 bl xTaskGetTickCount
+ 151 0068 9649     	 ldr r1,.L25+36
+ 152 006a 049B     	 ldr r3,[sp,#16]
+ 153 006c 0A7C     	 ldrb r2,[r1,#16]
+ 154 006e 0C68     	 ldr r4,[r1]
+ 155 0070 DFF884E2 	 ldr lr,.L25+88
+ 156 0074 0494     	 str r4,[sp,#16]
+ 157 0076 9340     	 lsls r3,r3,r2
+ 158 0078 4FF48031 	 mov r1,#65536
+ 159 007c 0593     	 str r3,[sp,#20]
+ 160 007e 01FA02F3 	 lsl r3,r1,r2
+ 161 0082 CEF80000 	 str r0,[lr]
+ 162 0086 0693     	 str r3,[sp,#24]
+ 163 0088 2246     	 mov r2,r4
+ 164 008a 98E0     	 b .L16
+ 165              	.L24:
+ 166 008c 8E4B     	 ldr r3,.L25+40
+ 167 008e 9842     	 cmp r0,r3
+ 168 0090 00F2BB80 	 bhi .L9
+ 169 0094 4FF0FF34 	 mov r4,#-1
+ 170 0098 A41A     	 subs r4,r4,r2
+ 171 009a 4FF00005 	 mov r5,#0
+ 172 009e 65F10005 	 sbc r5,r5,#0
+ 173 00a2 2218     	 adds r2,r4,r0
+ 174 00a4 45F10003 	 adc r3,r5,#0
+ 175 00a8 541C     	 adds r4,r2,#1
+ 176 00aa 43F10005 	 adc r5,r3,#0
+ 177 00ae 874B     	 ldr r3,.L25+44
+ 178 00b0 C3E90045 	 strd r4,[r3]
+ 179              	.L10:
+ 180 00b4 2946     	 mov r1,r5
+ 181 00b6 2046     	 mov r0,r4
+ 182 00b8 CDE90245 	 strd r4,[sp,#8]
+ 183 00bc FFF7FEFF 	 bl __aeabi_l2f
+ 184 00c0 07EE900A 	 fmsr s15,r0
+ 185 00c4 67EEA97A 	 fmuls s15,s15,s19
+ 186 00c8 DDE90245 	 ldrd r4,[sp,#8]
+ 187 00cc C7EE897A 	 fdivs s15,s15,s18
+ 188 00d0 D8F80000 	 ldr r0,[r8]
+ 189 00d4 9DF82010 	 ldrb r1,[sp,#32]
+ 190 00d8 7D4B     	 ldr r3,.L25+48
+ 191 00da DFF834C2 	 ldr ip,.L25+112
+ 192 00de 2218     	 adds r2,r4,r0
+ 193 00e0 C8F80020 	 str r2,[r8]
+ 194 00e4 67EE8A7A 	 fmuls s15,s15,s20
+ 195 00e8 C9ED007A 	 fsts s15,[r9]
+ 196 00ec 0029     	 cmp r1,#0
+ 197 00ee 40F09380 	 bne .L23
+ 198              	.L11:
+ 199 00f2 D7ED006A 	 flds s13,[r7]
+ 200 00f6 774D     	 ldr r5,.L25+52
+ 201 00f8 774B     	 ldr r3,.L25+56
+ 202 00fa 0093     	 str r3,[sp]
+ 203 00fc 87EEA86A 	 fdivs s12,s15,s17
+ 204 0100 764B     	 ldr r3,.L25+60
+ 205 0102 07EE102A 	 fmsr s14,r2
+ 206 0106 C6EEA86A 	 fdivs s13,s13,s17
+ 207 010a 78EE677A 	 fsubs s15,s16,s15
+ 208 010e B8EEC77A 	 fsitos s14,s14
+ 209 0112 C7EEA87A 	 fdivs s15,s15,s17
+ 210 0116 87EE097A 	 fdivs s14,s14,s18
+ 211 011a 76EE666A 	 fsubs s13,s12,s13
+ 212 011e C5ED007A 	 fsts s15,[r5]
+ 213 0122 66EEA96A 	 fmuls s13,s13,s19
+ 214 0126 DDED095A 	 flds s11,[sp,#36]
+ 215 012a 6D4D     	 ldr r5,.L25+64
+ 216 012c 86ED007A 	 fsts s14,[r6]
+ 217 0130 35EEC76A 	 fsubs s12,s11,s14
+ 218 0134 C5ED006A 	 fsts s13,[r5]
+ 219 0138 6A4D     	 ldr r5,.L25+68
+ 220 013a 17EE900A 	 fmrs r0,s15
+ 221 013e 16EE102A 	 fmrs r2,s12
+ 222 0142 16EE901A 	 fmrs r1,s13
+ 223 0146 85ED006A 	 fsts s12,[r5]
+ 224 014a FFF7FEFF 	 bl computeFuzzy
+ 225 014e 634B     	 ldr r3,.L25+60
+ 226 0150 9BED007A 	 flds s14,[fp]
+ 227 0154 D3ED007A 	 flds s15,[r3]
+ 228 0158 634B     	 ldr r3,.L25+72
+ 229 015a 77EE277A 	 fadds s15,s14,s15
+ 230 015e B7EE007A 	 fconsts s14,#112
+ 231 0162 F4EEC77A 	 fcmpes s15,s14
+ 232 0166 F1EE10FA 	 fmstat
+ 233 016a 6CDD     	 ble .L21
+ 234 016c 83ED007A 	 fsts s14,[r3]
+ 235 0170 9FED5E7A 	 flds s14,.L25+76
+ 236 0174 42F21072 	 movw r2,#10000
+ 237              	.L14:
+ 238 0178 5D4B     	 ldr r3,.L25+80
+ 239 017a 4B48     	 ldr r0,.L25+8
+ 240 017c 83ED007A 	 fsts s14,[r3]
+ 241 0180 0021     	 movs r1,#0
+ 242 0182 FFF7FEFF 	 bl PWM_CCU8_SetDutyCycleSymmetric
+ 243 0186 5A4B     	 ldr r3,.L25+80
+ 244 0188 D9F800E0 	 ldr lr,[r9]
+ 245 018c 3268     	 ldr r2,[r6]
+ 246 018e 1B68     	 ldr r3,[r3]
+ 247 0190 CDF830E0 	 str lr,[sp,#48]
+ 248 0194 0D93     	 str r3,[sp,#52]
+ 249 0196 0B92     	 str r2,[sp,#44]
+ 250 0198 0BAB     	 add r3,sp,#44
+ 251 019a 564D     	 ldr r5,.L25+84
+ 252 019c C7F800E0 	 str lr,[r7]
+ 253 01a0 93E80700 	 ldmia r3,{r0,r1,r2}
+ 254 01a4 DAF80030 	 ldr r3,[r10]
+ 255 01a8 2B60     	 str r3,[r5]
+ 256 01aa FFF7FEFF 	 bl setMotorData
+ 257 01ae 049A     	 ldr r2,[sp,#16]
+ 258 01b0 069B     	 ldr r3,[sp,#24]
+ 259 01b2 5360     	 str r3,[r2,#4]
+ 260 01b4 5048     	 ldr r0,.L25+88
+ 261 01b6 0521     	 movs r1,#5
+ 262 01b8 FFF7FEFF 	 bl vTaskDelayUntil
+ 263 01bc 049A     	 ldr r2,[sp,#16]
+ 264              	.L16:
+ 265 01be 059B     	 ldr r3,[sp,#20]
+ 266 01c0 5360     	 str r3,[r2,#4]
+ 267 01c2 08A8     	 add r0,sp,#32
+ 268 01c4 FFF7FEFF 	 bl getControlParams
+ 269 01c8 9DED0A8A 	 flds s16,[sp,#40]
+ 270 01cc FFF7FEFF 	 bl getEncoderValue
+ 271 01d0 484B     	 ldr r3,.L25+84
+ 272 01d2 CAF80000 	 str r0,[r10]
+ 273 01d6 1A68     	 ldr r2,[r3]
+ 274 01d8 484B     	 ldr r3,.L25+92
+ 275 01da 9A42     	 cmp r2,r3
+ 276 01dc 3FF656AF 	 bhi .L24
+ 277 01e0 3949     	 ldr r1,.L25+40
+ 278 01e2 8A42     	 cmp r2,r1
+ 279 01e4 11D8     	 bhi .L9
+ 280 01e6 9842     	 cmp r0,r3
+ 281 01e8 0FD9     	 bls .L9
+ 282 01ea 4FF0FF34 	 mov r4,#-1
+ 283 01ee 241A     	 subs r4,r4,r0
+ 284 01f0 4FF00005 	 mov r5,#0
+ 285 01f4 65F10005 	 sbc r5,r5,#0
+ 286 01f8 A018     	 adds r0,r4,r2
+ 287 01fa 45F10001 	 adc r1,r5,#0
+ 288 01fe 334B     	 ldr r3,.L25+44
+ 289 0200 C443     	 mvns r4,r0
+ 290 0202 CD43     	 mvns r5,r1
+ 291 0204 C3E90045 	 strd r4,[r3]
+ 292 0208 54E7     	 b .L10
+ 293              	.L9:
+ 294 020a 841A     	 subs r4,r0,r2
+ 295 020c 2F4B     	 ldr r3,.L25+44
+ 296 020e 60EB0005 	 sbc r5,r0,r0
+ 297 0212 C3E90045 	 strd r4,[r3]
+ 298 0216 4DE7     	 b .L10
+ 299              	.L23:
+ 300 0218 0293     	 str r3,[sp,#8]
+ 301 021a 2F4B     	 ldr r3,.L25+56
+ 302 021c CDF81CC0 	 str ip,[sp,#28]
+ 303 0220 93ED008A 	 flds s16,[r3]
+ 304 0224 28EE288A 	 fmuls s16,s16,s17
+ 305 0228 08AB     	 add r3,sp,#32
+ 306 022a 8DED0A8A 	 fsts s16,[sp,#40]
+ 307 022e 93E80700 	 ldmia r3,{r0,r1,r2}
+ 308 0232 FFF7FEFF 	 bl setControlParams
+ 309 0236 DDF81CC0 	 ldr ip,[sp,#28]
+ 310 023a 029B     	 ldr r3,[sp,#8]
+ 311 023c DCF80020 	 ldr r2,[ip]
+ 312 0240 D3ED007A 	 flds s15,[r3]
+ 313 0244 55E7     	 b .L11
+ 314              	.L21:
+ 315 0246 FFEE006A 	 fconsts s13,#240
+ 316 024a F4EEE67A 	 fcmpes s15,s13
+ 317 024e F1EE10FA 	 fmstat
+ 318 0252 1ED4     	 bmi .L15
+ 319 0254 B6EE007A 	 fconsts s14,#96
+ 320 0258 27EE877A 	 fmuls s14,s15,s14
+ 321 025c C3ED007A 	 fsts s15,[r3]
+ 322 0260 17EE100A 	 fmrs r0,s14
+ 323 0264 FFF7FEFF 	 bl __aeabi_f2d
+ 324 0268 0022     	 movs r2,#0
+ 325 026a 254B     	 ldr r3,.L25+96
+ 326 026c FFF7FEFF 	 bl __aeabi_dadd
+ 327 0270 0022     	 movs r2,#0
+ 328 0272 244B     	 ldr r3,.L25+100
+ 329 0274 FFF7FEFF 	 bl __aeabi_dmul
+ 330 0278 FFF7FEFF 	 bl __aeabi_d2f
+ 331 027c DFED1B7A 	 flds s15,.L25+76
+ 332 0280 07EE100A 	 fmsr s14,r0
+ 333 0284 67EE277A 	 fmuls s15,s14,s15
+ 334 0288 FCEEE77A 	 ftouizs s15,s15
+ 335 028c 17EE902A 	 fmrs r2,s15
+ 336 0290 72E7     	 b .L14
+ 337              	.L15:
+ 338 0292 9FED1D7A 	 flds s14,.L25+104
+ 339 0296 C3ED006A 	 fsts s13,[r3]
+ 340 029a 0022     	 movs r2,#0
+ 341 029c 6CE7     	 b .L14
+ 342              	.L26:
+ 343 029e 00BF     	 .align 2
+ 344              	.L25:
+ 345 02a0 00000000 	 .word INH_2
+ 346 02a4 00000000 	 .word INH_1
+ 347 02a8 00000000 	 .word PWM_CCU8_0
+ 348 02ac 00000000 	 .word .LANCHOR10
+ 349 02b0 00000000 	 .word .LANCHOR12
+ 350 02b4 00004843 	 .word 1128792064
+ 351 02b8 00409C45 	 .word 1167867904
+ 352 02bc 00007042 	 .word 1114636288
+ 353 02c0 00008743 	 .word 1132920832
+ 354 02c4 00000000 	 .word TEST_PIN
+ 355 02c8 FEFFFF3F 	 .word 1073741822
+ 356 02cc 00000000 	 .word .LANCHOR5
+ 357 02d0 00000000 	 .word .LANCHOR6
+ 358 02d4 00000000 	 .word .LANCHOR9
+ 359 02d8 00000000 	 .word .LANCHOR8
+ 360 02dc 00000000 	 .word .LANCHOR14
+ 361 02e0 00000000 	 .word .LANCHOR11
+ 362 02e4 00000000 	 .word .LANCHOR13
+ 363 02e8 00000000 	 .word .LANCHOR15
+ 364 02ec 0000C842 	 .word 1120403456
+ 365 02f0 00000000 	 .word .LANCHOR16
+ 366 02f4 00000000 	 .word .LANCHOR4
+ 367 02f8 00000000 	 .word .LANCHOR2
+ 368 02fc FDFFFFBF 	 .word -1073741827
+ 369 0300 0000E03F 	 .word 1071644672
+ 370 0304 00005940 	 .word 1079574528
+ 371 0308 00000000 	 .word 0
+ 372 030c 00000000 	 .word .LANCHOR3
+ 373 0310 00000000 	 .word .LANCHOR7
+ 375              	 .section .text.startTasks,"ax",%progbits
+ 376              	 .align 2
+ 377              	 .global startTasks
+ 378              	 .thumb
+ 379              	 .thumb_func
+ 381              	startTasks:
+ 382              	 
+ 383              	 
+ 384 0000 70B5     	 push {r4,r5,r6,lr}
+ 385 0002 0C4D     	 ldr r5,.L29
+ 386 0004 0C4E     	 ldr r6,.L29+4
+ 387 0006 2B68     	 ldr r3,[r5]
+ 388 0008 0C4C     	 ldr r4,.L29+8
+ 389 000a 3288     	 ldrh r2,[r6]
+ 390 000c 0C49     	 ldr r1,.L29+12
+ 391 000e 0D48     	 ldr r0,.L29+16
+ 392 0010 82B0     	 sub sp,sp,#8
+ 393 0012 8DE81800 	 stmia sp,{r3,r4}
+ 394 0016 0023     	 movs r3,#0
+ 395 0018 FFF7FEFF 	 bl xTaskCreate
+ 396 001c 0434     	 adds r4,r4,#4
+ 397 001e 6B68     	 ldr r3,[r5,#4]
+ 398 0020 0093     	 str r3,[sp]
+ 399 0022 7288     	 ldrh r2,[r6,#2]
+ 400 0024 0194     	 str r4,[sp,#4]
+ 401 0026 0849     	 ldr r1,.L29+20
+ 402 0028 0848     	 ldr r0,.L29+24
+ 403 002a 0023     	 movs r3,#0
+ 404 002c FFF7FEFF 	 bl xTaskCreate
+ 405 0030 02B0     	 add sp,sp,#8
+ 406              	 
+ 407 0032 70BD     	 pop {r4,r5,r6,pc}
+ 408              	.L30:
+ 409              	 .align 2
+ 410              	.L29:
+ 411 0034 00000000 	 .word .LANCHOR18
+ 412 0038 00000000 	 .word .LANCHOR17
+ 413 003c 00000000 	 .word task_handlers
+ 414 0040 28000000 	 .word .LC5
+ 415 0044 00000000 	 .word controlTask
+ 416 0048 38000000 	 .word .LC6
+ 417 004c 00000000 	 .word lcdTask
+ 419              	 .comm task_handlers,8,4
+ 420              	 .global task_priorities
+ 421              	 .global task_stacks
+ 422              	 .section .bss.prev_encoder_value.15193,"aw",%nobits
+ 423              	 .align 2
+ 424              	 .set .LANCHOR4,.+0
+ 427              	prev_encoder_value.15193:
+ 428 0000 00000000 	 .space 4
+ 429              	 .section .bss.fuzzy_out_pwm_increment.15202,"aw",%nobits
+ 430              	 .align 2
+ 431              	 .set .LANCHOR14,.+0
+ 434              	fuzzy_out_pwm_increment.15202:
+ 435 0000 00000000 	 .space 4
+ 436              	 .section .bss.motor_position.15197,"aw",%nobits
+ 437              	 .align 2
+ 438              	 .set .LANCHOR7,.+0
+ 441              	motor_position.15197:
+ 442 0000 00000000 	 .space 4
+ 443              	 .section .bss.motor_speed.15195,"aw",%nobits
+ 444              	 .align 2
+ 445              	 .set .LANCHOR6,.+0
+ 448              	motor_speed.15195:
+ 449 0000 00000000 	 .space 4
+ 450              	 .section .bss.prev_motor_speed.15196,"aw",%nobits
+ 451              	 .align 2
+ 452              	 .set .LANCHOR10,.+0
+ 455              	prev_motor_speed.15196:
+ 456 0000 00000000 	 .space 4
+ 457              	 .section .data.task_priorities,"aw",%progbits
+ 458              	 .align 2
+ 459              	 .set .LANCHOR18,.+0
+ 462              	task_priorities:
+ 463 0000 02000000 	 .word 2
+ 464 0004 01000000 	 .word 1
+ 465              	 .section .bss.fuzzy_sum.15204,"aw",%nobits
+ 466              	 .align 2
+ 467              	 .set .LANCHOR15,.+0
+ 470              	fuzzy_sum.15204:
+ 471 0000 00000000 	 .space 4
+ 472              	 .section .bss.fuzzy_out_speed_reference.15203,"aw",%nobits
+ 473              	 .align 2
+ 474              	 .set .LANCHOR8,.+0
+ 477              	fuzzy_out_speed_reference.15203:
+ 478 0000 00000000 	 .space 4
+ 479              	 .section .bss.encoder_value_diff.15194,"aw",%nobits
+ 480              	 .align 3
+ 481              	 .set .LANCHOR5,.+0
+ 484              	encoder_value_diff.15194:
+ 485 0000 00000000 	 .space 8
+ 485      00000000 
+ 486              	 .section .bss.prev_wake_time.15212,"aw",%nobits
+ 487              	 .align 2
+ 488              	 .set .LANCHOR0,.+0
+ 491              	prev_wake_time.15212:
+ 492 0000 00000000 	 .space 4
+ 493              	 .section .bss.encoder_value.15192,"aw",%nobits
+ 494              	 .align 2
+ 495              	 .set .LANCHOR3,.+0
+ 498              	encoder_value.15192:
+ 499 0000 00000000 	 .space 4
+ 500              	 .section .data.task_stacks,"aw",%progbits
+ 501              	 .align 2
+ 502              	 .set .LANCHOR17,.+0
+ 505              	task_stacks:
+ 506 0000 8200     	 .short 130
+ 507 0002 E600     	 .short 230
+ 508              	 .section .bss.fuzzy_pwm.15205,"aw",%nobits
+ 509              	 .align 2
+ 510              	 .set .LANCHOR16,.+0
+ 513              	fuzzy_pwm.15205:
+ 514 0000 00000000 	 .space 4
+ 515              	 .section .rodata.str1.4,"aMS",%progbits,1
+ 516              	 .align 2
+ 517              	.LC0:
+ 518 0000 506F7369 	 .ascii "Position:\000"
+ 518      74696F6E 
+ 518      3A00
+ 519 000a 0000     	 .space 2
+ 520              	.LC1:
+ 521 000c 53706565 	 .ascii "Speed:\000"
+ 521      643A00
+ 522 0013 00       	 .space 1
+ 523              	.LC2:
+ 524 0014 50574D3A 	 .ascii "PWM:\000"
+ 524      00
+ 525 0019 000000   	 .space 3
+ 526              	.LC3:
+ 527 001c 256C642E 	 .ascii "%ld.%ld\000"
+ 527      256C6400 
+ 528              	.LC4:
+ 529 0024 256C6400 	 .ascii "%ld\000"
+ 530              	.LC5:
+ 531 0028 436F6E74 	 .ascii "Control Task\000"
+ 531      726F6C20 
+ 531      5461736B 
+ 531      00
+ 532 0035 000000   	 .space 3
+ 533              	.LC6:
+ 534 0038 4C434420 	 .ascii "LCD Task\000"
+ 534      5461736B 
+ 534      00
+ 535 0041 000000   	 .section .bss.motor_position_normalized.15198,"aw",%nobits
+ 536              	 .align 2
+ 537              	 .set .LANCHOR12,.+0
+ 540              	motor_position_normalized.15198:
+ 541 0000 00000000 	 .space 4
+ 542              	 .section .bss.position_error.15201,"aw",%nobits
+ 543              	 .align 2
+ 544              	 .set .LANCHOR13,.+0
+ 547              	position_error.15201:
+ 548 0000 00000000 	 .space 4
+ 549              	 .section .bss.motor_data.15213,"aw",%nobits
+ 550              	 .align 2
+ 551              	 .set .LANCHOR1,.+0
+ 554              	motor_data.15213:
+ 555 0000 00000000 	 .space 12
+ 555      00000000 
+ 555      00000000 
+ 556              	 .section .bss.speed_error.15199,"aw",%nobits
+ 557              	 .align 2
+ 558              	 .set .LANCHOR9,.+0
+ 561              	speed_error.15199:
+ 562 0000 00000000 	 .space 4
+ 563              	 .section .bss.accel.15200,"aw",%nobits
+ 564              	 .align 2
+ 565              	 .set .LANCHOR11,.+0
+ 568              	accel.15200:
+ 569 0000 00000000 	 .space 4
+ 570              	 .section .bss.prev_wake_time.15188,"aw",%nobits
+ 571              	 .align 2
+ 572              	 .set .LANCHOR2,.+0
+ 575              	prev_wake_time.15188:
+ 576 0000 00000000 	 .space 4
+ 577              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 UserTasks.c
+    {standard input}:17     .text.lcdTask:00000000 $t
+    {standard input}:21     .text.lcdTask:00000000 lcdTask
+    {standard input}:93     .text.lcdTask:000000b8 $d
+    {standard input}:110    .text.controlTask:00000000 $t
+    {standard input}:114    .text.controlTask:00000000 controlTask
+    {standard input}:345    .text.controlTask:000002a0 $d
+    {standard input}:376    .text.startTasks:00000000 $t
+    {standard input}:381    .text.startTasks:00000000 startTasks
+    {standard input}:411    .text.startTasks:00000034 $d
+                            *COM*:00000008 task_handlers
+    {standard input}:462    .data.task_priorities:00000000 task_priorities
+    {standard input}:505    .data.task_stacks:00000000 task_stacks
+    {standard input}:423    .bss.prev_encoder_value.15193:00000000 $d
+    {standard input}:427    .bss.prev_encoder_value.15193:00000000 prev_encoder_value.15193
+    {standard input}:430    .bss.fuzzy_out_pwm_increment.15202:00000000 $d
+    {standard input}:434    .bss.fuzzy_out_pwm_increment.15202:00000000 fuzzy_out_pwm_increment.15202
+    {standard input}:437    .bss.motor_position.15197:00000000 $d
+    {standard input}:441    .bss.motor_position.15197:00000000 motor_position.15197
+    {standard input}:444    .bss.motor_speed.15195:00000000 $d
+    {standard input}:448    .bss.motor_speed.15195:00000000 motor_speed.15195
+    {standard input}:451    .bss.prev_motor_speed.15196:00000000 $d
+    {standard input}:455    .bss.prev_motor_speed.15196:00000000 prev_motor_speed.15196
+    {standard input}:458    .data.task_priorities:00000000 $d
+    {standard input}:466    .bss.fuzzy_sum.15204:00000000 $d
+    {standard input}:470    .bss.fuzzy_sum.15204:00000000 fuzzy_sum.15204
+    {standard input}:473    .bss.fuzzy_out_speed_reference.15203:00000000 $d
+    {standard input}:477    .bss.fuzzy_out_speed_reference.15203:00000000 fuzzy_out_speed_reference.15203
+    {standard input}:480    .bss.encoder_value_diff.15194:00000000 $d
+    {standard input}:484    .bss.encoder_value_diff.15194:00000000 encoder_value_diff.15194
+    {standard input}:487    .bss.prev_wake_time.15212:00000000 $d
+    {standard input}:491    .bss.prev_wake_time.15212:00000000 prev_wake_time.15212
+    {standard input}:494    .bss.encoder_value.15192:00000000 $d
+    {standard input}:498    .bss.encoder_value.15192:00000000 encoder_value.15192
+    {standard input}:501    .data.task_stacks:00000000 $d
+    {standard input}:509    .bss.fuzzy_pwm.15205:00000000 $d
+    {standard input}:513    .bss.fuzzy_pwm.15205:00000000 fuzzy_pwm.15205
+    {standard input}:516    .rodata.str1.4:00000000 $d
+    {standard input}:536    .bss.motor_position_normalized.15198:00000000 $d
+    {standard input}:540    .bss.motor_position_normalized.15198:00000000 motor_position_normalized.15198
+    {standard input}:543    .bss.position_error.15201:00000000 $d
+    {standard input}:547    .bss.position_error.15201:00000000 position_error.15201
+    {standard input}:550    .bss.motor_data.15213:00000000 $d
+    {standard input}:554    .bss.motor_data.15213:00000000 motor_data.15213
+    {standard input}:557    .bss.speed_error.15199:00000000 $d
+    {standard input}:561    .bss.speed_error.15199:00000000 speed_error.15199
+    {standard input}:564    .bss.accel.15200:00000000 $d
+    {standard input}:568    .bss.accel.15200:00000000 accel.15200
+    {standard input}:571    .bss.prev_wake_time.15188:00000000 $d
+    {standard input}:575    .bss.prev_wake_time.15188:00000000 prev_wake_time.15188
+
+UNDEFINED SYMBOLS
+xTaskGetTickCount
+GUI_SetFont
+getMotorData
+GUI_Clear
+GUI_SetColor
+GUI_DispStringAt
+sprintf
+vTaskDelayUntil
+GUI_Font16B_1
+__aeabi_l2f
+__aeabi_f2d
+__aeabi_dadd
+__aeabi_dmul
+__aeabi_d2f
+setupFuzzyController
+PWM_CCU8_Start
+PWM_CCU8_SetDutyCycleSymmetric
+computeFuzzy
+setMotorData
+getControlParams
+getEncoderValue
+setControlParams
+INH_2
+INH_1
+PWM_CCU8_0
+TEST_PIN
+xTaskCreate

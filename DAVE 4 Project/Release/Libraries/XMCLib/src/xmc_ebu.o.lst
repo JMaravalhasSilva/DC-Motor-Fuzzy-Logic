@@ -1,0 +1,102 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc_ebu.c"
+  16              	 .section .text.XMC_EBU_Init,"ax",%progbits
+  17              	 .align 2
+  18              	 .global XMC_EBU_Init
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	XMC_EBU_Init:
+  23              	 
+  24              	 
+  25 0000 38B5     	 push {r3,r4,r5,lr}
+  26 0002 0446     	 mov r4,r0
+  27 0004 0B48     	 ldr r0,.L6
+  28 0006 0D46     	 mov r5,r1
+  29 0008 FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+  30 000c 2368     	 ldr r3,[r4]
+  31 000e 23F00103 	 bic r3,r3,#1
+  32 0012 2360     	 str r3,[r4]
+  33 0014 2A68     	 ldr r2,[r5]
+  34 0016 2260     	 str r2,[r4]
+  35 0018 02F47022 	 and r2,r2,#983040
+  36              	.L2:
+  37 001c 2368     	 ldr r3,[r4]
+  38 001e 03F47003 	 and r3,r3,#15728640
+  39 0022 B2EB131F 	 cmp r2,r3,lsr#4
+  40 0026 F9D1     	 bne .L2
+  41 0028 6B68     	 ldr r3,[r5,#4]
+  42 002a 6360     	 str r3,[r4,#4]
+  43 002c AB68     	 ldr r3,[r5,#8]
+  44 002e E360     	 str r3,[r4,#12]
+  45 0030 0020     	 movs r0,#0
+  46 0032 38BD     	 pop {r3,r4,r5,pc}
+  47              	.L7:
+  48              	 .align 2
+  49              	.L6:
+  50 0034 04000030 	 .word 805306372
+  52              	 .section .text.XMC_EBU_ConfigureSdram,"ax",%progbits
+  53              	 .align 2
+  54              	 .global XMC_EBU_ConfigureSdram
+  55              	 .thumb
+  56              	 .thumb_func
+  58              	XMC_EBU_ConfigureSdram:
+  59              	 
+  60              	 
+  61              	 
+  62 0000 8B68     	 ldr r3,[r1,#8]
+  63 0002 0367     	 str r3,[r0,#112]
+  64 0004 0B68     	 ldr r3,[r1]
+  65 0006 8366     	 str r3,[r0,#104]
+  66 0008 4B68     	 ldr r3,[r1,#4]
+  67 000a C366     	 str r3,[r0,#108]
+  68 000c 7047     	 bx lr
+  70 000e 00BF     	 .section .text.XMC_EBU_ConfigureRegion,"ax",%progbits
+  71              	 .align 2
+  72              	 .global XMC_EBU_ConfigureRegion
+  73              	 .thumb
+  74              	 .thumb_func
+  76              	XMC_EBU_ConfigureRegion:
+  77              	 
+  78              	 
+  79              	 
+  80 0000 30B4     	 push {r4,r5}
+  81 0002 91E82800 	 ldmia r1,{r3,r5}
+  82 0006 00EB0313 	 add r3,r0,r3,lsl#4
+  83 000a CA68     	 ldr r2,[r1,#12]
+  84 000c 9D62     	 str r5,[r3,#40]
+  85 000e 03F12804 	 add r4,r3,#40
+  86 0012 8B68     	 ldr r3,[r1,#8]
+  87 0014 6360     	 str r3,[r4,#4]
+  88 0016 00EB0210 	 add r0,r0,r2,lsl#4
+  89 001a 0B69     	 ldr r3,[r1,#16]
+  90 001c 0363     	 str r3,[r0,#48]
+  91 001e 4B69     	 ldr r3,[r1,#20]
+  92 0020 4363     	 str r3,[r0,#52]
+  93 0022 30BC     	 pop {r4,r5}
+  94 0024 7047     	 bx lr
+  96 0026 00BF     	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_ebu.c
+    {standard input}:17     .text.XMC_EBU_Init:00000000 $t
+    {standard input}:22     .text.XMC_EBU_Init:00000000 XMC_EBU_Init
+    {standard input}:50     .text.XMC_EBU_Init:00000034 $d
+    {standard input}:53     .text.XMC_EBU_ConfigureSdram:00000000 $t
+    {standard input}:58     .text.XMC_EBU_ConfigureSdram:00000000 XMC_EBU_ConfigureSdram
+    {standard input}:71     .text.XMC_EBU_ConfigureRegion:00000000 $t
+    {standard input}:76     .text.XMC_EBU_ConfigureRegion:00000000 XMC_EBU_ConfigureRegion
+
+UNDEFINED SYMBOLS
+XMC_SCU_RESET_DeassertPeripheralReset

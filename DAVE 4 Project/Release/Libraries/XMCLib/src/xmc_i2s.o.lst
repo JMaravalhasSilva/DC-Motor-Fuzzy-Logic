@@ -1,0 +1,436 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc_i2s.c"
+  16              	 .section .text.XMC_I2S_CH_Init,"ax",%progbits
+  17              	 .align 2
+  18              	 .global XMC_I2S_CH_Init
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	XMC_I2S_CH_Init:
+  23              	 
+  24              	 
+  25 0000 2DE9F843 	 push {r3,r4,r5,r6,r7,r8,r9,lr}
+  26 0004 0D46     	 mov r5,r1
+  27 0006 0646     	 mov r6,r0
+  28 0008 FFF7FEFF 	 bl XMC_USIC_CH_Enable
+  29 000c 2B7A     	 ldrb r3,[r5,#8]
+  30 000e 002B     	 cmp r3,#0
+  31 0010 00F09280 	 beq .L30
+  32 0014 1946     	 mov r1,r3
+  33              	.L2:
+  34 0016 2B79     	 ldrb r3,[r5,#4]
+  35 0018 6A79     	 ldrb r2,[r5,#5]
+  36 001a 013B     	 subs r3,r3,#1
+  37 001c 1B06     	 lsls r3,r3,#24
+  38 001e 013A     	 subs r2,r2,#1
+  39 0020 43EA0243 	 orr r3,r3,r2,lsl#16
+  40 0024 43F44073 	 orr r3,r3,#768
+  41 0028 43F00103 	 orr r3,r3,#1
+  42 002c 7363     	 str r3,[r6,#52]
+  43 002e B36B     	 ldr r3,[r6,#56]
+  44 0030 23F4A363 	 bic r3,r3,#1304
+  45 0034 23F00703 	 bic r3,r3,#7
+  46 0038 43F4A163 	 orr r3,r3,#1288
+  47 003c B363     	 str r3,[r6,#56]
+  48 003e 09B9     	 cbnz r1,.L5
+  49 0040 0123     	 movs r3,#1
+  50 0042 F363     	 str r3,[r6,#60]
+  51              	.L5:
+  52 0044 E979     	 ldrb r1,[r5,#7]
+  53 0046 AA79     	 ldrb r2,[r5,#6]
+  54 0048 F36B     	 ldr r3,[r6,#60]
+  55 004a 41F00201 	 orr r1,r1,#2
+  56 004e 0B43     	 orrs r3,r3,r1
+  57 0050 013A     	 subs r2,r2,#1
+  58 0052 43EA0243 	 orr r3,r3,r2,lsl#16
+  59 0056 0124     	 movs r4,#1
+  60 0058 F363     	 str r3,[r6,#60]
+  61 005a 6979     	 ldrb r1,[r5,#5]
+  62 005c A446     	 mov ip,r4
+  63 005e A046     	 mov r8,r4
+  64 0060 2346     	 mov r3,r4
+  65 0062 0225     	 movs r5,#2
+  66 0064 0327     	 movs r7,#3
+  67 0066 4FF0040E 	 mov lr,#4
+  68 006a 4020     	 movs r0,#64
+  69 006c 41E0     	 b .L6
+  70              	.L31:
+  71 006e 2CBF     	 ite cs
+  72 0070 CA1A     	 subcs r2,r1,r3
+  73 0072 5A1A     	 subcc r2,r3,r1
+  74 0074 D2B2     	 uxtb r2,r2
+  75 0076 8242     	 cmp r2,r0
+  76 0078 03D2     	 bcs .L11
+  77 007a 1046     	 mov r0,r2
+  78 007c 9846     	 mov r8,r3
+  79 007e 4FF0010C 	 mov ip,#1
+  80              	.L11:
+  81 0082 A942     	 cmp r1,r5
+  82 0084 3BD0     	 beq .L23
+  83 0086 4FEA4302 	 lsl r2,r3,#1
+  84 008a 2CBF     	 ite cs
+  85 008c C2EB0109 	 rsbcs r9,r2,r1
+  86 0090 C1EB0209 	 rsbcc r9,r1,r2
+  87 0094 5FFA89F9 	 uxtb r9,r9
+  88 0098 4845     	 cmp r0,r9
+  89 009a 03D9     	 bls .L14
+  90 009c 4846     	 mov r0,r9
+  91 009e 9846     	 mov r8,r3
+  92 00a0 4FF0020C 	 mov ip,#2
+  93              	.L14:
+  94 00a4 B942     	 cmp r1,r7
+  95 00a6 2ED0     	 beq .L24
+  96 00a8 1A44     	 add r2,r2,r3
+  97 00aa 2CBF     	 ite cs
+  98 00ac 8A1A     	 subcs r2,r1,r2
+  99 00ae 521A     	 subcc r2,r2,r1
+ 100 00b0 D2B2     	 uxtb r2,r2
+ 101 00b2 9042     	 cmp r0,r2
+ 102 00b4 03D9     	 bls .L17
+ 103 00b6 1046     	 mov r0,r2
+ 104 00b8 9846     	 mov r8,r3
+ 105 00ba 4FF0030C 	 mov ip,#3
+ 106              	.L17:
+ 107 00be 7145     	 cmp r1,lr
+ 108 00c0 25D0     	 beq .L25
+ 109 00c2 2CBF     	 ite cs
+ 110 00c4 A1EB8302 	 subcs r2,r1,r3,lsl#2
+ 111 00c8 C1EB8302 	 rsbcc r2,r1,r3,lsl#2
+ 112 00cc D2B2     	 uxtb r2,r2
+ 113 00ce 9042     	 cmp r0,r2
+ 114 00d0 03D9     	 bls .L20
+ 115 00d2 1046     	 mov r0,r2
+ 116 00d4 9846     	 mov r8,r3
+ 117 00d6 4FF0040C 	 mov ip,#4
+ 118              	.L20:
+ 119 00da 0133     	 adds r3,r3,#1
+ 120 00dc DBB2     	 uxtb r3,r3
+ 121 00de 212B     	 cmp r3,#33
+ 122 00e0 04F10104 	 add r4,r4,#1
+ 123 00e4 0EF1040E 	 add lr,lr,#4
+ 124 00e8 07F10307 	 add r7,r7,#3
+ 125 00ec 05F10205 	 add r5,r5,#2
+ 126 00f0 11D0     	 beq .L7
+ 127              	.L6:
+ 128 00f2 A142     	 cmp r1,r4
+ 129 00f4 BBD1     	 bne .L31
+ 130 00f6 4FF0010C 	 mov ip,#1
+ 131 00fa 9846     	 mov r8,r3
+ 132 00fc EDE7     	 b .L20
+ 133              	.L23:
+ 134 00fe 4FF0020C 	 mov ip,#2
+ 135 0102 9846     	 mov r8,r3
+ 136 0104 E9E7     	 b .L20
+ 137              	.L24:
+ 138 0106 4FF0030C 	 mov ip,#3
+ 139 010a 9846     	 mov r8,r3
+ 140 010c E5E7     	 b .L20
+ 141              	.L25:
+ 142 010e 4FF0040C 	 mov ip,#4
+ 143 0112 9846     	 mov r8,r3
+ 144 0114 E1E7     	 b .L20
+ 145              	.L7:
+ 146 0116 7269     	 ldr r2,[r6,#20]
+ 147 0118 0CF1FF33 	 add r3,ip,#-1
+ 148 011c 1B02     	 lsls r3,r3,#8
+ 149 011e 08F1FF38 	 add r8,r8,#-1
+ 150 0122 22F4FE42 	 bic r2,r2,#32512
+ 151 0126 43EA8823 	 orr r3,r3,r8,lsl#10
+ 152 012a 1343     	 orrs r3,r3,r2
+ 153 012c 4FF0FF32 	 mov r2,#-1
+ 154 0130 7361     	 str r3,[r6,#20]
+ 155 0132 F264     	 str r2,[r6,#76]
+ 156 0134 BDE8F883 	 pop {r3,r4,r5,r6,r7,r8,r9,pc}
+ 157              	.L30:
+ 158 0138 2C68     	 ldr r4,[r5]
+ 159 013a FFF7FEFF 	 bl XMC_SCU_CLOCK_GetPeripheralClockFrequency
+ 160 013e B4EB500F 	 cmp r4,r0,lsr#1
+ 161 0142 01D9     	 bls .L32
+ 162              	.L28:
+ 163 0144 297A     	 ldrb r1,[r5,#8]
+ 164 0146 66E7     	 b .L2
+ 165              	.L32:
+ 166 0148 2146     	 mov r1,r4
+ 167 014a 3046     	 mov r0,r6
+ 168 014c 0422     	 movs r2,#4
+ 169 014e FFF7FEFF 	 bl XMC_USIC_CH_SetBaudrate
+ 170 0152 0028     	 cmp r0,#0
+ 171 0154 F6D1     	 bne .L28
+ 172 0156 7369     	 ldr r3,[r6,#20]
+ 173 0158 297A     	 ldrb r1,[r5,#8]
+ 174 015a 23F0D003 	 bic r3,r3,#208
+ 175 015e 43F09003 	 orr r3,r3,#144
+ 176 0162 7361     	 str r3,[r6,#20]
+ 177 0164 57E7     	 b .L2
+ 179 0166 00BF     	 .section .text.XMC_I2S_CH_SetBaudrate,"ax",%progbits
+ 180              	 .align 2
+ 181              	 .global XMC_I2S_CH_SetBaudrate
+ 182              	 .thumb
+ 183              	 .thumb_func
+ 185              	XMC_I2S_CH_SetBaudrate:
+ 186              	 
+ 187              	 
+ 188 0000 38B5     	 push {r3,r4,r5,lr}
+ 189 0002 0C46     	 mov r4,r1
+ 190 0004 0546     	 mov r5,r0
+ 191 0006 FFF7FEFF 	 bl XMC_SCU_CLOCK_GetPeripheralClockFrequency
+ 192 000a B4EB500F 	 cmp r4,r0,lsr#1
+ 193 000e 01D9     	 bls .L34
+ 194              	.L36:
+ 195 0010 0120     	 movs r0,#1
+ 196 0012 38BD     	 pop {r3,r4,r5,pc}
+ 197              	.L34:
+ 198 0014 2146     	 mov r1,r4
+ 199 0016 2846     	 mov r0,r5
+ 200 0018 0422     	 movs r2,#4
+ 201 001a FFF7FEFF 	 bl XMC_USIC_CH_SetBaudrate
+ 202 001e 0028     	 cmp r0,#0
+ 203 0020 F6D1     	 bne .L36
+ 204 0022 6B69     	 ldr r3,[r5,#20]
+ 205 0024 23F0D003 	 bic r3,r3,#208
+ 206 0028 43F09003 	 orr r3,r3,#144
+ 207 002c 6B61     	 str r3,[r5,#20]
+ 208 002e 38BD     	 pop {r3,r4,r5,pc}
+ 210              	 .section .text.XMC_I2S_CH_SetSystemWordLength,"ax",%progbits
+ 211              	 .align 2
+ 212              	 .global XMC_I2S_CH_SetSystemWordLength
+ 213              	 .thumb
+ 214              	 .thumb_func
+ 216              	XMC_I2S_CH_SetSystemWordLength:
+ 217              	 
+ 218              	 
+ 219 0000 2DE9F043 	 push {r4,r5,r6,r7,r8,r9,lr}
+ 220 0004 4FF0010E 	 mov lr,#1
+ 221 0008 F446     	 mov ip,lr
+ 222 000a F046     	 mov r8,lr
+ 223 000c 7346     	 mov r3,lr
+ 224 000e 0225     	 movs r5,#2
+ 225 0010 0326     	 movs r6,#3
+ 226 0012 0427     	 movs r7,#4
+ 227 0014 4024     	 movs r4,#64
+ 228 0016 44E0     	 b .L39
+ 229              	.L60:
+ 230 0018 2CBF     	 ite cs
+ 231 001a CA1A     	 subcs r2,r1,r3
+ 232 001c 5A1A     	 subcc r2,r3,r1
+ 233 001e D2B2     	 uxtb r2,r2
+ 234 0020 A242     	 cmp r2,r4
+ 235 0022 03D2     	 bcs .L44
+ 236 0024 1446     	 mov r4,r2
+ 237 0026 9846     	 mov r8,r3
+ 238 0028 4FF0010C 	 mov ip,#1
+ 239              	.L44:
+ 240 002c 8D42     	 cmp r5,r1
+ 241 002e 3ED0     	 beq .L55
+ 242 0030 A942     	 cmp r1,r5
+ 243 0032 4FEA4302 	 lsl r2,r3,#1
+ 244 0036 2CBF     	 ite cs
+ 245 0038 C2EB0109 	 rsbcs r9,r2,r1
+ 246 003c C1EB0209 	 rsbcc r9,r1,r2
+ 247 0040 5FFA89F9 	 uxtb r9,r9
+ 248 0044 4C45     	 cmp r4,r9
+ 249 0046 03D9     	 bls .L47
+ 250 0048 4C46     	 mov r4,r9
+ 251 004a 9846     	 mov r8,r3
+ 252 004c 4FF0020C 	 mov ip,#2
+ 253              	.L47:
+ 254 0050 8E42     	 cmp r6,r1
+ 255 0052 30D0     	 beq .L56
+ 256 0054 1A44     	 add r2,r2,r3
+ 257 0056 B142     	 cmp r1,r6
+ 258 0058 2CBF     	 ite cs
+ 259 005a 8A1A     	 subcs r2,r1,r2
+ 260 005c 521A     	 subcc r2,r2,r1
+ 261 005e D2B2     	 uxtb r2,r2
+ 262 0060 9442     	 cmp r4,r2
+ 263 0062 03D9     	 bls .L50
+ 264 0064 1446     	 mov r4,r2
+ 265 0066 9846     	 mov r8,r3
+ 266 0068 4FF0030C 	 mov ip,#3
+ 267              	.L50:
+ 268 006c 8F42     	 cmp r7,r1
+ 269 006e 26D0     	 beq .L57
+ 270 0070 B942     	 cmp r1,r7
+ 271 0072 2CBF     	 ite cs
+ 272 0074 A1EB8302 	 subcs r2,r1,r3,lsl#2
+ 273 0078 C1EB8302 	 rsbcc r2,r1,r3,lsl#2
+ 274 007c D2B2     	 uxtb r2,r2
+ 275 007e 9442     	 cmp r4,r2
+ 276 0080 03D9     	 bls .L53
+ 277 0082 1446     	 mov r4,r2
+ 278 0084 9846     	 mov r8,r3
+ 279 0086 4FF0040C 	 mov ip,#4
+ 280              	.L53:
+ 281 008a 0133     	 adds r3,r3,#1
+ 282 008c DBB2     	 uxtb r3,r3
+ 283 008e 212B     	 cmp r3,#33
+ 284 0090 0EF1010E 	 add lr,lr,#1
+ 285 0094 07F10407 	 add r7,r7,#4
+ 286 0098 06F10306 	 add r6,r6,#3
+ 287 009c 05F10205 	 add r5,r5,#2
+ 288 00a0 11D0     	 beq .L40
+ 289              	.L39:
+ 290 00a2 7145     	 cmp r1,lr
+ 291 00a4 B8D1     	 bne .L60
+ 292 00a6 4FF0010C 	 mov ip,#1
+ 293 00aa 9846     	 mov r8,r3
+ 294 00ac EDE7     	 b .L53
+ 295              	.L55:
+ 296 00ae 4FF0020C 	 mov ip,#2
+ 297 00b2 9846     	 mov r8,r3
+ 298 00b4 E9E7     	 b .L53
+ 299              	.L56:
+ 300 00b6 4FF0030C 	 mov ip,#3
+ 301 00ba 9846     	 mov r8,r3
+ 302 00bc E5E7     	 b .L53
+ 303              	.L57:
+ 304 00be 4FF0040C 	 mov ip,#4
+ 305 00c2 9846     	 mov r8,r3
+ 306 00c4 E1E7     	 b .L53
+ 307              	.L40:
+ 308 00c6 4269     	 ldr r2,[r0,#20]
+ 309 00c8 0CF1FF33 	 add r3,ip,#-1
+ 310 00cc 1B02     	 lsls r3,r3,#8
+ 311 00ce 08F1FF38 	 add r8,r8,#-1
+ 312 00d2 43EA8823 	 orr r3,r3,r8,lsl#10
+ 313 00d6 22F4FE42 	 bic r2,r2,#32512
+ 314 00da 1343     	 orrs r3,r3,r2
+ 315 00dc 4361     	 str r3,[r0,#20]
+ 316 00de BDE8F083 	 pop {r4,r5,r6,r7,r8,r9,pc}
+ 318 00e2 00BF     	 .section .text.XMC_I2S_CH_Transmit,"ax",%progbits
+ 319              	 .align 2
+ 320              	 .global XMC_I2S_CH_Transmit
+ 321              	 .thumb
+ 322              	 .thumb_func
+ 324              	XMC_I2S_CH_Transmit:
+ 325              	 
+ 326              	 
+ 327              	 
+ 328 0000 D0F80831 	 ldr r3,[r0,#264]
+ 329 0004 13F0E06F 	 tst r3,#117440512
+ 330 0008 04D0     	 beq .L63
+ 331 000a 1201     	 lsls r2,r2,#4
+ 332 000c 6032     	 adds r2,r2,#96
+ 333 000e 40F82210 	 str r1,[r0,r2,lsl#2]
+ 334 0012 7047     	 bx lr
+ 335              	.L63:
+ 336 0014 836B     	 ldr r3,[r0,#56]
+ 337 0016 1B06     	 lsls r3,r3,#24
+ 338 0018 FCD4     	 bmi .L63
+ 339 001a C36C     	 ldr r3,[r0,#76]
+ 340 001c 1201     	 lsls r2,r2,#4
+ 341 001e 2032     	 adds r2,r2,#32
+ 342 0020 43F40053 	 orr r3,r3,#8192
+ 343 0024 C364     	 str r3,[r0,#76]
+ 344 0026 40F82210 	 str r1,[r0,r2,lsl#2]
+ 345 002a 7047     	 bx lr
+ 347              	 .section .text.XMC_I2S_CH_GetReceivedData,"ax",%progbits
+ 348              	 .align 2
+ 349              	 .global XMC_I2S_CH_GetReceivedData
+ 350              	 .thumb
+ 351              	 .thumb_func
+ 353              	XMC_I2S_CH_GetReceivedData:
+ 354              	 
+ 355              	 
+ 356              	 
+ 357 0000 D0F80C31 	 ldr r3,[r0,#268]
+ 358 0004 13F0E06F 	 tst r3,#117440512
+ 359 0008 0CBF     	 ite eq
+ 360 000a 406D     	 ldreq r0,[r0,#84]
+ 361 000c D0F81C01 	 ldrne r0,[r0,#284]
+ 362 0010 80B2     	 uxth r0,r0
+ 363 0012 7047     	 bx lr
+ 365              	 .section .text.XMC_I2S_CH_Stop,"ax",%progbits
+ 366              	 .align 2
+ 367              	 .global XMC_I2S_CH_Stop
+ 368              	 .thumb
+ 369              	 .thumb_func
+ 371              	XMC_I2S_CH_Stop:
+ 372              	 
+ 373              	 
+ 374              	 
+ 375 0000 836B     	 ldr r3,[r0,#56]
+ 376 0002 1B06     	 lsls r3,r3,#24
+ 377 0004 05D4     	 bmi .L72
+ 378 0006 036C     	 ldr r3,[r0,#64]
+ 379 0008 23F00F03 	 bic r3,r3,#15
+ 380 000c 0364     	 str r3,[r0,#64]
+ 381 000e 0020     	 movs r0,#0
+ 382 0010 7047     	 bx lr
+ 383              	.L72:
+ 384 0012 0220     	 movs r0,#2
+ 385 0014 7047     	 bx lr
+ 387 0016 00BF     	 .section .text.XMC_I2S_CH_EnableEvent,"ax",%progbits
+ 388              	 .align 2
+ 389              	 .global XMC_I2S_CH_EnableEvent
+ 390              	 .thumb
+ 391              	 .thumb_func
+ 393              	XMC_I2S_CH_EnableEvent:
+ 394              	 
+ 395              	 
+ 396              	 
+ 397 0000 036C     	 ldr r3,[r0,#64]
+ 398 0002 01F4FE32 	 and r2,r1,#130048
+ 399 0006 1343     	 orrs r3,r3,r2
+ 400 0008 0364     	 str r3,[r0,#64]
+ 401 000a C36B     	 ldr r3,[r0,#60]
+ 402 000c 48F27002 	 movw r2,#32880
+ 403 0010 02EA9101 	 and r1,r2,r1,lsr#2
+ 404 0014 1943     	 orrs r1,r1,r3
+ 405 0016 C163     	 str r1,[r0,#60]
+ 406 0018 7047     	 bx lr
+ 408 001a 00BF     	 .section .text.XMC_I2S_CH_DisableEvent,"ax",%progbits
+ 409              	 .align 2
+ 410              	 .global XMC_I2S_CH_DisableEvent
+ 411              	 .thumb
+ 412              	 .thumb_func
+ 414              	XMC_I2S_CH_DisableEvent:
+ 415              	 
+ 416              	 
+ 417              	 
+ 418 0000 036C     	 ldr r3,[r0,#64]
+ 419 0002 01F4FE32 	 and r2,r1,#130048
+ 420 0006 23EA0203 	 bic r3,r3,r2
+ 421 000a 0364     	 str r3,[r0,#64]
+ 422 000c C36B     	 ldr r3,[r0,#60]
+ 423 000e 48F27002 	 movw r2,#32880
+ 424 0012 02EA9101 	 and r1,r2,r1,lsr#2
+ 425 0016 23EA0101 	 bic r1,r3,r1
+ 426 001a C163     	 str r1,[r0,#60]
+ 427 001c 7047     	 bx lr
+ 429 001e 00BF     	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_i2s.c
+    {standard input}:17     .text.XMC_I2S_CH_Init:00000000 $t
+    {standard input}:22     .text.XMC_I2S_CH_Init:00000000 XMC_I2S_CH_Init
+    {standard input}:180    .text.XMC_I2S_CH_SetBaudrate:00000000 $t
+    {standard input}:185    .text.XMC_I2S_CH_SetBaudrate:00000000 XMC_I2S_CH_SetBaudrate
+    {standard input}:211    .text.XMC_I2S_CH_SetSystemWordLength:00000000 $t
+    {standard input}:216    .text.XMC_I2S_CH_SetSystemWordLength:00000000 XMC_I2S_CH_SetSystemWordLength
+    {standard input}:319    .text.XMC_I2S_CH_Transmit:00000000 $t
+    {standard input}:324    .text.XMC_I2S_CH_Transmit:00000000 XMC_I2S_CH_Transmit
+    {standard input}:348    .text.XMC_I2S_CH_GetReceivedData:00000000 $t
+    {standard input}:353    .text.XMC_I2S_CH_GetReceivedData:00000000 XMC_I2S_CH_GetReceivedData
+    {standard input}:366    .text.XMC_I2S_CH_Stop:00000000 $t
+    {standard input}:371    .text.XMC_I2S_CH_Stop:00000000 XMC_I2S_CH_Stop
+    {standard input}:388    .text.XMC_I2S_CH_EnableEvent:00000000 $t
+    {standard input}:393    .text.XMC_I2S_CH_EnableEvent:00000000 XMC_I2S_CH_EnableEvent
+    {standard input}:409    .text.XMC_I2S_CH_DisableEvent:00000000 $t
+    {standard input}:414    .text.XMC_I2S_CH_DisableEvent:00000000 XMC_I2S_CH_DisableEvent
+
+UNDEFINED SYMBOLS
+XMC_USIC_CH_Enable
+XMC_SCU_CLOCK_GetPeripheralClockFrequency
+XMC_USIC_CH_SetBaudrate

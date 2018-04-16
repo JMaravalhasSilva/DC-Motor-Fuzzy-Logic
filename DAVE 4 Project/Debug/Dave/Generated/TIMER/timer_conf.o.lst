@@ -1,0 +1,66 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "timer_conf.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .global ENCODER_TIMER
+  20              	 .global ENCODER_TIMER_config
+  21              	 .section .bss.ENCODER_TIMER_config,"aw",%nobits
+  22              	 .align 2
+  25              	ENCODER_TIMER_config:
+  26 0000 00000000 	 .space 8
+  26      00000000 
+  27              	 .section .data.ENCODER_TIMER,"aw",%progbits
+  28              	 .align 2
+  31              	ENCODER_TIMER:
+  32 0000 E8030000 	 .word 1000
+  33 0004 3435E358 	 .word 1491285300
+  34 0008 0A000000 	 .word 10
+  35 000c 00500000 	 .word 20480
+  36 0010 00000000 	 .word GLOBAL_CCU4_0
+  37 0014 00440048 	 .word 1207976960
+  38 0018 03       	 .byte 3
+  39 0019 000000   	 .space 3
+  40 001c 00000000 	 .word ENCODER_TIMER_config
+  41 0020 01       	 .byte 1
+  42 0021 00       	 .byte 0
+  43 0022 9F05     	 .short 1439
+  44 0024 01       	 .byte 1
+  45 0025 01       	 .byte 1
+  46 0026 00       	 .byte 0
+  47 0027 00       	 .space 1
+  48              	 .text
+  49              	.Letext0:
+  50              	 .file 1 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+  51              	 .file 2 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+  52              	 .file 3 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/CMSIS/Infineon/XMC4700_series/Include/XMC4700.h"
+  53              	 .file 4 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/XMCLib/inc/xmc_ccu4.h"
+  54              	 .file 5 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/XMCLib/inc/xmc4_scu.h"
+  55              	 .file 6 "C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/GLOBAL_CCU4/global_ccu4.h"
+  56              	 .file 7 "../Dave/Generated/TIMER/timer.h"
+  57              	 .file 8 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/CMSIS/Include/core_cm4.h"
+  58              	 .file 9 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
+  59              	 .file 10 "C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/GLOBAL_CCU4/global_ccu4_extern.h"
+  60              	 .file 11 "../Dave/Generated/TIMER/timer_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 timer_conf.c
+    {standard input}:31     .data.ENCODER_TIMER:00000000 ENCODER_TIMER
+    {standard input}:25     .bss.ENCODER_TIMER_config:00000000 ENCODER_TIMER_config
+    {standard input}:22     .bss.ENCODER_TIMER_config:00000000 $d
+    {standard input}:28     .data.ENCODER_TIMER:00000000 $d
+
+UNDEFINED SYMBOLS
+GLOBAL_CCU4_0

@@ -1,0 +1,3477 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc4_scu.c"
+  16              	 .section .text.XMC_SCU_INTERRUPT_EnableEvent,"ax",%progbits
+  17              	 .align 2
+  18              	 .global XMC_SCU_INTERRUPT_EnableEvent
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	XMC_SCU_INTERRUPT_EnableEvent:
+  23              	 
+  24              	 
+  25              	 
+  26 0000 024A     	 ldr r2,.L2
+  27 0002 9368     	 ldr r3,[r2,#8]
+  28 0004 1843     	 orrs r0,r0,r3
+  29 0006 9060     	 str r0,[r2,#8]
+  30 0008 7047     	 bx lr
+  31              	.L3:
+  32 000a 00BF     	 .align 2
+  33              	.L2:
+  34 000c 74400050 	 .word 1342193780
+  36              	 .section .text.XMC_SCU_INTERRUPT_DisableEvent,"ax",%progbits
+  37              	 .align 2
+  38              	 .global XMC_SCU_INTERRUPT_DisableEvent
+  39              	 .thumb
+  40              	 .thumb_func
+  42              	XMC_SCU_INTERRUPT_DisableEvent:
+  43              	 
+  44              	 
+  45              	 
+  46 0000 024A     	 ldr r2,.L5
+  47 0002 9368     	 ldr r3,[r2,#8]
+  48 0004 23EA0000 	 bic r0,r3,r0
+  49 0008 9060     	 str r0,[r2,#8]
+  50 000a 7047     	 bx lr
+  51              	.L6:
+  52              	 .align 2
+  53              	.L5:
+  54 000c 74400050 	 .word 1342193780
+  56              	 .section .text.XMC_SCU_INTERRUPT_TriggerEvent,"ax",%progbits
+  57              	 .align 2
+  58              	 .global XMC_SCU_INTERRUPT_TriggerEvent
+  59              	 .thumb
+  60              	 .thumb_func
+  62              	XMC_SCU_INTERRUPT_TriggerEvent:
+  63              	 
+  64              	 
+  65              	 
+  66 0000 024A     	 ldr r2,.L8
+  67 0002 1369     	 ldr r3,[r2,#16]
+  68 0004 1843     	 orrs r0,r0,r3
+  69 0006 1061     	 str r0,[r2,#16]
+  70 0008 7047     	 bx lr
+  71              	.L9:
+  72 000a 00BF     	 .align 2
+  73              	.L8:
+  74 000c 74400050 	 .word 1342193780
+  76              	 .section .text.XMC_SCU_INTERUPT_GetEventStatus,"ax",%progbits
+  77              	 .align 2
+  78              	 .global XMC_SCU_INTERUPT_GetEventStatus
+  79              	 .thumb
+  80              	 .thumb_func
+  82              	XMC_SCU_INTERUPT_GetEventStatus:
+  83              	 
+  84              	 
+  85              	 
+  86 0000 014B     	 ldr r3,.L11
+  87 0002 5868     	 ldr r0,[r3,#4]
+  88 0004 7047     	 bx lr
+  89              	.L12:
+  90 0006 00BF     	 .align 2
+  91              	.L11:
+  92 0008 74400050 	 .word 1342193780
+  94              	 .section .text.XMC_SCU_INTERRUPT_ClearEventStatus,"ax",%progbits
+  95              	 .align 2
+  96              	 .global XMC_SCU_INTERRUPT_ClearEventStatus
+  97              	 .thumb
+  98              	 .thumb_func
+ 100              	XMC_SCU_INTERRUPT_ClearEventStatus:
+ 101              	 
+ 102              	 
+ 103              	 
+ 104 0000 014B     	 ldr r3,.L14
+ 105 0002 D860     	 str r0,[r3,#12]
+ 106 0004 7047     	 bx lr
+ 107              	.L15:
+ 108 0006 00BF     	 .align 2
+ 109              	.L14:
+ 110 0008 74400050 	 .word 1342193780
+ 112              	 .section .text.XMC_SCU_GetBootMode,"ax",%progbits
+ 113              	 .align 2
+ 114              	 .global XMC_SCU_GetBootMode
+ 115              	 .thumb
+ 116              	 .thumb_func
+ 118              	XMC_SCU_GetBootMode:
+ 119              	 
+ 120              	 
+ 121              	 
+ 122 0000 024B     	 ldr r3,.L17
+ 123 0002 1869     	 ldr r0,[r3,#16]
+ 124 0004 00F47060 	 and r0,r0,#3840
+ 125 0008 7047     	 bx lr
+ 126              	.L18:
+ 127 000a 00BF     	 .align 2
+ 128              	.L17:
+ 129 000c 00400050 	 .word 1342193664
+ 131              	 .section .text.XMC_SCU_SetBootMode,"ax",%progbits
+ 132              	 .align 2
+ 133              	 .global XMC_SCU_SetBootMode
+ 134              	 .thumb
+ 135              	 .thumb_func
+ 137              	XMC_SCU_SetBootMode:
+ 138              	 
+ 139              	 
+ 140              	 
+ 141 0000 014B     	 ldr r3,.L20
+ 142 0002 1861     	 str r0,[r3,#16]
+ 143 0004 7047     	 bx lr
+ 144              	.L21:
+ 145 0006 00BF     	 .align 2
+ 146              	.L20:
+ 147 0008 00400050 	 .word 1342193664
+ 149              	 .section .text.XMC_SCU_ReadGPR,"ax",%progbits
+ 150              	 .align 2
+ 151              	 .global XMC_SCU_ReadGPR
+ 152              	 .thumb
+ 153              	 .thumb_func
+ 155              	XMC_SCU_ReadGPR:
+ 156              	 
+ 157              	 
+ 158              	 
+ 159 0000 024B     	 ldr r3,.L23
+ 160 0002 8000     	 lsls r0,r0,#2
+ 161 0004 0344     	 add r3,r3,r0
+ 162 0006 5868     	 ldr r0,[r3,#4]
+ 163 0008 7047     	 bx lr
+ 164              	.L24:
+ 165 000a 00BF     	 .align 2
+ 166              	.L23:
+ 167 000c 28400050 	 .word 1342193704
+ 169              	 .section .text.XMC_SCU_WriteGPR,"ax",%progbits
+ 170              	 .align 2
+ 171              	 .global XMC_SCU_WriteGPR
+ 172              	 .thumb
+ 173              	 .thumb_func
+ 175              	XMC_SCU_WriteGPR:
+ 176              	 
+ 177              	 
+ 178              	 
+ 179 0000 024B     	 ldr r3,.L26
+ 180 0002 8000     	 lsls r0,r0,#2
+ 181 0004 0344     	 add r3,r3,r0
+ 182 0006 5960     	 str r1,[r3,#4]
+ 183 0008 7047     	 bx lr
+ 184              	.L27:
+ 185 000a 00BF     	 .align 2
+ 186              	.L26:
+ 187 000c 28400050 	 .word 1342193704
+ 189              	 .section .text.XMC_SCU_EnableOutOfRangeComparator,"ax",%progbits
+ 190              	 .align 2
+ 191              	 .global XMC_SCU_EnableOutOfRangeComparator
+ 192              	 .thumb
+ 193              	 .thumb_func
+ 195              	XMC_SCU_EnableOutOfRangeComparator:
+ 196              	 
+ 197              	 
+ 198              	 
+ 199 0000 8000     	 lsls r0,r0,#2
+ 200 0002 00F1A040 	 add r0,r0,#1342177280
+ 201 0006 00F58040 	 add r0,r0,#16384
+ 202 000a 0122     	 movs r2,#1
+ 203 000c D0F8A030 	 ldr r3,[r0,#160]
+ 204 0010 8A40     	 lsls r2,r2,r1
+ 205 0012 1343     	 orrs r3,r3,r2
+ 206 0014 C0F8A030 	 str r3,[r0,#160]
+ 207 0018 7047     	 bx lr
+ 209 001a 00BF     	 .section .text.XMC_SCU_DisableOutOfRangeComparator,"ax",%progbits
+ 210              	 .align 2
+ 211              	 .global XMC_SCU_DisableOutOfRangeComparator
+ 212              	 .thumb
+ 213              	 .thumb_func
+ 215              	XMC_SCU_DisableOutOfRangeComparator:
+ 216              	 
+ 217              	 
+ 218              	 
+ 219 0000 8000     	 lsls r0,r0,#2
+ 220 0002 00F1A040 	 add r0,r0,#1342177280
+ 221 0006 00F58040 	 add r0,r0,#16384
+ 222 000a 0122     	 movs r2,#1
+ 223 000c D0F8A030 	 ldr r3,[r0,#160]
+ 224 0010 8A40     	 lsls r2,r2,r1
+ 225 0012 23EA0203 	 bic r3,r3,r2
+ 226 0016 C0F8A030 	 str r3,[r0,#160]
+ 227 001a 7047     	 bx lr
+ 229              	 .section .text.XMC_SCU_CalibrateTemperatureSensor,"ax",%progbits
+ 230              	 .align 2
+ 231              	 .global XMC_SCU_CalibrateTemperatureSensor
+ 232              	 .thumb
+ 233              	 .thumb_func
+ 235              	XMC_SCU_CalibrateTemperatureSensor:
+ 236              	 
+ 237              	 
+ 238              	 
+ 239 0000 C902     	 lsls r1,r1,#11
+ 240 0002 41F40801 	 orr r1,r1,#8912896
+ 241 0006 034B     	 ldr r3,.L31
+ 242 0008 41EA0010 	 orr r0,r1,r0,lsl#4
+ 243 000c C3F88C00 	 str r0,[r3,#140]
+ 244 0010 7047     	 bx lr
+ 245              	.L32:
+ 246 0012 00BF     	 .align 2
+ 247              	.L31:
+ 248 0014 00400050 	 .word 1342193664
+ 250              	 .section .text.XMC_SCU_EnableTemperatureSensor,"ax",%progbits
+ 251              	 .align 2
+ 252              	 .global XMC_SCU_EnableTemperatureSensor
+ 253              	 .thumb
+ 254              	 .thumb_func
+ 256              	XMC_SCU_EnableTemperatureSensor:
+ 257              	 
+ 258              	 
+ 259              	 
+ 260 0000 034A     	 ldr r2,.L34
+ 261 0002 D2F88C30 	 ldr r3,[r2,#140]
+ 262 0006 23F00103 	 bic r3,r3,#1
+ 263 000a C2F88C30 	 str r3,[r2,#140]
+ 264 000e 7047     	 bx lr
+ 265              	.L35:
+ 266              	 .align 2
+ 267              	.L34:
+ 268 0010 00400050 	 .word 1342193664
+ 270              	 .section .text.XMC_SCU_DisableTemperatureSensor,"ax",%progbits
+ 271              	 .align 2
+ 272              	 .global XMC_SCU_DisableTemperatureSensor
+ 273              	 .thumb
+ 274              	 .thumb_func
+ 276              	XMC_SCU_DisableTemperatureSensor:
+ 277              	 
+ 278              	 
+ 279              	 
+ 280 0000 034A     	 ldr r2,.L37
+ 281 0002 D2F88C30 	 ldr r3,[r2,#140]
+ 282 0006 43F00103 	 orr r3,r3,#1
+ 283 000a C2F88C30 	 str r3,[r2,#140]
+ 284 000e 7047     	 bx lr
+ 285              	.L38:
+ 286              	 .align 2
+ 287              	.L37:
+ 288 0010 00400050 	 .word 1342193664
+ 290              	 .section .text.XMC_SCU_IsTemperatureSensorEnabled,"ax",%progbits
+ 291              	 .align 2
+ 292              	 .global XMC_SCU_IsTemperatureSensorEnabled
+ 293              	 .thumb
+ 294              	 .thumb_func
+ 296              	XMC_SCU_IsTemperatureSensorEnabled:
+ 297              	 
+ 298              	 
+ 299              	 
+ 300 0000 034B     	 ldr r3,.L40
+ 301 0002 D3F88C00 	 ldr r0,[r3,#140]
+ 302 0006 00F00100 	 and r0,r0,#1
+ 303 000a 80F00100 	 eor r0,r0,#1
+ 304 000e 7047     	 bx lr
+ 305              	.L41:
+ 306              	 .align 2
+ 307              	.L40:
+ 308 0010 00400050 	 .word 1342193664
+ 310              	 .section .text.XMC_SCU_IsTemperatureSensorReady,"ax",%progbits
+ 311              	 .align 2
+ 312              	 .global XMC_SCU_IsTemperatureSensorReady
+ 313              	 .thumb
+ 314              	 .thumb_func
+ 316              	XMC_SCU_IsTemperatureSensorReady:
+ 317              	 
+ 318              	 
+ 319              	 
+ 320 0000 024B     	 ldr r3,.L43
+ 321 0002 D3F89000 	 ldr r0,[r3,#144]
+ 322 0006 C0F38030 	 ubfx r0,r0,#14,#1
+ 323 000a 7047     	 bx lr
+ 324              	.L44:
+ 325              	 .align 2
+ 326              	.L43:
+ 327 000c 00400050 	 .word 1342193664
+ 329              	 .section .text.XMC_SCU_StartTemperatureMeasurement,"ax",%progbits
+ 330              	 .align 2
+ 331              	 .global XMC_SCU_StartTemperatureMeasurement
+ 332              	 .thumb
+ 333              	 .thumb_func
+ 335              	XMC_SCU_StartTemperatureMeasurement:
+ 336              	 
+ 337              	 
+ 338              	 
+ 339 0000 084B     	 ldr r3,.L48
+ 340 0002 084A     	 ldr r2,.L48
+ 341 0004 D3F88C00 	 ldr r0,[r3,#140]
+ 342 0008 D3F89030 	 ldr r3,[r3,#144]
+ 343 000c 1B04     	 lsls r3,r3,#16
+ 344 000e D2F88C30 	 ldr r3,[r2,#140]
+ 345 0012 43F00203 	 orr r3,r3,#2
+ 346 0016 54BF     	 ite pl
+ 347 0018 00F00100 	 andpl r0,r0,#1
+ 348 001c 0220     	 movmi r0,#2
+ 349 001e C2F88C30 	 str r3,[r2,#140]
+ 350 0022 7047     	 bx lr
+ 351              	.L49:
+ 352              	 .align 2
+ 353              	.L48:
+ 354 0024 00400050 	 .word 1342193664
+ 356              	 .section .text.XMC_SCU_GetTemperatureMeasurement,"ax",%progbits
+ 357              	 .align 2
+ 358              	 .global XMC_SCU_GetTemperatureMeasurement
+ 359              	 .thumb
+ 360              	 .thumb_func
+ 362              	XMC_SCU_GetTemperatureMeasurement:
+ 363              	 
+ 364              	 
+ 365              	 
+ 366 0000 054B     	 ldr r3,.L53
+ 367 0002 D3F88C20 	 ldr r2,[r3,#140]
+ 368 0006 D207     	 lsls r2,r2,#31
+ 369 0008 5ABF     	 itte pl
+ 370 000a D3F89000 	 ldrpl r0,[r3,#144]
+ 371 000e C0F30900 	 ubfxpl r0,r0,#0,#10
+ 372 0012 6FF00040 	 mvnmi r0,#-2147483648
+ 373 0016 7047     	 bx lr
+ 374              	.L54:
+ 375              	 .align 2
+ 376              	.L53:
+ 377 0018 00400050 	 .word 1342193664
+ 379              	 .section .text.XMC_SCU_IsTemperatureSensorBusy,"ax",%progbits
+ 380              	 .align 2
+ 381              	 .global XMC_SCU_IsTemperatureSensorBusy
+ 382              	 .thumb
+ 383              	 .thumb_func
+ 385              	XMC_SCU_IsTemperatureSensorBusy:
+ 386              	 
+ 387              	 
+ 388              	 
+ 389 0000 024B     	 ldr r3,.L56
+ 390 0002 D3F89000 	 ldr r0,[r3,#144]
+ 391 0006 C0F3C030 	 ubfx r0,r0,#15,#1
+ 392 000a 7047     	 bx lr
+ 393              	.L57:
+ 394              	 .align 2
+ 395              	.L56:
+ 396 000c 00400050 	 .word 1342193664
+ 398              	 .section .text.XMC_SCU_WriteToRetentionMemory,"ax",%progbits
+ 399              	 .align 2
+ 400              	 .global XMC_SCU_WriteToRetentionMemory
+ 401              	 .thumb
+ 402              	 .thumb_func
+ 404              	XMC_SCU_WriteToRetentionMemory:
+ 405              	 
+ 406              	 
+ 407              	 
+ 408 0000 0004     	 lsls r0,r0,#16
+ 409 0002 074B     	 ldr r3,.L62
+ 410 0004 00F47020 	 and r0,r0,#983040
+ 411 0008 40F00100 	 orr r0,r0,#1
+ 412 000c C3F8CC10 	 str r1,[r3,#204]
+ 413 0010 1A46     	 mov r2,r3
+ 414 0012 C3F8C800 	 str r0,[r3,#200]
+ 415              	.L59:
+ 416 0016 D2F8C430 	 ldr r3,[r2,#196]
+ 417 001a 9B04     	 lsls r3,r3,#18
+ 418 001c FBD4     	 bmi .L59
+ 419 001e 7047     	 bx lr
+ 420              	.L63:
+ 421              	 .align 2
+ 422              	.L62:
+ 423 0020 00400050 	 .word 1342193664
+ 425              	 .section .text.XMC_SCU_ReadFromRetentionMemory,"ax",%progbits
+ 426              	 .align 2
+ 427              	 .global XMC_SCU_ReadFromRetentionMemory
+ 428              	 .thumb
+ 429              	 .thumb_func
+ 431              	XMC_SCU_ReadFromRetentionMemory:
+ 432              	 
+ 433              	 
+ 434              	 
+ 435 0000 0004     	 lsls r0,r0,#16
+ 436 0002 064A     	 ldr r2,.L67
+ 437 0004 00F47020 	 and r0,r0,#983040
+ 438 0008 C2F8C800 	 str r0,[r2,#200]
+ 439              	.L65:
+ 440 000c D2F8C430 	 ldr r3,[r2,#196]
+ 441 0010 0249     	 ldr r1,.L67
+ 442 0012 9B04     	 lsls r3,r3,#18
+ 443 0014 FAD4     	 bmi .L65
+ 444 0016 D1F8CC00 	 ldr r0,[r1,#204]
+ 445 001a 7047     	 bx lr
+ 446              	.L68:
+ 447              	 .align 2
+ 448              	.L67:
+ 449 001c 00400050 	 .word 1342193664
+ 451              	 .section .text.XMC_SCU_TRAP_Enable,"ax",%progbits
+ 452              	 .align 2
+ 453              	 .global XMC_SCU_TRAP_Enable
+ 454              	 .thumb
+ 455              	 .thumb_func
+ 457              	XMC_SCU_TRAP_Enable:
+ 458              	 
+ 459              	 
+ 460              	 
+ 461 0000 024A     	 ldr r2,.L70
+ 462 0002 9368     	 ldr r3,[r2,#8]
+ 463 0004 23EA0000 	 bic r0,r3,r0
+ 464 0008 9060     	 str r0,[r2,#8]
+ 465 000a 7047     	 bx lr
+ 466              	.L71:
+ 467              	 .align 2
+ 468              	.L70:
+ 469 000c 60410050 	 .word 1342194016
+ 471              	 .section .text.XMC_SCU_TRAP_Disable,"ax",%progbits
+ 472              	 .align 2
+ 473              	 .global XMC_SCU_TRAP_Disable
+ 474              	 .thumb
+ 475              	 .thumb_func
+ 477              	XMC_SCU_TRAP_Disable:
+ 478              	 
+ 479              	 
+ 480              	 
+ 481 0000 024A     	 ldr r2,.L73
+ 482 0002 9368     	 ldr r3,[r2,#8]
+ 483 0004 1843     	 orrs r0,r0,r3
+ 484 0006 9060     	 str r0,[r2,#8]
+ 485 0008 7047     	 bx lr
+ 486              	.L74:
+ 487 000a 00BF     	 .align 2
+ 488              	.L73:
+ 489 000c 60410050 	 .word 1342194016
+ 491              	 .section .text.XMC_SCU_TRAP_GetStatus,"ax",%progbits
+ 492              	 .align 2
+ 493              	 .global XMC_SCU_TRAP_GetStatus
+ 494              	 .thumb
+ 495              	 .thumb_func
+ 497              	XMC_SCU_TRAP_GetStatus:
+ 498              	 
+ 499              	 
+ 500              	 
+ 501 0000 014B     	 ldr r3,.L76
+ 502 0002 5868     	 ldr r0,[r3,#4]
+ 503 0004 7047     	 bx lr
+ 504              	.L77:
+ 505 0006 00BF     	 .align 2
+ 506              	.L76:
+ 507 0008 60410050 	 .word 1342194016
+ 509              	 .section .text.XMC_SCU_TRAP_Trigger,"ax",%progbits
+ 510              	 .align 2
+ 511              	 .global XMC_SCU_TRAP_Trigger
+ 512              	 .thumb
+ 513              	 .thumb_func
+ 515              	XMC_SCU_TRAP_Trigger:
+ 516              	 
+ 517              	 
+ 518              	 
+ 519 0000 014B     	 ldr r3,.L79
+ 520 0002 1861     	 str r0,[r3,#16]
+ 521 0004 7047     	 bx lr
+ 522              	.L80:
+ 523 0006 00BF     	 .align 2
+ 524              	.L79:
+ 525 0008 60410050 	 .word 1342194016
+ 527              	 .section .text.XMC_SCU_TRAP_ClearStatus,"ax",%progbits
+ 528              	 .align 2
+ 529              	 .global XMC_SCU_TRAP_ClearStatus
+ 530              	 .thumb
+ 531              	 .thumb_func
+ 533              	XMC_SCU_TRAP_ClearStatus:
+ 534              	 
+ 535              	 
+ 536              	 
+ 537 0000 014B     	 ldr r3,.L82
+ 538 0002 D860     	 str r0,[r3,#12]
+ 539 0004 7047     	 bx lr
+ 540              	.L83:
+ 541 0006 00BF     	 .align 2
+ 542              	.L82:
+ 543 0008 60410050 	 .word 1342194016
+ 545              	 .section .text.XMC_SCU_PARITY_ClearStatus,"ax",%progbits
+ 546              	 .align 2
+ 547              	 .global XMC_SCU_PARITY_ClearStatus
+ 548              	 .thumb
+ 549              	 .thumb_func
+ 551              	XMC_SCU_PARITY_ClearStatus:
+ 552              	 
+ 553              	 
+ 554              	 
+ 555 0000 024A     	 ldr r2,.L85
+ 556 0002 5369     	 ldr r3,[r2,#20]
+ 557 0004 1843     	 orrs r0,r0,r3
+ 558 0006 5061     	 str r0,[r2,#20]
+ 559 0008 7047     	 bx lr
+ 560              	.L86:
+ 561 000a 00BF     	 .align 2
+ 562              	.L85:
+ 563 000c 3C410050 	 .word 1342193980
+ 565              	 .section .text.XMC_SCU_PARITY_GetStatus,"ax",%progbits
+ 566              	 .align 2
+ 567              	 .global XMC_SCU_PARITY_GetStatus
+ 568              	 .thumb
+ 569              	 .thumb_func
+ 571              	XMC_SCU_PARITY_GetStatus:
+ 572              	 
+ 573              	 
+ 574              	 
+ 575 0000 014B     	 ldr r3,.L88
+ 576 0002 5869     	 ldr r0,[r3,#20]
+ 577 0004 7047     	 bx lr
+ 578              	.L89:
+ 579 0006 00BF     	 .align 2
+ 580              	.L88:
+ 581 0008 3C410050 	 .word 1342193980
+ 583              	 .section .text.XMC_SCU_PARITY_Enable,"ax",%progbits
+ 584              	 .align 2
+ 585              	 .global XMC_SCU_PARITY_Enable
+ 586              	 .thumb
+ 587              	 .thumb_func
+ 589              	XMC_SCU_PARITY_Enable:
+ 590              	 
+ 591              	 
+ 592              	 
+ 593 0000 024A     	 ldr r2,.L91
+ 594 0002 1368     	 ldr r3,[r2]
+ 595 0004 1843     	 orrs r0,r0,r3
+ 596 0006 1060     	 str r0,[r2]
+ 597 0008 7047     	 bx lr
+ 598              	.L92:
+ 599 000a 00BF     	 .align 2
+ 600              	.L91:
+ 601 000c 3C410050 	 .word 1342193980
+ 603              	 .section .text.XMC_SCU_PARITY_Disable,"ax",%progbits
+ 604              	 .align 2
+ 605              	 .global XMC_SCU_PARITY_Disable
+ 606              	 .thumb
+ 607              	 .thumb_func
+ 609              	XMC_SCU_PARITY_Disable:
+ 610              	 
+ 611              	 
+ 612              	 
+ 613 0000 024A     	 ldr r2,.L94
+ 614 0002 1368     	 ldr r3,[r2]
+ 615 0004 23EA0000 	 bic r0,r3,r0
+ 616 0008 1060     	 str r0,[r2]
+ 617 000a 7047     	 bx lr
+ 618              	.L95:
+ 619              	 .align 2
+ 620              	.L94:
+ 621 000c 3C410050 	 .word 1342193980
+ 623              	 .section .text.XMC_SCU_PARITY_EnableTrapGeneration,"ax",%progbits
+ 624              	 .align 2
+ 625              	 .global XMC_SCU_PARITY_EnableTrapGeneration
+ 626              	 .thumb
+ 627              	 .thumb_func
+ 629              	XMC_SCU_PARITY_EnableTrapGeneration:
+ 630              	 
+ 631              	 
+ 632              	 
+ 633 0000 024A     	 ldr r2,.L97
+ 634 0002 9368     	 ldr r3,[r2,#8]
+ 635 0004 1843     	 orrs r0,r0,r3
+ 636 0006 9060     	 str r0,[r2,#8]
+ 637 0008 7047     	 bx lr
+ 638              	.L98:
+ 639 000a 00BF     	 .align 2
+ 640              	.L97:
+ 641 000c 3C410050 	 .word 1342193980
+ 643              	 .section .text.XMC_SCU_PARITY_DisableTrapGeneration,"ax",%progbits
+ 644              	 .align 2
+ 645              	 .global XMC_SCU_PARITY_DisableTrapGeneration
+ 646              	 .thumb
+ 647              	 .thumb_func
+ 649              	XMC_SCU_PARITY_DisableTrapGeneration:
+ 650              	 
+ 651              	 
+ 652              	 
+ 653 0000 024A     	 ldr r2,.L100
+ 654 0002 9368     	 ldr r3,[r2,#8]
+ 655 0004 23EA0000 	 bic r0,r3,r0
+ 656 0008 9060     	 str r0,[r2,#8]
+ 657 000a 7047     	 bx lr
+ 658              	.L101:
+ 659              	 .align 2
+ 660              	.L100:
+ 661 000c 3C410050 	 .word 1342193980
+ 663              	 .section .text.XMC_SCU_INTERRUPT_EnableNmiRequest,"ax",%progbits
+ 664              	 .align 2
+ 665              	 .global XMC_SCU_INTERRUPT_EnableNmiRequest
+ 666              	 .thumb
+ 667              	 .thumb_func
+ 669              	XMC_SCU_INTERRUPT_EnableNmiRequest:
+ 670              	 
+ 671              	 
+ 672              	 
+ 673 0000 024A     	 ldr r2,.L103
+ 674 0002 5369     	 ldr r3,[r2,#20]
+ 675 0004 1843     	 orrs r0,r0,r3
+ 676 0006 5061     	 str r0,[r2,#20]
+ 677 0008 7047     	 bx lr
+ 678              	.L104:
+ 679 000a 00BF     	 .align 2
+ 680              	.L103:
+ 681 000c 74400050 	 .word 1342193780
+ 683              	 .section .text.XMC_SCU_INTERRUPT_DisableNmiRequest,"ax",%progbits
+ 684              	 .align 2
+ 685              	 .global XMC_SCU_INTERRUPT_DisableNmiRequest
+ 686              	 .thumb
+ 687              	 .thumb_func
+ 689              	XMC_SCU_INTERRUPT_DisableNmiRequest:
+ 690              	 
+ 691              	 
+ 692              	 
+ 693 0000 024A     	 ldr r2,.L106
+ 694 0002 5369     	 ldr r3,[r2,#20]
+ 695 0004 23EA0000 	 bic r0,r3,r0
+ 696 0008 5061     	 str r0,[r2,#20]
+ 697 000a 7047     	 bx lr
+ 698              	.L107:
+ 699              	 .align 2
+ 700              	.L106:
+ 701 000c 74400050 	 .word 1342193780
+ 703              	 .section .text.XMC_SCU_RESET_AssertPeripheralReset,"ax",%progbits
+ 704              	 .align 2
+ 705              	 .global XMC_SCU_RESET_AssertPeripheralReset
+ 706              	 .thumb
+ 707              	 .thumb_func
+ 709              	XMC_SCU_RESET_AssertPeripheralReset:
+ 710              	 
+ 711              	 
+ 712              	 
+ 713 0000 030F     	 lsrs r3,r0,#28
+ 714 0002 03EB4303 	 add r3,r3,r3,lsl#1
+ 715 0006 034A     	 ldr r2,.L109
+ 716 0008 20F07040 	 bic r0,r0,#-268435456
+ 717 000c 42F82300 	 str r0,[r2,r3,lsl#2]
+ 718 0010 7047     	 bx lr
+ 719              	.L110:
+ 720 0012 00BF     	 .align 2
+ 721              	.L109:
+ 722 0014 10440050 	 .word 1342194704
+ 724              	 .section .text.XMC_SCU_RESET_DeassertPeripheralReset,"ax",%progbits
+ 725              	 .align 2
+ 726              	 .global XMC_SCU_RESET_DeassertPeripheralReset
+ 727              	 .thumb
+ 728              	 .thumb_func
+ 730              	XMC_SCU_RESET_DeassertPeripheralReset:
+ 731              	 
+ 732              	 
+ 733              	 
+ 734 0000 030F     	 lsrs r3,r0,#28
+ 735 0002 03EB4303 	 add r3,r3,r3,lsl#1
+ 736 0006 034A     	 ldr r2,.L112
+ 737 0008 20F07040 	 bic r0,r0,#-268435456
+ 738 000c 42F82300 	 str r0,[r2,r3,lsl#2]
+ 739 0010 7047     	 bx lr
+ 740              	.L113:
+ 741 0012 00BF     	 .align 2
+ 742              	.L112:
+ 743 0014 14440050 	 .word 1342194708
+ 745              	 .section .text.XMC_SCU_RESET_IsPeripheralResetAsserted,"ax",%progbits
+ 746              	 .align 2
+ 747              	 .global XMC_SCU_RESET_IsPeripheralResetAsserted
+ 748              	 .thumb
+ 749              	 .thumb_func
+ 751              	XMC_SCU_RESET_IsPeripheralResetAsserted:
+ 752              	 
+ 753              	 
+ 754              	 
+ 755 0000 030F     	 lsrs r3,r0,#28
+ 756 0002 064A     	 ldr r2,.L115
+ 757 0004 03EB4303 	 add r3,r3,r3,lsl#1
+ 758 0008 20F07040 	 bic r0,r0,#-268435456
+ 759 000c 52F82330 	 ldr r3,[r2,r3,lsl#2]
+ 760 0010 1842     	 tst r0,r3
+ 761 0012 14BF     	 ite ne
+ 762 0014 0120     	 movne r0,#1
+ 763 0016 0020     	 moveq r0,#0
+ 764 0018 7047     	 bx lr
+ 765              	.L116:
+ 766 001a 00BF     	 .align 2
+ 767              	.L115:
+ 768 001c 0C440050 	 .word 1342194700
+ 770              	 .section .text.XMC_SCU_CLOCK_GetSystemPllClockFrequency,"ax",%progbits
+ 771              	 .align 2
+ 772              	 .global XMC_SCU_CLOCK_GetSystemPllClockFrequency
+ 773              	 .thumb
+ 774              	 .thumb_func
+ 776              	XMC_SCU_CLOCK_GetSystemPllClockFrequency:
+ 777              	 
+ 778              	 
+ 779 0000 124B     	 ldr r3,.L125
+ 780 0002 DB68     	 ldr r3,[r3,#12]
+ 781 0004 DB07     	 lsls r3,r3,#31
+ 782 0006 10B5     	 push {r4,lr}
+ 783 0008 1CD5     	 bpl .L123
+ 784 000a 1148     	 ldr r0,.L125+4
+ 785              	.L118:
+ 786 000c 0F4A     	 ldr r2,.L125
+ 787 000e 1368     	 ldr r3,[r2]
+ 788 0010 13F0010F 	 tst r3,#1
+ 789 0014 9368     	 ldr r3,[r2,#8]
+ 790 0016 0FD1     	 bne .L124
+ 791 0018 9168     	 ldr r1,[r2,#8]
+ 792 001a 9468     	 ldr r4,[r2,#8]
+ 793 001c C3F30363 	 ubfx r3,r3,#24,#4
+ 794 0020 C4F30644 	 ubfx r4,r4,#16,#7
+ 795 0024 C1F30622 	 ubfx r2,r1,#8,#7
+ 796 0028 0133     	 adds r3,r3,#1
+ 797 002a 04FB0333 	 mla r3,r4,r3,r3
+ 798 002e 02FB0000 	 mla r0,r2,r0,r0
+ 799 0032 B0FBF3F0 	 udiv r0,r0,r3
+ 800 0036 10BD     	 pop {r4,pc}
+ 801              	.L124:
+ 802 0038 03F07F03 	 and r3,r3,#127
+ 803 003c 0133     	 adds r3,r3,#1
+ 804 003e B0FBF3F0 	 udiv r0,r0,r3
+ 805 0042 10BD     	 pop {r4,pc}
+ 806              	.L123:
+ 807 0044 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 808 0048 E0E7     	 b .L118
+ 809              	.L126:
+ 810 004a 00BF     	 .align 2
+ 811              	.L125:
+ 812 004c 10470050 	 .word 1342195472
+ 813 0050 00366E01 	 .word 24000000
+ 815              	 .section .text.XMC_SCU_CLOCK_GetSystemPllClockSourceFrequency,"ax",%progbits
+ 816              	 .align 2
+ 817              	 .global XMC_SCU_CLOCK_GetSystemPllClockSourceFrequency
+ 818              	 .thumb
+ 819              	 .thumb_func
+ 821              	XMC_SCU_CLOCK_GetSystemPllClockSourceFrequency:
+ 822              	 
+ 823              	 
+ 824              	 
+ 825 0000 034B     	 ldr r3,.L130
+ 826 0002 DB68     	 ldr r3,[r3,#12]
+ 827 0004 DB07     	 lsls r3,r3,#31
+ 828 0006 01D5     	 bpl .L129
+ 829 0008 0248     	 ldr r0,.L130+4
+ 830 000a 7047     	 bx lr
+ 831              	.L129:
+ 832 000c FFF7FEBF 	 b OSCHP_GetFrequency
+ 833              	.L131:
+ 834              	 .align 2
+ 835              	.L130:
+ 836 0010 10470050 	 .word 1342195472
+ 837 0014 00366E01 	 .word 24000000
+ 839              	 .section .text.XMC_SCU_CLOCK_GetUsbPllClockFrequency,"ax",%progbits
+ 840              	 .align 2
+ 841              	 .global XMC_SCU_CLOCK_GetUsbPllClockFrequency
+ 842              	 .thumb
+ 843              	 .thumb_func
+ 845              	XMC_SCU_CLOCK_GetUsbPllClockFrequency:
+ 846              	 
+ 847              	 
+ 848 0000 08B5     	 push {r3,lr}
+ 849 0002 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 850 0006 084B     	 ldr r3,.L135
+ 851 0008 1A69     	 ldr r2,[r3,#16]
+ 852 000a D207     	 lsls r2,r2,#31
+ 853 000c 0BD4     	 bmi .L133
+ 854 000e 5A69     	 ldr r2,[r3,#20]
+ 855 0010 5B69     	 ldr r3,[r3,#20]
+ 856 0012 C3F30363 	 ubfx r3,r3,#24,#4
+ 857 0016 0133     	 adds r3,r3,#1
+ 858 0018 C2F30622 	 ubfx r2,r2,#8,#7
+ 859 001c 5B00     	 lsls r3,r3,#1
+ 860 001e 02FB0000 	 mla r0,r2,r0,r0
+ 861 0022 B0FBF3F0 	 udiv r0,r0,r3
+ 862              	.L133:
+ 863 0026 08BD     	 pop {r3,pc}
+ 864              	.L136:
+ 865              	 .align 2
+ 866              	.L135:
+ 867 0028 10470050 	 .word 1342195472
+ 869              	 .section .text.XMC_SCU_CLOCK_GetCcuClockFrequency,"ax",%progbits
+ 870              	 .align 2
+ 871              	 .global XMC_SCU_CLOCK_GetCcuClockFrequency
+ 872              	 .thumb
+ 873              	 .thumb_func
+ 875              	XMC_SCU_CLOCK_GetCcuClockFrequency:
+ 876              	 
+ 877              	 
+ 878              	 
+ 879 0000 054B     	 ldr r3,.L138
+ 880 0002 0649     	 ldr r1,.L138+4
+ 881 0004 1A69     	 ldr r2,[r3,#16]
+ 882 0006 0868     	 ldr r0,[r1]
+ 883 0008 1B6A     	 ldr r3,[r3,#32]
+ 884 000a 02F00102 	 and r2,r2,#1
+ 885 000e 03F00103 	 and r3,r3,#1
+ 886 0012 9040     	 lsls r0,r0,r2
+ 887 0014 D840     	 lsrs r0,r0,r3
+ 888 0016 7047     	 bx lr
+ 889              	.L139:
+ 890              	 .align 2
+ 891              	.L138:
+ 892 0018 00460050 	 .word 1342195200
+ 893 001c 00000000 	 .word SystemCoreClock
+ 895              	 .section .text.XMC_SCU_CLOCK_GetUsbClockFrequency,"ax",%progbits
+ 896              	 .align 2
+ 897              	 .global XMC_SCU_CLOCK_GetUsbClockFrequency
+ 898              	 .thumb
+ 899              	 .thumb_func
+ 901              	XMC_SCU_CLOCK_GetUsbClockFrequency:
+ 902              	 
+ 903              	 
+ 904 0000 234B     	 ldr r3,.L152
+ 905 0002 9B69     	 ldr r3,[r3,#24]
+ 906 0004 13F48033 	 ands r3,r3,#65536
+ 907 0008 10B5     	 push {r4,lr}
+ 908 000a 1CD1     	 bne .L148
+ 909 000c 43B1     	 cbz r3,.L149
+ 910 000e 0020     	 movs r0,#0
+ 911              	.L144:
+ 912 0010 1F4B     	 ldr r3,.L152
+ 913 0012 9B69     	 ldr r3,[r3,#24]
+ 914 0014 03F00703 	 and r3,r3,#7
+ 915 0018 0133     	 adds r3,r3,#1
+ 916 001a B0FBF3F0 	 udiv r0,r0,r3
+ 917 001e 10BD     	 pop {r4,pc}
+ 918              	.L149:
+ 919 0020 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 920 0024 1B4B     	 ldr r3,.L152+4
+ 921 0026 1A69     	 ldr r2,[r3,#16]
+ 922 0028 D207     	 lsls r2,r2,#31
+ 923 002a F1D4     	 bmi .L144
+ 924 002c 5A69     	 ldr r2,[r3,#20]
+ 925 002e 5B69     	 ldr r3,[r3,#20]
+ 926 0030 C3F30363 	 ubfx r3,r3,#24,#4
+ 927 0034 0133     	 adds r3,r3,#1
+ 928 0036 C2F30622 	 ubfx r2,r2,#8,#7
+ 929 003a 5B00     	 lsls r3,r3,#1
+ 930 003c 02FB0000 	 mla r0,r2,r0,r0
+ 931 0040 B0FBF3F0 	 udiv r0,r0,r3
+ 932 0044 E4E7     	 b .L144
+ 933              	.L148:
+ 934 0046 134B     	 ldr r3,.L152+4
+ 935 0048 DB68     	 ldr r3,[r3,#12]
+ 936 004a D907     	 lsls r1,r3,#31
+ 937 004c 1CD5     	 bpl .L150
+ 938 004e 1248     	 ldr r0,.L152+8
+ 939              	.L142:
+ 940 0050 104A     	 ldr r2,.L152+4
+ 941 0052 1368     	 ldr r3,[r2]
+ 942 0054 13F0010F 	 tst r3,#1
+ 943 0058 9368     	 ldr r3,[r2,#8]
+ 944 005a 0FD1     	 bne .L151
+ 945 005c 9168     	 ldr r1,[r2,#8]
+ 946 005e 9468     	 ldr r4,[r2,#8]
+ 947 0060 C3F30363 	 ubfx r3,r3,#24,#4
+ 948 0064 0133     	 adds r3,r3,#1
+ 949 0066 C4F30644 	 ubfx r4,r4,#16,#7
+ 950 006a C1F30622 	 ubfx r2,r1,#8,#7
+ 951 006e 04FB0333 	 mla r3,r4,r3,r3
+ 952 0072 02FB0000 	 mla r0,r2,r0,r0
+ 953 0076 B0FBF3F0 	 udiv r0,r0,r3
+ 954 007a C9E7     	 b .L144
+ 955              	.L151:
+ 956 007c 03F07F03 	 and r3,r3,#127
+ 957 0080 0133     	 adds r3,r3,#1
+ 958 0082 B0FBF3F0 	 udiv r0,r0,r3
+ 959 0086 C3E7     	 b .L144
+ 960              	.L150:
+ 961 0088 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 962 008c E0E7     	 b .L142
+ 963              	.L153:
+ 964 008e 00BF     	 .align 2
+ 965              	.L152:
+ 966 0090 00460050 	 .word 1342195200
+ 967 0094 10470050 	 .word 1342195472
+ 968 0098 00366E01 	 .word 24000000
+ 970              	 .section .text.XMC_SCU_CLOCK_GetEbuClockFrequency,"ax",%progbits
+ 971              	 .align 2
+ 972              	 .global XMC_SCU_CLOCK_GetEbuClockFrequency
+ 973              	 .thumb
+ 974              	 .thumb_func
+ 976              	XMC_SCU_CLOCK_GetEbuClockFrequency:
+ 977              	 
+ 978              	 
+ 979 0000 154B     	 ldr r3,.L162
+ 980 0002 DB68     	 ldr r3,[r3,#12]
+ 981 0004 DB07     	 lsls r3,r3,#31
+ 982 0006 10B5     	 push {r4,lr}
+ 983 0008 23D5     	 bpl .L160
+ 984 000a 1448     	 ldr r0,.L162+4
+ 985              	.L155:
+ 986 000c 124A     	 ldr r2,.L162
+ 987 000e 1368     	 ldr r3,[r2]
+ 988 0010 13F0010F 	 tst r3,#1
+ 989 0014 9368     	 ldr r3,[r2,#8]
+ 990 0016 16D1     	 bne .L161
+ 991 0018 9168     	 ldr r1,[r2,#8]
+ 992 001a 9468     	 ldr r4,[r2,#8]
+ 993 001c C3F30363 	 ubfx r3,r3,#24,#4
+ 994 0020 0133     	 adds r3,r3,#1
+ 995 0022 C4F30644 	 ubfx r4,r4,#16,#7
+ 996 0026 C1F30622 	 ubfx r2,r1,#8,#7
+ 997 002a 04FB0333 	 mla r3,r4,r3,r3
+ 998 002e 02FB0000 	 mla r0,r2,r0,r0
+ 999 0032 B0FBF3F0 	 udiv r0,r0,r3
+ 1000              	.L157:
+ 1001 0036 0A4B     	 ldr r3,.L162+8
+ 1002 0038 DB69     	 ldr r3,[r3,#28]
+ 1003 003a 03F03F03 	 and r3,r3,#63
+ 1004 003e 0133     	 adds r3,r3,#1
+ 1005 0040 B0FBF3F0 	 udiv r0,r0,r3
+ 1006 0044 10BD     	 pop {r4,pc}
+ 1007              	.L161:
+ 1008 0046 03F07F03 	 and r3,r3,#127
+ 1009 004a 0133     	 adds r3,r3,#1
+ 1010 004c B0FBF3F0 	 udiv r0,r0,r3
+ 1011 0050 F1E7     	 b .L157
+ 1012              	.L160:
+ 1013 0052 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 1014 0056 D9E7     	 b .L155
+ 1015              	.L163:
+ 1016              	 .align 2
+ 1017              	.L162:
+ 1018 0058 10470050 	 .word 1342195472
+ 1019 005c 00366E01 	 .word 24000000
+ 1020 0060 00460050 	 .word 1342195200
+ 1022              	 .section .text.XMC_SCU_CLOCK_GetWdtClockFrequency,"ax",%progbits
+ 1023              	 .align 2
+ 1024              	 .global XMC_SCU_CLOCK_GetWdtClockFrequency
+ 1025              	 .thumb
+ 1026              	 .thumb_func
+ 1028              	XMC_SCU_CLOCK_GetWdtClockFrequency:
+ 1029              	 
+ 1030              	 
+ 1031 0000 1D4B     	 ldr r3,.L176
+ 1032 0002 5B6A     	 ldr r3,[r3,#36]
+ 1033 0004 03F44033 	 and r3,r3,#196608
+ 1034 0008 B3F5003F 	 cmp r3,#131072
+ 1035 000c 10B5     	 push {r4,lr}
+ 1036 000e 0FD0     	 beq .L173
+ 1037 0010 63B1     	 cbz r3,.L170
+ 1038 0012 B3F5803F 	 cmp r3,#65536
+ 1039 0016 14BF     	 ite ne
+ 1040 0018 0020     	 movne r0,#0
+ 1041 001a 4FF40040 	 moveq r0,#32768
+ 1042              	.L168:
+ 1043 001e 164B     	 ldr r3,.L176
+ 1044 0020 5B6A     	 ldr r3,[r3,#36]
+ 1045 0022 DBB2     	 uxtb r3,r3
+ 1046 0024 0133     	 adds r3,r3,#1
+ 1047 0026 B0FBF3F0 	 udiv r0,r0,r3
+ 1048 002a 10BD     	 pop {r4,pc}
+ 1049              	.L170:
+ 1050 002c 1348     	 ldr r0,.L176+4
+ 1051 002e F6E7     	 b .L168
+ 1052              	.L173:
+ 1053 0030 134B     	 ldr r3,.L176+8
+ 1054 0032 DB68     	 ldr r3,[r3,#12]
+ 1055 0034 DB07     	 lsls r3,r3,#31
+ 1056 0036 1CD5     	 bpl .L174
+ 1057 0038 1048     	 ldr r0,.L176+4
+ 1058              	.L166:
+ 1059 003a 114A     	 ldr r2,.L176+8
+ 1060 003c 1368     	 ldr r3,[r2]
+ 1061 003e 13F0010F 	 tst r3,#1
+ 1062 0042 9368     	 ldr r3,[r2,#8]
+ 1063 0044 0FD1     	 bne .L175
+ 1064 0046 9168     	 ldr r1,[r2,#8]
+ 1065 0048 9468     	 ldr r4,[r2,#8]
+ 1066 004a C3F30363 	 ubfx r3,r3,#24,#4
+ 1067 004e 0133     	 adds r3,r3,#1
+ 1068 0050 C4F30644 	 ubfx r4,r4,#16,#7
+ 1069 0054 C1F30622 	 ubfx r2,r1,#8,#7
+ 1070 0058 04FB0333 	 mla r3,r4,r3,r3
+ 1071 005c 02FB0000 	 mla r0,r2,r0,r0
+ 1072 0060 B0FBF3F0 	 udiv r0,r0,r3
+ 1073 0064 DBE7     	 b .L168
+ 1074              	.L175:
+ 1075 0066 03F07F03 	 and r3,r3,#127
+ 1076 006a 0133     	 adds r3,r3,#1
+ 1077 006c B0FBF3F0 	 udiv r0,r0,r3
+ 1078 0070 D5E7     	 b .L168
+ 1079              	.L174:
+ 1080 0072 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 1081 0076 E0E7     	 b .L166
+ 1082              	.L177:
+ 1083              	 .align 2
+ 1084              	.L176:
+ 1085 0078 00460050 	 .word 1342195200
+ 1086 007c 00366E01 	 .word 24000000
+ 1087 0080 10470050 	 .word 1342195472
+ 1089              	 .section .text.XMC_SCU_CLOCK_GetExternalOutputClockFrequency,"ax",%progbits
+ 1090              	 .align 2
+ 1091              	 .global XMC_SCU_CLOCK_GetExternalOutputClockFrequency
+ 1092              	 .thumb
+ 1093              	 .thumb_func
+ 1095              	XMC_SCU_CLOCK_GetExternalOutputClockFrequency:
+ 1096              	 
+ 1097              	 
+ 1098 0000 284A     	 ldr r2,.L194
+ 1099 0002 936A     	 ldr r3,[r2,#40]
+ 1100 0004 03F00303 	 and r3,r3,#3
+ 1101 0008 032B     	 cmp r3,#3
+ 1102 000a 10B5     	 push {r4,lr}
+ 1103 000c 25D0     	 beq .L189
+ 1104 000e 1BB1     	 cbz r3,.L190
+ 1105 0010 022B     	 cmp r3,#2
+ 1106 0012 08D0     	 beq .L191
+ 1107 0014 0020     	 movs r0,#0
+ 1108 0016 10BD     	 pop {r4,pc}
+ 1109              	.L190:
+ 1110 0018 2349     	 ldr r1,.L194+4
+ 1111 001a 1369     	 ldr r3,[r2,#16]
+ 1112 001c 0868     	 ldr r0,[r1]
+ 1113 001e 03F00103 	 and r3,r3,#1
+ 1114 0022 9840     	 lsls r0,r0,r3
+ 1115 0024 10BD     	 pop {r4,pc}
+ 1116              	.L191:
+ 1117 0026 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 1118 002a 204B     	 ldr r3,.L194+8
+ 1119 002c 1A69     	 ldr r2,[r3,#16]
+ 1120 002e D207     	 lsls r2,r2,#31
+ 1121 0030 0BD4     	 bmi .L185
+ 1122 0032 5A69     	 ldr r2,[r3,#20]
+ 1123 0034 5B69     	 ldr r3,[r3,#20]
+ 1124 0036 C3F30363 	 ubfx r3,r3,#24,#4
+ 1125 003a 0133     	 adds r3,r3,#1
+ 1126 003c C2F30622 	 ubfx r2,r2,#8,#7
+ 1127 0040 5B00     	 lsls r3,r3,#1
+ 1128 0042 02FB0000 	 mla r0,r2,r0,r0
+ 1129 0046 B0FBF3F0 	 udiv r0,r0,r3
+ 1130              	.L185:
+ 1131 004a 164B     	 ldr r3,.L194
+ 1132 004c 9B6A     	 ldr r3,[r3,#40]
+ 1133 004e C3F30843 	 ubfx r3,r3,#16,#9
+ 1134 0052 0133     	 adds r3,r3,#1
+ 1135 0054 B0FBF3F0 	 udiv r0,r0,r3
+ 1136 0058 10BD     	 pop {r4,pc}
+ 1137              	.L189:
+ 1138 005a 144B     	 ldr r3,.L194+8
+ 1139 005c DB68     	 ldr r3,[r3,#12]
+ 1140 005e D907     	 lsls r1,r3,#31
+ 1141 0060 1CD5     	 bpl .L192
+ 1142 0062 1348     	 ldr r0,.L194+12
+ 1143              	.L180:
+ 1144 0064 114A     	 ldr r2,.L194+8
+ 1145 0066 1368     	 ldr r3,[r2]
+ 1146 0068 13F0010F 	 tst r3,#1
+ 1147 006c 9368     	 ldr r3,[r2,#8]
+ 1148 006e 0FD1     	 bne .L193
+ 1149 0070 9168     	 ldr r1,[r2,#8]
+ 1150 0072 9468     	 ldr r4,[r2,#8]
+ 1151 0074 C3F30363 	 ubfx r3,r3,#24,#4
+ 1152 0078 0133     	 adds r3,r3,#1
+ 1153 007a C4F30644 	 ubfx r4,r4,#16,#7
+ 1154 007e C1F30622 	 ubfx r2,r1,#8,#7
+ 1155 0082 04FB0333 	 mla r3,r4,r3,r3
+ 1156 0086 02FB0000 	 mla r0,r2,r0,r0
+ 1157 008a B0FBF3F0 	 udiv r0,r0,r3
+ 1158 008e DCE7     	 b .L185
+ 1159              	.L193:
+ 1160 0090 03F07F03 	 and r3,r3,#127
+ 1161 0094 0133     	 adds r3,r3,#1
+ 1162 0096 B0FBF3F0 	 udiv r0,r0,r3
+ 1163 009a D6E7     	 b .L185
+ 1164              	.L192:
+ 1165 009c FFF7FEFF 	 bl OSCHP_GetFrequency
+ 1166 00a0 E0E7     	 b .L180
+ 1167              	.L195:
+ 1168 00a2 00BF     	 .align 2
+ 1169              	.L194:
+ 1170 00a4 00460050 	 .word 1342195200
+ 1171 00a8 00000000 	 .word SystemCoreClock
+ 1172 00ac 10470050 	 .word 1342195472
+ 1173 00b0 00366E01 	 .word 24000000
+ 1175              	 .section .text.XMC_SCU_CLOCK_GetPeripheralClockFrequency,"ax",%progbits
+ 1176              	 .align 2
+ 1177              	 .global XMC_SCU_CLOCK_GetPeripheralClockFrequency
+ 1178              	 .thumb
+ 1179              	 .thumb_func
+ 1181              	XMC_SCU_CLOCK_GetPeripheralClockFrequency:
+ 1182              	 
+ 1183              	 
+ 1184              	 
+ 1185 0000 034B     	 ldr r3,.L197
+ 1186 0002 044A     	 ldr r2,.L197+4
+ 1187 0004 5B69     	 ldr r3,[r3,#20]
+ 1188 0006 1068     	 ldr r0,[r2]
+ 1189 0008 03F00103 	 and r3,r3,#1
+ 1190 000c D840     	 lsrs r0,r0,r3
+ 1191 000e 7047     	 bx lr
+ 1192              	.L198:
+ 1193              	 .align 2
+ 1194              	.L197:
+ 1195 0010 00460050 	 .word 1342195200
+ 1196 0014 00000000 	 .word SystemCoreClock
+ 1198              	 .section .text.XMC_SCU_CLOCK_SetSystemClockSource,"ax",%progbits
+ 1199              	 .align 2
+ 1200              	 .global XMC_SCU_CLOCK_SetSystemClockSource
+ 1201              	 .thumb
+ 1202              	 .thumb_func
+ 1204              	XMC_SCU_CLOCK_SetSystemClockSource:
+ 1205              	 
+ 1206              	 
+ 1207              	 
+ 1208 0000 034A     	 ldr r2,.L200
+ 1209 0002 D368     	 ldr r3,[r2,#12]
+ 1210 0004 23F48033 	 bic r3,r3,#65536
+ 1211 0008 1843     	 orrs r0,r0,r3
+ 1212 000a D060     	 str r0,[r2,#12]
+ 1213 000c 7047     	 bx lr
+ 1214              	.L201:
+ 1215 000e 00BF     	 .align 2
+ 1216              	.L200:
+ 1217 0010 00460050 	 .word 1342195200
+ 1219              	 .section .text.XMC_SCU_CLOCK_SetUsbClockSource,"ax",%progbits
+ 1220              	 .align 2
+ 1221              	 .global XMC_SCU_CLOCK_SetUsbClockSource
+ 1222              	 .thumb
+ 1223              	 .thumb_func
+ 1225              	XMC_SCU_CLOCK_SetUsbClockSource:
+ 1226              	 
+ 1227              	 
+ 1228              	 
+ 1229 0000 034A     	 ldr r2,.L203
+ 1230 0002 9369     	 ldr r3,[r2,#24]
+ 1231 0004 23F48033 	 bic r3,r3,#65536
+ 1232 0008 1843     	 orrs r0,r0,r3
+ 1233 000a 9061     	 str r0,[r2,#24]
+ 1234 000c 7047     	 bx lr
+ 1235              	.L204:
+ 1236 000e 00BF     	 .align 2
+ 1237              	.L203:
+ 1238 0010 00460050 	 .word 1342195200
+ 1240              	 .section .text.XMC_SCU_CLOCK_SetWdtClockSource,"ax",%progbits
+ 1241              	 .align 2
+ 1242              	 .global XMC_SCU_CLOCK_SetWdtClockSource
+ 1243              	 .thumb
+ 1244              	 .thumb_func
+ 1246              	XMC_SCU_CLOCK_SetWdtClockSource:
+ 1247              	 
+ 1248              	 
+ 1249              	 
+ 1250 0000 034A     	 ldr r2,.L206
+ 1251 0002 536A     	 ldr r3,[r2,#36]
+ 1252 0004 23F44033 	 bic r3,r3,#196608
+ 1253 0008 1843     	 orrs r0,r0,r3
+ 1254 000a 5062     	 str r0,[r2,#36]
+ 1255 000c 7047     	 bx lr
+ 1256              	.L207:
+ 1257 000e 00BF     	 .align 2
+ 1258              	.L206:
+ 1259 0010 00460050 	 .word 1342195200
+ 1261              	 .section .text.XMC_SCU_CLOCK_SetExternalOutputClockSource,"ax",%progbits
+ 1262              	 .align 2
+ 1263              	 .global XMC_SCU_CLOCK_SetExternalOutputClockSource
+ 1264              	 .thumb
+ 1265              	 .thumb_func
+ 1267              	XMC_SCU_CLOCK_SetExternalOutputClockSource:
+ 1268              	 
+ 1269              	 
+ 1270              	 
+ 1271 0000 034A     	 ldr r2,.L209
+ 1272 0002 936A     	 ldr r3,[r2,#40]
+ 1273 0004 23F00303 	 bic r3,r3,#3
+ 1274 0008 1843     	 orrs r0,r0,r3
+ 1275 000a 9062     	 str r0,[r2,#40]
+ 1276 000c 7047     	 bx lr
+ 1277              	.L210:
+ 1278 000e 00BF     	 .align 2
+ 1279              	.L209:
+ 1280 0010 00460050 	 .word 1342195200
+ 1282              	 .section .text.XMC_SCU_CLOCK_SetSystemPllClockSource,"ax",%progbits
+ 1283              	 .align 2
+ 1284              	 .global XMC_SCU_CLOCK_SetSystemPllClockSource
+ 1285              	 .thumb
+ 1286              	 .thumb_func
+ 1288              	XMC_SCU_CLOCK_SetSystemPllClockSource:
+ 1289              	 
+ 1290              	 
+ 1291              	 
+ 1292 0000 074A     	 ldr r2,.L215
+ 1293 0002 D368     	 ldr r3,[r2,#12]
+ 1294 0004 28B1     	 cbz r0,.L214
+ 1295 0006 43F48073 	 orr r3,r3,#256
+ 1296 000a 43F00103 	 orr r3,r3,#1
+ 1297 000e D360     	 str r3,[r2,#12]
+ 1298 0010 7047     	 bx lr
+ 1299              	.L214:
+ 1300 0012 23F48073 	 bic r3,r3,#256
+ 1301 0016 23F00103 	 bic r3,r3,#1
+ 1302 001a D360     	 str r3,[r2,#12]
+ 1303 001c 7047     	 bx lr
+ 1304              	.L216:
+ 1305 001e 00BF     	 .align 2
+ 1306              	.L215:
+ 1307 0020 10470050 	 .word 1342195472
+ 1309              	 .section .text.XMC_SCU_HIB_SetRtcClockSource,"ax",%progbits
+ 1310              	 .align 2
+ 1311              	 .global XMC_SCU_HIB_SetRtcClockSource
+ 1312              	 .thumb
+ 1313              	 .thumb_func
+ 1315              	XMC_SCU_HIB_SetRtcClockSource:
+ 1316              	 
+ 1317              	 
+ 1318              	 
+ 1319 0000 054A     	 ldr r2,.L220
+ 1320              	.L218:
+ 1321 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 1322 0006 1B07     	 lsls r3,r3,#28
+ 1323 0008 FBD4     	 bmi .L218
+ 1324 000a 044A     	 ldr r2,.L220+4
+ 1325 000c D368     	 ldr r3,[r2,#12]
+ 1326 000e 23F04003 	 bic r3,r3,#64
+ 1327 0012 1843     	 orrs r0,r0,r3
+ 1328 0014 D060     	 str r0,[r2,#12]
+ 1329 0016 7047     	 bx lr
+ 1330              	.L221:
+ 1331              	 .align 2
+ 1332              	.L220:
+ 1333 0018 00400050 	 .word 1342193664
+ 1334 001c 00430050 	 .word 1342194432
+ 1336              	 .section .text.XMC_SCU_HIB_SetStandbyClockSource,"ax",%progbits
+ 1337              	 .align 2
+ 1338              	 .global XMC_SCU_HIB_SetStandbyClockSource
+ 1339              	 .thumb
+ 1340              	 .thumb_func
+ 1342              	XMC_SCU_HIB_SetStandbyClockSource:
+ 1343              	 
+ 1344              	 
+ 1345              	 
+ 1346 0000 054A     	 ldr r2,.L225
+ 1347              	.L223:
+ 1348 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 1349 0006 1B07     	 lsls r3,r3,#28
+ 1350 0008 FBD4     	 bmi .L223
+ 1351 000a 044A     	 ldr r2,.L225+4
+ 1352 000c D368     	 ldr r3,[r2,#12]
+ 1353 000e 23F08003 	 bic r3,r3,#128
+ 1354 0012 1843     	 orrs r0,r0,r3
+ 1355 0014 D060     	 str r0,[r2,#12]
+ 1356 0016 7047     	 bx lr
+ 1357              	.L226:
+ 1358              	 .align 2
+ 1359              	.L225:
+ 1360 0018 00400050 	 .word 1342193664
+ 1361 001c 00430050 	 .word 1342194432
+ 1363              	 .section .text.XMC_SCU_CLOCK_SetSystemClockDivider,"ax",%progbits
+ 1364              	 .align 2
+ 1365              	 .global XMC_SCU_CLOCK_SetSystemClockDivider
+ 1366              	 .thumb
+ 1367              	 .thumb_func
+ 1369              	XMC_SCU_CLOCK_SetSystemClockDivider:
+ 1370              	 
+ 1371              	 
+ 1372              	 
+ 1373 0000 034A     	 ldr r2,.L228
+ 1374 0002 D368     	 ldr r3,[r2,#12]
+ 1375 0004 0138     	 subs r0,r0,#1
+ 1376 0006 23F0FF03 	 bic r3,r3,#255
+ 1377 000a 0343     	 orrs r3,r3,r0
+ 1378 000c D360     	 str r3,[r2,#12]
+ 1379 000e 7047     	 bx lr
+ 1380              	.L229:
+ 1381              	 .align 2
+ 1382              	.L228:
+ 1383 0010 00460050 	 .word 1342195200
+ 1385              	 .section .text.XMC_SCU_CLOCK_SetCcuClockDivider,"ax",%progbits
+ 1386              	 .align 2
+ 1387              	 .global XMC_SCU_CLOCK_SetCcuClockDivider
+ 1388              	 .thumb
+ 1389              	 .thumb_func
+ 1391              	XMC_SCU_CLOCK_SetCcuClockDivider:
+ 1392              	 
+ 1393              	 
+ 1394              	 
+ 1395 0000 034A     	 ldr r2,.L231
+ 1396 0002 136A     	 ldr r3,[r2,#32]
+ 1397 0004 0138     	 subs r0,r0,#1
+ 1398 0006 23F00103 	 bic r3,r3,#1
+ 1399 000a 0343     	 orrs r3,r3,r0
+ 1400 000c 1362     	 str r3,[r2,#32]
+ 1401 000e 7047     	 bx lr
+ 1402              	.L232:
+ 1403              	 .align 2
+ 1404              	.L231:
+ 1405 0010 00460050 	 .word 1342195200
+ 1407              	 .section .text.XMC_SCU_CLOCK_SetCpuClockDivider,"ax",%progbits
+ 1408              	 .align 2
+ 1409              	 .global XMC_SCU_CLOCK_SetCpuClockDivider
+ 1410              	 .thumb
+ 1411              	 .thumb_func
+ 1413              	XMC_SCU_CLOCK_SetCpuClockDivider:
+ 1414              	 
+ 1415              	 
+ 1416              	 
+ 1417 0000 034A     	 ldr r2,.L234
+ 1418 0002 1369     	 ldr r3,[r2,#16]
+ 1419 0004 0138     	 subs r0,r0,#1
+ 1420 0006 23F00103 	 bic r3,r3,#1
+ 1421 000a 0343     	 orrs r3,r3,r0
+ 1422 000c 1361     	 str r3,[r2,#16]
+ 1423 000e 7047     	 bx lr
+ 1424              	.L235:
+ 1425              	 .align 2
+ 1426              	.L234:
+ 1427 0010 00460050 	 .word 1342195200
+ 1429              	 .section .text.XMC_SCU_CLOCK_SetPeripheralClockDivider,"ax",%progbits
+ 1430              	 .align 2
+ 1431              	 .global XMC_SCU_CLOCK_SetPeripheralClockDivider
+ 1432              	 .thumb
+ 1433              	 .thumb_func
+ 1435              	XMC_SCU_CLOCK_SetPeripheralClockDivider:
+ 1436              	 
+ 1437              	 
+ 1438              	 
+ 1439 0000 034A     	 ldr r2,.L237
+ 1440 0002 5369     	 ldr r3,[r2,#20]
+ 1441 0004 0138     	 subs r0,r0,#1
+ 1442 0006 23F00103 	 bic r3,r3,#1
+ 1443 000a 0343     	 orrs r3,r3,r0
+ 1444 000c 5361     	 str r3,[r2,#20]
+ 1445 000e 7047     	 bx lr
+ 1446              	.L238:
+ 1447              	 .align 2
+ 1448              	.L237:
+ 1449 0010 00460050 	 .word 1342195200
+ 1451              	 .section .text.XMC_SCU_CLOCK_SetUsbClockDivider,"ax",%progbits
+ 1452              	 .align 2
+ 1453              	 .global XMC_SCU_CLOCK_SetUsbClockDivider
+ 1454              	 .thumb
+ 1455              	 .thumb_func
+ 1457              	XMC_SCU_CLOCK_SetUsbClockDivider:
+ 1458              	 
+ 1459              	 
+ 1460              	 
+ 1461 0000 034A     	 ldr r2,.L240
+ 1462 0002 9369     	 ldr r3,[r2,#24]
+ 1463 0004 0138     	 subs r0,r0,#1
+ 1464 0006 23F00703 	 bic r3,r3,#7
+ 1465 000a 0343     	 orrs r3,r3,r0
+ 1466 000c 9361     	 str r3,[r2,#24]
+ 1467 000e 7047     	 bx lr
+ 1468              	.L241:
+ 1469              	 .align 2
+ 1470              	.L240:
+ 1471 0010 00460050 	 .word 1342195200
+ 1473              	 .section .text.XMC_SCU_CLOCK_SetEbuClockDivider,"ax",%progbits
+ 1474              	 .align 2
+ 1475              	 .global XMC_SCU_CLOCK_SetEbuClockDivider
+ 1476              	 .thumb
+ 1477              	 .thumb_func
+ 1479              	XMC_SCU_CLOCK_SetEbuClockDivider:
+ 1480              	 
+ 1481              	 
+ 1482              	 
+ 1483 0000 034A     	 ldr r2,.L243
+ 1484 0002 D369     	 ldr r3,[r2,#28]
+ 1485 0004 0138     	 subs r0,r0,#1
+ 1486 0006 23F03F03 	 bic r3,r3,#63
+ 1487 000a 0343     	 orrs r3,r3,r0
+ 1488 000c D361     	 str r3,[r2,#28]
+ 1489 000e 7047     	 bx lr
+ 1490              	.L244:
+ 1491              	 .align 2
+ 1492              	.L243:
+ 1493 0010 00460050 	 .word 1342195200
+ 1495              	 .section .text.XMC_SCU_CLOCK_SetWdtClockDivider,"ax",%progbits
+ 1496              	 .align 2
+ 1497              	 .global XMC_SCU_CLOCK_SetWdtClockDivider
+ 1498              	 .thumb
+ 1499              	 .thumb_func
+ 1501              	XMC_SCU_CLOCK_SetWdtClockDivider:
+ 1502              	 
+ 1503              	 
+ 1504              	 
+ 1505 0000 034A     	 ldr r2,.L246
+ 1506 0002 536A     	 ldr r3,[r2,#36]
+ 1507 0004 0138     	 subs r0,r0,#1
+ 1508 0006 23F0FF03 	 bic r3,r3,#255
+ 1509 000a 0343     	 orrs r3,r3,r0
+ 1510 000c 5362     	 str r3,[r2,#36]
+ 1511 000e 7047     	 bx lr
+ 1512              	.L247:
+ 1513              	 .align 2
+ 1514              	.L246:
+ 1515 0010 00460050 	 .word 1342195200
+ 1517              	 .section .text.XMC_SCU_CLOCK_SetExternalOutputClockDivider,"ax",%progbits
+ 1518              	 .align 2
+ 1519              	 .global XMC_SCU_CLOCK_SetExternalOutputClockDivider
+ 1520              	 .thumb
+ 1521              	 .thumb_func
+ 1523              	XMC_SCU_CLOCK_SetExternalOutputClockDivider:
+ 1524              	 
+ 1525              	 
+ 1526              	 
+ 1527 0000 054A     	 ldr r2,.L249
+ 1528 0002 936A     	 ldr r3,[r2,#40]
+ 1529 0004 23F0FF73 	 bic r3,r3,#33423360
+ 1530 0008 0138     	 subs r0,r0,#1
+ 1531 000a 23F48033 	 bic r3,r3,#65536
+ 1532 000e 43EA0043 	 orr r3,r3,r0,lsl#16
+ 1533 0012 9362     	 str r3,[r2,#40]
+ 1534 0014 7047     	 bx lr
+ 1535              	.L250:
+ 1536 0016 00BF     	 .align 2
+ 1537              	.L249:
+ 1538 0018 00460050 	 .word 1342195200
+ 1540              	 .section .text.XMC_SCU_CLOCK_EnableClock,"ax",%progbits
+ 1541              	 .align 2
+ 1542              	 .global XMC_SCU_CLOCK_EnableClock
+ 1543              	 .thumb
+ 1544              	 .thumb_func
+ 1546              	XMC_SCU_CLOCK_EnableClock:
+ 1547              	 
+ 1548              	 
+ 1549              	 
+ 1550 0000 014B     	 ldr r3,.L252
+ 1551 0002 5860     	 str r0,[r3,#4]
+ 1552 0004 7047     	 bx lr
+ 1553              	.L253:
+ 1554 0006 00BF     	 .align 2
+ 1555              	.L252:
+ 1556 0008 00460050 	 .word 1342195200
+ 1558              	 .section .text.XMC_SCU_CLOCK_DisableClock,"ax",%progbits
+ 1559              	 .align 2
+ 1560              	 .global XMC_SCU_CLOCK_DisableClock
+ 1561              	 .thumb
+ 1562              	 .thumb_func
+ 1564              	XMC_SCU_CLOCK_DisableClock:
+ 1565              	 
+ 1566              	 
+ 1567              	 
+ 1568 0000 014B     	 ldr r3,.L255
+ 1569 0002 9860     	 str r0,[r3,#8]
+ 1570 0004 7047     	 bx lr
+ 1571              	.L256:
+ 1572 0006 00BF     	 .align 2
+ 1573              	.L255:
+ 1574 0008 00460050 	 .word 1342195200
+ 1576              	 .section .text.XMC_SCU_CLOCK_IsClockEnabled,"ax",%progbits
+ 1577              	 .align 2
+ 1578              	 .global XMC_SCU_CLOCK_IsClockEnabled
+ 1579              	 .thumb
+ 1580              	 .thumb_func
+ 1582              	XMC_SCU_CLOCK_IsClockEnabled:
+ 1583              	 
+ 1584              	 
+ 1585              	 
+ 1586 0000 034B     	 ldr r3,.L258
+ 1587 0002 1B68     	 ldr r3,[r3]
+ 1588 0004 1842     	 tst r0,r3
+ 1589 0006 14BF     	 ite ne
+ 1590 0008 0120     	 movne r0,#1
+ 1591 000a 0020     	 moveq r0,#0
+ 1592 000c 7047     	 bx lr
+ 1593              	.L259:
+ 1594 000e 00BF     	 .align 2
+ 1595              	.L258:
+ 1596 0010 00460050 	 .word 1342195200
+ 1598              	 .section .text.XMC_SCU_CLOCK_GatePeripheralClock,"ax",%progbits
+ 1599              	 .align 2
+ 1600              	 .global XMC_SCU_CLOCK_GatePeripheralClock
+ 1601              	 .thumb
+ 1602              	 .thumb_func
+ 1604              	XMC_SCU_CLOCK_GatePeripheralClock:
+ 1605              	 
+ 1606              	 
+ 1607              	 
+ 1608 0000 030F     	 lsrs r3,r0,#28
+ 1609 0002 03EB4303 	 add r3,r3,r3,lsl#1
+ 1610 0006 034A     	 ldr r2,.L261
+ 1611 0008 20F07040 	 bic r0,r0,#-268435456
+ 1612 000c 42F82300 	 str r0,[r2,r3,lsl#2]
+ 1613 0010 7047     	 bx lr
+ 1614              	.L262:
+ 1615 0012 00BF     	 .align 2
+ 1616              	.L261:
+ 1617 0014 44460050 	 .word 1342195268
+ 1619              	 .section .text.XMC_SCU_CLOCK_UngatePeripheralClock,"ax",%progbits
+ 1620              	 .align 2
+ 1621              	 .global XMC_SCU_CLOCK_UngatePeripheralClock
+ 1622              	 .thumb
+ 1623              	 .thumb_func
+ 1625              	XMC_SCU_CLOCK_UngatePeripheralClock:
+ 1626              	 
+ 1627              	 
+ 1628              	 
+ 1629 0000 030F     	 lsrs r3,r0,#28
+ 1630 0002 03EB4303 	 add r3,r3,r3,lsl#1
+ 1631 0006 034A     	 ldr r2,.L264
+ 1632 0008 20F07040 	 bic r0,r0,#-268435456
+ 1633 000c 42F82300 	 str r0,[r2,r3,lsl#2]
+ 1634 0010 7047     	 bx lr
+ 1635              	.L265:
+ 1636 0012 00BF     	 .align 2
+ 1637              	.L264:
+ 1638 0014 48460050 	 .word 1342195272
+ 1640              	 .section .text.XMC_SCU_CLOCK_IsPeripheralClockGated,"ax",%progbits
+ 1641              	 .align 2
+ 1642              	 .global XMC_SCU_CLOCK_IsPeripheralClockGated
+ 1643              	 .thumb
+ 1644              	 .thumb_func
+ 1646              	XMC_SCU_CLOCK_IsPeripheralClockGated:
+ 1647              	 
+ 1648              	 
+ 1649              	 
+ 1650 0000 030F     	 lsrs r3,r0,#28
+ 1651 0002 064A     	 ldr r2,.L267
+ 1652 0004 03EB4303 	 add r3,r3,r3,lsl#1
+ 1653 0008 20F07040 	 bic r0,r0,#-268435456
+ 1654 000c 52F82330 	 ldr r3,[r2,r3,lsl#2]
+ 1655 0010 1842     	 tst r0,r3
+ 1656 0012 14BF     	 ite ne
+ 1657 0014 0120     	 movne r0,#1
+ 1658 0016 0020     	 moveq r0,#0
+ 1659 0018 7047     	 bx lr
+ 1660              	.L268:
+ 1661 001a 00BF     	 .align 2
+ 1662              	.L267:
+ 1663 001c 40460050 	 .word 1342195264
+ 1665              	 .section .text.XMC_SCU_POWER_GetEVR13Voltage,"ax",%progbits
+ 1666              	 .align 2
+ 1667              	 .global XMC_SCU_POWER_GetEVR13Voltage
+ 1668              	 .thumb
+ 1669              	 .thumb_func
+ 1671              	XMC_SCU_POWER_GetEVR13Voltage:
+ 1672              	 
+ 1673              	 
+ 1674              	 
+ 1675 0000 064B     	 ldr r3,.L270
+ 1676 0002 9FED077A 	 flds s14,.L270+4
+ 1677 0006 5B69     	 ldr r3,[r3,#20]
+ 1678 0008 DBB2     	 uxtb r3,r3
+ 1679 000a 07EE903A 	 fmsr s15,r3
+ 1680 000e F8EEE77A 	 fsitos s15,s15
+ 1681 0012 67EE877A 	 fmuls s15,s15,s14
+ 1682 0016 17EE900A 	 fmrs r0,s15
+ 1683 001a 7047     	 bx lr
+ 1684              	.L271:
+ 1685              	 .align 2
+ 1686              	.L270:
+ 1687 001c 00420050 	 .word 1342194176
+ 1688 0020 ED0DBE3B 	 .word 1002311149
+ 1690              	 .section .text.XMC_SCU_POWER_GetEVR33Voltage,"ax",%progbits
+ 1691              	 .align 2
+ 1692              	 .global XMC_SCU_POWER_GetEVR33Voltage
+ 1693              	 .thumb
+ 1694              	 .thumb_func
+ 1696              	XMC_SCU_POWER_GetEVR33Voltage:
+ 1697              	 
+ 1698              	 
+ 1699              	 
+ 1700 0000 074B     	 ldr r3,.L273
+ 1701 0002 9FED087A 	 flds s14,.L273+4
+ 1702 0006 5B69     	 ldr r3,[r3,#20]
+ 1703 0008 C3F30723 	 ubfx r3,r3,#8,#8
+ 1704 000c 07EE903A 	 fmsr s15,r3
+ 1705 0010 F8EEE77A 	 fsitos s15,s15
+ 1706 0014 67EE877A 	 fmuls s15,s15,s14
+ 1707 0018 17EE900A 	 fmrs r0,s15
+ 1708 001c 7047     	 bx lr
+ 1709              	.L274:
+ 1710 001e 00BF     	 .align 2
+ 1711              	.L273:
+ 1712 0020 00420050 	 .word 1342194176
+ 1713 0024 EC51B83C 	 .word 1018712556
+ 1715              	 .section .text.XMC_SCU_CLOCK_EnableUsbPll,"ax",%progbits
+ 1716              	 .align 2
+ 1717              	 .global XMC_SCU_CLOCK_EnableUsbPll
+ 1718              	 .thumb
+ 1719              	 .thumb_func
+ 1721              	XMC_SCU_CLOCK_EnableUsbPll:
+ 1722              	 
+ 1723              	 
+ 1724              	 
+ 1725 0000 034A     	 ldr r2,.L276
+ 1726 0002 5369     	 ldr r3,[r2,#20]
+ 1727 0004 23F48033 	 bic r3,r3,#65536
+ 1728 0008 23F00203 	 bic r3,r3,#2
+ 1729 000c 5361     	 str r3,[r2,#20]
+ 1730 000e 7047     	 bx lr
+ 1731              	.L277:
+ 1732              	 .align 2
+ 1733              	.L276:
+ 1734 0010 10470050 	 .word 1342195472
+ 1736              	 .section .text.XMC_SCU_CLOCK_DisableUsbPll,"ax",%progbits
+ 1737              	 .align 2
+ 1738              	 .global XMC_SCU_CLOCK_DisableUsbPll
+ 1739              	 .thumb
+ 1740              	 .thumb_func
+ 1742              	XMC_SCU_CLOCK_DisableUsbPll:
+ 1743              	 
+ 1744              	 
+ 1745              	 
+ 1746 0000 034A     	 ldr r2,.L279
+ 1747 0002 5369     	 ldr r3,[r2,#20]
+ 1748 0004 43F48033 	 orr r3,r3,#65536
+ 1749 0008 43F00203 	 orr r3,r3,#2
+ 1750 000c 5361     	 str r3,[r2,#20]
+ 1751 000e 7047     	 bx lr
+ 1752              	.L280:
+ 1753              	 .align 2
+ 1754              	.L279:
+ 1755 0010 10470050 	 .word 1342195472
+ 1757              	 .section .text.XMC_SCU_CLOCK_StartUsbPll,"ax",%progbits
+ 1758              	 .align 2
+ 1759              	 .global XMC_SCU_CLOCK_StartUsbPll
+ 1760              	 .thumb
+ 1761              	 .thumb_func
+ 1763              	XMC_SCU_CLOCK_StartUsbPll:
+ 1764              	 
+ 1765              	 
+ 1766              	 
+ 1767 0000 0F4B     	 ldr r3,.L285
+ 1768 0002 5A69     	 ldr r2,[r3,#20]
+ 1769 0004 42F00102 	 orr r2,r2,#1
+ 1770 0008 5A61     	 str r2,[r3,#20]
+ 1771 000a 5A69     	 ldr r2,[r3,#20]
+ 1772 000c 0138     	 subs r0,r0,#1
+ 1773 000e 0006     	 lsls r0,r0,#24
+ 1774 0010 0139     	 subs r1,r1,#1
+ 1775 0012 42F01002 	 orr r2,r2,#16
+ 1776 0016 40EA0120 	 orr r0,r0,r1,lsl#8
+ 1777 001a 5A61     	 str r2,[r3,#20]
+ 1778 001c 5861     	 str r0,[r3,#20]
+ 1779 001e 5A69     	 ldr r2,[r3,#20]
+ 1780 0020 42F04002 	 orr r2,r2,#64
+ 1781 0024 5A61     	 str r2,[r3,#20]
+ 1782 0026 5A69     	 ldr r2,[r3,#20]
+ 1783 0028 22F01002 	 bic r2,r2,#16
+ 1784 002c 5A61     	 str r2,[r3,#20]
+ 1785 002e 5A69     	 ldr r2,[r3,#20]
+ 1786 0030 42F48022 	 orr r2,r2,#262144
+ 1787 0034 5A61     	 str r2,[r3,#20]
+ 1788              	.L282:
+ 1789 0036 1A69     	 ldr r2,[r3,#16]
+ 1790 0038 5207     	 lsls r2,r2,#29
+ 1791 003a FCD5     	 bpl .L282
+ 1792 003c 7047     	 bx lr
+ 1793              	.L286:
+ 1794 003e 00BF     	 .align 2
+ 1795              	.L285:
+ 1796 0040 10470050 	 .word 1342195472
+ 1798              	 .section .text.XMC_SCU_CLOCK_StopUsbPll,"ax",%progbits
+ 1799              	 .align 2
+ 1800              	 .global XMC_SCU_CLOCK_StopUsbPll
+ 1801              	 .thumb
+ 1802              	 .thumb_func
+ 1804              	XMC_SCU_CLOCK_StopUsbPll:
+ 1805              	 
+ 1806              	 
+ 1807              	 
+ 1808 0000 014B     	 ldr r3,.L288
+ 1809 0002 024A     	 ldr r2,.L288+4
+ 1810 0004 5A61     	 str r2,[r3,#20]
+ 1811 0006 7047     	 bx lr
+ 1812              	.L289:
+ 1813              	 .align 2
+ 1814              	.L288:
+ 1815 0008 10470050 	 .word 1342195472
+ 1816 000c 03000100 	 .word 65539
+ 1818              	 .section .text.XMC_SCU_CLOCK_SetBackupClockCalibrationMode,"ax",%progbits
+ 1819              	 .align 2
+ 1820              	 .global XMC_SCU_CLOCK_SetBackupClockCalibrationMode
+ 1821              	 .thumb
+ 1822              	 .thumb_func
+ 1824              	XMC_SCU_CLOCK_SetBackupClockCalibrationMode:
+ 1825              	 
+ 1826              	 
+ 1827 0000 1A4A     	 ldr r2,.L307
+ 1828 0002 5368     	 ldr r3,[r2,#4]
+ 1829 0004 0128     	 cmp r0,#1
+ 1830 0006 43F48013 	 orr r3,r3,#1048576
+ 1831 000a 10B5     	 push {r4,lr}
+ 1832 000c 5360     	 str r3,[r2,#4]
+ 1833 000e 11D0     	 beq .L305
+ 1834 0010 174C     	 ldr r4,.L307+4
+ 1835              	.L291:
+ 1836 0012 FFF7FEFF 	 bl SystemCoreClockUpdate
+ 1837 0016 2368     	 ldr r3,[r4]
+ 1838 0018 164A     	 ldr r2,.L307+8
+ 1839 001a A2FB0332 	 umull r3,r2,r2,r3
+ 1840 001e 920C     	 lsrs r2,r2,#18
+ 1841 0020 6423     	 movs r3,#100
+ 1842 0022 03FB02F2 	 mul r2,r3,r2
+ 1843 0026 22B1     	 cbz r2,.L290
+ 1844 0028 0023     	 movs r3,#0
+ 1845              	.L295:
+ 1846              	
+ 1847 002a 00BF     	 nop
+ 1848              	
+ 1849              	 .thumb
+ 1850 002c 0133     	 adds r3,r3,#1
+ 1851 002e 9342     	 cmp r3,r2
+ 1852 0030 FBD1     	 bne .L295
+ 1853              	.L290:
+ 1854 0032 10BD     	 pop {r4,pc}
+ 1855              	.L305:
+ 1856 0034 5368     	 ldr r3,[r2,#4]
+ 1857 0036 0E4C     	 ldr r4,.L307+4
+ 1858 0038 23F48013 	 bic r3,r3,#1048576
+ 1859 003c 5360     	 str r3,[r2,#4]
+ 1860 003e FFF7FEFF 	 bl SystemCoreClockUpdate
+ 1861 0042 2368     	 ldr r3,[r4]
+ 1862 0044 0B4A     	 ldr r2,.L307+8
+ 1863 0046 A2FB0332 	 umull r3,r2,r2,r3
+ 1864 004a 920C     	 lsrs r2,r2,#18
+ 1865 004c 6423     	 movs r3,#100
+ 1866 004e 03FB02F2 	 mul r2,r3,r2
+ 1867 0052 22B1     	 cbz r2,.L292
+ 1868 0054 0023     	 movs r3,#0
+ 1869              	.L293:
+ 1870              	
+ 1871 0056 00BF     	 nop
+ 1872              	
+ 1873              	 .thumb
+ 1874 0058 0133     	 adds r3,r3,#1
+ 1875 005a 9342     	 cmp r3,r2
+ 1876 005c FBD1     	 bne .L293
+ 1877              	.L292:
+ 1878 005e 034A     	 ldr r2,.L307
+ 1879 0060 5368     	 ldr r3,[r2,#4]
+ 1880 0062 43F40023 	 orr r3,r3,#524288
+ 1881 0066 5360     	 str r3,[r2,#4]
+ 1882 0068 D3E7     	 b .L291
+ 1883              	.L308:
+ 1884 006a 00BF     	 .align 2
+ 1885              	.L307:
+ 1886 006c 10470050 	 .word 1342195472
+ 1887 0070 00000000 	 .word SystemCoreClock
+ 1888 0074 83DE1B43 	 .word 1125899907
+ 1890              	 .section .text.XMC_SCU_POWER_EnableUsb,"ax",%progbits
+ 1891              	 .align 2
+ 1892              	 .global XMC_SCU_POWER_EnableUsb
+ 1893              	 .thumb
+ 1894              	 .thumb_func
+ 1896              	XMC_SCU_POWER_EnableUsb:
+ 1897              	 
+ 1898              	 
+ 1899              	 
+ 1900 0000 024B     	 ldr r3,.L310
+ 1901 0002 4FF44032 	 mov r2,#196608
+ 1902 0006 5A60     	 str r2,[r3,#4]
+ 1903 0008 7047     	 bx lr
+ 1904              	.L311:
+ 1905 000a 00BF     	 .align 2
+ 1906              	.L310:
+ 1907 000c 00420050 	 .word 1342194176
+ 1909              	 .section .text.XMC_SCU_POWER_DisableUsb,"ax",%progbits
+ 1910              	 .align 2
+ 1911              	 .global XMC_SCU_POWER_DisableUsb
+ 1912              	 .thumb
+ 1913              	 .thumb_func
+ 1915              	XMC_SCU_POWER_DisableUsb:
+ 1916              	 
+ 1917              	 
+ 1918              	 
+ 1919 0000 024B     	 ldr r3,.L313
+ 1920 0002 4FF44032 	 mov r2,#196608
+ 1921 0006 9A60     	 str r2,[r3,#8]
+ 1922 0008 7047     	 bx lr
+ 1923              	.L314:
+ 1924 000a 00BF     	 .align 2
+ 1925              	.L313:
+ 1926 000c 00420050 	 .word 1342194176
+ 1928              	 .section .text.XMC_SCU_CLOCK_IsUsbPllLocked,"ax",%progbits
+ 1929              	 .align 2
+ 1930              	 .global XMC_SCU_CLOCK_IsUsbPllLocked
+ 1931              	 .thumb
+ 1932              	 .thumb_func
+ 1934              	XMC_SCU_CLOCK_IsUsbPllLocked:
+ 1935              	 
+ 1936              	 
+ 1937              	 
+ 1938 0000 024B     	 ldr r3,.L316
+ 1939 0002 1869     	 ldr r0,[r3,#16]
+ 1940 0004 C0F38000 	 ubfx r0,r0,#2,#1
+ 1941 0008 7047     	 bx lr
+ 1942              	.L317:
+ 1943 000a 00BF     	 .align 2
+ 1944              	.L316:
+ 1945 000c 10470050 	 .word 1342195472
+ 1947              	 .section .text.XMC_SCU_HIB_EnableHibernateDomain,"ax",%progbits
+ 1948              	 .align 2
+ 1949              	 .global XMC_SCU_HIB_EnableHibernateDomain
+ 1950              	 .thumb
+ 1951              	 .thumb_func
+ 1953              	XMC_SCU_HIB_EnableHibernateDomain:
+ 1954              	 
+ 1955              	 
+ 1956              	 
+ 1957 0000 0A4A     	 ldr r2,.L329
+ 1958 0002 1368     	 ldr r3,[r2]
+ 1959 0004 DB07     	 lsls r3,r3,#31
+ 1960 0006 04D4     	 bmi .L323
+ 1961 0008 0123     	 movs r3,#1
+ 1962 000a 5360     	 str r3,[r2,#4]
+ 1963              	.L322:
+ 1964 000c 1368     	 ldr r3,[r2]
+ 1965 000e D907     	 lsls r1,r3,#31
+ 1966 0010 FCD5     	 bpl .L322
+ 1967              	.L323:
+ 1968 0012 074A     	 ldr r2,.L329+4
+ 1969 0014 1368     	 ldr r3,[r2]
+ 1970 0016 9805     	 lsls r0,r3,#22
+ 1971 0018 06D5     	 bpl .L328
+ 1972 001a 4FF40073 	 mov r3,#512
+ 1973 001e 9360     	 str r3,[r2,#8]
+ 1974              	.L324:
+ 1975 0020 1368     	 ldr r3,[r2]
+ 1976 0022 9B05     	 lsls r3,r3,#22
+ 1977 0024 FCD4     	 bmi .L324
+ 1978 0026 7047     	 bx lr
+ 1979              	.L328:
+ 1980 0028 7047     	 bx lr
+ 1981              	.L330:
+ 1982 002a 00BF     	 .align 2
+ 1983              	.L329:
+ 1984 002c 00420050 	 .word 1342194176
+ 1985 0030 00440050 	 .word 1342194688
+ 1987              	 .section .text.XMC_SCU_HIB_DisableHibernateDomain,"ax",%progbits
+ 1988              	 .align 2
+ 1989              	 .global XMC_SCU_HIB_DisableHibernateDomain
+ 1990              	 .thumb
+ 1991              	 .thumb_func
+ 1993              	XMC_SCU_HIB_DisableHibernateDomain:
+ 1994              	 
+ 1995              	 
+ 1996              	 
+ 1997 0000 0349     	 ldr r1,.L332
+ 1998 0002 044B     	 ldr r3,.L332+4
+ 1999 0004 0120     	 movs r0,#1
+ 2000 0006 4FF40072 	 mov r2,#512
+ 2001 000a 8860     	 str r0,[r1,#8]
+ 2002 000c 5A60     	 str r2,[r3,#4]
+ 2003 000e 7047     	 bx lr
+ 2004              	.L333:
+ 2005              	 .align 2
+ 2006              	.L332:
+ 2007 0010 00420050 	 .word 1342194176
+ 2008 0014 00440050 	 .word 1342194688
+ 2010              	 .section .text.XMC_SCU_HIB_IsHibernateDomainEnabled,"ax",%progbits
+ 2011              	 .align 2
+ 2012              	 .global XMC_SCU_HIB_IsHibernateDomainEnabled
+ 2013              	 .thumb
+ 2014              	 .thumb_func
+ 2016              	XMC_SCU_HIB_IsHibernateDomainEnabled:
+ 2017              	 
+ 2018              	 
+ 2019              	 
+ 2020 0000 054B     	 ldr r3,.L337
+ 2021 0002 1868     	 ldr r0,[r3]
+ 2022 0004 10F00100 	 ands r0,r0,#1
+ 2023 0008 05D0     	 beq .L335
+ 2024 000a D3F80002 	 ldr r0,[r3,#512]
+ 2025 000e 80F40070 	 eor r0,r0,#512
+ 2026 0012 C0F34020 	 ubfx r0,r0,#9,#1
+ 2027              	.L335:
+ 2028 0016 7047     	 bx lr
+ 2029              	.L338:
+ 2030              	 .align 2
+ 2031              	.L337:
+ 2032 0018 00420050 	 .word 1342194176
+ 2034              	 .section .text.XMC_SCU_HIB_EnableInternalSlowClock,"ax",%progbits
+ 2035              	 .align 2
+ 2036              	 .global XMC_SCU_HIB_EnableInternalSlowClock
+ 2037              	 .thumb
+ 2038              	 .thumb_func
+ 2040              	XMC_SCU_HIB_EnableInternalSlowClock:
+ 2041              	 
+ 2042              	 
+ 2043              	 
+ 2044 0000 054A     	 ldr r2,.L342
+ 2045              	.L340:
+ 2046 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2047 0006 9B06     	 lsls r3,r3,#26
+ 2048 0008 FBD4     	 bmi .L340
+ 2049 000a 044A     	 ldr r2,.L342+4
+ 2050 000c 5369     	 ldr r3,[r2,#20]
+ 2051 000e 23F00103 	 bic r3,r3,#1
+ 2052 0012 5361     	 str r3,[r2,#20]
+ 2053 0014 7047     	 bx lr
+ 2054              	.L343:
+ 2055 0016 00BF     	 .align 2
+ 2056              	.L342:
+ 2057 0018 00400050 	 .word 1342193664
+ 2058 001c 00430050 	 .word 1342194432
+ 2060              	 .section .text.XMC_SCU_HIB_DisableInternalSlowClock,"ax",%progbits
+ 2061              	 .align 2
+ 2062              	 .global XMC_SCU_HIB_DisableInternalSlowClock
+ 2063              	 .thumb
+ 2064              	 .thumb_func
+ 2066              	XMC_SCU_HIB_DisableInternalSlowClock:
+ 2067              	 
+ 2068              	 
+ 2069              	 
+ 2070 0000 054A     	 ldr r2,.L347
+ 2071              	.L345:
+ 2072 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2073 0006 9B06     	 lsls r3,r3,#26
+ 2074 0008 FBD4     	 bmi .L345
+ 2075 000a 044A     	 ldr r2,.L347+4
+ 2076 000c 5369     	 ldr r3,[r2,#20]
+ 2077 000e 43F00103 	 orr r3,r3,#1
+ 2078 0012 5361     	 str r3,[r2,#20]
+ 2079 0014 7047     	 bx lr
+ 2080              	.L348:
+ 2081 0016 00BF     	 .align 2
+ 2082              	.L347:
+ 2083 0018 00400050 	 .word 1342193664
+ 2084 001c 00430050 	 .word 1342194432
+ 2086              	 .section .text.XMC_SCU_HIB_ClearEventStatus,"ax",%progbits
+ 2087              	 .align 2
+ 2088              	 .global XMC_SCU_HIB_ClearEventStatus
+ 2089              	 .thumb
+ 2090              	 .thumb_func
+ 2092              	XMC_SCU_HIB_ClearEventStatus:
+ 2093              	 
+ 2094              	 
+ 2095              	 
+ 2096 0000 034A     	 ldr r2,.L352
+ 2097              	.L350:
+ 2098 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2099 0006 9B07     	 lsls r3,r3,#30
+ 2100 0008 FBD4     	 bmi .L350
+ 2101 000a 024B     	 ldr r3,.L352+4
+ 2102 000c 5860     	 str r0,[r3,#4]
+ 2103 000e 7047     	 bx lr
+ 2104              	.L353:
+ 2105              	 .align 2
+ 2106              	.L352:
+ 2107 0010 00400050 	 .word 1342193664
+ 2108 0014 00430050 	 .word 1342194432
+ 2110              	 .section .text.XMC_SCU_HIB_TriggerEvent,"ax",%progbits
+ 2111              	 .align 2
+ 2112              	 .global XMC_SCU_HIB_TriggerEvent
+ 2113              	 .thumb
+ 2114              	 .thumb_func
+ 2116              	XMC_SCU_HIB_TriggerEvent:
+ 2117              	 
+ 2118              	 
+ 2119              	 
+ 2120 0000 034A     	 ldr r2,.L357
+ 2121              	.L355:
+ 2122 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2123 0006 5B07     	 lsls r3,r3,#29
+ 2124 0008 FBD4     	 bmi .L355
+ 2125 000a 024B     	 ldr r3,.L357+4
+ 2126 000c 9860     	 str r0,[r3,#8]
+ 2127 000e 7047     	 bx lr
+ 2128              	.L358:
+ 2129              	 .align 2
+ 2130              	.L357:
+ 2131 0010 00400050 	 .word 1342193664
+ 2132 0014 00430050 	 .word 1342194432
+ 2134              	 .section .text.XMC_SCU_HIB_EnableEvent,"ax",%progbits
+ 2135              	 .align 2
+ 2136              	 .global XMC_SCU_HIB_EnableEvent
+ 2137              	 .thumb
+ 2138              	 .thumb_func
+ 2140              	XMC_SCU_HIB_EnableEvent:
+ 2141              	 
+ 2142              	 
+ 2143              	 
+ 2144 0000 044A     	 ldr r2,.L362
+ 2145              	.L360:
+ 2146 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2147 0006 1B07     	 lsls r3,r3,#28
+ 2148 0008 FBD4     	 bmi .L360
+ 2149 000a 034A     	 ldr r2,.L362+4
+ 2150 000c D368     	 ldr r3,[r2,#12]
+ 2151 000e 1843     	 orrs r0,r0,r3
+ 2152 0010 D060     	 str r0,[r2,#12]
+ 2153 0012 7047     	 bx lr
+ 2154              	.L363:
+ 2155              	 .align 2
+ 2156              	.L362:
+ 2157 0014 00400050 	 .word 1342193664
+ 2158 0018 00430050 	 .word 1342194432
+ 2160              	 .section .text.XMC_SCU_HIB_DisableEvent,"ax",%progbits
+ 2161              	 .align 2
+ 2162              	 .global XMC_SCU_HIB_DisableEvent
+ 2163              	 .thumb
+ 2164              	 .thumb_func
+ 2166              	XMC_SCU_HIB_DisableEvent:
+ 2167              	 
+ 2168              	 
+ 2169              	 
+ 2170 0000 054A     	 ldr r2,.L367
+ 2171              	.L365:
+ 2172 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2173 0006 1B07     	 lsls r3,r3,#28
+ 2174 0008 FBD4     	 bmi .L365
+ 2175 000a 044A     	 ldr r2,.L367+4
+ 2176 000c D368     	 ldr r3,[r2,#12]
+ 2177 000e 23EA0000 	 bic r0,r3,r0
+ 2178 0012 D060     	 str r0,[r2,#12]
+ 2179 0014 7047     	 bx lr
+ 2180              	.L368:
+ 2181 0016 00BF     	 .align 2
+ 2182              	.L367:
+ 2183 0018 00400050 	 .word 1342193664
+ 2184 001c 00430050 	 .word 1342194432
+ 2186              	 .section .text.XMC_SCU_HIB_EnterHibernateState,"ax",%progbits
+ 2187              	 .align 2
+ 2188              	 .global XMC_SCU_HIB_EnterHibernateState
+ 2189              	 .thumb
+ 2190              	 .thumb_func
+ 2192              	XMC_SCU_HIB_EnterHibernateState:
+ 2193              	 
+ 2194              	 
+ 2195              	 
+ 2196 0000 054A     	 ldr r2,.L372
+ 2197              	.L370:
+ 2198 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2199 0006 1B07     	 lsls r3,r3,#28
+ 2200 0008 FBD4     	 bmi .L370
+ 2201 000a 044A     	 ldr r2,.L372+4
+ 2202 000c D368     	 ldr r3,[r2,#12]
+ 2203 000e 43F01003 	 orr r3,r3,#16
+ 2204 0012 D360     	 str r3,[r2,#12]
+ 2205 0014 7047     	 bx lr
+ 2206              	.L373:
+ 2207 0016 00BF     	 .align 2
+ 2208              	.L372:
+ 2209 0018 00400050 	 .word 1342193664
+ 2210 001c 00430050 	 .word 1342194432
+ 2212              	 .section .text.XMC_SCU_HIB_EnterHibernateStateEx,"ax",%progbits
+ 2213              	 .align 2
+ 2214              	 .global XMC_SCU_HIB_EnterHibernateStateEx
+ 2215              	 .thumb
+ 2216              	 .thumb_func
+ 2218              	XMC_SCU_HIB_EnterHibernateStateEx:
+ 2219              	 
+ 2220              	 
+ 2221              	 
+ 2222 0000 48B9     	 cbnz r0,.L374
+ 2223 0002 054A     	 ldr r2,.L378
+ 2224              	.L376:
+ 2225 0004 D2F8C430 	 ldr r3,[r2,#196]
+ 2226 0008 1B07     	 lsls r3,r3,#28
+ 2227 000a FBD4     	 bmi .L376
+ 2228 000c 034A     	 ldr r2,.L378+4
+ 2229 000e D368     	 ldr r3,[r2,#12]
+ 2230 0010 43F01003 	 orr r3,r3,#16
+ 2231 0014 D360     	 str r3,[r2,#12]
+ 2232              	.L374:
+ 2233 0016 7047     	 bx lr
+ 2234              	.L379:
+ 2235              	 .align 2
+ 2236              	.L378:
+ 2237 0018 00400050 	 .word 1342193664
+ 2238 001c 00430050 	 .word 1342194432
+ 2240              	 .section .text.XMC_SCU_HIB_SetWakeupTriggerInput,"ax",%progbits
+ 2241              	 .align 2
+ 2242              	 .global XMC_SCU_HIB_SetWakeupTriggerInput
+ 2243              	 .thumb
+ 2244              	 .thumb_func
+ 2246              	XMC_SCU_HIB_SetWakeupTriggerInput:
+ 2247              	 
+ 2248              	 
+ 2249              	 
+ 2250 0000 074A     	 ldr r2,.L386
+ 2251              	.L381:
+ 2252 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2253 0006 1B07     	 lsls r3,r3,#28
+ 2254 0008 FBD4     	 bmi .L381
+ 2255 000a 064A     	 ldr r2,.L386+4
+ 2256 000c D368     	 ldr r3,[r2,#12]
+ 2257 000e 18B1     	 cbz r0,.L385
+ 2258 0010 23F48073 	 bic r3,r3,#256
+ 2259 0014 D360     	 str r3,[r2,#12]
+ 2260 0016 7047     	 bx lr
+ 2261              	.L385:
+ 2262 0018 43F48073 	 orr r3,r3,#256
+ 2263 001c D360     	 str r3,[r2,#12]
+ 2264 001e 7047     	 bx lr
+ 2265              	.L387:
+ 2266              	 .align 2
+ 2267              	.L386:
+ 2268 0020 00400050 	 .word 1342193664
+ 2269 0024 00430050 	 .word 1342194432
+ 2271              	 .section .text.XMC_SCU_HIB_SetPinMode,"ax",%progbits
+ 2272              	 .align 2
+ 2273              	 .global XMC_SCU_HIB_SetPinMode
+ 2274              	 .thumb
+ 2275              	 .thumb_func
+ 2277              	XMC_SCU_HIB_SetPinMode:
+ 2278              	 
+ 2279              	 
+ 2280              	 
+ 2281 0000 094A     	 ldr r2,.L392
+ 2282              	.L389:
+ 2283 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2284 0006 1B07     	 lsls r3,r3,#28
+ 2285 0008 FBD4     	 bmi .L389
+ 2286 000a 10B4     	 push {r4}
+ 2287 000c 074C     	 ldr r4,.L392+4
+ 2288 000e 8000     	 lsls r0,r0,#2
+ 2289 0010 E268     	 ldr r2,[r4,#12]
+ 2290 0012 4FF47023 	 mov r3,#983040
+ 2291 0016 8340     	 lsls r3,r3,r0
+ 2292 0018 8140     	 lsls r1,r1,r0
+ 2293 001a 22EA0303 	 bic r3,r2,r3
+ 2294 001e 1943     	 orrs r1,r1,r3
+ 2295 0020 E160     	 str r1,[r4,#12]
+ 2296 0022 5DF8044B 	 ldr r4,[sp],#4
+ 2297 0026 7047     	 bx lr
+ 2298              	.L393:
+ 2299              	 .align 2
+ 2300              	.L392:
+ 2301 0028 00400050 	 .word 1342193664
+ 2302 002c 00430050 	 .word 1342194432
+ 2304              	 .section .text.XMC_SCU_HIB_SetPinOutputLevel,"ax",%progbits
+ 2305              	 .align 2
+ 2306              	 .global XMC_SCU_HIB_SetPinOutputLevel
+ 2307              	 .thumb
+ 2308              	 .thumb_func
+ 2310              	XMC_SCU_HIB_SetPinOutputLevel:
+ 2311              	 
+ 2312              	 
+ 2313              	 
+ 2314 0000 094A     	 ldr r2,.L398
+ 2315              	.L395:
+ 2316 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2317 0006 1B07     	 lsls r3,r3,#28
+ 2318 0008 FBD4     	 bmi .L395
+ 2319 000a 10B4     	 push {r4}
+ 2320 000c 074C     	 ldr r4,.L398+4
+ 2321 000e 4FF48053 	 mov r3,#4096
+ 2322 0012 E268     	 ldr r2,[r4,#12]
+ 2323 0014 8340     	 lsls r3,r3,r0
+ 2324 0016 8140     	 lsls r1,r1,r0
+ 2325 0018 22EA0303 	 bic r3,r2,r3
+ 2326 001c 1943     	 orrs r1,r1,r3
+ 2327 001e E160     	 str r1,[r4,#12]
+ 2328 0020 5DF8044B 	 ldr r4,[sp],#4
+ 2329 0024 7047     	 bx lr
+ 2330              	.L399:
+ 2331 0026 00BF     	 .align 2
+ 2332              	.L398:
+ 2333 0028 00400050 	 .word 1342193664
+ 2334 002c 00430050 	 .word 1342194432
+ 2336              	 .section .text.XMC_SCU_HIB_SetInput0,"ax",%progbits
+ 2337              	 .align 2
+ 2338              	 .global XMC_SCU_HIB_SetInput0
+ 2339              	 .thumb
+ 2340              	 .thumb_func
+ 2342              	XMC_SCU_HIB_SetInput0:
+ 2343              	 
+ 2344              	 
+ 2345              	 
+ 2346 0000 074A     	 ldr r2,.L406
+ 2347              	.L401:
+ 2348 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2349 0006 1B07     	 lsls r3,r3,#28
+ 2350 0008 FBD4     	 bmi .L401
+ 2351 000a 064A     	 ldr r2,.L406+4
+ 2352 000c D368     	 ldr r3,[r2,#12]
+ 2353 000e 18B1     	 cbz r0,.L405
+ 2354 0010 23F48063 	 bic r3,r3,#1024
+ 2355 0014 D360     	 str r3,[r2,#12]
+ 2356 0016 7047     	 bx lr
+ 2357              	.L405:
+ 2358 0018 43F48063 	 orr r3,r3,#1024
+ 2359 001c D360     	 str r3,[r2,#12]
+ 2360 001e 7047     	 bx lr
+ 2361              	.L407:
+ 2362              	 .align 2
+ 2363              	.L406:
+ 2364 0020 00400050 	 .word 1342193664
+ 2365 0024 00430050 	 .word 1342194432
+ 2367              	 .section .text.XMC_SCU_HIB_SetSR0Input,"ax",%progbits
+ 2368              	 .align 2
+ 2369              	 .global XMC_SCU_HIB_SetSR0Input
+ 2370              	 .thumb
+ 2371              	 .thumb_func
+ 2373              	XMC_SCU_HIB_SetSR0Input:
+ 2374              	 
+ 2375              	 
+ 2376              	 
+ 2377 0000 054A     	 ldr r2,.L411
+ 2378              	.L409:
+ 2379 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2380 0006 1B07     	 lsls r3,r3,#28
+ 2381 0008 FBD4     	 bmi .L409
+ 2382 000a 044A     	 ldr r2,.L411+4
+ 2383 000c D368     	 ldr r3,[r2,#12]
+ 2384 000e 23F48063 	 bic r3,r3,#1024
+ 2385 0012 1843     	 orrs r0,r0,r3
+ 2386 0014 D060     	 str r0,[r2,#12]
+ 2387 0016 7047     	 bx lr
+ 2388              	.L412:
+ 2389              	 .align 2
+ 2390              	.L411:
+ 2391 0018 00400050 	 .word 1342193664
+ 2392 001c 00430050 	 .word 1342194432
+ 2394              	 .section .text.XMC_SCU_CLOCK_IsLowPowerOscillatorStable,"ax",%progbits
+ 2395              	 .align 2
+ 2396              	 .global XMC_SCU_CLOCK_IsLowPowerOscillatorStable
+ 2397              	 .thumb
+ 2398              	 .thumb_func
+ 2400              	XMC_SCU_CLOCK_IsLowPowerOscillatorStable:
+ 2401              	 
+ 2402              	 
+ 2403              	 
+ 2404 0000 034B     	 ldr r3,.L414
+ 2405 0002 1868     	 ldr r0,[r3]
+ 2406 0004 80F00800 	 eor r0,r0,#8
+ 2407 0008 C0F3C000 	 ubfx r0,r0,#3,#1
+ 2408 000c 7047     	 bx lr
+ 2409              	.L415:
+ 2410 000e 00BF     	 .align 2
+ 2411              	.L414:
+ 2412 0010 00430050 	 .word 1342194432
+ 2414              	 .section .text.XMC_SCU_CLOCK_EnableLowPowerOscillator,"ax",%progbits
+ 2415              	 .align 2
+ 2416              	 .global XMC_SCU_CLOCK_EnableLowPowerOscillator
+ 2417              	 .thumb
+ 2418              	 .thumb_func
+ 2420              	XMC_SCU_CLOCK_EnableLowPowerOscillator:
+ 2421              	 
+ 2422              	 
+ 2423              	 
+ 2424 0000 104A     	 ldr r2,.L425
+ 2425              	.L417:
+ 2426 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2427 0006 1806     	 lsls r0,r3,#24
+ 2428 0008 FBD4     	 bmi .L417
+ 2429 000a 0F49     	 ldr r1,.L425+4
+ 2430 000c 0D4A     	 ldr r2,.L425
+ 2431 000e CB69     	 ldr r3,[r1,#28]
+ 2432 0010 23F03003 	 bic r3,r3,#48
+ 2433 0014 CB61     	 str r3,[r1,#28]
+ 2434              	.L418:
+ 2435 0016 D2F8C430 	 ldr r3,[r2,#196]
+ 2436 001a 1907     	 lsls r1,r3,#28
+ 2437 001c FBD4     	 bmi .L418
+ 2438 001e 0A49     	 ldr r1,.L425+4
+ 2439 0020 084A     	 ldr r2,.L425
+ 2440 0022 CB68     	 ldr r3,[r1,#12]
+ 2441 0024 43F00803 	 orr r3,r3,#8
+ 2442 0028 CB60     	 str r3,[r1,#12]
+ 2443              	.L419:
+ 2444 002a D2F8C430 	 ldr r3,[r2,#196]
+ 2445 002e 5B07     	 lsls r3,r3,#29
+ 2446 0030 FBD4     	 bmi .L419
+ 2447 0032 054B     	 ldr r3,.L425+4
+ 2448 0034 034A     	 ldr r2,.L425
+ 2449 0036 0821     	 movs r1,#8
+ 2450 0038 9960     	 str r1,[r3,#8]
+ 2451              	.L420:
+ 2452 003a D2F8C430 	 ldr r3,[r2,#196]
+ 2453 003e 002B     	 cmp r3,#0
+ 2454 0040 FBD1     	 bne .L420
+ 2455 0042 7047     	 bx lr
+ 2456              	.L426:
+ 2457              	 .align 2
+ 2458              	.L425:
+ 2459 0044 00400050 	 .word 1342193664
+ 2460 0048 00430050 	 .word 1342194432
+ 2462              	 .section .text.XMC_SCU_CLOCK_DisableLowPowerOscillator,"ax",%progbits
+ 2463              	 .align 2
+ 2464              	 .global XMC_SCU_CLOCK_DisableLowPowerOscillator
+ 2465              	 .thumb
+ 2466              	 .thumb_func
+ 2468              	XMC_SCU_CLOCK_DisableLowPowerOscillator:
+ 2469              	 
+ 2470              	 
+ 2471              	 
+ 2472 0000 054A     	 ldr r2,.L430
+ 2473              	.L428:
+ 2474 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2475 0006 1B06     	 lsls r3,r3,#24
+ 2476 0008 FBD4     	 bmi .L428
+ 2477 000a 044A     	 ldr r2,.L430+4
+ 2478 000c D369     	 ldr r3,[r2,#28]
+ 2479 000e 43F03003 	 orr r3,r3,#48
+ 2480 0012 D361     	 str r3,[r2,#28]
+ 2481 0014 7047     	 bx lr
+ 2482              	.L431:
+ 2483 0016 00BF     	 .align 2
+ 2484              	.L430:
+ 2485 0018 00400050 	 .word 1342193664
+ 2486 001c 00430050 	 .word 1342194432
+ 2488              	 .section .text.XMC_SCU_CLOCK_EnableLowPowerOscillatorGeneralPurposeInput,"ax",%progbits
+ 2489              	 .align 2
+ 2490              	 .global XMC_SCU_CLOCK_EnableLowPowerOscillatorGeneralPurposeInput
+ 2491              	 .thumb
+ 2492              	 .thumb_func
+ 2494              	XMC_SCU_CLOCK_EnableLowPowerOscillatorGeneralPurposeInput:
+ 2495              	 
+ 2496              	 
+ 2497              	 
+ 2498 0000 054A     	 ldr r2,.L435
+ 2499              	.L433:
+ 2500 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2501 0006 1B06     	 lsls r3,r3,#24
+ 2502 0008 FBD4     	 bmi .L433
+ 2503 000a 044A     	 ldr r2,.L435+4
+ 2504 000c D369     	 ldr r3,[r2,#28]
+ 2505 000e 43F03103 	 orr r3,r3,#49
+ 2506 0012 D361     	 str r3,[r2,#28]
+ 2507 0014 7047     	 bx lr
+ 2508              	.L436:
+ 2509 0016 00BF     	 .align 2
+ 2510              	.L435:
+ 2511 0018 00400050 	 .word 1342193664
+ 2512 001c 00430050 	 .word 1342194432
+ 2514              	 .section .text.XMC_SCU_CLOCK_DisableLowPowerOscillatorGeneralPurposeInput,"ax",%progbits
+ 2515              	 .align 2
+ 2516              	 .global XMC_SCU_CLOCK_DisableLowPowerOscillatorGeneralPurposeInput
+ 2517              	 .thumb
+ 2518              	 .thumb_func
+ 2520              	XMC_SCU_CLOCK_DisableLowPowerOscillatorGeneralPurposeInput:
+ 2521              	 
+ 2522              	 
+ 2523              	 
+ 2524 0000 064A     	 ldr r2,.L440
+ 2525              	.L438:
+ 2526 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 2527 0006 1B06     	 lsls r3,r3,#24
+ 2528 0008 FBD4     	 bmi .L438
+ 2529 000a 054A     	 ldr r2,.L440+4
+ 2530 000c D369     	 ldr r3,[r2,#28]
+ 2531 000e 23F03103 	 bic r3,r3,#49
+ 2532 0012 43F02003 	 orr r3,r3,#32
+ 2533 0016 D361     	 str r3,[r2,#28]
+ 2534 0018 7047     	 bx lr
+ 2535              	.L441:
+ 2536 001a 00BF     	 .align 2
+ 2537              	.L440:
+ 2538 001c 00400050 	 .word 1342193664
+ 2539 0020 00430050 	 .word 1342194432
+ 2541              	 .section .text.XMC_SCU_CLOCK_GetLowPowerOscillatorGeneralPurposeInputStatus,"ax",%progbits
+ 2542              	 .align 2
+ 2543              	 .global XMC_SCU_CLOCK_GetLowPowerOscillatorGeneralPurposeInputStatus
+ 2544              	 .thumb
+ 2545              	 .thumb_func
+ 2547              	XMC_SCU_CLOCK_GetLowPowerOscillatorGeneralPurposeInputStatus:
+ 2548              	 
+ 2549              	 
+ 2550              	 
+ 2551 0000 024B     	 ldr r3,.L443
+ 2552 0002 9869     	 ldr r0,[r3,#24]
+ 2553 0004 00F00100 	 and r0,r0,#1
+ 2554 0008 7047     	 bx lr
+ 2555              	.L444:
+ 2556 000a 00BF     	 .align 2
+ 2557              	.L443:
+ 2558 000c 00430050 	 .word 1342194432
+ 2560              	 .section .text.XMC_SCU_CLOCK_EnableHighPerformanceOscillator,"ax",%progbits
+ 2561              	 .align 2
+ 2562              	 .global XMC_SCU_CLOCK_EnableHighPerformanceOscillator
+ 2563              	 .thumb
+ 2564              	 .thumb_func
+ 2566              	XMC_SCU_CLOCK_EnableHighPerformanceOscillator:
+ 2567              	 
+ 2568              	 
+ 2569 0000 70B5     	 push {r4,r5,r6,lr}
+ 2570 0002 0D4D     	 ldr r5,.L447
+ 2571 0004 0D4E     	 ldr r6,.L447+4
+ 2572 0006 6B68     	 ldr r3,[r5,#4]
+ 2573 0008 23F48033 	 bic r3,r3,#65536
+ 2574 000c 6B60     	 str r3,[r5,#4]
+ 2575 000e 7468     	 ldr r4,[r6,#4]
+ 2576 0010 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 2577 0014 0A4B     	 ldr r3,.L447+8
+ 2578 0016 A3FB0030 	 umull r3,r0,r3,r0
+ 2579 001a 000D     	 lsrs r0,r0,#20
+ 2580 001c 24F47023 	 bic r3,r4,#983040
+ 2581 0020 23F03003 	 bic r3,r3,#48
+ 2582 0024 0138     	 subs r0,r0,#1
+ 2583 0026 43EA0043 	 orr r3,r3,r0,lsl#16
+ 2584 002a 7360     	 str r3,[r6,#4]
+ 2585 002c 6B68     	 ldr r3,[r5,#4]
+ 2586 002e 23F40033 	 bic r3,r3,#131072
+ 2587 0032 6B60     	 str r3,[r5,#4]
+ 2588 0034 70BD     	 pop {r4,r5,r6,pc}
+ 2589              	.L448:
+ 2590 0036 00BF     	 .align 2
+ 2591              	.L447:
+ 2592 0038 10470050 	 .word 1342195472
+ 2593 003c 00470050 	 .word 1342195456
+ 2594 0040 6BCA5F6B 	 .word 1801439851
+ 2596              	 .section .text.XMC_SCU_CLOCK_IsHighPerformanceOscillatorStable,"ax",%progbits
+ 2597              	 .align 2
+ 2598              	 .global XMC_SCU_CLOCK_IsHighPerformanceOscillatorStable
+ 2599              	 .thumb
+ 2600              	 .thumb_func
+ 2602              	XMC_SCU_CLOCK_IsHighPerformanceOscillatorStable:
+ 2603              	 
+ 2604              	 
+ 2605              	 
+ 2606 0000 044B     	 ldr r3,.L450
+ 2607 0002 1868     	 ldr r0,[r3]
+ 2608 0004 00F46070 	 and r0,r0,#896
+ 2609 0008 A0F56070 	 sub r0,r0,#896
+ 2610 000c B0FA80F0 	 clz r0,r0
+ 2611 0010 4009     	 lsrs r0,r0,#5
+ 2612 0012 7047     	 bx lr
+ 2613              	.L451:
+ 2614              	 .align 2
+ 2615              	.L450:
+ 2616 0014 10470050 	 .word 1342195472
+ 2618              	 .section .text.XMC_SCU_CLOCK_DisableHighPerformanceOscillator,"ax",%progbits
+ 2619              	 .align 2
+ 2620              	 .global XMC_SCU_CLOCK_DisableHighPerformanceOscillator
+ 2621              	 .thumb
+ 2622              	 .thumb_func
+ 2624              	XMC_SCU_CLOCK_DisableHighPerformanceOscillator:
+ 2625              	 
+ 2626              	 
+ 2627              	 
+ 2628 0000 024A     	 ldr r2,.L453
+ 2629 0002 5368     	 ldr r3,[r2,#4]
+ 2630 0004 43F03003 	 orr r3,r3,#48
+ 2631 0008 5360     	 str r3,[r2,#4]
+ 2632 000a 7047     	 bx lr
+ 2633              	.L454:
+ 2634              	 .align 2
+ 2635              	.L453:
+ 2636 000c 00470050 	 .word 1342195456
+ 2638              	 .section .text.XMC_SCU_CLOCK_EnableHighPerformanceOscillatorGeneralPurposeInput,"ax",%progbits
+ 2639              	 .align 2
+ 2640              	 .global XMC_SCU_CLOCK_EnableHighPerformanceOscillatorGeneralPurposeInput
+ 2641              	 .thumb
+ 2642              	 .thumb_func
+ 2644              	XMC_SCU_CLOCK_EnableHighPerformanceOscillatorGeneralPurposeInput:
+ 2645              	 
+ 2646              	 
+ 2647              	 
+ 2648 0000 024A     	 ldr r2,.L456
+ 2649 0002 5368     	 ldr r3,[r2,#4]
+ 2650 0004 43F00103 	 orr r3,r3,#1
+ 2651 0008 5360     	 str r3,[r2,#4]
+ 2652 000a 7047     	 bx lr
+ 2653              	.L457:
+ 2654              	 .align 2
+ 2655              	.L456:
+ 2656 000c 00470050 	 .word 1342195456
+ 2658              	 .section .text.XMC_SCU_CLOCK_DisableHighPerformanceOscillatorGeneralPurposeInput,"ax",%progbits
+ 2659              	 .align 2
+ 2660              	 .global XMC_SCU_CLOCK_DisableHighPerformanceOscillatorGeneralPurposeInput
+ 2661              	 .thumb
+ 2662              	 .thumb_func
+ 2664              	XMC_SCU_CLOCK_DisableHighPerformanceOscillatorGeneralPurposeInput:
+ 2665              	 
+ 2666              	 
+ 2667              	 
+ 2668 0000 024A     	 ldr r2,.L459
+ 2669 0002 5368     	 ldr r3,[r2,#4]
+ 2670 0004 23F00103 	 bic r3,r3,#1
+ 2671 0008 5360     	 str r3,[r2,#4]
+ 2672 000a 7047     	 bx lr
+ 2673              	.L460:
+ 2674              	 .align 2
+ 2675              	.L459:
+ 2676 000c 00470050 	 .word 1342195456
+ 2678              	 .section .text.XMC_SCU_CLOCK_GetHighPerformanceOscillatorGeneralPurposeInputStatus,"ax",%progbits
+ 2679              	 .align 2
+ 2680              	 .global XMC_SCU_CLOCK_GetHighPerformanceOscillatorGeneralPurposeInputStatus
+ 2681              	 .thumb
+ 2682              	 .thumb_func
+ 2684              	XMC_SCU_CLOCK_GetHighPerformanceOscillatorGeneralPurposeInputStatus:
+ 2685              	 
+ 2686              	 
+ 2687              	 
+ 2688 0000 024B     	 ldr r3,.L462
+ 2689 0002 1868     	 ldr r0,[r3]
+ 2690 0004 00F00100 	 and r0,r0,#1
+ 2691 0008 7047     	 bx lr
+ 2692              	.L463:
+ 2693 000a 00BF     	 .align 2
+ 2694              	.L462:
+ 2695 000c 00470050 	 .word 1342195456
+ 2697              	 .section .text.XMC_SCU_CLOCK_EnableSystemPll,"ax",%progbits
+ 2698              	 .align 2
+ 2699              	 .global XMC_SCU_CLOCK_EnableSystemPll
+ 2700              	 .thumb
+ 2701              	 .thumb_func
+ 2703              	XMC_SCU_CLOCK_EnableSystemPll:
+ 2704              	 
+ 2705              	 
+ 2706              	 
+ 2707 0000 034A     	 ldr r2,.L465
+ 2708 0002 5368     	 ldr r3,[r2,#4]
+ 2709 0004 23F48033 	 bic r3,r3,#65536
+ 2710 0008 23F00203 	 bic r3,r3,#2
+ 2711 000c 5360     	 str r3,[r2,#4]
+ 2712 000e 7047     	 bx lr
+ 2713              	.L466:
+ 2714              	 .align 2
+ 2715              	.L465:
+ 2716 0010 10470050 	 .word 1342195472
+ 2718              	 .section .text.XMC_SCU_CLOCK_DisableSystemPll,"ax",%progbits
+ 2719              	 .align 2
+ 2720              	 .global XMC_SCU_CLOCK_DisableSystemPll
+ 2721              	 .thumb
+ 2722              	 .thumb_func
+ 2724              	XMC_SCU_CLOCK_DisableSystemPll:
+ 2725              	 
+ 2726              	 
+ 2727              	 
+ 2728 0000 034A     	 ldr r2,.L468
+ 2729 0002 5368     	 ldr r3,[r2,#4]
+ 2730 0004 43F48033 	 orr r3,r3,#65536
+ 2731 0008 43F00203 	 orr r3,r3,#2
+ 2732 000c 5360     	 str r3,[r2,#4]
+ 2733 000e 7047     	 bx lr
+ 2734              	.L469:
+ 2735              	 .align 2
+ 2736              	.L468:
+ 2737 0010 10470050 	 .word 1342195472
+ 2739              	 .section .text.XMC_SCU_CLOCK_StartSystemPll,"ax",%progbits
+ 2740              	 .align 2
+ 2741              	 .global XMC_SCU_CLOCK_StartSystemPll
+ 2742              	 .thumb
+ 2743              	 .thumb_func
+ 2745              	XMC_SCU_CLOCK_StartSystemPll:
+ 2746              	 
+ 2747              	 
+ 2748 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+ 2749 0002 83B0     	 sub sp,sp,#12
+ 2750 0004 644C     	 ldr r4,.L509
+ 2751 0006 089E     	 ldr r6,[sp,#32]
+ 2752 0008 C0B1     	 cbz r0,.L506
+ 2753 000a E068     	 ldr r0,[r4,#12]
+ 2754 000c 40F48070 	 orr r0,r0,#256
+ 2755 0010 40F00100 	 orr r0,r0,#1
+ 2756 0014 0129     	 cmp r1,#1
+ 2757 0016 E060     	 str r0,[r4,#12]
+ 2758 0018 00F08680 	 beq .L507
+ 2759              	.L473:
+ 2760 001c 5E4A     	 ldr r2,.L509
+ 2761 001e 9368     	 ldr r3,[r2,#8]
+ 2762 0020 013E     	 subs r6,r6,#1
+ 2763 0022 23F07F03 	 bic r3,r3,#127
+ 2764 0026 1E43     	 orrs r6,r6,r3
+ 2765 0028 9660     	 str r6,[r2,#8]
+ 2766 002a 5368     	 ldr r3,[r2,#4]
+ 2767 002c 43F00103 	 orr r3,r3,#1
+ 2768 0030 5360     	 str r3,[r2,#4]
+ 2769              	.L485:
+ 2770 0032 1368     	 ldr r3,[r2]
+ 2771 0034 DB07     	 lsls r3,r3,#31
+ 2772 0036 FCD5     	 bpl .L485
+ 2773              	.L470:
+ 2774 0038 03B0     	 add sp,sp,#12
+ 2775              	 
+ 2776 003a F0BD     	 pop {r4,r5,r6,r7,pc}
+ 2777              	.L506:
+ 2778 003c E068     	 ldr r0,[r4,#12]
+ 2779 003e 20F48070 	 bic r0,r0,#256
+ 2780 0042 20F00100 	 bic r0,r0,#1
+ 2781 0046 0129     	 cmp r1,#1
+ 2782 0048 E060     	 str r0,[r4,#12]
+ 2783 004a E7D1     	 bne .L473
+ 2784 004c 8DE80C00 	 stmia sp,{r2,r3}
+ 2785 0050 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 2786 0054 514D     	 ldr r5,.L509+4
+ 2787 0056 A5FB0035 	 umull r3,r5,r5,r0
+ 2788 005a 9DE80C00 	 ldmia sp,{r2,r3}
+ 2789 005e AD0C     	 lsrs r5,r5,#18
+ 2790 0060 AD05     	 lsls r5,r5,#22
+ 2791              	.L474:
+ 2792 0062 4D49     	 ldr r1,.L509
+ 2793 0064 4E4C     	 ldr r4,.L509+8
+ 2794 0066 4F68     	 ldr r7,[r1,#4]
+ 2795 0068 4E48     	 ldr r0,.L509+12
+ 2796 006a 47F00107 	 orr r7,r7,#1
+ 2797 006e 4F60     	 str r7,[r1,#4]
+ 2798 0070 4F68     	 ldr r7,[r1,#4]
+ 2799 0072 47F01007 	 orr r7,r7,#16
+ 2800 0076 4F60     	 str r7,[r1,#4]
+ 2801 0078 D1F808E0 	 ldr lr,[r1,#8]
+ 2802 007c 03FB05F5 	 mul r5,r3,r5
+ 2803 0080 571E     	 subs r7,r2,#1
+ 2804 0082 B5FBF2F5 	 udiv r5,r5,r2
+ 2805 0086 0EEA0000 	 and r0,lr,r0
+ 2806 008a A4FB0542 	 umull r4,r2,r4,r5
+ 2807 008e 40EA0760 	 orr r0,r0,r7,lsl#24
+ 2808 0092 5C1E     	 subs r4,r3,#1
+ 2809 0094 930E     	 lsrs r3,r2,#26
+ 2810 0096 40EA0420 	 orr r0,r0,r4,lsl#8
+ 2811 009a 013B     	 subs r3,r3,#1
+ 2812 009c 40EA0343 	 orr r3,r0,r3,lsl#16
+ 2813 00a0 8B60     	 str r3,[r1,#8]
+ 2814 00a2 4B68     	 ldr r3,[r1,#4]
+ 2815 00a4 43F04003 	 orr r3,r3,#64
+ 2816 00a8 4B60     	 str r3,[r1,#4]
+ 2817 00aa 4B68     	 ldr r3,[r1,#4]
+ 2818 00ac 23F01003 	 bic r3,r3,#16
+ 2819 00b0 4B60     	 str r3,[r1,#4]
+ 2820 00b2 4B68     	 ldr r3,[r1,#4]
+ 2821 00b4 43F48023 	 orr r3,r3,#262144
+ 2822 00b8 4B60     	 str r3,[r1,#4]
+ 2823              	.L475:
+ 2824 00ba 0868     	 ldr r0,[r1]
+ 2825 00bc 364B     	 ldr r3,.L509
+ 2826 00be 4207     	 lsls r2,r0,#29
+ 2827 00c0 FBD5     	 bpl .L475
+ 2828 00c2 5A68     	 ldr r2,[r3,#4]
+ 2829 00c4 22F00102 	 bic r2,r2,#1
+ 2830 00c8 5A60     	 str r2,[r3,#4]
+ 2831 00ca 1946     	 mov r1,r3
+ 2832              	.L476:
+ 2833 00cc 0B68     	 ldr r3,[r1]
+ 2834 00ce 324A     	 ldr r2,.L509
+ 2835 00d0 13F00104 	 ands r4,r3,#1
+ 2836 00d4 FAD1     	 bne .L476
+ 2837 00d6 344B     	 ldr r3,.L509+16
+ 2838 00d8 A3FB0513 	 umull r1,r3,r3,r5
+ 2839 00dc DB0E     	 lsrs r3,r3,#27
+ 2840 00de 9E42     	 cmp r6,r3
+ 2841 00e0 3FD3     	 bcc .L477
+ 2842 00e2 324F     	 ldr r7,.L509+20
+ 2843              	.L480:
+ 2844 00e4 324B     	 ldr r3,.L509+24
+ 2845 00e6 6D08     	 lsrs r5,r5,#1
+ 2846 00e8 A3FB0523 	 umull r2,r3,r3,r5
+ 2847 00ec DB0E     	 lsrs r3,r3,#27
+ 2848 00ee 9E42     	 cmp r6,r3
+ 2849 00f0 1DD3     	 bcc .L508
+ 2850              	.L479:
+ 2851 00f2 294A     	 ldr r2,.L509
+ 2852 00f4 9368     	 ldr r3,[r2,#8]
+ 2853 00f6 013E     	 subs r6,r6,#1
+ 2854 00f8 23F4FE03 	 bic r3,r3,#8323072
+ 2855 00fc 43EA0646 	 orr r6,r3,r6,lsl#16
+ 2856 0100 9660     	 str r6,[r2,#8]
+ 2857 0102 FFF7FEFF 	 bl SystemCoreClockUpdate
+ 2858 0106 3B68     	 ldr r3,[r7]
+ 2859 0108 244A     	 ldr r2,.L509+4
+ 2860 010a A2FB0332 	 umull r3,r2,r2,r3
+ 2861 010e 920C     	 lsrs r2,r2,#18
+ 2862 0110 3223     	 movs r3,#50
+ 2863 0112 03FB02F2 	 mul r2,r3,r2
+ 2864 0116 0023     	 movs r3,#0
+ 2865 0118 002A     	 cmp r2,#0
+ 2866 011a 8DD0     	 beq .L470
+ 2867              	.L482:
+ 2868              	
+ 2869 011c 00BF     	 nop
+ 2870              	
+ 2871              	 .thumb
+ 2872 011e 0133     	 adds r3,r3,#1
+ 2873 0120 9342     	 cmp r3,r2
+ 2874 0122 FBD1     	 bne .L482
+ 2875 0124 03B0     	 add sp,sp,#12
+ 2876              	 
+ 2877 0126 F0BD     	 pop {r4,r5,r6,r7,pc}
+ 2878              	.L507:
+ 2879 0128 4FF0C065 	 mov r5,#100663296
+ 2880 012c 99E7     	 b .L474
+ 2881              	.L508:
+ 2882 012e 1A49     	 ldr r1,.L509
+ 2883 0130 8A68     	 ldr r2,[r1,#8]
+ 2884 0132 013B     	 subs r3,r3,#1
+ 2885 0134 22F4FE02 	 bic r2,r2,#8323072
+ 2886 0138 42EA0343 	 orr r3,r2,r3,lsl#16
+ 2887 013c 8B60     	 str r3,[r1,#8]
+ 2888 013e FFF7FEFF 	 bl SystemCoreClockUpdate
+ 2889 0142 3B68     	 ldr r3,[r7]
+ 2890 0144 154A     	 ldr r2,.L509+4
+ 2891 0146 A2FB0332 	 umull r3,r2,r2,r3
+ 2892 014a 920C     	 lsrs r2,r2,#18
+ 2893 014c 3223     	 movs r3,#50
+ 2894 014e 03FB02F2 	 mul r2,r3,r2
+ 2895 0152 002A     	 cmp r2,#0
+ 2896 0154 CDD0     	 beq .L479
+ 2897 0156 0023     	 movs r3,#0
+ 2898              	.L484:
+ 2899              	
+ 2900 0158 00BF     	 nop
+ 2901              	
+ 2902              	 .thumb
+ 2903 015a 0133     	 adds r3,r3,#1
+ 2904 015c 9342     	 cmp r3,r2
+ 2905 015e FBD1     	 bne .L484
+ 2906 0160 C7E7     	 b .L479
+ 2907              	.L477:
+ 2908 0162 9168     	 ldr r1,[r2,#8]
+ 2909 0164 114F     	 ldr r7,.L509+20
+ 2910 0166 21F4FE01 	 bic r1,r1,#8323072
+ 2911 016a 013B     	 subs r3,r3,#1
+ 2912 016c 41EA0343 	 orr r3,r1,r3,lsl#16
+ 2913 0170 9360     	 str r3,[r2,#8]
+ 2914 0172 FFF7FEFF 	 bl SystemCoreClockUpdate
+ 2915 0176 3B68     	 ldr r3,[r7]
+ 2916 0178 084A     	 ldr r2,.L509+4
+ 2917 017a A2FB0332 	 umull r3,r2,r2,r3
+ 2918 017e 920C     	 lsrs r2,r2,#18
+ 2919 0180 3223     	 movs r3,#50
+ 2920 0182 03FB02F2 	 mul r2,r3,r2
+ 2921 0186 002A     	 cmp r2,#0
+ 2922 0188 ACD0     	 beq .L480
+ 2923 018a 2346     	 mov r3,r4
+ 2924              	.L481:
+ 2925              	
+ 2926 018c 00BF     	 nop
+ 2927              	
+ 2928              	 .thumb
+ 2929 018e 0133     	 adds r3,r3,#1
+ 2930 0190 9342     	 cmp r3,r2
+ 2931 0192 FBD1     	 bne .L481
+ 2932 0194 A6E7     	 b .L480
+ 2933              	.L510:
+ 2934 0196 00BF     	 .align 2
+ 2935              	.L509:
+ 2936 0198 10470050 	 .word 1342195472
+ 2937 019c 83DE1B43 	 .word 1125899907
+ 2938 01a0 ABAAAAAA 	 .word -1431655765
+ 2939 01a4 FF8080F0 	 .word -260013825
+ 2940 01a8 89888888 	 .word -2004318071
+ 2941 01ac 00000000 	 .word SystemCoreClock
+ 2942 01b0 B7600BB6 	 .word -1240768329
+ 2944              	 .section .text.XMC_SCU_CLOCK_Init,"ax",%progbits
+ 2945              	 .align 2
+ 2946              	 .global XMC_SCU_CLOCK_Init
+ 2947              	 .thumb
+ 2948              	 .thumb_func
+ 2950              	XMC_SCU_CLOCK_Init:
+ 2951              	 
+ 2952              	 
+ 2953 0000 7749     	 ldr r1,.L566
+ 2954 0002 784A     	 ldr r2,.L566+4
+ 2955 0004 CB68     	 ldr r3,[r1,#12]
+ 2956 0006 F0B5     	 push {r4,r5,r6,r7,lr}
+ 2957 0008 23F48033 	 bic r3,r3,#65536
+ 2958 000c CB60     	 str r3,[r1,#12]
+ 2959 000e 1368     	 ldr r3,[r2]
+ 2960 0010 0546     	 mov r5,r0
+ 2961 0012 D807     	 lsls r0,r3,#31
+ 2962 0014 83B0     	 sub sp,sp,#12
+ 2963 0016 04D4     	 bmi .L516
+ 2964 0018 0123     	 movs r3,#1
+ 2965 001a 5360     	 str r3,[r2,#4]
+ 2966              	.L515:
+ 2967 001c 1368     	 ldr r3,[r2]
+ 2968 001e DB07     	 lsls r3,r3,#31
+ 2969 0020 FCD5     	 bpl .L515
+ 2970              	.L516:
+ 2971 0022 714A     	 ldr r2,.L566+8
+ 2972 0024 1368     	 ldr r3,[r2]
+ 2973 0026 9905     	 lsls r1,r3,#22
+ 2974 0028 05D5     	 bpl .L514
+ 2975 002a 4FF40073 	 mov r3,#512
+ 2976 002e 9360     	 str r3,[r2,#8]
+ 2977              	.L519:
+ 2978 0030 1368     	 ldr r3,[r2]
+ 2979 0032 9F05     	 lsls r7,r3,#22
+ 2980 0034 FCD4     	 bmi .L519
+ 2981              	.L514:
+ 2982 0036 EB79     	 ldrb r3,[r5,#7]
+ 2983 0038 002B     	 cmp r3,#0
+ 2984 003a 40F09180 	 bne .L564
+ 2985              	.L518:
+ 2986 003e 687A     	 ldrb r0,[r5,#9]
+ 2987 0040 6A4A     	 ldr r2,.L566+12
+ 2988              	.L520:
+ 2989 0042 D2F8C430 	 ldr r3,[r2,#196]
+ 2990 0046 1B07     	 lsls r3,r3,#28
+ 2991 0048 FBD4     	 bmi .L520
+ 2992 004a 6949     	 ldr r1,.L566+16
+ 2993 004c 674B     	 ldr r3,.L566+12
+ 2994 004e CA68     	 ldr r2,[r1,#12]
+ 2995 0050 22F08002 	 bic r2,r2,#128
+ 2996 0054 0243     	 orrs r2,r2,r0
+ 2997 0056 CA60     	 str r2,[r1,#12]
+ 2998              	.L525:
+ 2999 0058 D3F8C440 	 ldr r4,[r3,#196]
+ 3000 005c 002C     	 cmp r4,#0
+ 3001 005e FBD1     	 bne .L525
+ 3002 0060 644A     	 ldr r2,.L566+20
+ 3003 0062 297A     	 ldrb r1,[r5,#8]
+ 3004 0064 5368     	 ldr r3,[r2,#4]
+ 3005 0066 0129     	 cmp r1,#1
+ 3006 0068 43F48013 	 orr r3,r3,#1048576
+ 3007 006c 5360     	 str r3,[r2,#4]
+ 3008 006e 00F09D80 	 beq .L559
+ 3009 0072 614E     	 ldr r6,.L566+24
+ 3010              	.L526:
+ 3011 0074 FFF7FEFF 	 bl SystemCoreClockUpdate
+ 3012 0078 3368     	 ldr r3,[r6]
+ 3013 007a 604A     	 ldr r2,.L566+28
+ 3014 007c A2FB0332 	 umull r3,r2,r2,r3
+ 3015 0080 920C     	 lsrs r2,r2,#18
+ 3016 0082 6423     	 movs r3,#100
+ 3017 0084 03FB02F2 	 mul r2,r3,r2
+ 3018 0088 22B1     	 cbz r2,.L529
+ 3019 008a 0023     	 movs r3,#0
+ 3020              	.L530:
+ 3021              	
+ 3022 008c 00BF     	 nop
+ 3023              	
+ 3024              	 .thumb
+ 3025 008e 0133     	 adds r3,r3,#1
+ 3026 0090 9342     	 cmp r3,r2
+ 3027 0092 FBD1     	 bne .L530
+ 3028              	.L529:
+ 3029 0094 524B     	 ldr r3,.L566
+ 3030 0096 2C7C     	 ldrb r4,[r5,#16]
+ 3031 0098 DA68     	 ldr r2,[r3,#12]
+ 3032 009a A879     	 ldrb r0,[r5,#6]
+ 3033 009c 22F0FF01 	 bic r1,r2,#255
+ 3034 00a0 621E     	 subs r2,r4,#1
+ 3035 00a2 0A43     	 orrs r2,r2,r1
+ 3036 00a4 DA60     	 str r2,[r3,#12]
+ 3037 00a6 1A69     	 ldr r2,[r3,#16]
+ 3038 00a8 6C7C     	 ldrb r4,[r5,#17]
+ 3039 00aa 22F00101 	 bic r1,r2,#1
+ 3040 00ae 621E     	 subs r2,r4,#1
+ 3041 00b0 0A43     	 orrs r2,r2,r1
+ 3042 00b2 1A61     	 str r2,[r3,#16]
+ 3043 00b4 1A6A     	 ldr r2,[r3,#32]
+ 3044 00b6 AC7C     	 ldrb r4,[r5,#18]
+ 3045 00b8 22F00101 	 bic r1,r2,#1
+ 3046 00bc 621E     	 subs r2,r4,#1
+ 3047 00be 0A43     	 orrs r2,r2,r1
+ 3048 00c0 1A62     	 str r2,[r3,#32]
+ 3049 00c2 5A69     	 ldr r2,[r3,#20]
+ 3050 00c4 EC7C     	 ldrb r4,[r5,#19]
+ 3051 00c6 22F00101 	 bic r1,r2,#1
+ 3052 00ca 621E     	 subs r2,r4,#1
+ 3053 00cc 0A43     	 orrs r2,r2,r1
+ 3054 00ce 5A61     	 str r2,[r3,#20]
+ 3055 00d0 28BB     	 cbnz r0,.L531
+ 3056              	.L535:
+ 3057 00d2 E978     	 ldrb r1,[r5,#3]
+ 3058 00d4 A1B9     	 cbnz r1,.L565
+ 3059 00d6 474A     	 ldr r2,.L566+20
+ 3060 00d8 5368     	 ldr r3,[r2,#4]
+ 3061 00da 43F48033 	 orr r3,r3,#65536
+ 3062 00de 43F00203 	 orr r3,r3,#2
+ 3063 00e2 5360     	 str r3,[r2,#4]
+ 3064              	.L536:
+ 3065 00e4 EB68     	 ldr r3,[r5,#12]
+ 3066 00e6 B3F5803F 	 cmp r3,#65536
+ 3067 00ea 04D1     	 bne .L537
+ 3068 00ec 3C4A     	 ldr r2,.L566
+ 3069 00ee D368     	 ldr r3,[r2,#12]
+ 3070 00f0 43F48033 	 orr r3,r3,#65536
+ 3071 00f4 D360     	 str r3,[r2,#12]
+ 3072              	.L537:
+ 3073 00f6 03B0     	 add sp,sp,#12
+ 3074              	 
+ 3075 00f8 BDE8F040 	 pop {r4,r5,r6,r7,lr}
+ 3076 00fc FFF7FEBF 	 b SystemCoreClockUpdate
+ 3077              	.L565:
+ 3078 0100 3C4A     	 ldr r2,.L566+20
+ 3079 0102 A888     	 ldrh r0,[r5,#4]
+ 3080 0104 5368     	 ldr r3,[r2,#4]
+ 3081 0106 23F48033 	 bic r3,r3,#65536
+ 3082 010a 23F00203 	 bic r3,r3,#2
+ 3083 010e 5360     	 str r3,[r2,#4]
+ 3084 0110 AC78     	 ldrb r4,[r5,#2]
+ 3085 0112 6A78     	 ldrb r2,[r5,#1]
+ 3086 0114 2B78     	 ldrb r3,[r5]
+ 3087 0116 0094     	 str r4,[sp]
+ 3088 0118 FFF7FEFF 	 bl XMC_SCU_CLOCK_StartSystemPll
+ 3089 011c E2E7     	 b .L536
+ 3090              	.L531:
+ 3091 011e 354C     	 ldr r4,.L566+20
+ 3092 0120 374F     	 ldr r7,.L566+32
+ 3093 0122 6368     	 ldr r3,[r4,#4]
+ 3094 0124 23F48033 	 bic r3,r3,#65536
+ 3095 0128 6360     	 str r3,[r4,#4]
+ 3096 012a 7E68     	 ldr r6,[r7,#4]
+ 3097 012c FFF7FEFF 	 bl OSCHP_GetFrequency
+ 3098 0130 344A     	 ldr r2,.L566+36
+ 3099 0132 A2FB0032 	 umull r3,r2,r2,r0
+ 3100 0136 120D     	 lsrs r2,r2,#20
+ 3101 0138 26F47023 	 bic r3,r6,#983040
+ 3102 013c 013A     	 subs r2,r2,#1
+ 3103 013e 23F03003 	 bic r3,r3,#48
+ 3104 0142 43EA0243 	 orr r3,r3,r2,lsl#16
+ 3105 0146 7B60     	 str r3,[r7,#4]
+ 3106 0148 6368     	 ldr r3,[r4,#4]
+ 3107 014a 23F40033 	 bic r3,r3,#131072
+ 3108 014e 6360     	 str r3,[r4,#4]
+ 3109 0150 2246     	 mov r2,r4
+ 3110              	.L534:
+ 3111 0152 1368     	 ldr r3,[r2]
+ 3112 0154 03F46073 	 and r3,r3,#896
+ 3113 0158 B3F5607F 	 cmp r3,#896
+ 3114 015c F9D1     	 bne .L534
+ 3115 015e B8E7     	 b .L535
+ 3116              	.L564:
+ 3117 0160 224A     	 ldr r2,.L566+12
+ 3118              	.L544:
+ 3119 0162 D2F8C430 	 ldr r3,[r2,#196]
+ 3120 0166 1E06     	 lsls r6,r3,#24
+ 3121 0168 FBD4     	 bmi .L544
+ 3122 016a 2149     	 ldr r1,.L566+16
+ 3123 016c 1F4A     	 ldr r2,.L566+12
+ 3124 016e CB69     	 ldr r3,[r1,#28]
+ 3125 0170 23F03003 	 bic r3,r3,#48
+ 3126 0174 CB61     	 str r3,[r1,#28]
+ 3127              	.L521:
+ 3128 0176 D2F8C430 	 ldr r3,[r2,#196]
+ 3129 017a 1C07     	 lsls r4,r3,#28
+ 3130 017c FBD4     	 bmi .L521
+ 3131 017e 1C49     	 ldr r1,.L566+16
+ 3132 0180 1A4A     	 ldr r2,.L566+12
+ 3133 0182 CB68     	 ldr r3,[r1,#12]
+ 3134 0184 43F00803 	 orr r3,r3,#8
+ 3135 0188 CB60     	 str r3,[r1,#12]
+ 3136              	.L522:
+ 3137 018a D2F8C430 	 ldr r3,[r2,#196]
+ 3138 018e 5807     	 lsls r0,r3,#29
+ 3139 0190 FBD4     	 bmi .L522
+ 3140 0192 174B     	 ldr r3,.L566+16
+ 3141 0194 154A     	 ldr r2,.L566+12
+ 3142 0196 0821     	 movs r1,#8
+ 3143 0198 9960     	 str r1,[r3,#8]
+ 3144              	.L523:
+ 3145 019a D2F8C430 	 ldr r3,[r2,#196]
+ 3146 019e 002B     	 cmp r3,#0
+ 3147 01a0 FBD1     	 bne .L523
+ 3148 01a2 134A     	 ldr r2,.L566+16
+ 3149              	.L524:
+ 3150 01a4 1368     	 ldr r3,[r2]
+ 3151 01a6 1907     	 lsls r1,r3,#28
+ 3152 01a8 FCD4     	 bmi .L524
+ 3153 01aa 48E7     	 b .L518
+ 3154              	.L559:
+ 3155 01ac 5368     	 ldr r3,[r2,#4]
+ 3156 01ae 124E     	 ldr r6,.L566+24
+ 3157 01b0 23F48013 	 bic r3,r3,#1048576
+ 3158 01b4 5360     	 str r3,[r2,#4]
+ 3159 01b6 FFF7FEFF 	 bl SystemCoreClockUpdate
+ 3160 01ba 104A     	 ldr r2,.L566+28
+ 3161 01bc 3368     	 ldr r3,[r6]
+ 3162 01be A2FB0323 	 umull r2,r3,r2,r3
+ 3163 01c2 9A0C     	 lsrs r2,r3,#18
+ 3164 01c4 6423     	 movs r3,#100
+ 3165 01c6 03FB02F3 	 mul r3,r3,r2
+ 3166 01ca 1BB1     	 cbz r3,.L527
+ 3167              	.L528:
+ 3168              	
+ 3169 01cc 00BF     	 nop
+ 3170              	
+ 3171              	 .thumb
+ 3172 01ce 0134     	 adds r4,r4,#1
+ 3173 01d0 9C42     	 cmp r4,r3
+ 3174 01d2 FBD1     	 bne .L528
+ 3175              	.L527:
+ 3176 01d4 074A     	 ldr r2,.L566+20
+ 3177 01d6 5368     	 ldr r3,[r2,#4]
+ 3178 01d8 43F40023 	 orr r3,r3,#524288
+ 3179 01dc 5360     	 str r3,[r2,#4]
+ 3180 01de 49E7     	 b .L526
+ 3181              	.L567:
+ 3182              	 .align 2
+ 3183              	.L566:
+ 3184 01e0 00460050 	 .word 1342195200
+ 3185 01e4 00420050 	 .word 1342194176
+ 3186 01e8 00440050 	 .word 1342194688
+ 3187 01ec 00400050 	 .word 1342193664
+ 3188 01f0 00430050 	 .word 1342194432
+ 3189 01f4 10470050 	 .word 1342195472
+ 3190 01f8 00000000 	 .word SystemCoreClock
+ 3191 01fc 83DE1B43 	 .word 1125899907
+ 3192 0200 00470050 	 .word 1342195456
+ 3193 0204 6BCA5F6B 	 .word 1801439851
+ 3195              	 .section .text.XMC_SCU_CLOCK_StopSystemPll,"ax",%progbits
+ 3196              	 .align 2
+ 3197              	 .global XMC_SCU_CLOCK_StopSystemPll
+ 3198              	 .thumb
+ 3199              	 .thumb_func
+ 3201              	XMC_SCU_CLOCK_StopSystemPll:
+ 3202              	 
+ 3203              	 
+ 3204              	 
+ 3205 0000 024A     	 ldr r2,.L569
+ 3206 0002 5368     	 ldr r3,[r2,#4]
+ 3207 0004 43F48033 	 orr r3,r3,#65536
+ 3208 0008 5360     	 str r3,[r2,#4]
+ 3209 000a 7047     	 bx lr
+ 3210              	.L570:
+ 3211              	 .align 2
+ 3212              	.L569:
+ 3213 000c 10470050 	 .word 1342195472
+ 3215              	 .section .text.XMC_SCU_CLOCK_StepSystemPllFrequency,"ax",%progbits
+ 3216              	 .align 2
+ 3217              	 .global XMC_SCU_CLOCK_StepSystemPllFrequency
+ 3218              	 .thumb
+ 3219              	 .thumb_func
+ 3221              	XMC_SCU_CLOCK_StepSystemPllFrequency:
+ 3222              	 
+ 3223              	 
+ 3224 0000 0D4A     	 ldr r2,.L579
+ 3225 0002 08B5     	 push {r3,lr}
+ 3226 0004 9368     	 ldr r3,[r2,#8]
+ 3227 0006 0138     	 subs r0,r0,#1
+ 3228 0008 23F4FE03 	 bic r3,r3,#8323072
+ 3229 000c 43EA0043 	 orr r3,r3,r0,lsl#16
+ 3230 0010 9360     	 str r3,[r2,#8]
+ 3231 0012 FFF7FEFF 	 bl SystemCoreClockUpdate
+ 3232 0016 094B     	 ldr r3,.L579+4
+ 3233 0018 094A     	 ldr r2,.L579+8
+ 3234 001a 1B68     	 ldr r3,[r3]
+ 3235 001c A2FB0332 	 umull r3,r2,r2,r3
+ 3236 0020 920C     	 lsrs r2,r2,#18
+ 3237 0022 3223     	 movs r3,#50
+ 3238 0024 03FB02F2 	 mul r2,r3,r2
+ 3239 0028 22B1     	 cbz r2,.L571
+ 3240 002a 0023     	 movs r3,#0
+ 3241              	.L573:
+ 3242              	
+ 3243 002c 00BF     	 nop
+ 3244              	
+ 3245              	 .thumb
+ 3246 002e 0133     	 adds r3,r3,#1
+ 3247 0030 9342     	 cmp r3,r2
+ 3248 0032 FBD1     	 bne .L573
+ 3249              	.L571:
+ 3250 0034 08BD     	 pop {r3,pc}
+ 3251              	.L580:
+ 3252 0036 00BF     	 .align 2
+ 3253              	.L579:
+ 3254 0038 10470050 	 .word 1342195472
+ 3255 003c 00000000 	 .word SystemCoreClock
+ 3256 0040 83DE1B43 	 .word 1125899907
+ 3258              	 .section .text.XMC_SCU_CLOCK_IsSystemPllLocked,"ax",%progbits
+ 3259              	 .align 2
+ 3260              	 .global XMC_SCU_CLOCK_IsSystemPllLocked
+ 3261              	 .thumb
+ 3262              	 .thumb_func
+ 3264              	XMC_SCU_CLOCK_IsSystemPllLocked:
+ 3265              	 
+ 3266              	 
+ 3267              	 
+ 3268 0000 024B     	 ldr r3,.L582
+ 3269 0002 1868     	 ldr r0,[r3]
+ 3270 0004 C0F38000 	 ubfx r0,r0,#2,#1
+ 3271 0008 7047     	 bx lr
+ 3272              	.L583:
+ 3273 000a 00BF     	 .align 2
+ 3274              	.L582:
+ 3275 000c 10470050 	 .word 1342195472
+ 3277              	 .section .text.XMC_SCU_INTERRUPT_SetEventHandler,"ax",%progbits
+ 3278              	 .align 2
+ 3279              	 .global XMC_SCU_INTERRUPT_SetEventHandler
+ 3280              	 .thumb
+ 3281              	 .thumb_func
+ 3283              	XMC_SCU_INTERRUPT_SetEventHandler:
+ 3284              	 
+ 3285              	 
+ 3286              	 
+ 3287 0000 10F00103 	 ands r3,r0,#1
+ 3288 0004 02D0     	 beq .L587
+ 3289 0006 0FE0     	 b .L589
+ 3290              	.L592:
+ 3291 0008 202B     	 cmp r3,#32
+ 3292 000a 0BD0     	 beq .L590
+ 3293              	.L587:
+ 3294 000c 0133     	 adds r3,r3,#1
+ 3295 000e 20FA03F2 	 lsr r2,r0,r3
+ 3296 0012 D207     	 lsls r2,r2,#31
+ 3297 0014 F8D5     	 bpl .L592
+ 3298 0016 202B     	 cmp r3,#32
+ 3299 0018 04D0     	 beq .L590
+ 3300              	.L585:
+ 3301 001a 044A     	 ldr r2,.L593
+ 3302 001c 0020     	 movs r0,#0
+ 3303 001e 42F82310 	 str r1,[r2,r3,lsl#2]
+ 3304 0022 7047     	 bx lr
+ 3305              	.L590:
+ 3306 0024 0120     	 movs r0,#1
+ 3307 0026 7047     	 bx lr
+ 3308              	.L589:
+ 3309 0028 0023     	 movs r3,#0
+ 3310 002a F6E7     	 b .L585
+ 3311              	.L594:
+ 3312              	 .align 2
+ 3313              	.L593:
+ 3314 002c 00000000 	 .word event_handler_list
+ 3316              	 .section .text.XMC_SCU_IRQHandler,"ax",%progbits
+ 3317              	 .align 2
+ 3318              	 .global XMC_SCU_IRQHandler
+ 3319              	 .thumb
+ 3320              	 .thumb_func
+ 3322              	XMC_SCU_IRQHandler:
+ 3323              	 
+ 3324              	 
+ 3325 0000 0B4B     	 ldr r3,.L606
+ 3326 0002 10B5     	 push {r4,lr}
+ 3327 0004 5A68     	 ldr r2,[r3,#4]
+ 3328 0006 0024     	 movs r4,#0
+ 3329 0008 02E0     	 b .L599
+ 3330              	.L596:
+ 3331 000a 0134     	 adds r4,r4,#1
+ 3332 000c 202C     	 cmp r4,#32
+ 3333 000e 0DD0     	 beq .L605
+ 3334              	.L599:
+ 3335 0010 22FA04F3 	 lsr r3,r2,r4
+ 3336 0014 DB07     	 lsls r3,r3,#31
+ 3337 0016 F8D5     	 bpl .L596
+ 3338 0018 064B     	 ldr r3,.L606+4
+ 3339 001a 53F82430 	 ldr r3,[r3,r4,lsl#2]
+ 3340 001e 03B1     	 cbz r3,.L597
+ 3341 0020 9847     	 blx r3
+ 3342              	.L597:
+ 3343 0022 0123     	 movs r3,#1
+ 3344 0024 024A     	 ldr r2,.L606
+ 3345 0026 A340     	 lsls r3,r3,r4
+ 3346 0028 D360     	 str r3,[r2,#12]
+ 3347 002a 10BD     	 pop {r4,pc}
+ 3348              	.L605:
+ 3349 002c 10BD     	 pop {r4,pc}
+ 3350              	.L607:
+ 3351 002e 00BF     	 .align 2
+ 3352              	.L606:
+ 3353 0030 74400050 	 .word 1342193780
+ 3354 0034 00000000 	 .word event_handler_list
+ 3356              	 .comm event_handler_list,128,4
+ 3357              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc4_scu.c
+    {standard input}:17     .text.XMC_SCU_INTERRUPT_EnableEvent:00000000 $t
+    {standard input}:22     .text.XMC_SCU_INTERRUPT_EnableEvent:00000000 XMC_SCU_INTERRUPT_EnableEvent
+    {standard input}:34     .text.XMC_SCU_INTERRUPT_EnableEvent:0000000c $d
+    {standard input}:37     .text.XMC_SCU_INTERRUPT_DisableEvent:00000000 $t
+    {standard input}:42     .text.XMC_SCU_INTERRUPT_DisableEvent:00000000 XMC_SCU_INTERRUPT_DisableEvent
+    {standard input}:54     .text.XMC_SCU_INTERRUPT_DisableEvent:0000000c $d
+    {standard input}:57     .text.XMC_SCU_INTERRUPT_TriggerEvent:00000000 $t
+    {standard input}:62     .text.XMC_SCU_INTERRUPT_TriggerEvent:00000000 XMC_SCU_INTERRUPT_TriggerEvent
+    {standard input}:74     .text.XMC_SCU_INTERRUPT_TriggerEvent:0000000c $d
+    {standard input}:77     .text.XMC_SCU_INTERUPT_GetEventStatus:00000000 $t
+    {standard input}:82     .text.XMC_SCU_INTERUPT_GetEventStatus:00000000 XMC_SCU_INTERUPT_GetEventStatus
+    {standard input}:92     .text.XMC_SCU_INTERUPT_GetEventStatus:00000008 $d
+    {standard input}:95     .text.XMC_SCU_INTERRUPT_ClearEventStatus:00000000 $t
+    {standard input}:100    .text.XMC_SCU_INTERRUPT_ClearEventStatus:00000000 XMC_SCU_INTERRUPT_ClearEventStatus
+    {standard input}:110    .text.XMC_SCU_INTERRUPT_ClearEventStatus:00000008 $d
+    {standard input}:113    .text.XMC_SCU_GetBootMode:00000000 $t
+    {standard input}:118    .text.XMC_SCU_GetBootMode:00000000 XMC_SCU_GetBootMode
+    {standard input}:129    .text.XMC_SCU_GetBootMode:0000000c $d
+    {standard input}:132    .text.XMC_SCU_SetBootMode:00000000 $t
+    {standard input}:137    .text.XMC_SCU_SetBootMode:00000000 XMC_SCU_SetBootMode
+    {standard input}:147    .text.XMC_SCU_SetBootMode:00000008 $d
+    {standard input}:150    .text.XMC_SCU_ReadGPR:00000000 $t
+    {standard input}:155    .text.XMC_SCU_ReadGPR:00000000 XMC_SCU_ReadGPR
+    {standard input}:167    .text.XMC_SCU_ReadGPR:0000000c $d
+    {standard input}:170    .text.XMC_SCU_WriteGPR:00000000 $t
+    {standard input}:175    .text.XMC_SCU_WriteGPR:00000000 XMC_SCU_WriteGPR
+    {standard input}:187    .text.XMC_SCU_WriteGPR:0000000c $d
+    {standard input}:190    .text.XMC_SCU_EnableOutOfRangeComparator:00000000 $t
+    {standard input}:195    .text.XMC_SCU_EnableOutOfRangeComparator:00000000 XMC_SCU_EnableOutOfRangeComparator
+    {standard input}:210    .text.XMC_SCU_DisableOutOfRangeComparator:00000000 $t
+    {standard input}:215    .text.XMC_SCU_DisableOutOfRangeComparator:00000000 XMC_SCU_DisableOutOfRangeComparator
+    {standard input}:230    .text.XMC_SCU_CalibrateTemperatureSensor:00000000 $t
+    {standard input}:235    .text.XMC_SCU_CalibrateTemperatureSensor:00000000 XMC_SCU_CalibrateTemperatureSensor
+    {standard input}:248    .text.XMC_SCU_CalibrateTemperatureSensor:00000014 $d
+    {standard input}:251    .text.XMC_SCU_EnableTemperatureSensor:00000000 $t
+    {standard input}:256    .text.XMC_SCU_EnableTemperatureSensor:00000000 XMC_SCU_EnableTemperatureSensor
+    {standard input}:268    .text.XMC_SCU_EnableTemperatureSensor:00000010 $d
+    {standard input}:271    .text.XMC_SCU_DisableTemperatureSensor:00000000 $t
+    {standard input}:276    .text.XMC_SCU_DisableTemperatureSensor:00000000 XMC_SCU_DisableTemperatureSensor
+    {standard input}:288    .text.XMC_SCU_DisableTemperatureSensor:00000010 $d
+    {standard input}:291    .text.XMC_SCU_IsTemperatureSensorEnabled:00000000 $t
+    {standard input}:296    .text.XMC_SCU_IsTemperatureSensorEnabled:00000000 XMC_SCU_IsTemperatureSensorEnabled
+    {standard input}:308    .text.XMC_SCU_IsTemperatureSensorEnabled:00000010 $d
+    {standard input}:311    .text.XMC_SCU_IsTemperatureSensorReady:00000000 $t
+    {standard input}:316    .text.XMC_SCU_IsTemperatureSensorReady:00000000 XMC_SCU_IsTemperatureSensorReady
+    {standard input}:327    .text.XMC_SCU_IsTemperatureSensorReady:0000000c $d
+    {standard input}:330    .text.XMC_SCU_StartTemperatureMeasurement:00000000 $t
+    {standard input}:335    .text.XMC_SCU_StartTemperatureMeasurement:00000000 XMC_SCU_StartTemperatureMeasurement
+    {standard input}:354    .text.XMC_SCU_StartTemperatureMeasurement:00000024 $d
+    {standard input}:357    .text.XMC_SCU_GetTemperatureMeasurement:00000000 $t
+    {standard input}:362    .text.XMC_SCU_GetTemperatureMeasurement:00000000 XMC_SCU_GetTemperatureMeasurement
+    {standard input}:377    .text.XMC_SCU_GetTemperatureMeasurement:00000018 $d
+    {standard input}:380    .text.XMC_SCU_IsTemperatureSensorBusy:00000000 $t
+    {standard input}:385    .text.XMC_SCU_IsTemperatureSensorBusy:00000000 XMC_SCU_IsTemperatureSensorBusy
+    {standard input}:396    .text.XMC_SCU_IsTemperatureSensorBusy:0000000c $d
+    {standard input}:399    .text.XMC_SCU_WriteToRetentionMemory:00000000 $t
+    {standard input}:404    .text.XMC_SCU_WriteToRetentionMemory:00000000 XMC_SCU_WriteToRetentionMemory
+    {standard input}:423    .text.XMC_SCU_WriteToRetentionMemory:00000020 $d
+    {standard input}:426    .text.XMC_SCU_ReadFromRetentionMemory:00000000 $t
+    {standard input}:431    .text.XMC_SCU_ReadFromRetentionMemory:00000000 XMC_SCU_ReadFromRetentionMemory
+    {standard input}:449    .text.XMC_SCU_ReadFromRetentionMemory:0000001c $d
+    {standard input}:452    .text.XMC_SCU_TRAP_Enable:00000000 $t
+    {standard input}:457    .text.XMC_SCU_TRAP_Enable:00000000 XMC_SCU_TRAP_Enable
+    {standard input}:469    .text.XMC_SCU_TRAP_Enable:0000000c $d
+    {standard input}:472    .text.XMC_SCU_TRAP_Disable:00000000 $t
+    {standard input}:477    .text.XMC_SCU_TRAP_Disable:00000000 XMC_SCU_TRAP_Disable
+    {standard input}:489    .text.XMC_SCU_TRAP_Disable:0000000c $d
+    {standard input}:492    .text.XMC_SCU_TRAP_GetStatus:00000000 $t
+    {standard input}:497    .text.XMC_SCU_TRAP_GetStatus:00000000 XMC_SCU_TRAP_GetStatus
+    {standard input}:507    .text.XMC_SCU_TRAP_GetStatus:00000008 $d
+    {standard input}:510    .text.XMC_SCU_TRAP_Trigger:00000000 $t
+    {standard input}:515    .text.XMC_SCU_TRAP_Trigger:00000000 XMC_SCU_TRAP_Trigger
+    {standard input}:525    .text.XMC_SCU_TRAP_Trigger:00000008 $d
+    {standard input}:528    .text.XMC_SCU_TRAP_ClearStatus:00000000 $t
+    {standard input}:533    .text.XMC_SCU_TRAP_ClearStatus:00000000 XMC_SCU_TRAP_ClearStatus
+    {standard input}:543    .text.XMC_SCU_TRAP_ClearStatus:00000008 $d
+    {standard input}:546    .text.XMC_SCU_PARITY_ClearStatus:00000000 $t
+    {standard input}:551    .text.XMC_SCU_PARITY_ClearStatus:00000000 XMC_SCU_PARITY_ClearStatus
+    {standard input}:563    .text.XMC_SCU_PARITY_ClearStatus:0000000c $d
+    {standard input}:566    .text.XMC_SCU_PARITY_GetStatus:00000000 $t
+    {standard input}:571    .text.XMC_SCU_PARITY_GetStatus:00000000 XMC_SCU_PARITY_GetStatus
+    {standard input}:581    .text.XMC_SCU_PARITY_GetStatus:00000008 $d
+    {standard input}:584    .text.XMC_SCU_PARITY_Enable:00000000 $t
+    {standard input}:589    .text.XMC_SCU_PARITY_Enable:00000000 XMC_SCU_PARITY_Enable
+    {standard input}:601    .text.XMC_SCU_PARITY_Enable:0000000c $d
+    {standard input}:604    .text.XMC_SCU_PARITY_Disable:00000000 $t
+    {standard input}:609    .text.XMC_SCU_PARITY_Disable:00000000 XMC_SCU_PARITY_Disable
+    {standard input}:621    .text.XMC_SCU_PARITY_Disable:0000000c $d
+    {standard input}:624    .text.XMC_SCU_PARITY_EnableTrapGeneration:00000000 $t
+    {standard input}:629    .text.XMC_SCU_PARITY_EnableTrapGeneration:00000000 XMC_SCU_PARITY_EnableTrapGeneration
+    {standard input}:641    .text.XMC_SCU_PARITY_EnableTrapGeneration:0000000c $d
+    {standard input}:644    .text.XMC_SCU_PARITY_DisableTrapGeneration:00000000 $t
+    {standard input}:649    .text.XMC_SCU_PARITY_DisableTrapGeneration:00000000 XMC_SCU_PARITY_DisableTrapGeneration
+    {standard input}:661    .text.XMC_SCU_PARITY_DisableTrapGeneration:0000000c $d
+    {standard input}:664    .text.XMC_SCU_INTERRUPT_EnableNmiRequest:00000000 $t
+    {standard input}:669    .text.XMC_SCU_INTERRUPT_EnableNmiRequest:00000000 XMC_SCU_INTERRUPT_EnableNmiRequest
+    {standard input}:681    .text.XMC_SCU_INTERRUPT_EnableNmiRequest:0000000c $d
+    {standard input}:684    .text.XMC_SCU_INTERRUPT_DisableNmiRequest:00000000 $t
+    {standard input}:689    .text.XMC_SCU_INTERRUPT_DisableNmiRequest:00000000 XMC_SCU_INTERRUPT_DisableNmiRequest
+    {standard input}:701    .text.XMC_SCU_INTERRUPT_DisableNmiRequest:0000000c $d
+    {standard input}:704    .text.XMC_SCU_RESET_AssertPeripheralReset:00000000 $t
+    {standard input}:709    .text.XMC_SCU_RESET_AssertPeripheralReset:00000000 XMC_SCU_RESET_AssertPeripheralReset
+    {standard input}:722    .text.XMC_SCU_RESET_AssertPeripheralReset:00000014 $d
+    {standard input}:725    .text.XMC_SCU_RESET_DeassertPeripheralReset:00000000 $t
+    {standard input}:730    .text.XMC_SCU_RESET_DeassertPeripheralReset:00000000 XMC_SCU_RESET_DeassertPeripheralReset
+    {standard input}:743    .text.XMC_SCU_RESET_DeassertPeripheralReset:00000014 $d
+    {standard input}:746    .text.XMC_SCU_RESET_IsPeripheralResetAsserted:00000000 $t
+    {standard input}:751    .text.XMC_SCU_RESET_IsPeripheralResetAsserted:00000000 XMC_SCU_RESET_IsPeripheralResetAsserted
+    {standard input}:768    .text.XMC_SCU_RESET_IsPeripheralResetAsserted:0000001c $d
+    {standard input}:771    .text.XMC_SCU_CLOCK_GetSystemPllClockFrequency:00000000 $t
+    {standard input}:776    .text.XMC_SCU_CLOCK_GetSystemPllClockFrequency:00000000 XMC_SCU_CLOCK_GetSystemPllClockFrequency
+    {standard input}:812    .text.XMC_SCU_CLOCK_GetSystemPllClockFrequency:0000004c $d
+    {standard input}:816    .text.XMC_SCU_CLOCK_GetSystemPllClockSourceFrequency:00000000 $t
+    {standard input}:821    .text.XMC_SCU_CLOCK_GetSystemPllClockSourceFrequency:00000000 XMC_SCU_CLOCK_GetSystemPllClockSourceFrequency
+    {standard input}:836    .text.XMC_SCU_CLOCK_GetSystemPllClockSourceFrequency:00000010 $d
+    {standard input}:840    .text.XMC_SCU_CLOCK_GetUsbPllClockFrequency:00000000 $t
+    {standard input}:845    .text.XMC_SCU_CLOCK_GetUsbPllClockFrequency:00000000 XMC_SCU_CLOCK_GetUsbPllClockFrequency
+    {standard input}:867    .text.XMC_SCU_CLOCK_GetUsbPllClockFrequency:00000028 $d
+    {standard input}:870    .text.XMC_SCU_CLOCK_GetCcuClockFrequency:00000000 $t
+    {standard input}:875    .text.XMC_SCU_CLOCK_GetCcuClockFrequency:00000000 XMC_SCU_CLOCK_GetCcuClockFrequency
+    {standard input}:892    .text.XMC_SCU_CLOCK_GetCcuClockFrequency:00000018 $d
+    {standard input}:896    .text.XMC_SCU_CLOCK_GetUsbClockFrequency:00000000 $t
+    {standard input}:901    .text.XMC_SCU_CLOCK_GetUsbClockFrequency:00000000 XMC_SCU_CLOCK_GetUsbClockFrequency
+    {standard input}:966    .text.XMC_SCU_CLOCK_GetUsbClockFrequency:00000090 $d
+    {standard input}:971    .text.XMC_SCU_CLOCK_GetEbuClockFrequency:00000000 $t
+    {standard input}:976    .text.XMC_SCU_CLOCK_GetEbuClockFrequency:00000000 XMC_SCU_CLOCK_GetEbuClockFrequency
+    {standard input}:1018   .text.XMC_SCU_CLOCK_GetEbuClockFrequency:00000058 $d
+    {standard input}:1023   .text.XMC_SCU_CLOCK_GetWdtClockFrequency:00000000 $t
+    {standard input}:1028   .text.XMC_SCU_CLOCK_GetWdtClockFrequency:00000000 XMC_SCU_CLOCK_GetWdtClockFrequency
+    {standard input}:1085   .text.XMC_SCU_CLOCK_GetWdtClockFrequency:00000078 $d
+    {standard input}:1090   .text.XMC_SCU_CLOCK_GetExternalOutputClockFrequency:00000000 $t
+    {standard input}:1095   .text.XMC_SCU_CLOCK_GetExternalOutputClockFrequency:00000000 XMC_SCU_CLOCK_GetExternalOutputClockFrequency
+    {standard input}:1170   .text.XMC_SCU_CLOCK_GetExternalOutputClockFrequency:000000a4 $d
+    {standard input}:1176   .text.XMC_SCU_CLOCK_GetPeripheralClockFrequency:00000000 $t
+    {standard input}:1181   .text.XMC_SCU_CLOCK_GetPeripheralClockFrequency:00000000 XMC_SCU_CLOCK_GetPeripheralClockFrequency
+    {standard input}:1195   .text.XMC_SCU_CLOCK_GetPeripheralClockFrequency:00000010 $d
+    {standard input}:1199   .text.XMC_SCU_CLOCK_SetSystemClockSource:00000000 $t
+    {standard input}:1204   .text.XMC_SCU_CLOCK_SetSystemClockSource:00000000 XMC_SCU_CLOCK_SetSystemClockSource
+    {standard input}:1217   .text.XMC_SCU_CLOCK_SetSystemClockSource:00000010 $d
+    {standard input}:1220   .text.XMC_SCU_CLOCK_SetUsbClockSource:00000000 $t
+    {standard input}:1225   .text.XMC_SCU_CLOCK_SetUsbClockSource:00000000 XMC_SCU_CLOCK_SetUsbClockSource
+    {standard input}:1238   .text.XMC_SCU_CLOCK_SetUsbClockSource:00000010 $d
+    {standard input}:1241   .text.XMC_SCU_CLOCK_SetWdtClockSource:00000000 $t
+    {standard input}:1246   .text.XMC_SCU_CLOCK_SetWdtClockSource:00000000 XMC_SCU_CLOCK_SetWdtClockSource
+    {standard input}:1259   .text.XMC_SCU_CLOCK_SetWdtClockSource:00000010 $d
+    {standard input}:1262   .text.XMC_SCU_CLOCK_SetExternalOutputClockSource:00000000 $t
+    {standard input}:1267   .text.XMC_SCU_CLOCK_SetExternalOutputClockSource:00000000 XMC_SCU_CLOCK_SetExternalOutputClockSource
+    {standard input}:1280   .text.XMC_SCU_CLOCK_SetExternalOutputClockSource:00000010 $d
+    {standard input}:1283   .text.XMC_SCU_CLOCK_SetSystemPllClockSource:00000000 $t
+    {standard input}:1288   .text.XMC_SCU_CLOCK_SetSystemPllClockSource:00000000 XMC_SCU_CLOCK_SetSystemPllClockSource
+    {standard input}:1307   .text.XMC_SCU_CLOCK_SetSystemPllClockSource:00000020 $d
+    {standard input}:1310   .text.XMC_SCU_HIB_SetRtcClockSource:00000000 $t
+    {standard input}:1315   .text.XMC_SCU_HIB_SetRtcClockSource:00000000 XMC_SCU_HIB_SetRtcClockSource
+    {standard input}:1333   .text.XMC_SCU_HIB_SetRtcClockSource:00000018 $d
+    {standard input}:1337   .text.XMC_SCU_HIB_SetStandbyClockSource:00000000 $t
+    {standard input}:1342   .text.XMC_SCU_HIB_SetStandbyClockSource:00000000 XMC_SCU_HIB_SetStandbyClockSource
+    {standard input}:1360   .text.XMC_SCU_HIB_SetStandbyClockSource:00000018 $d
+    {standard input}:1364   .text.XMC_SCU_CLOCK_SetSystemClockDivider:00000000 $t
+    {standard input}:1369   .text.XMC_SCU_CLOCK_SetSystemClockDivider:00000000 XMC_SCU_CLOCK_SetSystemClockDivider
+    {standard input}:1383   .text.XMC_SCU_CLOCK_SetSystemClockDivider:00000010 $d
+    {standard input}:1386   .text.XMC_SCU_CLOCK_SetCcuClockDivider:00000000 $t
+    {standard input}:1391   .text.XMC_SCU_CLOCK_SetCcuClockDivider:00000000 XMC_SCU_CLOCK_SetCcuClockDivider
+    {standard input}:1405   .text.XMC_SCU_CLOCK_SetCcuClockDivider:00000010 $d
+    {standard input}:1408   .text.XMC_SCU_CLOCK_SetCpuClockDivider:00000000 $t
+    {standard input}:1413   .text.XMC_SCU_CLOCK_SetCpuClockDivider:00000000 XMC_SCU_CLOCK_SetCpuClockDivider
+    {standard input}:1427   .text.XMC_SCU_CLOCK_SetCpuClockDivider:00000010 $d
+    {standard input}:1430   .text.XMC_SCU_CLOCK_SetPeripheralClockDivider:00000000 $t
+    {standard input}:1435   .text.XMC_SCU_CLOCK_SetPeripheralClockDivider:00000000 XMC_SCU_CLOCK_SetPeripheralClockDivider
+    {standard input}:1449   .text.XMC_SCU_CLOCK_SetPeripheralClockDivider:00000010 $d
+    {standard input}:1452   .text.XMC_SCU_CLOCK_SetUsbClockDivider:00000000 $t
+    {standard input}:1457   .text.XMC_SCU_CLOCK_SetUsbClockDivider:00000000 XMC_SCU_CLOCK_SetUsbClockDivider
+    {standard input}:1471   .text.XMC_SCU_CLOCK_SetUsbClockDivider:00000010 $d
+    {standard input}:1474   .text.XMC_SCU_CLOCK_SetEbuClockDivider:00000000 $t
+    {standard input}:1479   .text.XMC_SCU_CLOCK_SetEbuClockDivider:00000000 XMC_SCU_CLOCK_SetEbuClockDivider
+    {standard input}:1493   .text.XMC_SCU_CLOCK_SetEbuClockDivider:00000010 $d
+    {standard input}:1496   .text.XMC_SCU_CLOCK_SetWdtClockDivider:00000000 $t
+    {standard input}:1501   .text.XMC_SCU_CLOCK_SetWdtClockDivider:00000000 XMC_SCU_CLOCK_SetWdtClockDivider
+    {standard input}:1515   .text.XMC_SCU_CLOCK_SetWdtClockDivider:00000010 $d
+    {standard input}:1518   .text.XMC_SCU_CLOCK_SetExternalOutputClockDivider:00000000 $t
+    {standard input}:1523   .text.XMC_SCU_CLOCK_SetExternalOutputClockDivider:00000000 XMC_SCU_CLOCK_SetExternalOutputClockDivider
+    {standard input}:1538   .text.XMC_SCU_CLOCK_SetExternalOutputClockDivider:00000018 $d
+    {standard input}:1541   .text.XMC_SCU_CLOCK_EnableClock:00000000 $t
+    {standard input}:1546   .text.XMC_SCU_CLOCK_EnableClock:00000000 XMC_SCU_CLOCK_EnableClock
+    {standard input}:1556   .text.XMC_SCU_CLOCK_EnableClock:00000008 $d
+    {standard input}:1559   .text.XMC_SCU_CLOCK_DisableClock:00000000 $t
+    {standard input}:1564   .text.XMC_SCU_CLOCK_DisableClock:00000000 XMC_SCU_CLOCK_DisableClock
+    {standard input}:1574   .text.XMC_SCU_CLOCK_DisableClock:00000008 $d
+    {standard input}:1577   .text.XMC_SCU_CLOCK_IsClockEnabled:00000000 $t
+    {standard input}:1582   .text.XMC_SCU_CLOCK_IsClockEnabled:00000000 XMC_SCU_CLOCK_IsClockEnabled
+    {standard input}:1596   .text.XMC_SCU_CLOCK_IsClockEnabled:00000010 $d
+    {standard input}:1599   .text.XMC_SCU_CLOCK_GatePeripheralClock:00000000 $t
+    {standard input}:1604   .text.XMC_SCU_CLOCK_GatePeripheralClock:00000000 XMC_SCU_CLOCK_GatePeripheralClock
+    {standard input}:1617   .text.XMC_SCU_CLOCK_GatePeripheralClock:00000014 $d
+    {standard input}:1620   .text.XMC_SCU_CLOCK_UngatePeripheralClock:00000000 $t
+    {standard input}:1625   .text.XMC_SCU_CLOCK_UngatePeripheralClock:00000000 XMC_SCU_CLOCK_UngatePeripheralClock
+    {standard input}:1638   .text.XMC_SCU_CLOCK_UngatePeripheralClock:00000014 $d
+    {standard input}:1641   .text.XMC_SCU_CLOCK_IsPeripheralClockGated:00000000 $t
+    {standard input}:1646   .text.XMC_SCU_CLOCK_IsPeripheralClockGated:00000000 XMC_SCU_CLOCK_IsPeripheralClockGated
+    {standard input}:1663   .text.XMC_SCU_CLOCK_IsPeripheralClockGated:0000001c $d
+    {standard input}:1666   .text.XMC_SCU_POWER_GetEVR13Voltage:00000000 $t
+    {standard input}:1671   .text.XMC_SCU_POWER_GetEVR13Voltage:00000000 XMC_SCU_POWER_GetEVR13Voltage
+    {standard input}:1687   .text.XMC_SCU_POWER_GetEVR13Voltage:0000001c $d
+    {standard input}:1691   .text.XMC_SCU_POWER_GetEVR33Voltage:00000000 $t
+    {standard input}:1696   .text.XMC_SCU_POWER_GetEVR33Voltage:00000000 XMC_SCU_POWER_GetEVR33Voltage
+    {standard input}:1712   .text.XMC_SCU_POWER_GetEVR33Voltage:00000020 $d
+    {standard input}:1716   .text.XMC_SCU_CLOCK_EnableUsbPll:00000000 $t
+    {standard input}:1721   .text.XMC_SCU_CLOCK_EnableUsbPll:00000000 XMC_SCU_CLOCK_EnableUsbPll
+    {standard input}:1734   .text.XMC_SCU_CLOCK_EnableUsbPll:00000010 $d
+    {standard input}:1737   .text.XMC_SCU_CLOCK_DisableUsbPll:00000000 $t
+    {standard input}:1742   .text.XMC_SCU_CLOCK_DisableUsbPll:00000000 XMC_SCU_CLOCK_DisableUsbPll
+    {standard input}:1755   .text.XMC_SCU_CLOCK_DisableUsbPll:00000010 $d
+    {standard input}:1758   .text.XMC_SCU_CLOCK_StartUsbPll:00000000 $t
+    {standard input}:1763   .text.XMC_SCU_CLOCK_StartUsbPll:00000000 XMC_SCU_CLOCK_StartUsbPll
+    {standard input}:1796   .text.XMC_SCU_CLOCK_StartUsbPll:00000040 $d
+    {standard input}:1799   .text.XMC_SCU_CLOCK_StopUsbPll:00000000 $t
+    {standard input}:1804   .text.XMC_SCU_CLOCK_StopUsbPll:00000000 XMC_SCU_CLOCK_StopUsbPll
+    {standard input}:1815   .text.XMC_SCU_CLOCK_StopUsbPll:00000008 $d
+    {standard input}:1819   .text.XMC_SCU_CLOCK_SetBackupClockCalibrationMode:00000000 $t
+    {standard input}:1824   .text.XMC_SCU_CLOCK_SetBackupClockCalibrationMode:00000000 XMC_SCU_CLOCK_SetBackupClockCalibrationMode
+    {standard input}:1886   .text.XMC_SCU_CLOCK_SetBackupClockCalibrationMode:0000006c $d
+    {standard input}:1891   .text.XMC_SCU_POWER_EnableUsb:00000000 $t
+    {standard input}:1896   .text.XMC_SCU_POWER_EnableUsb:00000000 XMC_SCU_POWER_EnableUsb
+    {standard input}:1907   .text.XMC_SCU_POWER_EnableUsb:0000000c $d
+    {standard input}:1910   .text.XMC_SCU_POWER_DisableUsb:00000000 $t
+    {standard input}:1915   .text.XMC_SCU_POWER_DisableUsb:00000000 XMC_SCU_POWER_DisableUsb
+    {standard input}:1926   .text.XMC_SCU_POWER_DisableUsb:0000000c $d
+    {standard input}:1929   .text.XMC_SCU_CLOCK_IsUsbPllLocked:00000000 $t
+    {standard input}:1934   .text.XMC_SCU_CLOCK_IsUsbPllLocked:00000000 XMC_SCU_CLOCK_IsUsbPllLocked
+    {standard input}:1945   .text.XMC_SCU_CLOCK_IsUsbPllLocked:0000000c $d
+    {standard input}:1948   .text.XMC_SCU_HIB_EnableHibernateDomain:00000000 $t
+    {standard input}:1953   .text.XMC_SCU_HIB_EnableHibernateDomain:00000000 XMC_SCU_HIB_EnableHibernateDomain
+    {standard input}:1984   .text.XMC_SCU_HIB_EnableHibernateDomain:0000002c $d
+    {standard input}:1988   .text.XMC_SCU_HIB_DisableHibernateDomain:00000000 $t
+    {standard input}:1993   .text.XMC_SCU_HIB_DisableHibernateDomain:00000000 XMC_SCU_HIB_DisableHibernateDomain
+    {standard input}:2007   .text.XMC_SCU_HIB_DisableHibernateDomain:00000010 $d
+    {standard input}:2011   .text.XMC_SCU_HIB_IsHibernateDomainEnabled:00000000 $t
+    {standard input}:2016   .text.XMC_SCU_HIB_IsHibernateDomainEnabled:00000000 XMC_SCU_HIB_IsHibernateDomainEnabled
+    {standard input}:2032   .text.XMC_SCU_HIB_IsHibernateDomainEnabled:00000018 $d
+    {standard input}:2035   .text.XMC_SCU_HIB_EnableInternalSlowClock:00000000 $t
+    {standard input}:2040   .text.XMC_SCU_HIB_EnableInternalSlowClock:00000000 XMC_SCU_HIB_EnableInternalSlowClock
+    {standard input}:2057   .text.XMC_SCU_HIB_EnableInternalSlowClock:00000018 $d
+    {standard input}:2061   .text.XMC_SCU_HIB_DisableInternalSlowClock:00000000 $t
+    {standard input}:2066   .text.XMC_SCU_HIB_DisableInternalSlowClock:00000000 XMC_SCU_HIB_DisableInternalSlowClock
+    {standard input}:2083   .text.XMC_SCU_HIB_DisableInternalSlowClock:00000018 $d
+    {standard input}:2087   .text.XMC_SCU_HIB_ClearEventStatus:00000000 $t
+    {standard input}:2092   .text.XMC_SCU_HIB_ClearEventStatus:00000000 XMC_SCU_HIB_ClearEventStatus
+    {standard input}:2107   .text.XMC_SCU_HIB_ClearEventStatus:00000010 $d
+    {standard input}:2111   .text.XMC_SCU_HIB_TriggerEvent:00000000 $t
+    {standard input}:2116   .text.XMC_SCU_HIB_TriggerEvent:00000000 XMC_SCU_HIB_TriggerEvent
+    {standard input}:2131   .text.XMC_SCU_HIB_TriggerEvent:00000010 $d
+    {standard input}:2135   .text.XMC_SCU_HIB_EnableEvent:00000000 $t
+    {standard input}:2140   .text.XMC_SCU_HIB_EnableEvent:00000000 XMC_SCU_HIB_EnableEvent
+    {standard input}:2157   .text.XMC_SCU_HIB_EnableEvent:00000014 $d
+    {standard input}:2161   .text.XMC_SCU_HIB_DisableEvent:00000000 $t
+    {standard input}:2166   .text.XMC_SCU_HIB_DisableEvent:00000000 XMC_SCU_HIB_DisableEvent
+    {standard input}:2183   .text.XMC_SCU_HIB_DisableEvent:00000018 $d
+    {standard input}:2187   .text.XMC_SCU_HIB_EnterHibernateState:00000000 $t
+    {standard input}:2192   .text.XMC_SCU_HIB_EnterHibernateState:00000000 XMC_SCU_HIB_EnterHibernateState
+    {standard input}:2209   .text.XMC_SCU_HIB_EnterHibernateState:00000018 $d
+    {standard input}:2213   .text.XMC_SCU_HIB_EnterHibernateStateEx:00000000 $t
+    {standard input}:2218   .text.XMC_SCU_HIB_EnterHibernateStateEx:00000000 XMC_SCU_HIB_EnterHibernateStateEx
+    {standard input}:2237   .text.XMC_SCU_HIB_EnterHibernateStateEx:00000018 $d
+    {standard input}:2241   .text.XMC_SCU_HIB_SetWakeupTriggerInput:00000000 $t
+    {standard input}:2246   .text.XMC_SCU_HIB_SetWakeupTriggerInput:00000000 XMC_SCU_HIB_SetWakeupTriggerInput
+    {standard input}:2268   .text.XMC_SCU_HIB_SetWakeupTriggerInput:00000020 $d
+    {standard input}:2272   .text.XMC_SCU_HIB_SetPinMode:00000000 $t
+    {standard input}:2277   .text.XMC_SCU_HIB_SetPinMode:00000000 XMC_SCU_HIB_SetPinMode
+    {standard input}:2301   .text.XMC_SCU_HIB_SetPinMode:00000028 $d
+    {standard input}:2305   .text.XMC_SCU_HIB_SetPinOutputLevel:00000000 $t
+    {standard input}:2310   .text.XMC_SCU_HIB_SetPinOutputLevel:00000000 XMC_SCU_HIB_SetPinOutputLevel
+    {standard input}:2333   .text.XMC_SCU_HIB_SetPinOutputLevel:00000028 $d
+    {standard input}:2337   .text.XMC_SCU_HIB_SetInput0:00000000 $t
+    {standard input}:2342   .text.XMC_SCU_HIB_SetInput0:00000000 XMC_SCU_HIB_SetInput0
+    {standard input}:2364   .text.XMC_SCU_HIB_SetInput0:00000020 $d
+    {standard input}:2368   .text.XMC_SCU_HIB_SetSR0Input:00000000 $t
+    {standard input}:2373   .text.XMC_SCU_HIB_SetSR0Input:00000000 XMC_SCU_HIB_SetSR0Input
+    {standard input}:2391   .text.XMC_SCU_HIB_SetSR0Input:00000018 $d
+    {standard input}:2395   .text.XMC_SCU_CLOCK_IsLowPowerOscillatorStable:00000000 $t
+    {standard input}:2400   .text.XMC_SCU_CLOCK_IsLowPowerOscillatorStable:00000000 XMC_SCU_CLOCK_IsLowPowerOscillatorStable
+    {standard input}:2412   .text.XMC_SCU_CLOCK_IsLowPowerOscillatorStable:00000010 $d
+    {standard input}:2415   .text.XMC_SCU_CLOCK_EnableLowPowerOscillator:00000000 $t
+    {standard input}:2420   .text.XMC_SCU_CLOCK_EnableLowPowerOscillator:00000000 XMC_SCU_CLOCK_EnableLowPowerOscillator
+    {standard input}:2459   .text.XMC_SCU_CLOCK_EnableLowPowerOscillator:00000044 $d
+    {standard input}:2463   .text.XMC_SCU_CLOCK_DisableLowPowerOscillator:00000000 $t
+    {standard input}:2468   .text.XMC_SCU_CLOCK_DisableLowPowerOscillator:00000000 XMC_SCU_CLOCK_DisableLowPowerOscillator
+    {standard input}:2485   .text.XMC_SCU_CLOCK_DisableLowPowerOscillator:00000018 $d
+    {standard input}:2489   .text.XMC_SCU_CLOCK_EnableLowPowerOscillatorGeneralPurposeInput:00000000 $t
+    {standard input}:2494   .text.XMC_SCU_CLOCK_EnableLowPowerOscillatorGeneralPurposeInput:00000000 XMC_SCU_CLOCK_EnableLowPowerOscillatorGeneralPurposeInput
+    {standard input}:2511   .text.XMC_SCU_CLOCK_EnableLowPowerOscillatorGeneralPurposeInput:00000018 $d
+    {standard input}:2515   .text.XMC_SCU_CLOCK_DisableLowPowerOscillatorGeneralPurposeInput:00000000 $t
+    {standard input}:2520   .text.XMC_SCU_CLOCK_DisableLowPowerOscillatorGeneralPurposeInput:00000000 XMC_SCU_CLOCK_DisableLowPowerOscillatorGeneralPurposeInput
+    {standard input}:2538   .text.XMC_SCU_CLOCK_DisableLowPowerOscillatorGeneralPurposeInput:0000001c $d
+    {standard input}:2542   .text.XMC_SCU_CLOCK_GetLowPowerOscillatorGeneralPurposeInputStatus:00000000 $t
+    {standard input}:2547   .text.XMC_SCU_CLOCK_GetLowPowerOscillatorGeneralPurposeInputStatus:00000000 XMC_SCU_CLOCK_GetLowPowerOscillatorGeneralPurposeInputStatus
+    {standard input}:2558   .text.XMC_SCU_CLOCK_GetLowPowerOscillatorGeneralPurposeInputStatus:0000000c $d
+    {standard input}:2561   .text.XMC_SCU_CLOCK_EnableHighPerformanceOscillator:00000000 $t
+    {standard input}:2566   .text.XMC_SCU_CLOCK_EnableHighPerformanceOscillator:00000000 XMC_SCU_CLOCK_EnableHighPerformanceOscillator
+    {standard input}:2592   .text.XMC_SCU_CLOCK_EnableHighPerformanceOscillator:00000038 $d
+    {standard input}:2597   .text.XMC_SCU_CLOCK_IsHighPerformanceOscillatorStable:00000000 $t
+    {standard input}:2602   .text.XMC_SCU_CLOCK_IsHighPerformanceOscillatorStable:00000000 XMC_SCU_CLOCK_IsHighPerformanceOscillatorStable
+    {standard input}:2616   .text.XMC_SCU_CLOCK_IsHighPerformanceOscillatorStable:00000014 $d
+    {standard input}:2619   .text.XMC_SCU_CLOCK_DisableHighPerformanceOscillator:00000000 $t
+    {standard input}:2624   .text.XMC_SCU_CLOCK_DisableHighPerformanceOscillator:00000000 XMC_SCU_CLOCK_DisableHighPerformanceOscillator
+    {standard input}:2636   .text.XMC_SCU_CLOCK_DisableHighPerformanceOscillator:0000000c $d
+    {standard input}:2639   .text.XMC_SCU_CLOCK_EnableHighPerformanceOscillatorGeneralPurposeInput:00000000 $t
+    {standard input}:2644   .text.XMC_SCU_CLOCK_EnableHighPerformanceOscillatorGeneralPurposeInput:00000000 XMC_SCU_CLOCK_EnableHighPerformanceOscillatorGeneralPurposeInput
+    {standard input}:2656   .text.XMC_SCU_CLOCK_EnableHighPerformanceOscillatorGeneralPurposeInput:0000000c $d
+    {standard input}:2659   .text.XMC_SCU_CLOCK_DisableHighPerformanceOscillatorGeneralPurposeInput:00000000 $t
+    {standard input}:2664   .text.XMC_SCU_CLOCK_DisableHighPerformanceOscillatorGeneralPurposeInput:00000000 XMC_SCU_CLOCK_DisableHighPerformanceOscillatorGeneralPurposeInput
+    {standard input}:2676   .text.XMC_SCU_CLOCK_DisableHighPerformanceOscillatorGeneralPurposeInput:0000000c $d
+    {standard input}:2679   .text.XMC_SCU_CLOCK_GetHighPerformanceOscillatorGeneralPurposeInputStatus:00000000 $t
+    {standard input}:2684   .text.XMC_SCU_CLOCK_GetHighPerformanceOscillatorGeneralPurposeInputStatus:00000000 XMC_SCU_CLOCK_GetHighPerformanceOscillatorGeneralPurposeInputStatus
+    {standard input}:2695   .text.XMC_SCU_CLOCK_GetHighPerformanceOscillatorGeneralPurposeInputStatus:0000000c $d
+    {standard input}:2698   .text.XMC_SCU_CLOCK_EnableSystemPll:00000000 $t
+    {standard input}:2703   .text.XMC_SCU_CLOCK_EnableSystemPll:00000000 XMC_SCU_CLOCK_EnableSystemPll
+    {standard input}:2716   .text.XMC_SCU_CLOCK_EnableSystemPll:00000010 $d
+    {standard input}:2719   .text.XMC_SCU_CLOCK_DisableSystemPll:00000000 $t
+    {standard input}:2724   .text.XMC_SCU_CLOCK_DisableSystemPll:00000000 XMC_SCU_CLOCK_DisableSystemPll
+    {standard input}:2737   .text.XMC_SCU_CLOCK_DisableSystemPll:00000010 $d
+    {standard input}:2740   .text.XMC_SCU_CLOCK_StartSystemPll:00000000 $t
+    {standard input}:2745   .text.XMC_SCU_CLOCK_StartSystemPll:00000000 XMC_SCU_CLOCK_StartSystemPll
+    {standard input}:2936   .text.XMC_SCU_CLOCK_StartSystemPll:00000198 $d
+    {standard input}:2945   .text.XMC_SCU_CLOCK_Init:00000000 $t
+    {standard input}:2950   .text.XMC_SCU_CLOCK_Init:00000000 XMC_SCU_CLOCK_Init
+    {standard input}:3184   .text.XMC_SCU_CLOCK_Init:000001e0 $d
+    {standard input}:3196   .text.XMC_SCU_CLOCK_StopSystemPll:00000000 $t
+    {standard input}:3201   .text.XMC_SCU_CLOCK_StopSystemPll:00000000 XMC_SCU_CLOCK_StopSystemPll
+    {standard input}:3213   .text.XMC_SCU_CLOCK_StopSystemPll:0000000c $d
+    {standard input}:3216   .text.XMC_SCU_CLOCK_StepSystemPllFrequency:00000000 $t
+    {standard input}:3221   .text.XMC_SCU_CLOCK_StepSystemPllFrequency:00000000 XMC_SCU_CLOCK_StepSystemPllFrequency
+    {standard input}:3254   .text.XMC_SCU_CLOCK_StepSystemPllFrequency:00000038 $d
+    {standard input}:3259   .text.XMC_SCU_CLOCK_IsSystemPllLocked:00000000 $t
+    {standard input}:3264   .text.XMC_SCU_CLOCK_IsSystemPllLocked:00000000 XMC_SCU_CLOCK_IsSystemPllLocked
+    {standard input}:3275   .text.XMC_SCU_CLOCK_IsSystemPllLocked:0000000c $d
+    {standard input}:3278   .text.XMC_SCU_INTERRUPT_SetEventHandler:00000000 $t
+    {standard input}:3283   .text.XMC_SCU_INTERRUPT_SetEventHandler:00000000 XMC_SCU_INTERRUPT_SetEventHandler
+    {standard input}:3314   .text.XMC_SCU_INTERRUPT_SetEventHandler:0000002c $d
+                            *COM*:00000080 event_handler_list
+    {standard input}:3317   .text.XMC_SCU_IRQHandler:00000000 $t
+    {standard input}:3322   .text.XMC_SCU_IRQHandler:00000000 XMC_SCU_IRQHandler
+    {standard input}:3353   .text.XMC_SCU_IRQHandler:00000030 $d
+
+UNDEFINED SYMBOLS
+OSCHP_GetFrequency
+SystemCoreClock
+SystemCoreClockUpdate

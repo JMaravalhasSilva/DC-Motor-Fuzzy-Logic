@@ -1,0 +1,2019 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "port.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.prvTaskExitError,"ax",%progbits
+  20              	 .align 2
+  21              	 .thumb
+  22              	 .thumb_func
+  24              	prvTaskExitError:
+  25              	.LFB129:
+  26              	 .file 1 "../Dave/Generated/FREERTOS/port.c"
+   1:../Dave/Generated/FREERTOS/port.c **** /*
+   2:../Dave/Generated/FREERTOS/port.c ****     FreeRTOS V9.0.0 - Copyright (C) 2016 Real Time Engineers Ltd.
+   3:../Dave/Generated/FREERTOS/port.c ****     All rights reserved
+   4:../Dave/Generated/FREERTOS/port.c **** 
+   5:../Dave/Generated/FREERTOS/port.c ****     VISIT http://www.FreeRTOS.org TO ENSURE YOU ARE USING THE LATEST VERSION.
+   6:../Dave/Generated/FREERTOS/port.c **** 
+   7:../Dave/Generated/FREERTOS/port.c ****     This file is part of the FreeRTOS distribution.
+   8:../Dave/Generated/FREERTOS/port.c **** 
+   9:../Dave/Generated/FREERTOS/port.c ****     FreeRTOS is free software; you can redistribute it and/or modify it under
+  10:../Dave/Generated/FREERTOS/port.c ****     the terms of the GNU General Public License (version 2) as published by the
+  11:../Dave/Generated/FREERTOS/port.c ****     Free Software Foundation >>>> AND MODIFIED BY <<<< the FreeRTOS exception.
+  12:../Dave/Generated/FREERTOS/port.c **** 
+  13:../Dave/Generated/FREERTOS/port.c ****     ***************************************************************************
+  14:../Dave/Generated/FREERTOS/port.c ****     >>!   NOTE: The modification to the GPL is included to allow you to     !<<
+  15:../Dave/Generated/FREERTOS/port.c ****     >>!   distribute a combined work that includes FreeRTOS without being   !<<
+  16:../Dave/Generated/FREERTOS/port.c ****     >>!   obliged to provide the source code for proprietary components     !<<
+  17:../Dave/Generated/FREERTOS/port.c ****     >>!   outside of the FreeRTOS kernel.                                   !<<
+  18:../Dave/Generated/FREERTOS/port.c ****     ***************************************************************************
+  19:../Dave/Generated/FREERTOS/port.c **** 
+  20:../Dave/Generated/FREERTOS/port.c ****     FreeRTOS is distributed in the hope that it will be useful, but WITHOUT ANY
+  21:../Dave/Generated/FREERTOS/port.c ****     WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  22:../Dave/Generated/FREERTOS/port.c ****     FOR A PARTICULAR PURPOSE.  Full license text is available on the following
+  23:../Dave/Generated/FREERTOS/port.c ****     link: http://www.freertos.org/a00114.html
+  24:../Dave/Generated/FREERTOS/port.c **** 
+  25:../Dave/Generated/FREERTOS/port.c ****     ***************************************************************************
+  26:../Dave/Generated/FREERTOS/port.c ****      *                                                                       *
+  27:../Dave/Generated/FREERTOS/port.c ****      *    FreeRTOS provides completely free yet professionally developed,    *
+  28:../Dave/Generated/FREERTOS/port.c ****      *    robust, strictly quality controlled, supported, and cross          *
+  29:../Dave/Generated/FREERTOS/port.c ****      *    platform software that is more than just the market leader, it     *
+  30:../Dave/Generated/FREERTOS/port.c ****      *    is the industry's de facto standard.                               *
+  31:../Dave/Generated/FREERTOS/port.c ****      *                                                                       *
+  32:../Dave/Generated/FREERTOS/port.c ****      *    Help yourself get started quickly while simultaneously helping     *
+  33:../Dave/Generated/FREERTOS/port.c ****      *    to support the FreeRTOS project by purchasing a FreeRTOS           *
+  34:../Dave/Generated/FREERTOS/port.c ****      *    tutorial book, reference manual, or both:                          *
+  35:../Dave/Generated/FREERTOS/port.c ****      *    http://www.FreeRTOS.org/Documentation                              *
+  36:../Dave/Generated/FREERTOS/port.c ****      *                                                                       *
+  37:../Dave/Generated/FREERTOS/port.c ****     ***************************************************************************
+  38:../Dave/Generated/FREERTOS/port.c **** 
+  39:../Dave/Generated/FREERTOS/port.c ****     http://www.FreeRTOS.org/FAQHelp.html - Having a problem?  Start by reading
+  40:../Dave/Generated/FREERTOS/port.c ****     the FAQ page "My application does not run, what could be wrong?".  Have you
+  41:../Dave/Generated/FREERTOS/port.c ****     defined configASSERT()?
+  42:../Dave/Generated/FREERTOS/port.c **** 
+  43:../Dave/Generated/FREERTOS/port.c ****     http://www.FreeRTOS.org/support - In return for receiving this top quality
+  44:../Dave/Generated/FREERTOS/port.c ****     embedded software for free we request you assist our global community by
+  45:../Dave/Generated/FREERTOS/port.c ****     participating in the support forum.
+  46:../Dave/Generated/FREERTOS/port.c **** 
+  47:../Dave/Generated/FREERTOS/port.c ****     http://www.FreeRTOS.org/training - Investing in training allows your team to
+  48:../Dave/Generated/FREERTOS/port.c ****     be as productive as possible as early as possible.  Now you can receive
+  49:../Dave/Generated/FREERTOS/port.c ****     FreeRTOS training directly from Richard Barry, CEO of Real Time Engineers
+  50:../Dave/Generated/FREERTOS/port.c ****     Ltd, and the world's leading authority on the world's leading RTOS.
+  51:../Dave/Generated/FREERTOS/port.c **** 
+  52:../Dave/Generated/FREERTOS/port.c ****     http://www.FreeRTOS.org/plus - A selection of FreeRTOS ecosystem products,
+  53:../Dave/Generated/FREERTOS/port.c ****     including FreeRTOS+Trace - an indispensable productivity tool, a DOS
+  54:../Dave/Generated/FREERTOS/port.c ****     compatible FAT file system, and our tiny thread aware UDP/IP stack.
+  55:../Dave/Generated/FREERTOS/port.c **** 
+  56:../Dave/Generated/FREERTOS/port.c ****     http://www.FreeRTOS.org/labs - Where new FreeRTOS products go to incubate.
+  57:../Dave/Generated/FREERTOS/port.c ****     Come and try FreeRTOS+TCP, our new open source TCP/IP stack for FreeRTOS.
+  58:../Dave/Generated/FREERTOS/port.c **** 
+  59:../Dave/Generated/FREERTOS/port.c ****     http://www.OpenRTOS.com - Real Time Engineers ltd. license FreeRTOS to High
+  60:../Dave/Generated/FREERTOS/port.c ****     Integrity Systems ltd. to sell under the OpenRTOS brand.  Low cost OpenRTOS
+  61:../Dave/Generated/FREERTOS/port.c ****     licenses offer ticketed support, indemnification and commercial middleware.
+  62:../Dave/Generated/FREERTOS/port.c **** 
+  63:../Dave/Generated/FREERTOS/port.c ****     http://www.SafeRTOS.com - High Integrity Systems also provide a safety
+  64:../Dave/Generated/FREERTOS/port.c ****     engineered and independently SIL3 certified version for use in safety and
+  65:../Dave/Generated/FREERTOS/port.c ****     mission critical applications that require provable dependability.
+  66:../Dave/Generated/FREERTOS/port.c **** 
+  67:../Dave/Generated/FREERTOS/port.c ****     1 tab == 4 spaces!
+  68:../Dave/Generated/FREERTOS/port.c **** */
+  69:../Dave/Generated/FREERTOS/port.c **** 
+  70:../Dave/Generated/FREERTOS/port.c **** #include "freertos_conf.h"
+  71:../Dave/Generated/FREERTOS/port.c **** 
+  72:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------
+  73:../Dave/Generated/FREERTOS/port.c ****  * Implementation of functions defined in portable.h for the ARM CM4F port.
+  74:../Dave/Generated/FREERTOS/port.c ****  *----------------------------------------------------------*/
+  75:../Dave/Generated/FREERTOS/port.c **** #if FREERTOS_MPU_SUPPORT == 0
+  76:../Dave/Generated/FREERTOS/port.c **** #if defined( __GNUC__ )
+  77:../Dave/Generated/FREERTOS/port.c **** /* Scheduler includes. */
+  78:../Dave/Generated/FREERTOS/port.c **** #include "FreeRTOS.h"
+  79:../Dave/Generated/FREERTOS/port.c **** #include "task.h"
+  80:../Dave/Generated/FREERTOS/port.c **** 
+  81:../Dave/Generated/FREERTOS/port.c **** #ifndef __VFP_FP__
+  82:../Dave/Generated/FREERTOS/port.c **** 	#error This port can only be used when the project options are configured to enable hardware float
+  83:../Dave/Generated/FREERTOS/port.c **** #endif
+  84:../Dave/Generated/FREERTOS/port.c **** 
+  85:../Dave/Generated/FREERTOS/port.c **** #ifndef configSYSTICK_CLOCK_HZ
+  86:../Dave/Generated/FREERTOS/port.c **** 	#define configSYSTICK_CLOCK_HZ configCPU_CLOCK_HZ
+  87:../Dave/Generated/FREERTOS/port.c **** 	/* Ensure the SysTick is clocked at the same frequency as the core. */
+  88:../Dave/Generated/FREERTOS/port.c **** 	#define portNVIC_SYSTICK_CLK_BIT	( 1UL << 2UL )
+  89:../Dave/Generated/FREERTOS/port.c **** #else
+  90:../Dave/Generated/FREERTOS/port.c **** 	/* The way the SysTick is clocked is not modified in case it is not the same
+  91:../Dave/Generated/FREERTOS/port.c **** 	as the core. */
+  92:../Dave/Generated/FREERTOS/port.c **** 	#define portNVIC_SYSTICK_CLK_BIT	( 0 )
+  93:../Dave/Generated/FREERTOS/port.c **** #endif
+  94:../Dave/Generated/FREERTOS/port.c **** 
+  95:../Dave/Generated/FREERTOS/port.c **** /* Constants required to manipulate the core.  Registers first... */
+  96:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_SYSTICK_CTRL_REG			( * ( ( volatile uint32_t * ) 0xe000e010 ) )
+  97:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_SYSTICK_LOAD_REG			( * ( ( volatile uint32_t * ) 0xe000e014 ) )
+  98:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_SYSTICK_CURRENT_VALUE_REG	( * ( ( volatile uint32_t * ) 0xe000e018 ) )
+  99:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_SYSPRI2_REG				( * ( ( volatile uint32_t * ) 0xe000ed20 ) )
+ 100:../Dave/Generated/FREERTOS/port.c **** /* ...then bits in the registers. */
+ 101:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_SYSTICK_INT_BIT			( 1UL << 1UL )
+ 102:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_SYSTICK_ENABLE_BIT			( 1UL << 0UL )
+ 103:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_SYSTICK_COUNT_FLAG_BIT		( 1UL << 16UL )
+ 104:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_PENDSVCLEAR_BIT 			( 1UL << 27UL )
+ 105:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_PEND_SYSTICK_CLEAR_BIT		( 1UL << 25UL )
+ 106:../Dave/Generated/FREERTOS/port.c **** 
+ 107:../Dave/Generated/FREERTOS/port.c **** /* Constants used to detect a Cortex-M7 r0p1 core, which should use the ARM_CM7
+ 108:../Dave/Generated/FREERTOS/port.c **** r0p1 port. */
+ 109:../Dave/Generated/FREERTOS/port.c **** #define portCPUID							( * ( ( volatile uint32_t * ) 0xE000ed00 ) )
+ 110:../Dave/Generated/FREERTOS/port.c **** #define portCORTEX_M7_r0p1_ID				( 0x410FC271UL )
+ 111:../Dave/Generated/FREERTOS/port.c **** #define portCORTEX_M7_r0p0_ID				( 0x410FC270UL )
+ 112:../Dave/Generated/FREERTOS/port.c **** 
+ 113:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_PENDSV_PRI					( ( ( uint32_t ) configKERNEL_INTERRUPT_PRIORITY ) << 16UL )
+ 114:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_SYSTICK_PRI				( ( ( uint32_t ) configKERNEL_INTERRUPT_PRIORITY ) << 24UL )
+ 115:../Dave/Generated/FREERTOS/port.c **** 
+ 116:../Dave/Generated/FREERTOS/port.c **** /* Constants required to check the validity of an interrupt priority. */
+ 117:../Dave/Generated/FREERTOS/port.c **** #define portFIRST_USER_INTERRUPT_NUMBER		( 16 )
+ 118:../Dave/Generated/FREERTOS/port.c **** #define portNVIC_IP_REGISTERS_OFFSET_16 	( 0xE000E3F0 )
+ 119:../Dave/Generated/FREERTOS/port.c **** #define portAIRCR_REG						( * ( ( volatile uint32_t * ) 0xE000ED0C ) )
+ 120:../Dave/Generated/FREERTOS/port.c **** #define portMAX_8_BIT_VALUE					( ( uint8_t ) 0xff )
+ 121:../Dave/Generated/FREERTOS/port.c **** #define portTOP_BIT_OF_BYTE					( ( uint8_t ) 0x80 )
+ 122:../Dave/Generated/FREERTOS/port.c **** #define portMAX_PRIGROUP_BITS				( ( uint8_t ) 7 )
+ 123:../Dave/Generated/FREERTOS/port.c **** #define portPRIORITY_GROUP_MASK				( 0x07UL << 8UL )
+ 124:../Dave/Generated/FREERTOS/port.c **** #define portPRIGROUP_SHIFT					( 8UL )
+ 125:../Dave/Generated/FREERTOS/port.c **** 
+ 126:../Dave/Generated/FREERTOS/port.c **** /* Masks off all bits but the VECTACTIVE bits in the ICSR register. */
+ 127:../Dave/Generated/FREERTOS/port.c **** #define portVECTACTIVE_MASK					( 0xFFUL )
+ 128:../Dave/Generated/FREERTOS/port.c **** 
+ 129:../Dave/Generated/FREERTOS/port.c **** /* Constants required to manipulate the VFP. */
+ 130:../Dave/Generated/FREERTOS/port.c **** #define portFPCCR							( ( volatile uint32_t * ) 0xe000ef34 ) /* Floating point context control re
+ 131:../Dave/Generated/FREERTOS/port.c **** #define portASPEN_AND_LSPEN_BITS			( 0x3UL << 30UL )
+ 132:../Dave/Generated/FREERTOS/port.c **** 
+ 133:../Dave/Generated/FREERTOS/port.c **** /* Constants required to set up the initial stack. */
+ 134:../Dave/Generated/FREERTOS/port.c **** #define portINITIAL_XPSR					( 0x01000000 )
+ 135:../Dave/Generated/FREERTOS/port.c **** #define portINITIAL_EXEC_RETURN				( 0xfffffffd )
+ 136:../Dave/Generated/FREERTOS/port.c **** 
+ 137:../Dave/Generated/FREERTOS/port.c **** /* The systick is a 24-bit counter. */
+ 138:../Dave/Generated/FREERTOS/port.c **** #define portMAX_24_BIT_NUMBER				( 0xffffffUL )
+ 139:../Dave/Generated/FREERTOS/port.c **** 
+ 140:../Dave/Generated/FREERTOS/port.c **** /* For strict compliance with the Cortex-M spec the task start address should
+ 141:../Dave/Generated/FREERTOS/port.c **** have bit-0 clear, as it is loaded into the PC on exit from an ISR. */
+ 142:../Dave/Generated/FREERTOS/port.c **** #define portSTART_ADDRESS_MASK		( ( StackType_t ) 0xfffffffeUL )
+ 143:../Dave/Generated/FREERTOS/port.c **** 
+ 144:../Dave/Generated/FREERTOS/port.c **** /* A fiddle factor to estimate the number of SysTick counts that would have
+ 145:../Dave/Generated/FREERTOS/port.c **** occurred while the SysTick counter is stopped during tickless idle
+ 146:../Dave/Generated/FREERTOS/port.c **** calculations. */
+ 147:../Dave/Generated/FREERTOS/port.c **** #define portMISSED_COUNTS_FACTOR			( 45UL )
+ 148:../Dave/Generated/FREERTOS/port.c **** 
+ 149:../Dave/Generated/FREERTOS/port.c **** /* Let the user override the pre-loading of the initial LR with the address of
+ 150:../Dave/Generated/FREERTOS/port.c **** prvTaskExitError() in case it messes up unwinding of the stack in the
+ 151:../Dave/Generated/FREERTOS/port.c **** debugger. */
+ 152:../Dave/Generated/FREERTOS/port.c **** #ifdef configTASK_RETURN_ADDRESS
+ 153:../Dave/Generated/FREERTOS/port.c **** 	#define portTASK_RETURN_ADDRESS	configTASK_RETURN_ADDRESS
+ 154:../Dave/Generated/FREERTOS/port.c **** #else
+ 155:../Dave/Generated/FREERTOS/port.c **** 	#define portTASK_RETURN_ADDRESS	prvTaskExitError
+ 156:../Dave/Generated/FREERTOS/port.c **** #endif
+ 157:../Dave/Generated/FREERTOS/port.c **** 
+ 158:../Dave/Generated/FREERTOS/port.c **** /* Each task maintains its own interrupt status in the critical nesting
+ 159:../Dave/Generated/FREERTOS/port.c **** variable. */
+ 160:../Dave/Generated/FREERTOS/port.c **** static UBaseType_t uxCriticalNesting = 0xaaaaaaaa;
+ 161:../Dave/Generated/FREERTOS/port.c **** 
+ 162:../Dave/Generated/FREERTOS/port.c **** /*
+ 163:../Dave/Generated/FREERTOS/port.c ****  * Setup the timer to generate the tick interrupts.  The implementation in this
+ 164:../Dave/Generated/FREERTOS/port.c ****  * file is weak to allow application writers to change the timer used to
+ 165:../Dave/Generated/FREERTOS/port.c ****  * generate the tick interrupt.
+ 166:../Dave/Generated/FREERTOS/port.c ****  */
+ 167:../Dave/Generated/FREERTOS/port.c **** void vPortSetupTimerInterrupt( void );
+ 168:../Dave/Generated/FREERTOS/port.c **** 
+ 169:../Dave/Generated/FREERTOS/port.c **** /*
+ 170:../Dave/Generated/FREERTOS/port.c ****  * Exception handlers.
+ 171:../Dave/Generated/FREERTOS/port.c ****  */
+ 172:../Dave/Generated/FREERTOS/port.c **** void xPortPendSVHandler( void ) __attribute__ (( naked ));
+ 173:../Dave/Generated/FREERTOS/port.c **** void xPortSysTickHandler( void );
+ 174:../Dave/Generated/FREERTOS/port.c **** void vPortSVCHandler( void ) __attribute__ (( naked ));
+ 175:../Dave/Generated/FREERTOS/port.c **** 
+ 176:../Dave/Generated/FREERTOS/port.c **** /*
+ 177:../Dave/Generated/FREERTOS/port.c ****  * Start first task is a separate function so it can be tested in isolation.
+ 178:../Dave/Generated/FREERTOS/port.c ****  */
+ 179:../Dave/Generated/FREERTOS/port.c **** static void prvPortStartFirstTask( void ) __attribute__ (( naked ));
+ 180:../Dave/Generated/FREERTOS/port.c **** 
+ 181:../Dave/Generated/FREERTOS/port.c **** /*
+ 182:../Dave/Generated/FREERTOS/port.c ****  * Function to enable the VFP.
+ 183:../Dave/Generated/FREERTOS/port.c ****  */
+ 184:../Dave/Generated/FREERTOS/port.c **** static void vPortEnableVFP( void ) __attribute__ (( naked ));
+ 185:../Dave/Generated/FREERTOS/port.c **** 
+ 186:../Dave/Generated/FREERTOS/port.c **** /*
+ 187:../Dave/Generated/FREERTOS/port.c ****  * Used to catch tasks that attempt to return from their implementing function.
+ 188:../Dave/Generated/FREERTOS/port.c ****  */
+ 189:../Dave/Generated/FREERTOS/port.c **** static void prvTaskExitError( void );
+ 190:../Dave/Generated/FREERTOS/port.c **** 
+ 191:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 192:../Dave/Generated/FREERTOS/port.c **** 
+ 193:../Dave/Generated/FREERTOS/port.c **** /*
+ 194:../Dave/Generated/FREERTOS/port.c ****  * The number of SysTick increments that make up one tick period.
+ 195:../Dave/Generated/FREERTOS/port.c ****  */
+ 196:../Dave/Generated/FREERTOS/port.c **** #if configUSE_TICKLESS_IDLE == 1
+ 197:../Dave/Generated/FREERTOS/port.c **** 	static uint32_t ulTimerCountsForOneTick = 0;
+ 198:../Dave/Generated/FREERTOS/port.c **** #endif /* configUSE_TICKLESS_IDLE */
+ 199:../Dave/Generated/FREERTOS/port.c **** 
+ 200:../Dave/Generated/FREERTOS/port.c **** /*
+ 201:../Dave/Generated/FREERTOS/port.c ****  * The maximum number of tick periods that can be suppressed is limited by the
+ 202:../Dave/Generated/FREERTOS/port.c ****  * 24 bit resolution of the SysTick timer.
+ 203:../Dave/Generated/FREERTOS/port.c ****  */
+ 204:../Dave/Generated/FREERTOS/port.c **** #if configUSE_TICKLESS_IDLE == 1
+ 205:../Dave/Generated/FREERTOS/port.c **** 	static uint32_t xMaximumPossibleSuppressedTicks = 0;
+ 206:../Dave/Generated/FREERTOS/port.c **** #endif /* configUSE_TICKLESS_IDLE */
+ 207:../Dave/Generated/FREERTOS/port.c **** 
+ 208:../Dave/Generated/FREERTOS/port.c **** /*
+ 209:../Dave/Generated/FREERTOS/port.c ****  * Compensate for the CPU cycles that pass while the SysTick is stopped (low
+ 210:../Dave/Generated/FREERTOS/port.c ****  * power functionality only.
+ 211:../Dave/Generated/FREERTOS/port.c ****  */
+ 212:../Dave/Generated/FREERTOS/port.c **** #if configUSE_TICKLESS_IDLE == 1
+ 213:../Dave/Generated/FREERTOS/port.c **** 	static uint32_t ulStoppedTimerCompensation = 0;
+ 214:../Dave/Generated/FREERTOS/port.c **** #endif /* configUSE_TICKLESS_IDLE */
+ 215:../Dave/Generated/FREERTOS/port.c **** 
+ 216:../Dave/Generated/FREERTOS/port.c **** /*
+ 217:../Dave/Generated/FREERTOS/port.c ****  * Used by the portASSERT_IF_INTERRUPT_PRIORITY_INVALID() macro to ensure
+ 218:../Dave/Generated/FREERTOS/port.c ****  * FreeRTOS API functions are not called from interrupts that have been assigned
+ 219:../Dave/Generated/FREERTOS/port.c ****  * a priority above configMAX_SYSCALL_INTERRUPT_PRIORITY.
+ 220:../Dave/Generated/FREERTOS/port.c ****  */
+ 221:../Dave/Generated/FREERTOS/port.c **** #if ( configASSERT_DEFINED == 1 )
+ 222:../Dave/Generated/FREERTOS/port.c **** 	 static uint8_t ucMaxSysCallPriority = 0;
+ 223:../Dave/Generated/FREERTOS/port.c **** 	 static uint32_t ulMaxPRIGROUPValue = 0;
+ 224:../Dave/Generated/FREERTOS/port.c **** 	 static const volatile uint8_t * const pcInterruptPriorityRegisters = ( const volatile uint8_t * c
+ 225:../Dave/Generated/FREERTOS/port.c **** #endif /* configASSERT_DEFINED */
+ 226:../Dave/Generated/FREERTOS/port.c **** 
+ 227:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 228:../Dave/Generated/FREERTOS/port.c **** 
+ 229:../Dave/Generated/FREERTOS/port.c **** /*
+ 230:../Dave/Generated/FREERTOS/port.c ****  * See header file for description.
+ 231:../Dave/Generated/FREERTOS/port.c ****  */
+ 232:../Dave/Generated/FREERTOS/port.c **** StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t pxCode, void *pvParam
+ 233:../Dave/Generated/FREERTOS/port.c **** {
+ 234:../Dave/Generated/FREERTOS/port.c **** 	/* Simulate the stack frame as it would be created by a context switch
+ 235:../Dave/Generated/FREERTOS/port.c **** 	interrupt. */
+ 236:../Dave/Generated/FREERTOS/port.c **** 
+ 237:../Dave/Generated/FREERTOS/port.c **** 	/* Offset added to account for the way the MCU uses the stack on entry/exit
+ 238:../Dave/Generated/FREERTOS/port.c **** 	of interrupts, and to ensure alignment. */
+ 239:../Dave/Generated/FREERTOS/port.c **** 	pxTopOfStack--;
+ 240:../Dave/Generated/FREERTOS/port.c **** 
+ 241:../Dave/Generated/FREERTOS/port.c **** 	*pxTopOfStack = portINITIAL_XPSR;	/* xPSR */
+ 242:../Dave/Generated/FREERTOS/port.c **** 	pxTopOfStack--;
+ 243:../Dave/Generated/FREERTOS/port.c **** 	*pxTopOfStack = ( ( StackType_t ) pxCode ) & portSTART_ADDRESS_MASK;	/* PC */
+ 244:../Dave/Generated/FREERTOS/port.c **** 	pxTopOfStack--;
+ 245:../Dave/Generated/FREERTOS/port.c **** 	*pxTopOfStack = ( StackType_t ) portTASK_RETURN_ADDRESS;	/* LR */
+ 246:../Dave/Generated/FREERTOS/port.c **** 
+ 247:../Dave/Generated/FREERTOS/port.c **** 	/* Save code space by skipping register initialisation. */
+ 248:../Dave/Generated/FREERTOS/port.c **** 	pxTopOfStack -= 5;	/* R12, R3, R2 and R1. */
+ 249:../Dave/Generated/FREERTOS/port.c **** 	*pxTopOfStack = ( StackType_t ) pvParameters;	/* R0 */
+ 250:../Dave/Generated/FREERTOS/port.c **** 
+ 251:../Dave/Generated/FREERTOS/port.c **** 	/* A save method is being used that requires each task to maintain its
+ 252:../Dave/Generated/FREERTOS/port.c **** 	own exec return value. */
+ 253:../Dave/Generated/FREERTOS/port.c **** 	pxTopOfStack--;
+ 254:../Dave/Generated/FREERTOS/port.c **** 	*pxTopOfStack = portINITIAL_EXEC_RETURN;
+ 255:../Dave/Generated/FREERTOS/port.c **** 
+ 256:../Dave/Generated/FREERTOS/port.c **** 	pxTopOfStack -= 8;	/* R11, R10, R9, R8, R7, R6, R5 and R4. */
+ 257:../Dave/Generated/FREERTOS/port.c **** 
+ 258:../Dave/Generated/FREERTOS/port.c **** 	return pxTopOfStack;
+ 259:../Dave/Generated/FREERTOS/port.c **** }
+ 260:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 261:../Dave/Generated/FREERTOS/port.c **** 
+ 262:../Dave/Generated/FREERTOS/port.c **** static void prvTaskExitError( void )
+ 263:../Dave/Generated/FREERTOS/port.c **** {
+  27              	 .loc 1 263 0
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31              	 
+  32              	 
+ 264:../Dave/Generated/FREERTOS/port.c **** 	/* A function that implements a task must not exit or attempt to return to
+ 265:../Dave/Generated/FREERTOS/port.c **** 	its caller as there is nothing to return to.  If a task wants to exit it
+ 266:../Dave/Generated/FREERTOS/port.c **** 	should instead call vTaskDelete( NULL ).
+ 267:../Dave/Generated/FREERTOS/port.c **** 
+ 268:../Dave/Generated/FREERTOS/port.c **** 	Artificially force an assert() to be triggered if configASSERT() is
+ 269:../Dave/Generated/FREERTOS/port.c **** 	defined, then stop here so application writers can catch the error. */
+ 270:../Dave/Generated/FREERTOS/port.c **** 	configASSERT( uxCriticalNesting == ~0UL );
+  33              	 .loc 1 270 0
+  34 0000 0A4B     	 ldr r3,.L6
+  35 0002 1B68     	 ldr r3,[r3]
+  36 0004 0133     	 adds r3,r3,#1
+  37 0006 08D0     	 beq .L2
+  38              	.LBB29:
+  39              	.LBB30:
+  40              	 .file 2 "../Dave/Generated/FREERTOS/portmacro.h"
+   1:../Dave/Generated/FREERTOS/portmacro.h **** /*
+   2:../Dave/Generated/FREERTOS/portmacro.h ****     FreeRTOS V9.0.0 - Copyright (C) 2016 Real Time Engineers Ltd.
+   3:../Dave/Generated/FREERTOS/portmacro.h ****     All rights reserved
+   4:../Dave/Generated/FREERTOS/portmacro.h **** 
+   5:../Dave/Generated/FREERTOS/portmacro.h ****     VISIT http://www.FreeRTOS.org TO ENSURE YOU ARE USING THE LATEST VERSION.
+   6:../Dave/Generated/FREERTOS/portmacro.h **** 
+   7:../Dave/Generated/FREERTOS/portmacro.h ****     This file is part of the FreeRTOS distribution.
+   8:../Dave/Generated/FREERTOS/portmacro.h **** 
+   9:../Dave/Generated/FREERTOS/portmacro.h ****     FreeRTOS is free software; you can redistribute it and/or modify it under
+  10:../Dave/Generated/FREERTOS/portmacro.h ****     the terms of the GNU General Public License (version 2) as published by the
+  11:../Dave/Generated/FREERTOS/portmacro.h ****     Free Software Foundation >>>> AND MODIFIED BY <<<< the FreeRTOS exception.
+  12:../Dave/Generated/FREERTOS/portmacro.h **** 
+  13:../Dave/Generated/FREERTOS/portmacro.h ****     ***************************************************************************
+  14:../Dave/Generated/FREERTOS/portmacro.h ****     >>!   NOTE: The modification to the GPL is included to allow you to     !<<
+  15:../Dave/Generated/FREERTOS/portmacro.h ****     >>!   distribute a combined work that includes FreeRTOS without being   !<<
+  16:../Dave/Generated/FREERTOS/portmacro.h ****     >>!   obliged to provide the source code for proprietary components     !<<
+  17:../Dave/Generated/FREERTOS/portmacro.h ****     >>!   outside of the FreeRTOS kernel.                                   !<<
+  18:../Dave/Generated/FREERTOS/portmacro.h ****     ***************************************************************************
+  19:../Dave/Generated/FREERTOS/portmacro.h **** 
+  20:../Dave/Generated/FREERTOS/portmacro.h ****     FreeRTOS is distributed in the hope that it will be useful, but WITHOUT ANY
+  21:../Dave/Generated/FREERTOS/portmacro.h ****     WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  22:../Dave/Generated/FREERTOS/portmacro.h ****     FOR A PARTICULAR PURPOSE.  Full license text is available on the following
+  23:../Dave/Generated/FREERTOS/portmacro.h ****     link: http://www.freertos.org/a00114.html
+  24:../Dave/Generated/FREERTOS/portmacro.h **** 
+  25:../Dave/Generated/FREERTOS/portmacro.h ****     ***************************************************************************
+  26:../Dave/Generated/FREERTOS/portmacro.h ****      *                                                                       *
+  27:../Dave/Generated/FREERTOS/portmacro.h ****      *    FreeRTOS provides completely free yet professionally developed,    *
+  28:../Dave/Generated/FREERTOS/portmacro.h ****      *    robust, strictly quality controlled, supported, and cross          *
+  29:../Dave/Generated/FREERTOS/portmacro.h ****      *    platform software that is more than just the market leader, it     *
+  30:../Dave/Generated/FREERTOS/portmacro.h ****      *    is the industry's de facto standard.                               *
+  31:../Dave/Generated/FREERTOS/portmacro.h ****      *                                                                       *
+  32:../Dave/Generated/FREERTOS/portmacro.h ****      *    Help yourself get started quickly while simultaneously helping     *
+  33:../Dave/Generated/FREERTOS/portmacro.h ****      *    to support the FreeRTOS project by purchasing a FreeRTOS           *
+  34:../Dave/Generated/FREERTOS/portmacro.h ****      *    tutorial book, reference manual, or both:                          *
+  35:../Dave/Generated/FREERTOS/portmacro.h ****      *    http://www.FreeRTOS.org/Documentation                              *
+  36:../Dave/Generated/FREERTOS/portmacro.h ****      *                                                                       *
+  37:../Dave/Generated/FREERTOS/portmacro.h ****     ***************************************************************************
+  38:../Dave/Generated/FREERTOS/portmacro.h **** 
+  39:../Dave/Generated/FREERTOS/portmacro.h ****     http://www.FreeRTOS.org/FAQHelp.html - Having a problem?  Start by reading
+  40:../Dave/Generated/FREERTOS/portmacro.h ****     the FAQ page "My application does not run, what could be wrong?".  Have you
+  41:../Dave/Generated/FREERTOS/portmacro.h ****     defined configASSERT()?
+  42:../Dave/Generated/FREERTOS/portmacro.h **** 
+  43:../Dave/Generated/FREERTOS/portmacro.h ****     http://www.FreeRTOS.org/support - In return for receiving this top quality
+  44:../Dave/Generated/FREERTOS/portmacro.h ****     embedded software for free we request you assist our global community by
+  45:../Dave/Generated/FREERTOS/portmacro.h ****     participating in the support forum.
+  46:../Dave/Generated/FREERTOS/portmacro.h **** 
+  47:../Dave/Generated/FREERTOS/portmacro.h ****     http://www.FreeRTOS.org/training - Investing in training allows your team to
+  48:../Dave/Generated/FREERTOS/portmacro.h ****     be as productive as possible as early as possible.  Now you can receive
+  49:../Dave/Generated/FREERTOS/portmacro.h ****     FreeRTOS training directly from Richard Barry, CEO of Real Time Engineers
+  50:../Dave/Generated/FREERTOS/portmacro.h ****     Ltd, and the world's leading authority on the world's leading RTOS.
+  51:../Dave/Generated/FREERTOS/portmacro.h **** 
+  52:../Dave/Generated/FREERTOS/portmacro.h ****     http://www.FreeRTOS.org/plus - A selection of FreeRTOS ecosystem products,
+  53:../Dave/Generated/FREERTOS/portmacro.h ****     including FreeRTOS+Trace - an indispensable productivity tool, a DOS
+  54:../Dave/Generated/FREERTOS/portmacro.h ****     compatible FAT file system, and our tiny thread aware UDP/IP stack.
+  55:../Dave/Generated/FREERTOS/portmacro.h **** 
+  56:../Dave/Generated/FREERTOS/portmacro.h ****     http://www.FreeRTOS.org/labs - Where new FreeRTOS products go to incubate.
+  57:../Dave/Generated/FREERTOS/portmacro.h ****     Come and try FreeRTOS+TCP, our new open source TCP/IP stack for FreeRTOS.
+  58:../Dave/Generated/FREERTOS/portmacro.h **** 
+  59:../Dave/Generated/FREERTOS/portmacro.h ****     http://www.OpenRTOS.com - Real Time Engineers ltd. license FreeRTOS to High
+  60:../Dave/Generated/FREERTOS/portmacro.h ****     Integrity Systems ltd. to sell under the OpenRTOS brand.  Low cost OpenRTOS
+  61:../Dave/Generated/FREERTOS/portmacro.h ****     licenses offer ticketed support, indemnification and commercial middleware.
+  62:../Dave/Generated/FREERTOS/portmacro.h **** 
+  63:../Dave/Generated/FREERTOS/portmacro.h ****     http://www.SafeRTOS.com - High Integrity Systems also provide a safety
+  64:../Dave/Generated/FREERTOS/portmacro.h ****     engineered and independently SIL3 certified version for use in safety and
+  65:../Dave/Generated/FREERTOS/portmacro.h ****     mission critical applications that require provable dependability.
+  66:../Dave/Generated/FREERTOS/portmacro.h **** 
+  67:../Dave/Generated/FREERTOS/portmacro.h ****     1 tab == 4 spaces!
+  68:../Dave/Generated/FREERTOS/portmacro.h **** */
+  69:../Dave/Generated/FREERTOS/portmacro.h **** #include "freertos_conf.h"
+  70:../Dave/Generated/FREERTOS/portmacro.h **** 
+  71:../Dave/Generated/FREERTOS/portmacro.h **** #if FREERTOS_MPU_SUPPORT == 0
+  72:../Dave/Generated/FREERTOS/portmacro.h **** 
+  73:../Dave/Generated/FREERTOS/portmacro.h **** #ifndef PORTMACRO_H
+  74:../Dave/Generated/FREERTOS/portmacro.h **** #define PORTMACRO_H
+  75:../Dave/Generated/FREERTOS/portmacro.h **** 
+  76:../Dave/Generated/FREERTOS/portmacro.h **** #ifdef __cplusplus
+  77:../Dave/Generated/FREERTOS/portmacro.h **** extern "C" {
+  78:../Dave/Generated/FREERTOS/portmacro.h **** #endif
+  79:../Dave/Generated/FREERTOS/portmacro.h **** 
+  80:../Dave/Generated/FREERTOS/portmacro.h **** /*-----------------------------------------------------------
+  81:../Dave/Generated/FREERTOS/portmacro.h ****  * Port specific definitions.
+  82:../Dave/Generated/FREERTOS/portmacro.h ****  *
+  83:../Dave/Generated/FREERTOS/portmacro.h ****  * The settings in this file configure FreeRTOS correctly for the
+  84:../Dave/Generated/FREERTOS/portmacro.h ****  * given hardware and compiler.
+  85:../Dave/Generated/FREERTOS/portmacro.h ****  *
+  86:../Dave/Generated/FREERTOS/portmacro.h ****  * These settings should not be altered.
+  87:../Dave/Generated/FREERTOS/portmacro.h ****  *-----------------------------------------------------------
+  88:../Dave/Generated/FREERTOS/portmacro.h ****  */
+  89:../Dave/Generated/FREERTOS/portmacro.h **** 
+  90:../Dave/Generated/FREERTOS/portmacro.h **** #if defined( __GNUC__ )
+  91:../Dave/Generated/FREERTOS/portmacro.h **** /* Type definitions. */
+  92:../Dave/Generated/FREERTOS/portmacro.h **** #define portCHAR		char
+  93:../Dave/Generated/FREERTOS/portmacro.h **** #define portFLOAT		float
+  94:../Dave/Generated/FREERTOS/portmacro.h **** #define portDOUBLE		double
+  95:../Dave/Generated/FREERTOS/portmacro.h **** #define portLONG		long
+  96:../Dave/Generated/FREERTOS/portmacro.h **** #define portSHORT		short
+  97:../Dave/Generated/FREERTOS/portmacro.h **** #define portSTACK_TYPE	uint32_t
+  98:../Dave/Generated/FREERTOS/portmacro.h **** #define portBASE_TYPE	long
+  99:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 100:../Dave/Generated/FREERTOS/portmacro.h **** typedef portSTACK_TYPE StackType_t;
+ 101:../Dave/Generated/FREERTOS/portmacro.h **** typedef long BaseType_t;
+ 102:../Dave/Generated/FREERTOS/portmacro.h **** typedef unsigned long UBaseType_t;
+ 103:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 104:../Dave/Generated/FREERTOS/portmacro.h **** #if( configUSE_16_BIT_TICKS == 1 )
+ 105:../Dave/Generated/FREERTOS/portmacro.h **** 	typedef uint16_t TickType_t;
+ 106:../Dave/Generated/FREERTOS/portmacro.h **** 	#define portMAX_DELAY ( TickType_t ) 0xffff
+ 107:../Dave/Generated/FREERTOS/portmacro.h **** #else
+ 108:../Dave/Generated/FREERTOS/portmacro.h **** 	typedef uint32_t TickType_t;
+ 109:../Dave/Generated/FREERTOS/portmacro.h **** 	#define portMAX_DELAY ( TickType_t ) 0xffffffffUL
+ 110:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 111:../Dave/Generated/FREERTOS/portmacro.h **** 	/* 32-bit tick type on a 32-bit architecture, so reads of the tick count do
+ 112:../Dave/Generated/FREERTOS/portmacro.h **** 	not need to be guarded with a critical section. */
+ 113:../Dave/Generated/FREERTOS/portmacro.h **** 	#define portTICK_TYPE_IS_ATOMIC 1
+ 114:../Dave/Generated/FREERTOS/portmacro.h **** #endif
+ 115:../Dave/Generated/FREERTOS/portmacro.h **** /*-----------------------------------------------------------*/
+ 116:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 117:../Dave/Generated/FREERTOS/portmacro.h **** /* Architecture specifics. */
+ 118:../Dave/Generated/FREERTOS/portmacro.h **** #define portSTACK_GROWTH			( -1 )
+ 119:../Dave/Generated/FREERTOS/portmacro.h **** #define portTICK_PERIOD_MS			( ( TickType_t ) 1000 / configTICK_RATE_HZ )
+ 120:../Dave/Generated/FREERTOS/portmacro.h **** #define portBYTE_ALIGNMENT			8
+ 121:../Dave/Generated/FREERTOS/portmacro.h **** /*-----------------------------------------------------------*/
+ 122:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 123:../Dave/Generated/FREERTOS/portmacro.h **** /* Scheduler utilities. */
+ 124:../Dave/Generated/FREERTOS/portmacro.h **** #define portYIELD() 															\
+ 125:../Dave/Generated/FREERTOS/portmacro.h **** {																				\
+ 126:../Dave/Generated/FREERTOS/portmacro.h **** 	/* Set a PendSV to request a context switch. */								\
+ 127:../Dave/Generated/FREERTOS/portmacro.h **** 	portNVIC_INT_CTRL_REG = portNVIC_PENDSVSET_BIT;								\
+ 128:../Dave/Generated/FREERTOS/portmacro.h **** 																				\
+ 129:../Dave/Generated/FREERTOS/portmacro.h **** 	/* Barriers are normally not required but do ensure the code is completely	\
+ 130:../Dave/Generated/FREERTOS/portmacro.h **** 	within the specified behaviour for the architecture. */						\
+ 131:../Dave/Generated/FREERTOS/portmacro.h **** 	__asm volatile( "dsb" );													\
+ 132:../Dave/Generated/FREERTOS/portmacro.h **** 	__asm volatile( "isb" );													\
+ 133:../Dave/Generated/FREERTOS/portmacro.h **** }
+ 134:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 135:../Dave/Generated/FREERTOS/portmacro.h **** #define portNVIC_INT_CTRL_REG		( * ( ( volatile uint32_t * ) 0xe000ed04 ) )
+ 136:../Dave/Generated/FREERTOS/portmacro.h **** #define portNVIC_PENDSVSET_BIT		( 1UL << 28UL )
+ 137:../Dave/Generated/FREERTOS/portmacro.h **** #define portEND_SWITCHING_ISR( xSwitchRequired ) if( xSwitchRequired != pdFALSE ) portYIELD()
+ 138:../Dave/Generated/FREERTOS/portmacro.h **** #define portYIELD_FROM_ISR( x ) portEND_SWITCHING_ISR( x )
+ 139:../Dave/Generated/FREERTOS/portmacro.h **** /*-----------------------------------------------------------*/
+ 140:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 141:../Dave/Generated/FREERTOS/portmacro.h **** /* Critical section management. */
+ 142:../Dave/Generated/FREERTOS/portmacro.h **** extern void vPortEnterCritical( void );
+ 143:../Dave/Generated/FREERTOS/portmacro.h **** extern void vPortExitCritical( void );
+ 144:../Dave/Generated/FREERTOS/portmacro.h **** #define portSET_INTERRUPT_MASK_FROM_ISR()		ulPortRaiseBASEPRI()
+ 145:../Dave/Generated/FREERTOS/portmacro.h **** #define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortSetBASEPRI(x)
+ 146:../Dave/Generated/FREERTOS/portmacro.h **** #define portDISABLE_INTERRUPTS()				vPortRaiseBASEPRI()
+ 147:../Dave/Generated/FREERTOS/portmacro.h **** #define portENABLE_INTERRUPTS()					vPortSetBASEPRI(0)
+ 148:../Dave/Generated/FREERTOS/portmacro.h **** #define portENTER_CRITICAL()					vPortEnterCritical()
+ 149:../Dave/Generated/FREERTOS/portmacro.h **** #define portEXIT_CRITICAL()						vPortExitCritical()
+ 150:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 151:../Dave/Generated/FREERTOS/portmacro.h **** /*-----------------------------------------------------------*/
+ 152:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 153:../Dave/Generated/FREERTOS/portmacro.h **** /* Task function macros as described on the FreeRTOS.org WEB site.  These are
+ 154:../Dave/Generated/FREERTOS/portmacro.h **** not necessary for to use this port.  They are defined so the common demo files
+ 155:../Dave/Generated/FREERTOS/portmacro.h **** (which build with all the ports) will build. */
+ 156:../Dave/Generated/FREERTOS/portmacro.h **** #define portTASK_FUNCTION_PROTO( vFunction, pvParameters ) void vFunction( void *pvParameters )
+ 157:../Dave/Generated/FREERTOS/portmacro.h **** #define portTASK_FUNCTION( vFunction, pvParameters ) void vFunction( void *pvParameters )
+ 158:../Dave/Generated/FREERTOS/portmacro.h **** /*-----------------------------------------------------------*/
+ 159:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 160:../Dave/Generated/FREERTOS/portmacro.h **** /* Tickless idle/low power functionality. */
+ 161:../Dave/Generated/FREERTOS/portmacro.h **** #ifndef portSUPPRESS_TICKS_AND_SLEEP
+ 162:../Dave/Generated/FREERTOS/portmacro.h **** 	extern void vPortSuppressTicksAndSleep( TickType_t xExpectedIdleTime );
+ 163:../Dave/Generated/FREERTOS/portmacro.h **** 	#define portSUPPRESS_TICKS_AND_SLEEP( xExpectedIdleTime ) vPortSuppressTicksAndSleep( xExpectedIdl
+ 164:../Dave/Generated/FREERTOS/portmacro.h **** #endif
+ 165:../Dave/Generated/FREERTOS/portmacro.h **** /*-----------------------------------------------------------*/
+ 166:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 167:../Dave/Generated/FREERTOS/portmacro.h **** /* Architecture specific optimisations. */
+ 168:../Dave/Generated/FREERTOS/portmacro.h **** #ifndef configUSE_PORT_OPTIMISED_TASK_SELECTION
+ 169:../Dave/Generated/FREERTOS/portmacro.h **** 	#define configUSE_PORT_OPTIMISED_TASK_SELECTION 1
+ 170:../Dave/Generated/FREERTOS/portmacro.h **** #endif
+ 171:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 172:../Dave/Generated/FREERTOS/portmacro.h **** #if configUSE_PORT_OPTIMISED_TASK_SELECTION == 1
+ 173:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 174:../Dave/Generated/FREERTOS/portmacro.h **** 	/* Generic helper function. */
+ 175:../Dave/Generated/FREERTOS/portmacro.h **** 	__attribute__( ( always_inline ) ) static inline uint8_t ucPortCountLeadingZeros( uint32_t ulBitma
+ 176:../Dave/Generated/FREERTOS/portmacro.h **** 	{
+ 177:../Dave/Generated/FREERTOS/portmacro.h **** 	uint8_t ucReturn;
+ 178:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 179:../Dave/Generated/FREERTOS/portmacro.h **** 		__asm volatile ( "clz %0, %1" : "=r" ( ucReturn ) : "r" ( ulBitmap ) );
+ 180:../Dave/Generated/FREERTOS/portmacro.h **** 		return ucReturn;
+ 181:../Dave/Generated/FREERTOS/portmacro.h **** 	}
+ 182:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 183:../Dave/Generated/FREERTOS/portmacro.h **** 	/* Check the configuration. */
+ 184:../Dave/Generated/FREERTOS/portmacro.h **** 	#if( configMAX_PRIORITIES > 32 )
+ 185:../Dave/Generated/FREERTOS/portmacro.h **** 		#error configUSE_PORT_OPTIMISED_TASK_SELECTION can only be set to 1 when configMAX_PRIORITIES is 
+ 186:../Dave/Generated/FREERTOS/portmacro.h **** 	#endif
+ 187:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 188:../Dave/Generated/FREERTOS/portmacro.h **** 	/* Store/clear the ready priorities in a bit map. */
+ 189:../Dave/Generated/FREERTOS/portmacro.h **** 	#define portRECORD_READY_PRIORITY( uxPriority, uxReadyPriorities ) ( uxReadyPriorities ) |= ( 1UL 
+ 190:../Dave/Generated/FREERTOS/portmacro.h **** 	#define portRESET_READY_PRIORITY( uxPriority, uxReadyPriorities ) ( uxReadyPriorities ) &= ~( 1UL 
+ 191:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 192:../Dave/Generated/FREERTOS/portmacro.h **** 	/*-----------------------------------------------------------*/
+ 193:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 194:../Dave/Generated/FREERTOS/portmacro.h **** 	#define portGET_HIGHEST_PRIORITY( uxTopPriority, uxReadyPriorities ) uxTopPriority = ( 31UL - ( ui
+ 195:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 196:../Dave/Generated/FREERTOS/portmacro.h **** #endif /* configUSE_PORT_OPTIMISED_TASK_SELECTION */
+ 197:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 198:../Dave/Generated/FREERTOS/portmacro.h **** /*-----------------------------------------------------------*/
+ 199:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 200:../Dave/Generated/FREERTOS/portmacro.h **** #ifdef configASSERT
+ 201:../Dave/Generated/FREERTOS/portmacro.h **** 	void vPortValidateInterruptPriority( void );
+ 202:../Dave/Generated/FREERTOS/portmacro.h **** 	#define portASSERT_IF_INTERRUPT_PRIORITY_INVALID() 	vPortValidateInterruptPriority()
+ 203:../Dave/Generated/FREERTOS/portmacro.h **** #endif
+ 204:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 205:../Dave/Generated/FREERTOS/portmacro.h **** /* portNOP() is not required by this port. */
+ 206:../Dave/Generated/FREERTOS/portmacro.h **** #define portNOP()
+ 207:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 208:../Dave/Generated/FREERTOS/portmacro.h **** #define portINLINE	__inline
+ 209:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 210:../Dave/Generated/FREERTOS/portmacro.h **** #ifndef portFORCE_INLINE
+ 211:../Dave/Generated/FREERTOS/portmacro.h **** 	#define portFORCE_INLINE inline __attribute__(( always_inline))
+ 212:../Dave/Generated/FREERTOS/portmacro.h **** #endif
+ 213:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 214:../Dave/Generated/FREERTOS/portmacro.h **** portFORCE_INLINE static BaseType_t xPortIsInsideInterrupt( void )
+ 215:../Dave/Generated/FREERTOS/portmacro.h **** {
+ 216:../Dave/Generated/FREERTOS/portmacro.h **** uint32_t ulCurrentInterrupt;
+ 217:../Dave/Generated/FREERTOS/portmacro.h **** BaseType_t xReturn;
+ 218:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 219:../Dave/Generated/FREERTOS/portmacro.h **** 	/* Obtain the number of the currently executing interrupt. */
+ 220:../Dave/Generated/FREERTOS/portmacro.h **** 	__asm volatile( "mrs %0, ipsr" : "=r"( ulCurrentInterrupt ) );
+ 221:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 222:../Dave/Generated/FREERTOS/portmacro.h **** 	if( ulCurrentInterrupt == 0 )
+ 223:../Dave/Generated/FREERTOS/portmacro.h **** 	{
+ 224:../Dave/Generated/FREERTOS/portmacro.h **** 		xReturn = pdFALSE;
+ 225:../Dave/Generated/FREERTOS/portmacro.h **** 	}
+ 226:../Dave/Generated/FREERTOS/portmacro.h **** 	else
+ 227:../Dave/Generated/FREERTOS/portmacro.h **** 	{
+ 228:../Dave/Generated/FREERTOS/portmacro.h **** 		xReturn = pdTRUE;
+ 229:../Dave/Generated/FREERTOS/portmacro.h **** 	}
+ 230:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 231:../Dave/Generated/FREERTOS/portmacro.h **** 	return xReturn;
+ 232:../Dave/Generated/FREERTOS/portmacro.h **** }
+ 233:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 234:../Dave/Generated/FREERTOS/portmacro.h **** /*-----------------------------------------------------------*/
+ 235:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 236:../Dave/Generated/FREERTOS/portmacro.h **** portFORCE_INLINE static void vPortRaiseBASEPRI( void )
+ 237:../Dave/Generated/FREERTOS/portmacro.h **** {
+ 238:../Dave/Generated/FREERTOS/portmacro.h **** uint32_t ulNewBASEPRI;
+ 239:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 240:../Dave/Generated/FREERTOS/portmacro.h **** 	__asm volatile
+  41              	 .loc 2 240 0
+  42              	
+  43 0008 4FF0FC03 	 mov r3,#252
+  44 000c 83F31188 	 msr basepri,r3
+  45 0010 BFF36F8F 	 isb 
+  46 0014 BFF34F8F 	 dsb 
+  47              	
+  48              	
+  49              	.LVL0:
+  50              	 .thumb
+  51              	.L3:
+  52              	.LBE30:
+  53              	.LBE29:
+  54              	 .loc 1 270 0 discriminator 1
+  55 0018 FEE7     	 b .L3
+  56              	.L2:
+  57              	.LBB31:
+  58              	.LBB32:
+  59              	 .loc 2 240 0
+  60              	
+  61 001a 4FF0FC03 	 mov r3,#252
+  62 001e 83F31188 	 msr basepri,r3
+  63 0022 BFF36F8F 	 isb 
+  64 0026 BFF34F8F 	 dsb 
+  65              	
+  66              	
+  67              	.LVL1:
+  68              	 .thumb
+  69              	.L4:
+  70              	.LBE32:
+  71              	.LBE31:
+ 271:../Dave/Generated/FREERTOS/port.c **** 	portDISABLE_INTERRUPTS();
+ 272:../Dave/Generated/FREERTOS/port.c **** 	for( ;; );
+  72              	 .loc 1 272 0 discriminator 2
+  73 002a FEE7     	 b .L4
+  74              	.L7:
+  75              	 .align 2
+  76              	.L6:
+  77 002c 00000000 	 .word .LANCHOR0
+  78              	 .cfi_endproc
+  79              	.LFE129:
+  81              	 .section .text.prvPortStartFirstTask,"ax",%progbits
+  82              	 .align 2
+  83              	 .thumb
+  84              	 .thumb_func
+  86              	prvPortStartFirstTask:
+  87              	.LFB131:
+ 273:../Dave/Generated/FREERTOS/port.c **** }
+ 274:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 275:../Dave/Generated/FREERTOS/port.c **** 
+ 276:../Dave/Generated/FREERTOS/port.c **** void vPortSVCHandler( void )
+ 277:../Dave/Generated/FREERTOS/port.c **** {
+ 278:../Dave/Generated/FREERTOS/port.c **** 	__asm volatile (
+ 279:../Dave/Generated/FREERTOS/port.c **** 					"	ldr	r3, pxCurrentTCBConst2		\n" /* Restore the context. */
+ 280:../Dave/Generated/FREERTOS/port.c **** 					"	ldr r1, [r3]					\n" /* Use pxCurrentTCBConst to get the pxCurrentTCB address. */
+ 281:../Dave/Generated/FREERTOS/port.c **** 					"	ldr r0, [r1]					\n" /* The first item in pxCurrentTCB is the task top of stack. */
+ 282:../Dave/Generated/FREERTOS/port.c **** 					"	ldmia r0!, {r4-r11, r14}		\n" /* Pop the registers that are not automatically saved on excep
+ 283:../Dave/Generated/FREERTOS/port.c **** 					"	msr psp, r0						\n" /* Restore the task stack pointer. */
+ 284:../Dave/Generated/FREERTOS/port.c **** 					"	isb								\n"
+ 285:../Dave/Generated/FREERTOS/port.c **** 					"	mov r0, #0 						\n"
+ 286:../Dave/Generated/FREERTOS/port.c **** 					"	msr	basepri, r0					\n"
+ 287:../Dave/Generated/FREERTOS/port.c **** 					"	bx r14							\n"
+ 288:../Dave/Generated/FREERTOS/port.c **** 					"									\n"
+ 289:../Dave/Generated/FREERTOS/port.c **** 					"	.align 4						\n"
+ 290:../Dave/Generated/FREERTOS/port.c **** 					"pxCurrentTCBConst2: .word pxCurrentTCB				\n"
+ 291:../Dave/Generated/FREERTOS/port.c **** 				);
+ 292:../Dave/Generated/FREERTOS/port.c **** }
+ 293:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 294:../Dave/Generated/FREERTOS/port.c **** 
+ 295:../Dave/Generated/FREERTOS/port.c **** static void prvPortStartFirstTask( void )
+ 296:../Dave/Generated/FREERTOS/port.c **** {
+  88              	 .loc 1 296 0
+  89              	 .cfi_startproc
+  90              	 
+  91              	 
+  92              	 
+ 297:../Dave/Generated/FREERTOS/port.c **** 	__asm volatile(
+  93              	 .loc 1 297 0
+  94              	
+  95 0000 0648     	 ldr r0,=0xE000ED08
+  96 0002 0068     	 ldr r0,[r0]
+  97 0004 0068     	 ldr r0,[r0]
+  98 0006 80F30888 	 msr msp,r0
+  99 000a 62B6     	 cpsie i
+ 100 000c 61B6     	 cpsie f
+ 101 000e BFF34F8F 	 dsb 
+ 102 0012 BFF36F8F 	 isb 
+ 103 0016 00DF     	 svc 0
+ 104 0018 00BF     	 nop 
+ 105              	
+ 106              	
+ 298:../Dave/Generated/FREERTOS/port.c **** 					" ldr r0, =0xE000ED08 	\n" /* Use the NVIC offset register to locate the stack. */
+ 299:../Dave/Generated/FREERTOS/port.c **** 					" ldr r0, [r0] 			\n"
+ 300:../Dave/Generated/FREERTOS/port.c **** 					" ldr r0, [r0] 			\n"
+ 301:../Dave/Generated/FREERTOS/port.c **** 					" msr msp, r0			\n" /* Set the msp back to the start of the stack. */
+ 302:../Dave/Generated/FREERTOS/port.c **** 					" cpsie i				\n" /* Globally enable interrupts. */
+ 303:../Dave/Generated/FREERTOS/port.c **** 					" cpsie f				\n"
+ 304:../Dave/Generated/FREERTOS/port.c **** 					" dsb					\n"
+ 305:../Dave/Generated/FREERTOS/port.c **** 					" isb					\n"
+ 306:../Dave/Generated/FREERTOS/port.c **** 					" svc 0					\n" /* System call to start first task. */
+ 307:../Dave/Generated/FREERTOS/port.c **** 					" nop					\n"
+ 308:../Dave/Generated/FREERTOS/port.c **** 				);
+ 309:../Dave/Generated/FREERTOS/port.c **** }
+ 107              	 .loc 1 309 0
+ 108              	 .thumb
+ 109              	 .cfi_endproc
+ 110              	.LFE131:
+ 112 001a 0000     	 .section .text.vPortEnableVFP,"ax",%progbits
+ 113              	 .align 2
+ 114              	 .thumb
+ 115              	 .thumb_func
+ 117              	vPortEnableVFP:
+ 118              	.LFB139:
+ 310:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 311:../Dave/Generated/FREERTOS/port.c **** 
+ 312:../Dave/Generated/FREERTOS/port.c **** /*
+ 313:../Dave/Generated/FREERTOS/port.c ****  * See header file for description.
+ 314:../Dave/Generated/FREERTOS/port.c ****  */
+ 315:../Dave/Generated/FREERTOS/port.c **** BaseType_t xPortStartScheduler( void )
+ 316:../Dave/Generated/FREERTOS/port.c **** {
+ 317:../Dave/Generated/FREERTOS/port.c **** 	/* configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to 0.
+ 318:../Dave/Generated/FREERTOS/port.c **** 	See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html */
+ 319:../Dave/Generated/FREERTOS/port.c **** 	configASSERT( configMAX_SYSCALL_INTERRUPT_PRIORITY );
+ 320:../Dave/Generated/FREERTOS/port.c **** 
+ 321:../Dave/Generated/FREERTOS/port.c **** 	/* This port can be used on all revisions of the Cortex-M7 core other than
+ 322:../Dave/Generated/FREERTOS/port.c **** 	the r0p1 parts.  r0p1 parts should use the port from the
+ 323:../Dave/Generated/FREERTOS/port.c **** 	/source/portable/GCC/ARM_CM7/r0p1 directory. */
+ 324:../Dave/Generated/FREERTOS/port.c **** 	configASSERT( portCPUID != portCORTEX_M7_r0p1_ID );
+ 325:../Dave/Generated/FREERTOS/port.c **** 	configASSERT( portCPUID != portCORTEX_M7_r0p0_ID );
+ 326:../Dave/Generated/FREERTOS/port.c **** 
+ 327:../Dave/Generated/FREERTOS/port.c **** 	#if( configASSERT_DEFINED == 1 )
+ 328:../Dave/Generated/FREERTOS/port.c **** 	{
+ 329:../Dave/Generated/FREERTOS/port.c **** 		volatile uint32_t ulOriginalPriority;
+ 330:../Dave/Generated/FREERTOS/port.c **** 		volatile uint8_t * const pucFirstUserPriorityRegister = ( volatile uint8_t * const ) ( portNVIC_I
+ 331:../Dave/Generated/FREERTOS/port.c **** 		volatile uint8_t ucMaxPriorityValue;
+ 332:../Dave/Generated/FREERTOS/port.c **** 
+ 333:../Dave/Generated/FREERTOS/port.c **** 		/* Determine the maximum priority from which ISR safe FreeRTOS API
+ 334:../Dave/Generated/FREERTOS/port.c **** 		functions can be called.  ISR safe functions are those that end in
+ 335:../Dave/Generated/FREERTOS/port.c **** 		"FromISR".  FreeRTOS maintains separate thread and ISR API functions to
+ 336:../Dave/Generated/FREERTOS/port.c **** 		ensure interrupt entry is as fast and simple as possible.
+ 337:../Dave/Generated/FREERTOS/port.c **** 
+ 338:../Dave/Generated/FREERTOS/port.c **** 		Save the interrupt priority value that is about to be clobbered. */
+ 339:../Dave/Generated/FREERTOS/port.c **** 		ulOriginalPriority = *pucFirstUserPriorityRegister;
+ 340:../Dave/Generated/FREERTOS/port.c **** 
+ 341:../Dave/Generated/FREERTOS/port.c **** 		/* Determine the number of priority bits available.  First write to all
+ 342:../Dave/Generated/FREERTOS/port.c **** 		possible bits. */
+ 343:../Dave/Generated/FREERTOS/port.c **** 		*pucFirstUserPriorityRegister = portMAX_8_BIT_VALUE;
+ 344:../Dave/Generated/FREERTOS/port.c **** 
+ 345:../Dave/Generated/FREERTOS/port.c **** 		/* Read the value back to see how many bits stuck. */
+ 346:../Dave/Generated/FREERTOS/port.c **** 		ucMaxPriorityValue = *pucFirstUserPriorityRegister;
+ 347:../Dave/Generated/FREERTOS/port.c **** 
+ 348:../Dave/Generated/FREERTOS/port.c **** 		/* Use the same mask on the maximum system call priority. */
+ 349:../Dave/Generated/FREERTOS/port.c **** 		ucMaxSysCallPriority = configMAX_SYSCALL_INTERRUPT_PRIORITY & ucMaxPriorityValue;
+ 350:../Dave/Generated/FREERTOS/port.c **** 
+ 351:../Dave/Generated/FREERTOS/port.c **** 		/* Calculate the maximum acceptable priority group value for the number
+ 352:../Dave/Generated/FREERTOS/port.c **** 		of bits read back. */
+ 353:../Dave/Generated/FREERTOS/port.c **** 		ulMaxPRIGROUPValue = portMAX_PRIGROUP_BITS;
+ 354:../Dave/Generated/FREERTOS/port.c **** 		while( ( ucMaxPriorityValue & portTOP_BIT_OF_BYTE ) == portTOP_BIT_OF_BYTE )
+ 355:../Dave/Generated/FREERTOS/port.c **** 		{
+ 356:../Dave/Generated/FREERTOS/port.c **** 			ulMaxPRIGROUPValue--;
+ 357:../Dave/Generated/FREERTOS/port.c **** 			ucMaxPriorityValue <<= ( uint8_t ) 0x01;
+ 358:../Dave/Generated/FREERTOS/port.c **** 		}
+ 359:../Dave/Generated/FREERTOS/port.c **** 
+ 360:../Dave/Generated/FREERTOS/port.c **** 		/* Shift the priority group value back to its position within the AIRCR
+ 361:../Dave/Generated/FREERTOS/port.c **** 		register. */
+ 362:../Dave/Generated/FREERTOS/port.c **** 		ulMaxPRIGROUPValue <<= portPRIGROUP_SHIFT;
+ 363:../Dave/Generated/FREERTOS/port.c **** 		ulMaxPRIGROUPValue &= portPRIORITY_GROUP_MASK;
+ 364:../Dave/Generated/FREERTOS/port.c **** 
+ 365:../Dave/Generated/FREERTOS/port.c **** 		/* Restore the clobbered interrupt priority register to its original
+ 366:../Dave/Generated/FREERTOS/port.c **** 		value. */
+ 367:../Dave/Generated/FREERTOS/port.c **** 		*pucFirstUserPriorityRegister = ulOriginalPriority;
+ 368:../Dave/Generated/FREERTOS/port.c **** 	}
+ 369:../Dave/Generated/FREERTOS/port.c **** 	#endif /* conifgASSERT_DEFINED */
+ 370:../Dave/Generated/FREERTOS/port.c **** 
+ 371:../Dave/Generated/FREERTOS/port.c **** 	/* Make PendSV and SysTick the lowest priority interrupts. */
+ 372:../Dave/Generated/FREERTOS/port.c **** 	portNVIC_SYSPRI2_REG |= portNVIC_PENDSV_PRI;
+ 373:../Dave/Generated/FREERTOS/port.c **** 	portNVIC_SYSPRI2_REG |= portNVIC_SYSTICK_PRI;
+ 374:../Dave/Generated/FREERTOS/port.c **** 
+ 375:../Dave/Generated/FREERTOS/port.c **** 	/* Start the timer that generates the tick ISR.  Interrupts are disabled
+ 376:../Dave/Generated/FREERTOS/port.c **** 	here already. */
+ 377:../Dave/Generated/FREERTOS/port.c **** 	vPortSetupTimerInterrupt();
+ 378:../Dave/Generated/FREERTOS/port.c **** 
+ 379:../Dave/Generated/FREERTOS/port.c **** 	/* Initialise the critical nesting count ready for the first task. */
+ 380:../Dave/Generated/FREERTOS/port.c **** 	uxCriticalNesting = 0;
+ 381:../Dave/Generated/FREERTOS/port.c **** 
+ 382:../Dave/Generated/FREERTOS/port.c **** 	/* Ensure the VFP is enabled - it should be anyway. */
+ 383:../Dave/Generated/FREERTOS/port.c **** 	vPortEnableVFP();
+ 384:../Dave/Generated/FREERTOS/port.c **** 
+ 385:../Dave/Generated/FREERTOS/port.c **** 	/* Lazy save always. */
+ 386:../Dave/Generated/FREERTOS/port.c **** 	*( portFPCCR ) |= portASPEN_AND_LSPEN_BITS;
+ 387:../Dave/Generated/FREERTOS/port.c **** 
+ 388:../Dave/Generated/FREERTOS/port.c **** 	/* Start the first task. */
+ 389:../Dave/Generated/FREERTOS/port.c **** 	prvPortStartFirstTask();
+ 390:../Dave/Generated/FREERTOS/port.c **** 
+ 391:../Dave/Generated/FREERTOS/port.c **** 	/* Should never get here as the tasks will now be executing!  Call the task
+ 392:../Dave/Generated/FREERTOS/port.c **** 	exit error function to prevent compiler warnings about a static function
+ 393:../Dave/Generated/FREERTOS/port.c **** 	not being called in the case that the application writer overrides this
+ 394:../Dave/Generated/FREERTOS/port.c **** 	functionality by defining configTASK_RETURN_ADDRESS. */
+ 395:../Dave/Generated/FREERTOS/port.c **** 	prvTaskExitError();
+ 396:../Dave/Generated/FREERTOS/port.c **** 
+ 397:../Dave/Generated/FREERTOS/port.c **** 	/* Should not get here! */
+ 398:../Dave/Generated/FREERTOS/port.c **** 	return 0;
+ 399:../Dave/Generated/FREERTOS/port.c **** }
+ 400:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 401:../Dave/Generated/FREERTOS/port.c **** 
+ 402:../Dave/Generated/FREERTOS/port.c **** void vPortEndScheduler( void )
+ 403:../Dave/Generated/FREERTOS/port.c **** {
+ 404:../Dave/Generated/FREERTOS/port.c **** 	/* Not implemented in ports where there is nothing to return to.
+ 405:../Dave/Generated/FREERTOS/port.c **** 	Artificially force an assert. */
+ 406:../Dave/Generated/FREERTOS/port.c **** 	configASSERT( uxCriticalNesting == 1000UL );
+ 407:../Dave/Generated/FREERTOS/port.c **** }
+ 408:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 409:../Dave/Generated/FREERTOS/port.c **** 
+ 410:../Dave/Generated/FREERTOS/port.c **** void vPortEnterCritical( void )
+ 411:../Dave/Generated/FREERTOS/port.c **** {
+ 412:../Dave/Generated/FREERTOS/port.c **** 	portDISABLE_INTERRUPTS();
+ 413:../Dave/Generated/FREERTOS/port.c **** 	uxCriticalNesting++;
+ 414:../Dave/Generated/FREERTOS/port.c **** 
+ 415:../Dave/Generated/FREERTOS/port.c **** 	/* This is not the interrupt safe version of the enter critical function so
+ 416:../Dave/Generated/FREERTOS/port.c **** 	assert() if it is being called from an interrupt context.  Only API
+ 417:../Dave/Generated/FREERTOS/port.c **** 	functions that end in "FromISR" can be used in an interrupt.  Only assert if
+ 418:../Dave/Generated/FREERTOS/port.c **** 	the critical nesting count is 1 to protect against recursive calls if the
+ 419:../Dave/Generated/FREERTOS/port.c **** 	assert function also uses a critical section. */
+ 420:../Dave/Generated/FREERTOS/port.c **** 	if( uxCriticalNesting == 1 )
+ 421:../Dave/Generated/FREERTOS/port.c **** 	{
+ 422:../Dave/Generated/FREERTOS/port.c **** 		configASSERT( ( portNVIC_INT_CTRL_REG & portVECTACTIVE_MASK ) == 0 );
+ 423:../Dave/Generated/FREERTOS/port.c **** 	}
+ 424:../Dave/Generated/FREERTOS/port.c **** }
+ 425:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 426:../Dave/Generated/FREERTOS/port.c **** 
+ 427:../Dave/Generated/FREERTOS/port.c **** void vPortExitCritical( void )
+ 428:../Dave/Generated/FREERTOS/port.c **** {
+ 429:../Dave/Generated/FREERTOS/port.c **** 	configASSERT( uxCriticalNesting );
+ 430:../Dave/Generated/FREERTOS/port.c **** 	uxCriticalNesting--;
+ 431:../Dave/Generated/FREERTOS/port.c **** 	if( uxCriticalNesting == 0 )
+ 432:../Dave/Generated/FREERTOS/port.c **** 	{
+ 433:../Dave/Generated/FREERTOS/port.c **** 		portENABLE_INTERRUPTS();
+ 434:../Dave/Generated/FREERTOS/port.c **** 	}
+ 435:../Dave/Generated/FREERTOS/port.c **** }
+ 436:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 437:../Dave/Generated/FREERTOS/port.c **** 
+ 438:../Dave/Generated/FREERTOS/port.c **** void xPortPendSVHandler( void )
+ 439:../Dave/Generated/FREERTOS/port.c **** {
+ 440:../Dave/Generated/FREERTOS/port.c **** 	/* This is a naked function. */
+ 441:../Dave/Generated/FREERTOS/port.c **** 
+ 442:../Dave/Generated/FREERTOS/port.c **** 	__asm volatile
+ 443:../Dave/Generated/FREERTOS/port.c **** 	(
+ 444:../Dave/Generated/FREERTOS/port.c **** 	"	mrs r0, psp							\n"
+ 445:../Dave/Generated/FREERTOS/port.c **** 	"	isb									\n"
+ 446:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 447:../Dave/Generated/FREERTOS/port.c **** 	"	ldr	r3, pxCurrentTCBConst			\n" /* Get the location of the current TCB. */
+ 448:../Dave/Generated/FREERTOS/port.c **** 	"	ldr	r2, [r3]						\n"
+ 449:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 450:../Dave/Generated/FREERTOS/port.c **** 	"	tst r14, #0x10						\n" /* Is the task using the FPU context?  If so, push high vfp registers. *
+ 451:../Dave/Generated/FREERTOS/port.c **** 	"	it eq								\n"
+ 452:../Dave/Generated/FREERTOS/port.c **** 	"	vstmdbeq r0!, {s16-s31}				\n"
+ 453:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 454:../Dave/Generated/FREERTOS/port.c **** 	"	stmdb r0!, {r4-r11, r14}			\n" /* Save the core registers. */
+ 455:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 456:../Dave/Generated/FREERTOS/port.c **** 	"	str r0, [r2]						\n" /* Save the new top of stack into the first member of the TCB. */
+ 457:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 458:../Dave/Generated/FREERTOS/port.c **** 	"	stmdb sp!, {r3}						\n"
+ 459:../Dave/Generated/FREERTOS/port.c **** 	"	mov r0, %0 							\n"
+ 460:../Dave/Generated/FREERTOS/port.c **** 	"	msr basepri, r0						\n"
+ 461:../Dave/Generated/FREERTOS/port.c **** 	"	dsb									\n"
+ 462:../Dave/Generated/FREERTOS/port.c **** 	"	isb									\n"
+ 463:../Dave/Generated/FREERTOS/port.c **** 	"	bl vTaskSwitchContext				\n"
+ 464:../Dave/Generated/FREERTOS/port.c **** 	"	mov r0, #0							\n"
+ 465:../Dave/Generated/FREERTOS/port.c **** 	"	msr basepri, r0						\n"
+ 466:../Dave/Generated/FREERTOS/port.c **** 	"	ldmia sp!, {r3}						\n"
+ 467:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 468:../Dave/Generated/FREERTOS/port.c **** 	"	ldr r1, [r3]						\n" /* The first item in pxCurrentTCB is the task top of stack. */
+ 469:../Dave/Generated/FREERTOS/port.c **** 	"	ldr r0, [r1]						\n"
+ 470:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 471:../Dave/Generated/FREERTOS/port.c **** 	"	ldmia r0!, {r4-r11, r14}			\n" /* Pop the core registers. */
+ 472:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 473:../Dave/Generated/FREERTOS/port.c **** 	"	tst r14, #0x10						\n" /* Is the task using the FPU context?  If so, pop the high vfp registers
+ 474:../Dave/Generated/FREERTOS/port.c **** 	"	it eq								\n"
+ 475:../Dave/Generated/FREERTOS/port.c **** 	"	vldmiaeq r0!, {s16-s31}				\n"
+ 476:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 477:../Dave/Generated/FREERTOS/port.c **** 	"	msr psp, r0							\n"
+ 478:../Dave/Generated/FREERTOS/port.c **** 	"	isb									\n"
+ 479:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 480:../Dave/Generated/FREERTOS/port.c **** 	#ifdef WORKAROUND_PMU_CM001 /* XMC4000 specific errata workaround. */
+ 481:../Dave/Generated/FREERTOS/port.c **** 		#if WORKAROUND_PMU_CM001 == 1
+ 482:../Dave/Generated/FREERTOS/port.c **** 	"			push { r14 }				\n"
+ 483:../Dave/Generated/FREERTOS/port.c **** 	"			pop { pc }					\n"
+ 484:../Dave/Generated/FREERTOS/port.c **** 		#endif
+ 485:../Dave/Generated/FREERTOS/port.c **** 	#endif
+ 486:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 487:../Dave/Generated/FREERTOS/port.c **** 	"	bx r14								\n"
+ 488:../Dave/Generated/FREERTOS/port.c **** 	"										\n"
+ 489:../Dave/Generated/FREERTOS/port.c **** 	"	.align 4							\n"
+ 490:../Dave/Generated/FREERTOS/port.c **** 	"pxCurrentTCBConst: .word pxCurrentTCB	\n"
+ 491:../Dave/Generated/FREERTOS/port.c **** 	::"i"(configMAX_SYSCALL_INTERRUPT_PRIORITY)
+ 492:../Dave/Generated/FREERTOS/port.c **** 	);
+ 493:../Dave/Generated/FREERTOS/port.c **** }
+ 494:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 495:../Dave/Generated/FREERTOS/port.c **** 
+ 496:../Dave/Generated/FREERTOS/port.c **** void xPortSysTickHandler( void )
+ 497:../Dave/Generated/FREERTOS/port.c **** {
+ 498:../Dave/Generated/FREERTOS/port.c **** 	/* The SysTick runs at the lowest interrupt priority, so when this interrupt
+ 499:../Dave/Generated/FREERTOS/port.c **** 	executes all interrupts must be unmasked.  There is therefore no need to
+ 500:../Dave/Generated/FREERTOS/port.c **** 	save and then restore the interrupt mask value as its value is already
+ 501:../Dave/Generated/FREERTOS/port.c **** 	known. */
+ 502:../Dave/Generated/FREERTOS/port.c **** 	portDISABLE_INTERRUPTS();
+ 503:../Dave/Generated/FREERTOS/port.c **** 	{
+ 504:../Dave/Generated/FREERTOS/port.c **** 		/* Increment the RTOS tick. */
+ 505:../Dave/Generated/FREERTOS/port.c **** 		if( xTaskIncrementTick() != pdFALSE )
+ 506:../Dave/Generated/FREERTOS/port.c **** 		{
+ 507:../Dave/Generated/FREERTOS/port.c **** 			/* A context switch is required.  Context switching is performed in
+ 508:../Dave/Generated/FREERTOS/port.c **** 			the PendSV interrupt.  Pend the PendSV interrupt. */
+ 509:../Dave/Generated/FREERTOS/port.c **** 			portNVIC_INT_CTRL_REG = portNVIC_PENDSVSET_BIT;
+ 510:../Dave/Generated/FREERTOS/port.c **** 		}
+ 511:../Dave/Generated/FREERTOS/port.c **** 	}
+ 512:../Dave/Generated/FREERTOS/port.c **** 	portENABLE_INTERRUPTS();
+ 513:../Dave/Generated/FREERTOS/port.c **** }
+ 514:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 515:../Dave/Generated/FREERTOS/port.c **** 
+ 516:../Dave/Generated/FREERTOS/port.c **** #if configUSE_TICKLESS_IDLE == 1
+ 517:../Dave/Generated/FREERTOS/port.c **** 
+ 518:../Dave/Generated/FREERTOS/port.c **** 	__attribute__((weak)) void vPortSuppressTicksAndSleep( TickType_t xExpectedIdleTime )
+ 519:../Dave/Generated/FREERTOS/port.c **** 	{
+ 520:../Dave/Generated/FREERTOS/port.c **** 	uint32_t ulReloadValue, ulCompleteTickPeriods, ulCompletedSysTickDecrements, ulSysTickCTRL;
+ 521:../Dave/Generated/FREERTOS/port.c **** 	TickType_t xModifiableIdleTime;
+ 522:../Dave/Generated/FREERTOS/port.c **** 
+ 523:../Dave/Generated/FREERTOS/port.c **** 		/* Make sure the SysTick reload value does not overflow the counter. */
+ 524:../Dave/Generated/FREERTOS/port.c **** 		if( xExpectedIdleTime > xMaximumPossibleSuppressedTicks )
+ 525:../Dave/Generated/FREERTOS/port.c **** 		{
+ 526:../Dave/Generated/FREERTOS/port.c **** 			xExpectedIdleTime = xMaximumPossibleSuppressedTicks;
+ 527:../Dave/Generated/FREERTOS/port.c **** 		}
+ 528:../Dave/Generated/FREERTOS/port.c **** 
+ 529:../Dave/Generated/FREERTOS/port.c **** 		/* Stop the SysTick momentarily.  The time the SysTick is stopped for
+ 530:../Dave/Generated/FREERTOS/port.c **** 		is accounted for as best it can be, but using the tickless mode will
+ 531:../Dave/Generated/FREERTOS/port.c **** 		inevitably result in some tiny drift of the time maintained by the
+ 532:../Dave/Generated/FREERTOS/port.c **** 		kernel with respect to calendar time. */
+ 533:../Dave/Generated/FREERTOS/port.c **** 		portNVIC_SYSTICK_CTRL_REG &= ~portNVIC_SYSTICK_ENABLE_BIT;
+ 534:../Dave/Generated/FREERTOS/port.c **** 
+ 535:../Dave/Generated/FREERTOS/port.c **** 		/* Calculate the reload value required to wait xExpectedIdleTime
+ 536:../Dave/Generated/FREERTOS/port.c **** 		tick periods.  -1 is used because this code will execute part way
+ 537:../Dave/Generated/FREERTOS/port.c **** 		through one of the tick periods. */
+ 538:../Dave/Generated/FREERTOS/port.c **** 		ulReloadValue = portNVIC_SYSTICK_CURRENT_VALUE_REG + ( ulTimerCountsForOneTick * ( xExpectedIdleT
+ 539:../Dave/Generated/FREERTOS/port.c **** 		if( ulReloadValue > ulStoppedTimerCompensation )
+ 540:../Dave/Generated/FREERTOS/port.c **** 		{
+ 541:../Dave/Generated/FREERTOS/port.c **** 			ulReloadValue -= ulStoppedTimerCompensation;
+ 542:../Dave/Generated/FREERTOS/port.c **** 		}
+ 543:../Dave/Generated/FREERTOS/port.c **** 
+ 544:../Dave/Generated/FREERTOS/port.c **** 		/* Enter a critical section but don't use the taskENTER_CRITICAL()
+ 545:../Dave/Generated/FREERTOS/port.c **** 		method as that will mask interrupts that should exit sleep mode. */
+ 546:../Dave/Generated/FREERTOS/port.c **** 		__asm volatile( "cpsid i" );
+ 547:../Dave/Generated/FREERTOS/port.c **** 		__asm volatile( "dsb" );
+ 548:../Dave/Generated/FREERTOS/port.c **** 		__asm volatile( "isb" );
+ 549:../Dave/Generated/FREERTOS/port.c **** 
+ 550:../Dave/Generated/FREERTOS/port.c **** 		/* If a context switch is pending or a task is waiting for the scheduler
+ 551:../Dave/Generated/FREERTOS/port.c **** 		to be unsuspended then abandon the low power entry. */
+ 552:../Dave/Generated/FREERTOS/port.c **** 		if( eTaskConfirmSleepModeStatus() == eAbortSleep )
+ 553:../Dave/Generated/FREERTOS/port.c **** 		{
+ 554:../Dave/Generated/FREERTOS/port.c **** 			/* Restart from whatever is left in the count register to complete
+ 555:../Dave/Generated/FREERTOS/port.c **** 			this tick period. */
+ 556:../Dave/Generated/FREERTOS/port.c **** 			portNVIC_SYSTICK_LOAD_REG = portNVIC_SYSTICK_CURRENT_VALUE_REG;
+ 557:../Dave/Generated/FREERTOS/port.c **** 
+ 558:../Dave/Generated/FREERTOS/port.c **** 			/* Restart SysTick. */
+ 559:../Dave/Generated/FREERTOS/port.c **** 			portNVIC_SYSTICK_CTRL_REG |= portNVIC_SYSTICK_ENABLE_BIT;
+ 560:../Dave/Generated/FREERTOS/port.c **** 
+ 561:../Dave/Generated/FREERTOS/port.c **** 			/* Reset the reload register to the value required for normal tick
+ 562:../Dave/Generated/FREERTOS/port.c **** 			periods. */
+ 563:../Dave/Generated/FREERTOS/port.c **** 			portNVIC_SYSTICK_LOAD_REG = ulTimerCountsForOneTick - 1UL;
+ 564:../Dave/Generated/FREERTOS/port.c **** 
+ 565:../Dave/Generated/FREERTOS/port.c **** 			/* Re-enable interrupts - see comments above the cpsid instruction()
+ 566:../Dave/Generated/FREERTOS/port.c **** 			above. */
+ 567:../Dave/Generated/FREERTOS/port.c **** 			__asm volatile( "cpsie i" );
+ 568:../Dave/Generated/FREERTOS/port.c **** 		}
+ 569:../Dave/Generated/FREERTOS/port.c **** 		else
+ 570:../Dave/Generated/FREERTOS/port.c **** 		{
+ 571:../Dave/Generated/FREERTOS/port.c **** 			/* Set the new reload value. */
+ 572:../Dave/Generated/FREERTOS/port.c **** 			portNVIC_SYSTICK_LOAD_REG = ulReloadValue;
+ 573:../Dave/Generated/FREERTOS/port.c **** 
+ 574:../Dave/Generated/FREERTOS/port.c **** 			/* Clear the SysTick count flag and set the count value back to
+ 575:../Dave/Generated/FREERTOS/port.c **** 			zero. */
+ 576:../Dave/Generated/FREERTOS/port.c **** 			portNVIC_SYSTICK_CURRENT_VALUE_REG = 0UL;
+ 577:../Dave/Generated/FREERTOS/port.c **** 
+ 578:../Dave/Generated/FREERTOS/port.c **** 			/* Restart SysTick. */
+ 579:../Dave/Generated/FREERTOS/port.c **** 			portNVIC_SYSTICK_CTRL_REG |= portNVIC_SYSTICK_ENABLE_BIT;
+ 580:../Dave/Generated/FREERTOS/port.c **** 
+ 581:../Dave/Generated/FREERTOS/port.c **** 			/* Sleep until something happens.  configPRE_SLEEP_PROCESSING() can
+ 582:../Dave/Generated/FREERTOS/port.c **** 			set its parameter to 0 to indicate that its implementation contains
+ 583:../Dave/Generated/FREERTOS/port.c **** 			its own wait for interrupt or wait for event instruction, and so wfi
+ 584:../Dave/Generated/FREERTOS/port.c **** 			should not be executed again.  However, the original expected idle
+ 585:../Dave/Generated/FREERTOS/port.c **** 			time variable must remain unmodified, so a copy is taken. */
+ 586:../Dave/Generated/FREERTOS/port.c **** 			xModifiableIdleTime = xExpectedIdleTime;
+ 587:../Dave/Generated/FREERTOS/port.c **** 			configPRE_SLEEP_PROCESSING( xModifiableIdleTime );
+ 588:../Dave/Generated/FREERTOS/port.c **** 			if( xModifiableIdleTime > 0 )
+ 589:../Dave/Generated/FREERTOS/port.c **** 			{
+ 590:../Dave/Generated/FREERTOS/port.c **** 				__asm volatile( "dsb" );
+ 591:../Dave/Generated/FREERTOS/port.c **** 				__asm volatile( "wfi" );
+ 592:../Dave/Generated/FREERTOS/port.c **** 				__asm volatile( "isb" );
+ 593:../Dave/Generated/FREERTOS/port.c **** 			}
+ 594:../Dave/Generated/FREERTOS/port.c **** 			configPOST_SLEEP_PROCESSING( xExpectedIdleTime );
+ 595:../Dave/Generated/FREERTOS/port.c **** 
+ 596:../Dave/Generated/FREERTOS/port.c **** 			/* Stop SysTick.  Again, the time the SysTick is stopped for is
+ 597:../Dave/Generated/FREERTOS/port.c **** 			accounted for as best it can be, but using the tickless mode will
+ 598:../Dave/Generated/FREERTOS/port.c **** 			inevitably result in some tiny drift of the time maintained by the
+ 599:../Dave/Generated/FREERTOS/port.c **** 			kernel with respect to calendar time. */
+ 600:../Dave/Generated/FREERTOS/port.c **** 			ulSysTickCTRL = portNVIC_SYSTICK_CTRL_REG;
+ 601:../Dave/Generated/FREERTOS/port.c **** 			portNVIC_SYSTICK_CTRL_REG = ( ulSysTickCTRL & ~portNVIC_SYSTICK_ENABLE_BIT );
+ 602:../Dave/Generated/FREERTOS/port.c **** 
+ 603:../Dave/Generated/FREERTOS/port.c **** 			/* Re-enable interrupts - see comments above the cpsid instruction()
+ 604:../Dave/Generated/FREERTOS/port.c **** 			above. */
+ 605:../Dave/Generated/FREERTOS/port.c **** 			__asm volatile( "cpsie i" );
+ 606:../Dave/Generated/FREERTOS/port.c **** 
+ 607:../Dave/Generated/FREERTOS/port.c **** 			if( ( ulSysTickCTRL & portNVIC_SYSTICK_COUNT_FLAG_BIT ) != 0 )
+ 608:../Dave/Generated/FREERTOS/port.c **** 			{
+ 609:../Dave/Generated/FREERTOS/port.c **** 				uint32_t ulCalculatedLoadValue;
+ 610:../Dave/Generated/FREERTOS/port.c **** 
+ 611:../Dave/Generated/FREERTOS/port.c **** 				/* The tick interrupt has already executed, and the SysTick
+ 612:../Dave/Generated/FREERTOS/port.c **** 				count reloaded with ulReloadValue.  Reset the
+ 613:../Dave/Generated/FREERTOS/port.c **** 				portNVIC_SYSTICK_LOAD_REG with whatever remains of this tick
+ 614:../Dave/Generated/FREERTOS/port.c **** 				period. */
+ 615:../Dave/Generated/FREERTOS/port.c **** 				ulCalculatedLoadValue = ( ulTimerCountsForOneTick - 1UL ) - ( ulReloadValue - portNVIC_SYSTICK_
+ 616:../Dave/Generated/FREERTOS/port.c **** 
+ 617:../Dave/Generated/FREERTOS/port.c **** 				/* Don't allow a tiny value, or values that have somehow
+ 618:../Dave/Generated/FREERTOS/port.c **** 				underflowed because the post sleep hook did something
+ 619:../Dave/Generated/FREERTOS/port.c **** 				that took too long. */
+ 620:../Dave/Generated/FREERTOS/port.c **** 				if( ( ulCalculatedLoadValue < ulStoppedTimerCompensation ) || ( ulCalculatedLoadValue > ulTimer
+ 621:../Dave/Generated/FREERTOS/port.c **** 				{
+ 622:../Dave/Generated/FREERTOS/port.c **** 					ulCalculatedLoadValue = ( ulTimerCountsForOneTick - 1UL );
+ 623:../Dave/Generated/FREERTOS/port.c **** 				}
+ 624:../Dave/Generated/FREERTOS/port.c **** 
+ 625:../Dave/Generated/FREERTOS/port.c **** 				portNVIC_SYSTICK_LOAD_REG = ulCalculatedLoadValue;
+ 626:../Dave/Generated/FREERTOS/port.c **** 
+ 627:../Dave/Generated/FREERTOS/port.c **** 				/* The tick interrupt handler will already have pended the tick
+ 628:../Dave/Generated/FREERTOS/port.c **** 				processing in the kernel.  As the pending tick will be
+ 629:../Dave/Generated/FREERTOS/port.c **** 				processed as soon as this function exits, the tick value
+ 630:../Dave/Generated/FREERTOS/port.c **** 				maintained by the tick is stepped forward by one less than the
+ 631:../Dave/Generated/FREERTOS/port.c **** 				time spent waiting. */
+ 632:../Dave/Generated/FREERTOS/port.c **** 				ulCompleteTickPeriods = xExpectedIdleTime - 1UL;
+ 633:../Dave/Generated/FREERTOS/port.c **** 			}
+ 634:../Dave/Generated/FREERTOS/port.c **** 			else
+ 635:../Dave/Generated/FREERTOS/port.c **** 			{
+ 636:../Dave/Generated/FREERTOS/port.c **** 				/* Something other than the tick interrupt ended the sleep.
+ 637:../Dave/Generated/FREERTOS/port.c **** 				Work out how long the sleep lasted rounded to complete tick
+ 638:../Dave/Generated/FREERTOS/port.c **** 				periods (not the ulReload value which accounted for part
+ 639:../Dave/Generated/FREERTOS/port.c **** 				ticks). */
+ 640:../Dave/Generated/FREERTOS/port.c **** 				ulCompletedSysTickDecrements = ( xExpectedIdleTime * ulTimerCountsForOneTick ) - portNVIC_SYSTI
+ 641:../Dave/Generated/FREERTOS/port.c **** 
+ 642:../Dave/Generated/FREERTOS/port.c **** 				/* How many complete tick periods passed while the processor
+ 643:../Dave/Generated/FREERTOS/port.c **** 				was waiting? */
+ 644:../Dave/Generated/FREERTOS/port.c **** 				ulCompleteTickPeriods = ulCompletedSysTickDecrements / ulTimerCountsForOneTick;
+ 645:../Dave/Generated/FREERTOS/port.c **** 
+ 646:../Dave/Generated/FREERTOS/port.c **** 				/* The reload value is set to whatever fraction of a single tick
+ 647:../Dave/Generated/FREERTOS/port.c **** 				period remains. */
+ 648:../Dave/Generated/FREERTOS/port.c **** 				portNVIC_SYSTICK_LOAD_REG = ( ( ulCompleteTickPeriods + 1UL ) * ulTimerCountsForOneTick ) - ulC
+ 649:../Dave/Generated/FREERTOS/port.c **** 			}
+ 650:../Dave/Generated/FREERTOS/port.c **** 
+ 651:../Dave/Generated/FREERTOS/port.c **** 			/* Restart SysTick so it runs from portNVIC_SYSTICK_LOAD_REG
+ 652:../Dave/Generated/FREERTOS/port.c **** 			again, then set portNVIC_SYSTICK_LOAD_REG back to its standard
+ 653:../Dave/Generated/FREERTOS/port.c **** 			value.  The critical section is used to ensure the tick interrupt
+ 654:../Dave/Generated/FREERTOS/port.c **** 			can only execute once in the case that the reload register is near
+ 655:../Dave/Generated/FREERTOS/port.c **** 			zero. */
+ 656:../Dave/Generated/FREERTOS/port.c **** 			portNVIC_SYSTICK_CURRENT_VALUE_REG = 0UL;
+ 657:../Dave/Generated/FREERTOS/port.c **** 			portENTER_CRITICAL();
+ 658:../Dave/Generated/FREERTOS/port.c **** 			{
+ 659:../Dave/Generated/FREERTOS/port.c **** 				portNVIC_SYSTICK_CTRL_REG |= portNVIC_SYSTICK_ENABLE_BIT;
+ 660:../Dave/Generated/FREERTOS/port.c **** 				vTaskStepTick( ulCompleteTickPeriods );
+ 661:../Dave/Generated/FREERTOS/port.c **** 				portNVIC_SYSTICK_LOAD_REG = ulTimerCountsForOneTick - 1UL;
+ 662:../Dave/Generated/FREERTOS/port.c **** 			}
+ 663:../Dave/Generated/FREERTOS/port.c **** 			portEXIT_CRITICAL();
+ 664:../Dave/Generated/FREERTOS/port.c **** 		}
+ 665:../Dave/Generated/FREERTOS/port.c **** 	}
+ 666:../Dave/Generated/FREERTOS/port.c **** 
+ 667:../Dave/Generated/FREERTOS/port.c **** #endif /* #if configUSE_TICKLESS_IDLE */
+ 668:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 669:../Dave/Generated/FREERTOS/port.c **** 
+ 670:../Dave/Generated/FREERTOS/port.c **** /*
+ 671:../Dave/Generated/FREERTOS/port.c ****  * Setup the systick timer to generate the tick interrupts at the required
+ 672:../Dave/Generated/FREERTOS/port.c ****  * frequency.
+ 673:../Dave/Generated/FREERTOS/port.c ****  */
+ 674:../Dave/Generated/FREERTOS/port.c **** __attribute__(( weak )) void vPortSetupTimerInterrupt( void )
+ 675:../Dave/Generated/FREERTOS/port.c **** {
+ 676:../Dave/Generated/FREERTOS/port.c **** 	/* Calculate the constants required to configure the tick interrupt. */
+ 677:../Dave/Generated/FREERTOS/port.c **** 	#if configUSE_TICKLESS_IDLE == 1
+ 678:../Dave/Generated/FREERTOS/port.c **** 	{
+ 679:../Dave/Generated/FREERTOS/port.c **** 		ulTimerCountsForOneTick = ( configSYSTICK_CLOCK_HZ / configTICK_RATE_HZ );
+ 680:../Dave/Generated/FREERTOS/port.c **** 		xMaximumPossibleSuppressedTicks = portMAX_24_BIT_NUMBER / ulTimerCountsForOneTick;
+ 681:../Dave/Generated/FREERTOS/port.c **** 		ulStoppedTimerCompensation = portMISSED_COUNTS_FACTOR / ( configCPU_CLOCK_HZ / configSYSTICK_CLOC
+ 682:../Dave/Generated/FREERTOS/port.c **** 	}
+ 683:../Dave/Generated/FREERTOS/port.c **** 	#endif /* configUSE_TICKLESS_IDLE */
+ 684:../Dave/Generated/FREERTOS/port.c **** 
+ 685:../Dave/Generated/FREERTOS/port.c **** 	/* Configure SysTick to interrupt at the requested rate. */
+ 686:../Dave/Generated/FREERTOS/port.c **** 	portNVIC_SYSTICK_LOAD_REG = ( configSYSTICK_CLOCK_HZ / configTICK_RATE_HZ ) - 1UL;
+ 687:../Dave/Generated/FREERTOS/port.c **** 	portNVIC_SYSTICK_CTRL_REG = ( portNVIC_SYSTICK_CLK_BIT | portNVIC_SYSTICK_INT_BIT | portNVIC_SYSTI
+ 688:../Dave/Generated/FREERTOS/port.c **** }
+ 689:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 690:../Dave/Generated/FREERTOS/port.c **** 
+ 691:../Dave/Generated/FREERTOS/port.c **** /* This is a naked function. */
+ 692:../Dave/Generated/FREERTOS/port.c **** static void vPortEnableVFP( void )
+ 693:../Dave/Generated/FREERTOS/port.c **** {
+ 119              	 .loc 1 693 0
+ 120              	 .cfi_startproc
+ 121              	 
+ 122              	 
+ 123              	 
+ 694:../Dave/Generated/FREERTOS/port.c **** 	__asm volatile
+ 124              	 .loc 1 694 0
+ 125              	
+ 126 0000 DFF80C00 	 ldr.w r0,=0xE000ED88
+ 127 0004 0168     	 ldr r1,[r0]
+ 128              	 
+ 129 0006 41F47001 	 orr r1,r1,#(0xf<<20)
+ 130 000a 0160     	 str r1,[r0]
+ 131 000c 7047     	 bx r14
+ 132              	
+ 695:../Dave/Generated/FREERTOS/port.c **** 	(
+ 696:../Dave/Generated/FREERTOS/port.c **** 		"	ldr.w r0, =0xE000ED88		\n" /* The FPU enable bits are in the CPACR. */
+ 697:../Dave/Generated/FREERTOS/port.c **** 		"	ldr r1, [r0]				\n"
+ 698:../Dave/Generated/FREERTOS/port.c **** 		"								\n"
+ 699:../Dave/Generated/FREERTOS/port.c **** 		"	orr r1, r1, #( 0xf << 20 )	\n" /* Enable CP10 and CP11 coprocessors, then save back. */
+ 700:../Dave/Generated/FREERTOS/port.c **** 		"	str r1, [r0]				\n"
+ 701:../Dave/Generated/FREERTOS/port.c **** 		"	bx r14						"
+ 702:../Dave/Generated/FREERTOS/port.c **** 	);
+ 703:../Dave/Generated/FREERTOS/port.c **** }
+ 133              	 .loc 1 703 0
+ 134              	 .thumb
+ 135              	 .cfi_endproc
+ 136              	.LFE139:
+ 138 000e 0000     	 .section .text.pxPortInitialiseStack,"ax",%progbits
+ 139              	 .align 2
+ 140              	 .global pxPortInitialiseStack
+ 141              	 .thumb
+ 142              	 .thumb_func
+ 144              	pxPortInitialiseStack:
+ 145              	.LFB128:
+ 233:../Dave/Generated/FREERTOS/port.c **** 	/* Simulate the stack frame as it would be created by a context switch
+ 146              	 .loc 1 233 0
+ 147              	 .cfi_startproc
+ 148              	 
+ 149              	 
+ 150              	 
+ 151              	.LVL2:
+ 152 0000 30B4     	 push {r4,r5}
+ 153              	.LCFI0:
+ 154              	 .cfi_def_cfa_offset 8
+ 155              	 .cfi_offset 4,-8
+ 156              	 .cfi_offset 5,-4
+ 243:../Dave/Generated/FREERTOS/port.c **** 	pxTopOfStack--;
+ 157              	 .loc 1 243 0
+ 158 0002 21F00101 	 bic r1,r1,#1
+ 159              	.LVL3:
+ 241:../Dave/Generated/FREERTOS/port.c **** 	pxTopOfStack--;
+ 160              	 .loc 1 241 0
+ 161 0006 4FF08075 	 mov r5,#16777216
+ 245:../Dave/Generated/FREERTOS/port.c **** 
+ 162              	 .loc 1 245 0
+ 163 000a 074C     	 ldr r4,.L12
+ 164 000c 40F80C4C 	 str r4,[r0,#-12]
+ 254:../Dave/Generated/FREERTOS/port.c **** 
+ 165              	 .loc 1 254 0
+ 166 0010 6FF00203 	 mvn r3,#2
+ 249:../Dave/Generated/FREERTOS/port.c **** 
+ 167              	 .loc 1 249 0
+ 168 0014 40F8202C 	 str r2,[r0,#-32]
+ 241:../Dave/Generated/FREERTOS/port.c **** 	pxTopOfStack--;
+ 169              	 .loc 1 241 0
+ 170 0018 00E92200 	 stmdb r0,{r1,r5}
+ 171              	.LVL4:
+ 254:../Dave/Generated/FREERTOS/port.c **** 
+ 172              	 .loc 1 254 0
+ 173 001c 40F8243C 	 str r3,[r0,#-36]
+ 174              	.LVL5:
+ 259:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 175              	 .loc 1 259 0
+ 176 0020 30BC     	 pop {r4,r5}
+ 177              	.LCFI1:
+ 178              	 .cfi_restore 5
+ 179              	 .cfi_restore 4
+ 180              	 .cfi_def_cfa_offset 0
+ 181 0022 4438     	 subs r0,r0,#68
+ 182              	.LVL6:
+ 183 0024 7047     	 bx lr
+ 184              	.L13:
+ 185 0026 00BF     	 .align 2
+ 186              	.L12:
+ 187 0028 00000000 	 .word prvTaskExitError
+ 188              	 .cfi_endproc
+ 189              	.LFE128:
+ 191              	 .section .text.SVC_Handler,"ax",%progbits
+ 192              	 .align 2
+ 193              	 .global SVC_Handler
+ 194              	 .thumb
+ 195              	 .thumb_func
+ 197              	SVC_Handler:
+ 198              	.LFB130:
+ 277:../Dave/Generated/FREERTOS/port.c **** 	__asm volatile (
+ 199              	 .loc 1 277 0
+ 200              	 .cfi_startproc
+ 201              	 
+ 202              	 
+ 203              	 
+ 278:../Dave/Generated/FREERTOS/port.c **** 					"	ldr	r3, pxCurrentTCBConst2		\n" /* Restore the context. */
+ 204              	 .loc 1 278 0
+ 205              	
+ 206 0000 074B     	 ldr r3,pxCurrentTCBConst2
+ 207 0002 1968     	 ldr r1,[r3]
+ 208 0004 0868     	 ldr r0,[r1]
+ 209 0006 B0E8F04F 	 ldmia r0!,{r4-r11,r14}
+ 210 000a 80F30988 	 msr psp,r0
+ 211 000e BFF36F8F 	 isb 
+ 212 0012 4FF00000 	 mov r0,#0
+ 213 0016 80F31188 	 msr basepri,r0
+ 214 001a 7047     	 bx r14
+ 215              	 
+ 216 001c AFF30080 	 .align 4
+ 217 0020 00000000 	pxCurrentTCBConst2:.word pxCurrentTCB
+ 218              	
+ 219              	
+ 292:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 220              	 .loc 1 292 0
+ 221              	 .thumb
+ 222              	 .cfi_endproc
+ 223              	.LFE130:
+ 225 0024 AFF30080 	 .section .text.vPortEndScheduler,"ax",%progbits
+ 225      AFF30080 
+ 225      AFF30080 
+ 226              	 .align 2
+ 227              	 .global vPortEndScheduler
+ 228              	 .thumb
+ 229              	 .thumb_func
+ 231              	vPortEndScheduler:
+ 232              	.LFB133:
+ 403:../Dave/Generated/FREERTOS/port.c **** 	/* Not implemented in ports where there is nothing to return to.
+ 233              	 .loc 1 403 0
+ 234              	 .cfi_startproc
+ 235              	 
+ 236              	 
+ 237              	 
+ 406:../Dave/Generated/FREERTOS/port.c **** }
+ 238              	 .loc 1 406 0
+ 239 0000 074B     	 ldr r3,.L18
+ 240 0002 1B68     	 ldr r3,[r3]
+ 241 0004 B3F57A7F 	 cmp r3,#1000
+ 242 0008 08D0     	 beq .L15
+ 243              	.LBB33:
+ 244              	.LBB34:
+ 245              	 .loc 2 240 0
+ 246              	
+ 247 000a 4FF0FC03 	 mov r3,#252
+ 248 000e 83F31188 	 msr basepri,r3
+ 249 0012 BFF36F8F 	 isb 
+ 250 0016 BFF34F8F 	 dsb 
+ 251              	
+ 252              	
+ 253              	.LVL7:
+ 254              	 .thumb
+ 255              	.L17:
+ 256              	.LBE34:
+ 257              	.LBE33:
+ 406:../Dave/Generated/FREERTOS/port.c **** }
+ 258              	 .loc 1 406 0 discriminator 1
+ 259 001a FEE7     	 b .L17
+ 260              	.L15:
+ 261 001c 7047     	 bx lr
+ 262              	.L19:
+ 263 001e 00BF     	 .align 2
+ 264              	.L18:
+ 265 0020 00000000 	 .word .LANCHOR0
+ 266              	 .cfi_endproc
+ 267              	.LFE133:
+ 269              	 .section .text.vPortEnterCritical,"ax",%progbits
+ 270              	 .align 2
+ 271              	 .global vPortEnterCritical
+ 272              	 .thumb
+ 273              	 .thumb_func
+ 275              	vPortEnterCritical:
+ 276              	.LFB134:
+ 411:../Dave/Generated/FREERTOS/port.c **** 	portDISABLE_INTERRUPTS();
+ 277              	 .loc 1 411 0
+ 278              	 .cfi_startproc
+ 279              	 
+ 280              	 
+ 281              	 
+ 282              	.LBB35:
+ 283              	.LBB36:
+ 284              	 .loc 2 240 0
+ 285              	
+ 286 0000 4FF0FC03 	 mov r3,#252
+ 287 0004 83F31188 	 msr basepri,r3
+ 288 0008 BFF36F8F 	 isb 
+ 289 000c BFF34F8F 	 dsb 
+ 290              	
+ 291              	
+ 292              	.LVL8:
+ 293              	 .thumb
+ 294              	.LBE36:
+ 295              	.LBE35:
+ 413:../Dave/Generated/FREERTOS/port.c **** 
+ 296              	 .loc 1 413 0
+ 297 0010 0A4A     	 ldr r2,.L27
+ 298 0012 1368     	 ldr r3,[r2]
+ 299 0014 0133     	 adds r3,r3,#1
+ 420:../Dave/Generated/FREERTOS/port.c **** 	{
+ 300              	 .loc 1 420 0
+ 301 0016 012B     	 cmp r3,#1
+ 413:../Dave/Generated/FREERTOS/port.c **** 
+ 302              	 .loc 1 413 0
+ 303 0018 1360     	 str r3,[r2]
+ 420:../Dave/Generated/FREERTOS/port.c **** 	{
+ 304              	 .loc 1 420 0
+ 305 001a 00D0     	 beq .L26
+ 306              	.L20:
+ 307 001c 7047     	 bx lr
+ 308              	.L26:
+ 422:../Dave/Generated/FREERTOS/port.c **** 	}
+ 309              	 .loc 1 422 0
+ 310 001e 084B     	 ldr r3,.L27+4
+ 311 0020 1B68     	 ldr r3,[r3]
+ 312 0022 13F0FF0F 	 tst r3,#255
+ 313 0026 F9D0     	 beq .L20
+ 314              	.LBB37:
+ 315              	.LBB38:
+ 316              	 .loc 2 240 0
+ 317              	
+ 318 0028 4FF0FC03 	 mov r3,#252
+ 319 002c 83F31188 	 msr basepri,r3
+ 320 0030 BFF36F8F 	 isb 
+ 321 0034 BFF34F8F 	 dsb 
+ 322              	
+ 323              	
+ 324              	.LVL9:
+ 325              	 .thumb
+ 326              	.L22:
+ 327              	.LBE38:
+ 328              	.LBE37:
+ 422:../Dave/Generated/FREERTOS/port.c **** 	}
+ 329              	 .loc 1 422 0 discriminator 1
+ 330 0038 FEE7     	 b .L22
+ 331              	.L28:
+ 332 003a 00BF     	 .align 2
+ 333              	.L27:
+ 334 003c 00000000 	 .word .LANCHOR0
+ 335 0040 04ED00E0 	 .word -536810236
+ 336              	 .cfi_endproc
+ 337              	.LFE134:
+ 339              	 .section .text.vPortExitCritical,"ax",%progbits
+ 340              	 .align 2
+ 341              	 .global vPortExitCritical
+ 342              	 .thumb
+ 343              	 .thumb_func
+ 345              	vPortExitCritical:
+ 346              	.LFB135:
+ 428:../Dave/Generated/FREERTOS/port.c **** 	configASSERT( uxCriticalNesting );
+ 347              	 .loc 1 428 0
+ 348              	 .cfi_startproc
+ 349              	 
+ 350              	 
+ 351              	 
+ 429:../Dave/Generated/FREERTOS/port.c **** 	uxCriticalNesting--;
+ 352              	 .loc 1 429 0
+ 353 0000 084A     	 ldr r2,.L33
+ 354 0002 1368     	 ldr r3,[r2]
+ 355 0004 43B9     	 cbnz r3,.L30
+ 356              	.LBB39:
+ 357              	.LBB40:
+ 358              	 .loc 2 240 0
+ 359              	
+ 360 0006 4FF0FC03 	 mov r3,#252
+ 361 000a 83F31188 	 msr basepri,r3
+ 362 000e BFF36F8F 	 isb 
+ 363 0012 BFF34F8F 	 dsb 
+ 364              	
+ 365              	
+ 366              	.LVL10:
+ 367              	 .thumb
+ 368              	.L31:
+ 369              	.LBE40:
+ 370              	.LBE39:
+ 429:../Dave/Generated/FREERTOS/port.c **** 	uxCriticalNesting--;
+ 371              	 .loc 1 429 0 discriminator 1
+ 372 0016 FEE7     	 b .L31
+ 373              	.L30:
+ 430:../Dave/Generated/FREERTOS/port.c **** 	if( uxCriticalNesting == 0 )
+ 374              	 .loc 1 430 0
+ 375 0018 013B     	 subs r3,r3,#1
+ 376 001a 1360     	 str r3,[r2]
+ 431:../Dave/Generated/FREERTOS/port.c **** 	{
+ 377              	 .loc 1 431 0
+ 378 001c 0BB9     	 cbnz r3,.L29
+ 379              	.LVL11:
+ 380              	.LBB41:
+ 381              	.LBB42:
+ 241:../Dave/Generated/FREERTOS/portmacro.h **** 	(
+ 242:../Dave/Generated/FREERTOS/portmacro.h **** 		"	mov %0, %1												\n"	\
+ 243:../Dave/Generated/FREERTOS/portmacro.h **** 		"	msr basepri, %0											\n" \
+ 244:../Dave/Generated/FREERTOS/portmacro.h **** 		"	isb														\n" \
+ 245:../Dave/Generated/FREERTOS/portmacro.h **** 		"	dsb														\n" \
+ 246:../Dave/Generated/FREERTOS/portmacro.h **** 		:"=r" (ulNewBASEPRI) : "i" ( configMAX_SYSCALL_INTERRUPT_PRIORITY )
+ 247:../Dave/Generated/FREERTOS/portmacro.h **** 	);
+ 248:../Dave/Generated/FREERTOS/portmacro.h **** }
+ 249:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 250:../Dave/Generated/FREERTOS/portmacro.h **** /*-----------------------------------------------------------*/
+ 251:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 252:../Dave/Generated/FREERTOS/portmacro.h **** portFORCE_INLINE static uint32_t ulPortRaiseBASEPRI( void )
+ 253:../Dave/Generated/FREERTOS/portmacro.h **** {
+ 254:../Dave/Generated/FREERTOS/portmacro.h **** uint32_t ulOriginalBASEPRI, ulNewBASEPRI;
+ 255:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 256:../Dave/Generated/FREERTOS/portmacro.h **** 	__asm volatile
+ 257:../Dave/Generated/FREERTOS/portmacro.h **** 	(
+ 258:../Dave/Generated/FREERTOS/portmacro.h **** 		"	mrs %0, basepri											\n" \
+ 259:../Dave/Generated/FREERTOS/portmacro.h **** 		"	mov %1, %2												\n"	\
+ 260:../Dave/Generated/FREERTOS/portmacro.h **** 		"	msr basepri, %1											\n" \
+ 261:../Dave/Generated/FREERTOS/portmacro.h **** 		"	isb														\n" \
+ 262:../Dave/Generated/FREERTOS/portmacro.h **** 		"	dsb														\n" \
+ 263:../Dave/Generated/FREERTOS/portmacro.h **** 		:"=r" (ulOriginalBASEPRI), "=r" (ulNewBASEPRI) : "i" ( configMAX_SYSCALL_INTERRUPT_PRIORITY )
+ 264:../Dave/Generated/FREERTOS/portmacro.h **** 	);
+ 265:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 266:../Dave/Generated/FREERTOS/portmacro.h **** 	/* This return will not be reached but is necessary to prevent compiler
+ 267:../Dave/Generated/FREERTOS/portmacro.h **** 	warnings. */
+ 268:../Dave/Generated/FREERTOS/portmacro.h **** 	return ulOriginalBASEPRI;
+ 269:../Dave/Generated/FREERTOS/portmacro.h **** }
+ 270:../Dave/Generated/FREERTOS/portmacro.h **** /*-----------------------------------------------------------*/
+ 271:../Dave/Generated/FREERTOS/portmacro.h **** 
+ 272:../Dave/Generated/FREERTOS/portmacro.h **** portFORCE_INLINE static void vPortSetBASEPRI( uint32_t ulNewMaskValue )
+ 273:../Dave/Generated/FREERTOS/portmacro.h **** {
+ 274:../Dave/Generated/FREERTOS/portmacro.h **** 	__asm volatile
+ 382              	 .loc 2 274 0
+ 383              	
+ 384 001e 83F31188 	 msr basepri,r3
+ 385              	
+ 386              	.LVL12:
+ 387              	 .thumb
+ 388              	.L29:
+ 389 0022 7047     	 bx lr
+ 390              	.L34:
+ 391              	 .align 2
+ 392              	.L33:
+ 393 0024 00000000 	 .word .LANCHOR0
+ 394              	.LBE42:
+ 395              	.LBE41:
+ 396              	 .cfi_endproc
+ 397              	.LFE135:
+ 399              	 .section .text.PendSV_Handler,"ax",%progbits
+ 400              	 .align 2
+ 401              	 .global PendSV_Handler
+ 402              	 .thumb
+ 403              	 .thumb_func
+ 405              	PendSV_Handler:
+ 406              	.LFB136:
+ 439:../Dave/Generated/FREERTOS/port.c **** 	/* This is a naked function. */
+ 407              	 .loc 1 439 0
+ 408              	 .cfi_startproc
+ 409              	 
+ 410              	 
+ 411              	 
+ 442:../Dave/Generated/FREERTOS/port.c **** 	(
+ 412              	 .loc 1 442 0
+ 413              	
+ 414 0000 EFF30980 	 mrs r0,psp
+ 415 0004 BFF36F8F 	 isb 
+ 416              	 
+ 417 0008 154B     	 ldr r3,pxCurrentTCBConst
+ 418 000a 1A68     	 ldr r2,[r3]
+ 419              	 
+ 420 000c 1EF0100F 	 tst r14,#0x10
+ 421 0010 08BF     	 it eq
+ 422 0012 20ED108A 	 vstmdbeq r0!,{s16-s31}
+ 423              	 
+ 424 0016 20E9F04F 	 stmdb r0!,{r4-r11,r14}
+ 425              	 
+ 426 001a 1060     	 str r0,[r2]
+ 427              	 
+ 428 001c 4DF8043D 	 stmdb sp!,{r3}
+ 429 0020 4FF0FC00 	 mov r0,#252
+ 430 0024 80F31188 	 msr basepri,r0
+ 431 0028 BFF34F8F 	 dsb 
+ 432 002c BFF36F8F 	 isb 
+ 433 0030 FFF7FEFF 	 bl vTaskSwitchContext
+ 434 0034 4FF00000 	 mov r0,#0
+ 435 0038 80F31188 	 msr basepri,r0
+ 436 003c 08BC     	 ldmia sp!,{r3}
+ 437              	 
+ 438 003e 1968     	 ldr r1,[r3]
+ 439 0040 0868     	 ldr r0,[r1]
+ 440              	 
+ 441 0042 B0E8F04F 	 ldmia r0!,{r4-r11,r14}
+ 442              	 
+ 443 0046 1EF0100F 	 tst r14,#0x10
+ 444 004a 08BF     	 it eq
+ 445 004c B0EC108A 	 vldmiaeq r0!,{s16-s31}
+ 446              	 
+ 447 0050 80F30988 	 msr psp,r0
+ 448 0054 BFF36F8F 	 isb 
+ 449              	 
+ 450              	 
+ 451 0058 7047     	 bx r14
+ 452              	 
+ 453 005a 00BFAFF3 	 .align 4
+ 453      0080
+ 454 0060 00000000 	pxCurrentTCBConst:.word pxCurrentTCB
+ 455              	
+ 456              	
+ 493:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 457              	 .loc 1 493 0
+ 458              	 .thumb
+ 459              	 .cfi_endproc
+ 460              	.LFE136:
+ 462 0064 AFF30080 	 .section .text.SysTick_Handler,"ax",%progbits
+ 462      AFF30080 
+ 462      AFF30080 
+ 463              	 .align 2
+ 464              	 .global SysTick_Handler
+ 465              	 .thumb
+ 466              	 .thumb_func
+ 468              	SysTick_Handler:
+ 469              	.LFB137:
+ 497:../Dave/Generated/FREERTOS/port.c **** 	/* The SysTick runs at the lowest interrupt priority, so when this interrupt
+ 470              	 .loc 1 497 0
+ 471              	 .cfi_startproc
+ 472              	 
+ 473              	 
+ 474 0000 08B5     	 push {r3,lr}
+ 475              	.LCFI2:
+ 476              	 .cfi_def_cfa_offset 8
+ 477              	 .cfi_offset 3,-8
+ 478              	 .cfi_offset 14,-4
+ 479              	.LBB43:
+ 480              	.LBB44:
+ 240:../Dave/Generated/FREERTOS/portmacro.h **** 	(
+ 481              	 .loc 2 240 0
+ 482              	
+ 483 0002 4FF0FC03 	 mov r3,#252
+ 484 0006 83F31188 	 msr basepri,r3
+ 485 000a BFF36F8F 	 isb 
+ 486 000e BFF34F8F 	 dsb 
+ 487              	
+ 488              	
+ 489              	.LVL13:
+ 490              	 .thumb
+ 491              	.LBE44:
+ 492              	.LBE43:
+ 505:../Dave/Generated/FREERTOS/port.c **** 		{
+ 493              	 .loc 1 505 0
+ 494 0012 FFF7FEFF 	 bl xTaskIncrementTick
+ 495              	.LVL14:
+ 496 0016 18B1     	 cbz r0,.L37
+ 509:../Dave/Generated/FREERTOS/port.c **** 		}
+ 497              	 .loc 1 509 0
+ 498 0018 034B     	 ldr r3,.L42
+ 499 001a 4FF08052 	 mov r2,#268435456
+ 500 001e 1A60     	 str r2,[r3]
+ 501              	.L37:
+ 502              	.LVL15:
+ 503              	.LBB45:
+ 504              	.LBB46:
+ 505              	 .loc 2 274 0
+ 506 0020 0023     	 movs r3,#0
+ 507              	
+ 508 0022 83F31188 	 msr basepri,r3
+ 509              	
+ 510              	 .thumb
+ 511 0026 08BD     	 pop {r3,pc}
+ 512              	.L43:
+ 513              	 .align 2
+ 514              	.L42:
+ 515 0028 04ED00E0 	 .word -536810236
+ 516              	.LBE46:
+ 517              	.LBE45:
+ 518              	 .cfi_endproc
+ 519              	.LFE137:
+ 521              	 .section .text.vPortSetupTimerInterrupt,"ax",%progbits
+ 522              	 .align 2
+ 523              	 .weak vPortSetupTimerInterrupt
+ 524              	 .thumb
+ 525              	 .thumb_func
+ 527              	vPortSetupTimerInterrupt:
+ 528              	.LFB138:
+ 675:../Dave/Generated/FREERTOS/port.c **** 	/* Calculate the constants required to configure the tick interrupt. */
+ 529              	 .loc 1 675 0
+ 530              	 .cfi_startproc
+ 531              	 
+ 532              	 
+ 533              	 
+ 686:../Dave/Generated/FREERTOS/port.c **** 	portNVIC_SYSTICK_CTRL_REG = ( portNVIC_SYSTICK_CLK_BIT | portNVIC_SYSTICK_INT_BIT | portNVIC_SYSTI
+ 534              	 .loc 1 686 0
+ 535 0000 064B     	 ldr r3,.L45
+ 536 0002 0749     	 ldr r1,.L45+4
+ 537 0004 1B68     	 ldr r3,[r3]
+ 538 0006 0748     	 ldr r0,.L45+8
+ 687:../Dave/Generated/FREERTOS/port.c **** }
+ 539              	 .loc 1 687 0
+ 540 0008 074A     	 ldr r2,.L45+12
+ 686:../Dave/Generated/FREERTOS/port.c **** 	portNVIC_SYSTICK_CTRL_REG = ( portNVIC_SYSTICK_CLK_BIT | portNVIC_SYSTICK_INT_BIT | portNVIC_SYSTI
+ 541              	 .loc 1 686 0
+ 542 000a A1FB0313 	 umull r1,r3,r1,r3
+ 543 000e 9B09     	 lsrs r3,r3,#6
+ 544 0010 013B     	 subs r3,r3,#1
+ 687:../Dave/Generated/FREERTOS/port.c **** }
+ 545              	 .loc 1 687 0
+ 546 0012 0721     	 movs r1,#7
+ 686:../Dave/Generated/FREERTOS/port.c **** 	portNVIC_SYSTICK_CTRL_REG = ( portNVIC_SYSTICK_CLK_BIT | portNVIC_SYSTICK_INT_BIT | portNVIC_SYSTI
+ 547              	 .loc 1 686 0
+ 548 0014 0360     	 str r3,[r0]
+ 687:../Dave/Generated/FREERTOS/port.c **** }
+ 549              	 .loc 1 687 0
+ 550 0016 1160     	 str r1,[r2]
+ 551 0018 7047     	 bx lr
+ 552              	.L46:
+ 553 001a 00BF     	 .align 2
+ 554              	.L45:
+ 555 001c 00000000 	 .word SystemCoreClock
+ 556 0020 D34D6210 	 .word 274877907
+ 557 0024 14E000E0 	 .word -536813548
+ 558 0028 10E000E0 	 .word -536813552
+ 559              	 .cfi_endproc
+ 560              	.LFE138:
+ 562              	 .section .text.xPortStartScheduler,"ax",%progbits
+ 563              	 .align 2
+ 564              	 .global xPortStartScheduler
+ 565              	 .thumb
+ 566              	 .thumb_func
+ 568              	xPortStartScheduler:
+ 569              	.LFB132:
+ 316:../Dave/Generated/FREERTOS/port.c **** 	/* configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to 0.
+ 570              	 .loc 1 316 0
+ 571              	 .cfi_startproc
+ 572              	 
+ 573              	 
+ 324:../Dave/Generated/FREERTOS/port.c **** 	configASSERT( portCPUID != portCORTEX_M7_r0p0_ID );
+ 574              	 .loc 1 324 0
+ 575 0000 314B     	 ldr r3,.L59
+ 576 0002 324A     	 ldr r2,.L59+4
+ 577 0004 1968     	 ldr r1,[r3]
+ 578 0006 9142     	 cmp r1,r2
+ 579 0008 4CD0     	 beq .L57
+ 325:../Dave/Generated/FREERTOS/port.c **** 
+ 580              	 .loc 1 325 0
+ 581 000a 1A68     	 ldr r2,[r3]
+ 582 000c 304B     	 ldr r3,.L59+8
+ 583 000e 9A42     	 cmp r2,r3
+ 584 0010 51D0     	 beq .L58
+ 585              	.LVL16:
+ 316:../Dave/Generated/FREERTOS/port.c **** 	/* configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to 0.
+ 586              	 .loc 1 316 0
+ 587 0012 10B5     	 push {r4,lr}
+ 588              	.LCFI3:
+ 589              	 .cfi_def_cfa_offset 8
+ 590              	 .cfi_offset 4,-8
+ 591              	 .cfi_offset 14,-4
+ 592              	.LBB47:
+ 339:../Dave/Generated/FREERTOS/port.c **** 
+ 593              	 .loc 1 339 0
+ 594 0014 2F4B     	 ldr r3,.L59+12
+ 349:../Dave/Generated/FREERTOS/port.c **** 
+ 595              	 .loc 1 349 0
+ 596 0016 304C     	 ldr r4,.L59+16
+ 339:../Dave/Generated/FREERTOS/port.c **** 
+ 597              	 .loc 1 339 0
+ 598 0018 1A78     	 ldrb r2,[r3]
+ 353:../Dave/Generated/FREERTOS/port.c **** 		while( ( ucMaxPriorityValue & portTOP_BIT_OF_BYTE ) == portTOP_BIT_OF_BYTE )
+ 599              	 .loc 1 353 0
+ 600 001a 3048     	 ldr r0,.L59+20
+ 601              	.LBE47:
+ 316:../Dave/Generated/FREERTOS/port.c **** 	/* configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to 0.
+ 602              	 .loc 1 316 0
+ 603 001c 82B0     	 sub sp,sp,#8
+ 604              	.LCFI4:
+ 605              	 .cfi_def_cfa_offset 16
+ 606              	.LBB48:
+ 339:../Dave/Generated/FREERTOS/port.c **** 
+ 607              	 .loc 1 339 0
+ 608 001e D2B2     	 uxtb r2,r2
+ 343:../Dave/Generated/FREERTOS/port.c **** 
+ 609              	 .loc 1 343 0
+ 610 0020 FF21     	 movs r1,#255
+ 339:../Dave/Generated/FREERTOS/port.c **** 
+ 611              	 .loc 1 339 0
+ 612 0022 0192     	 str r2,[sp,#4]
+ 343:../Dave/Generated/FREERTOS/port.c **** 
+ 613              	 .loc 1 343 0
+ 614 0024 1970     	 strb r1,[r3]
+ 346:../Dave/Generated/FREERTOS/port.c **** 
+ 615              	 .loc 1 346 0
+ 616 0026 1B78     	 ldrb r3,[r3]
+ 617 0028 DBB2     	 uxtb r3,r3
+ 618 002a 8DF80330 	 strb r3,[sp,#3]
+ 349:../Dave/Generated/FREERTOS/port.c **** 
+ 619              	 .loc 1 349 0
+ 620 002e 9DF80320 	 ldrb r2,[sp,#3]
+ 354:../Dave/Generated/FREERTOS/port.c **** 		{
+ 621              	 .loc 1 354 0
+ 622 0032 9DF80310 	 ldrb r1,[sp,#3]
+ 349:../Dave/Generated/FREERTOS/port.c **** 
+ 623              	 .loc 1 349 0
+ 624 0036 02F0FC02 	 and r2,r2,#252
+ 353:../Dave/Generated/FREERTOS/port.c **** 		while( ( ucMaxPriorityValue & portTOP_BIT_OF_BYTE ) == portTOP_BIT_OF_BYTE )
+ 625              	 .loc 1 353 0
+ 626 003a 0723     	 movs r3,#7
+ 354:../Dave/Generated/FREERTOS/port.c **** 		{
+ 627              	 .loc 1 354 0
+ 628 003c 0906     	 lsls r1,r1,#24
+ 349:../Dave/Generated/FREERTOS/port.c **** 
+ 629              	 .loc 1 349 0
+ 630 003e 2270     	 strb r2,[r4]
+ 353:../Dave/Generated/FREERTOS/port.c **** 		while( ( ucMaxPriorityValue & portTOP_BIT_OF_BYTE ) == portTOP_BIT_OF_BYTE )
+ 631              	 .loc 1 353 0
+ 632 0040 0360     	 str r3,[r0]
+ 354:../Dave/Generated/FREERTOS/port.c **** 		{
+ 633              	 .loc 1 354 0
+ 634 0042 0ED5     	 bpl .L52
+ 635 0044 0623     	 movs r3,#6
+ 636 0046 00E0     	 b .L53
+ 637              	.L55:
+ 638 0048 0B46     	 mov r3,r1
+ 639              	.L53:
+ 357:../Dave/Generated/FREERTOS/port.c **** 		}
+ 640              	 .loc 1 357 0
+ 641 004a 9DF80320 	 ldrb r2,[sp,#3]
+ 642 004e 5200     	 lsls r2,r2,#1
+ 643 0050 D2B2     	 uxtb r2,r2
+ 644 0052 8DF80320 	 strb r2,[sp,#3]
+ 354:../Dave/Generated/FREERTOS/port.c **** 		{
+ 645              	 .loc 1 354 0
+ 646 0056 9DF80320 	 ldrb r2,[sp,#3]
+ 647 005a 1206     	 lsls r2,r2,#24
+ 648 005c 03F1FF31 	 add r1,r3,#-1
+ 649 0060 F2D4     	 bmi .L55
+ 650              	.L52:
+ 367:../Dave/Generated/FREERTOS/port.c **** 	}
+ 651              	 .loc 1 367 0
+ 652 0062 0199     	 ldr r1,[sp,#4]
+ 653 0064 1B4C     	 ldr r4,.L59+12
+ 654              	.LBE48:
+ 372:../Dave/Generated/FREERTOS/port.c **** 	portNVIC_SYSPRI2_REG |= portNVIC_SYSTICK_PRI;
+ 655              	 .loc 1 372 0
+ 656 0066 1E4A     	 ldr r2,.L59+24
+ 657              	.LBB49:
+ 362:../Dave/Generated/FREERTOS/port.c **** 		ulMaxPRIGROUPValue &= portPRIORITY_GROUP_MASK;
+ 658              	 .loc 1 362 0
+ 659 0068 1B02     	 lsls r3,r3,#8
+ 367:../Dave/Generated/FREERTOS/port.c **** 	}
+ 660              	 .loc 1 367 0
+ 661 006a C9B2     	 uxtb r1,r1
+ 363:../Dave/Generated/FREERTOS/port.c **** 
+ 662              	 .loc 1 363 0
+ 663 006c 03F4E063 	 and r3,r3,#1792
+ 664 0070 0360     	 str r3,[r0]
+ 367:../Dave/Generated/FREERTOS/port.c **** 	}
+ 665              	 .loc 1 367 0
+ 666 0072 2170     	 strb r1,[r4]
+ 667              	.LBE49:
+ 372:../Dave/Generated/FREERTOS/port.c **** 	portNVIC_SYSPRI2_REG |= portNVIC_SYSTICK_PRI;
+ 668              	 .loc 1 372 0
+ 669 0074 1368     	 ldr r3,[r2]
+ 670 0076 43F47C03 	 orr r3,r3,#16515072
+ 671 007a 1360     	 str r3,[r2]
+ 373:../Dave/Generated/FREERTOS/port.c **** 
+ 672              	 .loc 1 373 0
+ 673 007c 1368     	 ldr r3,[r2]
+ 674 007e 43F07C43 	 orr r3,r3,#-67108864
+ 675 0082 1360     	 str r3,[r2]
+ 377:../Dave/Generated/FREERTOS/port.c **** 
+ 676              	 .loc 1 377 0
+ 677 0084 FFF7FEFF 	 bl vPortSetupTimerInterrupt
+ 678              	.LVL17:
+ 380:../Dave/Generated/FREERTOS/port.c **** 
+ 679              	 .loc 1 380 0
+ 680 0088 164B     	 ldr r3,.L59+28
+ 681 008a 0022     	 movs r2,#0
+ 682 008c 1A60     	 str r2,[r3]
+ 383:../Dave/Generated/FREERTOS/port.c **** 
+ 683              	 .loc 1 383 0
+ 684 008e FFF7FEFF 	 bl vPortEnableVFP
+ 685              	.LVL18:
+ 386:../Dave/Generated/FREERTOS/port.c **** 
+ 686              	 .loc 1 386 0
+ 687 0092 154A     	 ldr r2,.L59+32
+ 688 0094 1368     	 ldr r3,[r2]
+ 689 0096 43F04043 	 orr r3,r3,#-1073741824
+ 690 009a 1360     	 str r3,[r2]
+ 389:../Dave/Generated/FREERTOS/port.c **** 
+ 691              	 .loc 1 389 0
+ 692 009c FFF7FEFF 	 bl prvPortStartFirstTask
+ 693              	.LVL19:
+ 395:../Dave/Generated/FREERTOS/port.c **** 
+ 694              	 .loc 1 395 0
+ 695 00a0 FFF7FEFF 	 bl prvTaskExitError
+ 696              	.LVL20:
+ 697              	.L57:
+ 698              	.LCFI5:
+ 699              	 .cfi_def_cfa_offset 0
+ 700              	 .cfi_restore 4
+ 701              	 .cfi_restore 14
+ 702              	.LBB50:
+ 703              	.LBB51:
+ 240:../Dave/Generated/FREERTOS/portmacro.h **** 	(
+ 704              	 .loc 2 240 0
+ 705              	
+ 706 00a4 4FF0FC03 	 mov r3,#252
+ 707 00a8 83F31188 	 msr basepri,r3
+ 708 00ac BFF36F8F 	 isb 
+ 709 00b0 BFF34F8F 	 dsb 
+ 710              	
+ 711              	
+ 712              	.LVL21:
+ 713              	 .thumb
+ 714              	.L49:
+ 715              	.LBE51:
+ 716              	.LBE50:
+ 324:../Dave/Generated/FREERTOS/port.c **** 	configASSERT( portCPUID != portCORTEX_M7_r0p0_ID );
+ 717              	 .loc 1 324 0 discriminator 2
+ 718 00b4 FEE7     	 b .L49
+ 719              	.L58:
+ 720              	.LBB52:
+ 721              	.LBB53:
+ 240:../Dave/Generated/FREERTOS/portmacro.h **** 	(
+ 722              	 .loc 2 240 0
+ 723              	
+ 724 00b6 4FF0FC03 	 mov r3,#252
+ 725 00ba 83F31188 	 msr basepri,r3
+ 726 00be BFF36F8F 	 isb 
+ 727 00c2 BFF34F8F 	 dsb 
+ 728              	
+ 729              	
+ 730              	.LVL22:
+ 731              	 .thumb
+ 732              	.L51:
+ 733              	.LBE53:
+ 734              	.LBE52:
+ 325:../Dave/Generated/FREERTOS/port.c **** 
+ 735              	 .loc 1 325 0 discriminator 3
+ 736 00c6 FEE7     	 b .L51
+ 737              	.L60:
+ 738              	 .align 2
+ 739              	.L59:
+ 740 00c8 00ED00E0 	 .word -536810240
+ 741 00cc 71C20F41 	 .word 1091551857
+ 742 00d0 70C20F41 	 .word 1091551856
+ 743 00d4 00E400E0 	 .word -536812544
+ 744 00d8 00000000 	 .word .LANCHOR1
+ 745 00dc 00000000 	 .word .LANCHOR2
+ 746 00e0 20ED00E0 	 .word -536810208
+ 747 00e4 00000000 	 .word .LANCHOR0
+ 748 00e8 34EF00E0 	 .word -536809676
+ 749              	 .cfi_endproc
+ 750              	.LFE132:
+ 752              	 .section .text.vPortValidateInterruptPriority,"ax",%progbits
+ 753              	 .align 2
+ 754              	 .global vPortValidateInterruptPriority
+ 755              	 .thumb
+ 756              	 .thumb_func
+ 758              	vPortValidateInterruptPriority:
+ 759              	.LFB140:
+ 704:../Dave/Generated/FREERTOS/port.c **** /*-----------------------------------------------------------*/
+ 705:../Dave/Generated/FREERTOS/port.c **** 
+ 706:../Dave/Generated/FREERTOS/port.c **** #if( configASSERT_DEFINED == 1 )
+ 707:../Dave/Generated/FREERTOS/port.c **** 
+ 708:../Dave/Generated/FREERTOS/port.c **** 	void vPortValidateInterruptPriority( void )
+ 709:../Dave/Generated/FREERTOS/port.c **** 	{
+ 760              	 .loc 1 709 0
+ 761              	 .cfi_startproc
+ 762              	 
+ 763              	 
+ 764              	 
+ 710:../Dave/Generated/FREERTOS/port.c **** 	uint32_t ulCurrentInterrupt;
+ 711:../Dave/Generated/FREERTOS/port.c **** 	uint8_t ucCurrentPriority;
+ 712:../Dave/Generated/FREERTOS/port.c **** 
+ 713:../Dave/Generated/FREERTOS/port.c **** 		/* Obtain the number of the currently executing interrupt. */
+ 714:../Dave/Generated/FREERTOS/port.c **** 		__asm volatile( "mrs %0, ipsr" : "=r"( ulCurrentInterrupt ) );
+ 765              	 .loc 1 714 0
+ 766              	
+ 767 0000 EFF30583 	 mrs r3,ipsr
+ 768              	
+ 769              	.LVL23:
+ 715:../Dave/Generated/FREERTOS/port.c **** 
+ 716:../Dave/Generated/FREERTOS/port.c **** 		/* Is the interrupt number a user defined interrupt? */
+ 717:../Dave/Generated/FREERTOS/port.c **** 		if( ulCurrentInterrupt >= portFIRST_USER_INTERRUPT_NUMBER )
+ 770              	 .loc 1 717 0
+ 771              	 .thumb
+ 772 0004 0F2B     	 cmp r3,#15
+ 773 0006 0ED9     	 bls .L62
+ 718:../Dave/Generated/FREERTOS/port.c **** 		{
+ 719:../Dave/Generated/FREERTOS/port.c **** 			/* Look up the interrupt's priority. */
+ 720:../Dave/Generated/FREERTOS/port.c **** 			ucCurrentPriority = pcInterruptPriorityRegisters[ ulCurrentInterrupt ];
+ 774              	 .loc 1 720 0
+ 775 0008 1049     	 ldr r1,.L66
+ 721:../Dave/Generated/FREERTOS/port.c **** 
+ 722:../Dave/Generated/FREERTOS/port.c **** 			/* The following assertion will fail if a service routine (ISR) for
+ 723:../Dave/Generated/FREERTOS/port.c **** 			an interrupt that has been assigned a priority above
+ 724:../Dave/Generated/FREERTOS/port.c **** 			configMAX_SYSCALL_INTERRUPT_PRIORITY calls an ISR safe FreeRTOS API
+ 725:../Dave/Generated/FREERTOS/port.c **** 			function.  ISR safe FreeRTOS API functions must *only* be called
+ 726:../Dave/Generated/FREERTOS/port.c **** 			from interrupts that have been assigned a priority at or below
+ 727:../Dave/Generated/FREERTOS/port.c **** 			configMAX_SYSCALL_INTERRUPT_PRIORITY.
+ 728:../Dave/Generated/FREERTOS/port.c **** 
+ 729:../Dave/Generated/FREERTOS/port.c **** 			Numerically low interrupt priority numbers represent logically high
+ 730:../Dave/Generated/FREERTOS/port.c **** 			interrupt priorities, therefore the priority of the interrupt must
+ 731:../Dave/Generated/FREERTOS/port.c **** 			be set to a value equal to or numerically *higher* than
+ 732:../Dave/Generated/FREERTOS/port.c **** 			configMAX_SYSCALL_INTERRUPT_PRIORITY.
+ 733:../Dave/Generated/FREERTOS/port.c **** 
+ 734:../Dave/Generated/FREERTOS/port.c **** 			Interrupts that	use the FreeRTOS API must not be left at their
+ 735:../Dave/Generated/FREERTOS/port.c **** 			default priority of	zero as that is the highest possible priority,
+ 736:../Dave/Generated/FREERTOS/port.c **** 			which is guaranteed to be above configMAX_SYSCALL_INTERRUPT_PRIORITY,
+ 737:../Dave/Generated/FREERTOS/port.c **** 			and	therefore also guaranteed to be invalid.
+ 738:../Dave/Generated/FREERTOS/port.c **** 
+ 739:../Dave/Generated/FREERTOS/port.c **** 			FreeRTOS maintains separate thread and ISR API functions to ensure
+ 740:../Dave/Generated/FREERTOS/port.c **** 			interrupt entry is as fast and simple as possible.
+ 741:../Dave/Generated/FREERTOS/port.c **** 
+ 742:../Dave/Generated/FREERTOS/port.c **** 			The following links provide detailed information:
+ 743:../Dave/Generated/FREERTOS/port.c **** 			http://www.freertos.org/RTOS-Cortex-M3-M4.html
+ 744:../Dave/Generated/FREERTOS/port.c **** 			http://www.freertos.org/FAQHelp.html */
+ 745:../Dave/Generated/FREERTOS/port.c **** 			configASSERT( ucCurrentPriority >= ucMaxSysCallPriority );
+ 776              	 .loc 1 745 0
+ 777 000a 114A     	 ldr r2,.L66+4
+ 720:../Dave/Generated/FREERTOS/port.c **** 
+ 778              	 .loc 1 720 0
+ 779 000c 5B5C     	 ldrb r3,[r3,r1]
+ 780              	.LVL24:
+ 781              	 .loc 1 745 0
+ 782 000e 1278     	 ldrb r2,[r2]
+ 783 0010 9A42     	 cmp r2,r3
+ 784 0012 08D9     	 bls .L62
+ 785              	.LBB54:
+ 786              	.LBB55:
+ 240:../Dave/Generated/FREERTOS/portmacro.h **** 	(
+ 787              	 .loc 2 240 0
+ 788              	
+ 789 0014 4FF0FC03 	 mov r3,#252
+ 790 0018 83F31188 	 msr basepri,r3
+ 791 001c BFF36F8F 	 isb 
+ 792 0020 BFF34F8F 	 dsb 
+ 793              	
+ 794              	
+ 795              	.LVL25:
+ 796              	 .thumb
+ 797              	.L63:
+ 798              	.LBE55:
+ 799              	.LBE54:
+ 800              	 .loc 1 745 0 discriminator 1
+ 801 0024 FEE7     	 b .L63
+ 802              	.L62:
+ 746:../Dave/Generated/FREERTOS/port.c **** 		}
+ 747:../Dave/Generated/FREERTOS/port.c **** 
+ 748:../Dave/Generated/FREERTOS/port.c **** 		/* Priority grouping:  The interrupt controller (NVIC) allows the bits
+ 749:../Dave/Generated/FREERTOS/port.c **** 		that define each interrupt's priority to be split between bits that
+ 750:../Dave/Generated/FREERTOS/port.c **** 		define the interrupt's pre-emption priority bits and bits that define
+ 751:../Dave/Generated/FREERTOS/port.c **** 		the interrupt's sub-priority.  For simplicity all bits must be defined
+ 752:../Dave/Generated/FREERTOS/port.c **** 		to be pre-emption priority bits.  The following assertion will fail if
+ 753:../Dave/Generated/FREERTOS/port.c **** 		this is not the case (if some bits represent a sub-priority).
+ 754:../Dave/Generated/FREERTOS/port.c **** 
+ 755:../Dave/Generated/FREERTOS/port.c **** 		If the application only uses CMSIS libraries for interrupt
+ 756:../Dave/Generated/FREERTOS/port.c **** 		configuration then the correct setting can be achieved on all Cortex-M
+ 757:../Dave/Generated/FREERTOS/port.c **** 		devices by calling NVIC_SetPriorityGrouping( 0 ); before starting the
+ 758:../Dave/Generated/FREERTOS/port.c **** 		scheduler.  Note however that some vendor specific peripheral libraries
+ 759:../Dave/Generated/FREERTOS/port.c **** 		assume a non-zero priority group setting, in which cases using a value
+ 760:../Dave/Generated/FREERTOS/port.c **** 		of zero will result in unpredicable behaviour. */
+ 761:../Dave/Generated/FREERTOS/port.c **** 		configASSERT( ( portAIRCR_REG & portPRIORITY_GROUP_MASK ) <= ulMaxPRIGROUPValue );
+ 803              	 .loc 1 761 0
+ 804 0026 0B4B     	 ldr r3,.L66+8
+ 805 0028 0B4A     	 ldr r2,.L66+12
+ 806 002a 1B68     	 ldr r3,[r3]
+ 807 002c 1268     	 ldr r2,[r2]
+ 808 002e 03F4E063 	 and r3,r3,#1792
+ 809 0032 9342     	 cmp r3,r2
+ 810 0034 08D9     	 bls .L61
+ 811              	.LBB56:
+ 812              	.LBB57:
+ 240:../Dave/Generated/FREERTOS/portmacro.h **** 	(
+ 813              	 .loc 2 240 0
+ 814              	
+ 815 0036 4FF0FC03 	 mov r3,#252
+ 816 003a 83F31188 	 msr basepri,r3
+ 817 003e BFF36F8F 	 isb 
+ 818 0042 BFF34F8F 	 dsb 
+ 819              	
+ 820              	
+ 821              	.LVL26:
+ 822              	 .thumb
+ 823              	.L65:
+ 824              	.LBE57:
+ 825              	.LBE56:
+ 826              	 .loc 1 761 0 discriminator 2
+ 827 0046 FEE7     	 b .L65
+ 828              	.L61:
+ 829 0048 7047     	 bx lr
+ 830              	.L67:
+ 831 004a 00BF     	 .align 2
+ 832              	.L66:
+ 833 004c F0E300E0 	 .word -536812560
+ 834 0050 00000000 	 .word .LANCHOR1
+ 835 0054 0CED00E0 	 .word -536810228
+ 836 0058 00000000 	 .word .LANCHOR2
+ 837              	 .cfi_endproc
+ 838              	.LFE140:
+ 840              	 .section .bss.ucMaxSysCallPriority,"aw",%nobits
+ 841              	 .set .LANCHOR1,.+0
+ 844              	ucMaxSysCallPriority:
+ 845 0000 00       	 .space 1
+ 846              	 .section .bss.ulMaxPRIGROUPValue,"aw",%nobits
+ 847              	 .align 2
+ 848              	 .set .LANCHOR2,.+0
+ 851              	ulMaxPRIGROUPValue:
+ 852 0000 00000000 	 .space 4
+ 853              	 .section .data.uxCriticalNesting,"aw",%progbits
+ 854              	 .align 2
+ 855              	 .set .LANCHOR0,.+0
+ 858              	uxCriticalNesting:
+ 859 0000 AAAAAAAA 	 .word -1431655766
+ 860              	 .text
+ 861              	.Letext0:
+ 862              	 .file 3 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 863              	 .file 4 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 864              	 .file 5 "../Dave/Generated/FREERTOS/projdefs.h"
+ 865              	 .file 6 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/CMSIS/Include/core_cm4.h"
+ 866              	 .file 7 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
+ 867              	 .file 8 "../Dave/Generated/FREERTOS/task.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 port.c
+    {standard input}:20     .text.prvTaskExitError:00000000 $t
+    {standard input}:24     .text.prvTaskExitError:00000000 prvTaskExitError
+    {standard input}:77     .text.prvTaskExitError:0000002c $d
+    {standard input}:82     .text.prvPortStartFirstTask:00000000 $t
+    {standard input}:86     .text.prvPortStartFirstTask:00000000 prvPortStartFirstTask
+    {standard input}:113    .text.vPortEnableVFP:00000000 $t
+    {standard input}:117    .text.vPortEnableVFP:00000000 vPortEnableVFP
+    {standard input}:139    .text.pxPortInitialiseStack:00000000 $t
+    {standard input}:144    .text.pxPortInitialiseStack:00000000 pxPortInitialiseStack
+    {standard input}:187    .text.pxPortInitialiseStack:00000028 $d
+    {standard input}:192    .text.SVC_Handler:00000000 $t
+    {standard input}:197    .text.SVC_Handler:00000000 SVC_Handler
+    {standard input}:217    .text.SVC_Handler:00000020 pxCurrentTCBConst2
+    {standard input}:217    .text.SVC_Handler:00000020 $d
+    {standard input}:226    .text.vPortEndScheduler:00000000 $t
+    {standard input}:231    .text.vPortEndScheduler:00000000 vPortEndScheduler
+    {standard input}:265    .text.vPortEndScheduler:00000020 $d
+    {standard input}:270    .text.vPortEnterCritical:00000000 $t
+    {standard input}:275    .text.vPortEnterCritical:00000000 vPortEnterCritical
+    {standard input}:334    .text.vPortEnterCritical:0000003c $d
+    {standard input}:340    .text.vPortExitCritical:00000000 $t
+    {standard input}:345    .text.vPortExitCritical:00000000 vPortExitCritical
+    {standard input}:393    .text.vPortExitCritical:00000024 $d
+    {standard input}:400    .text.PendSV_Handler:00000000 $t
+    {standard input}:405    .text.PendSV_Handler:00000000 PendSV_Handler
+    {standard input}:454    .text.PendSV_Handler:00000060 pxCurrentTCBConst
+    {standard input}:454    .text.PendSV_Handler:00000060 $d
+    {standard input}:463    .text.SysTick_Handler:00000000 $t
+    {standard input}:468    .text.SysTick_Handler:00000000 SysTick_Handler
+    {standard input}:515    .text.SysTick_Handler:00000028 $d
+    {standard input}:522    .text.vPortSetupTimerInterrupt:00000000 $t
+    {standard input}:527    .text.vPortSetupTimerInterrupt:00000000 vPortSetupTimerInterrupt
+    {standard input}:555    .text.vPortSetupTimerInterrupt:0000001c $d
+    {standard input}:563    .text.xPortStartScheduler:00000000 $t
+    {standard input}:568    .text.xPortStartScheduler:00000000 xPortStartScheduler
+    {standard input}:740    .text.xPortStartScheduler:000000c8 $d
+    {standard input}:753    .text.vPortValidateInterruptPriority:00000000 $t
+    {standard input}:758    .text.vPortValidateInterruptPriority:00000000 vPortValidateInterruptPriority
+    {standard input}:833    .text.vPortValidateInterruptPriority:0000004c $d
+    {standard input}:844    .bss.ucMaxSysCallPriority:00000000 ucMaxSysCallPriority
+    {standard input}:845    .bss.ucMaxSysCallPriority:00000000 $d
+    {standard input}:847    .bss.ulMaxPRIGROUPValue:00000000 $d
+    {standard input}:851    .bss.ulMaxPRIGROUPValue:00000000 ulMaxPRIGROUPValue
+    {standard input}:854    .data.uxCriticalNesting:00000000 $d
+    {standard input}:858    .data.uxCriticalNesting:00000000 uxCriticalNesting
+    {standard input}:138    .text.vPortEnableVFP:0000000e $d
+    {standard input}:112    .text.prvPortStartFirstTask:0000001a $d
+                     .debug_frame:00000010 $d
+    {standard input}:225    .text.SVC_Handler:00000024 $t
+    {standard input}:462    .text.PendSV_Handler:00000064 $t
+
+UNDEFINED SYMBOLS
+pxCurrentTCB
+vTaskSwitchContext
+xTaskIncrementTick
+SystemCoreClock

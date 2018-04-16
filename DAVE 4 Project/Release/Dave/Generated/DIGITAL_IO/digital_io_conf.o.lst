@@ -1,0 +1,118 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "digital_io_conf.c"
+  16              	 .global TEST_PIN
+  17              	 .global INH_2
+  18              	 .global INH_1
+  19              	 .global ENC_A
+  20              	 .global ENC_B
+  21              	 .global LED2
+  22              	 .global LED1
+  23              	 .section .rodata.TEST_PIN,"a",%progbits
+  24              	 .align 2
+  27              	TEST_PIN:
+  28 0000 00850248 	 .word 1208124672
+  29 0004 80       	 .byte -128
+  30 0005 000000   	 .space 3
+  31 0008 00000100 	 .word 65536
+  32 000c 00000000 	 .space 4
+  33 0010 0A       	 .byte 10
+  34 0011 00       	 .byte 0
+  35 0012 0000     	 .space 2
+  36              	 .section .rodata.LED1,"a",%progbits
+  37              	 .align 2
+  40              	LED1:
+  41 0000 00850248 	 .word 1208124672
+  42 0004 80       	 .byte -128
+  43 0005 000000   	 .space 3
+  44 0008 00000100 	 .word 65536
+  45 000c 00000000 	 .space 4
+  46 0010 09       	 .byte 9
+  47 0011 00       	 .byte 0
+  48 0012 0000     	 .space 2
+  49              	 .section .rodata.LED2,"a",%progbits
+  50              	 .align 2
+  53              	LED2:
+  54 0000 00850248 	 .word 1208124672
+  55 0004 80       	 .byte -128
+  56 0005 000000   	 .space 3
+  57 0008 00000100 	 .word 65536
+  58 000c 00000000 	 .space 4
+  59 0010 08       	 .byte 8
+  60 0011 00       	 .byte 0
+  61 0012 0000     	 .space 2
+  62              	 .section .rodata.INH_2,"a",%progbits
+  63              	 .align 2
+  66              	INH_2:
+  67 0000 00800248 	 .word 1208123392
+  68 0004 80       	 .byte -128
+  69 0005 000000   	 .space 3
+  70 0008 00000100 	 .word 65536
+  71 000c 00000000 	 .space 4
+  72 0010 0A       	 .byte 10
+  73 0011 00       	 .byte 0
+  74 0012 0000     	 .space 2
+  75              	 .section .rodata.ENC_A,"a",%progbits
+  76              	 .align 2
+  79              	ENC_A:
+  80 0000 00800248 	 .word 1208123392
+  81 0004 00       	 .byte 0
+  82 0005 00000000 	 .space 11
+  82      00000000 
+  82      000000
+  83 0010 05       	 .byte 5
+  84 0011 00       	 .byte 0
+  85 0012 0000     	 .space 2
+  86              	 .section .rodata.ENC_B,"a",%progbits
+  87              	 .align 2
+  90              	ENC_B:
+  91 0000 00800248 	 .word 1208123392
+  92 0004 00       	 .byte 0
+  93 0005 00000000 	 .space 11
+  93      00000000 
+  93      000000
+  94 0010 06       	 .byte 6
+  95 0011 00       	 .byte 0
+  96 0012 0000     	 .space 2
+  97              	 .section .rodata.INH_1,"a",%progbits
+  98              	 .align 2
+ 101              	INH_1:
+ 102 0000 00800248 	 .word 1208123392
+ 103 0004 80       	 .byte -128
+ 104 0005 000000   	 .space 3
+ 105 0008 00000100 	 .word 65536
+ 106 000c 00000000 	 .space 4
+ 107 0010 01       	 .byte 1
+ 108 0011 00       	 .byte 0
+ 109 0012 0000     	 .space 2
+ 110              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 digital_io_conf.c
+    {standard input}:27     .rodata.TEST_PIN:00000000 TEST_PIN
+    {standard input}:66     .rodata.INH_2:00000000 INH_2
+    {standard input}:101    .rodata.INH_1:00000000 INH_1
+    {standard input}:79     .rodata.ENC_A:00000000 ENC_A
+    {standard input}:90     .rodata.ENC_B:00000000 ENC_B
+    {standard input}:53     .rodata.LED2:00000000 LED2
+    {standard input}:40     .rodata.LED1:00000000 LED1
+    {standard input}:24     .rodata.TEST_PIN:00000000 $d
+    {standard input}:37     .rodata.LED1:00000000 $d
+    {standard input}:50     .rodata.LED2:00000000 $d
+    {standard input}:63     .rodata.INH_2:00000000 $d
+    {standard input}:76     .rodata.ENC_A:00000000 $d
+    {standard input}:87     .rodata.ENC_B:00000000 $d
+    {standard input}:98     .rodata.INH_1:00000000 $d
+
+NO UNDEFINED SYMBOLS

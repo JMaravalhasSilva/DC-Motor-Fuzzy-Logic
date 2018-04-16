@@ -1,0 +1,116 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc4_gpio.c"
+  16              	 .section .text.XMC_GPIO_Init,"ax",%progbits
+  17              	 .align 2
+  18              	 .global XMC_GPIO_Init
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	XMC_GPIO_Init:
+  23              	 
+  24              	 
+  25 0000 01F0FC03 	 and r3,r1,#252
+  26 0004 0344     	 add r3,r3,r0
+  27 0006 F0B5     	 push {r4,r5,r6,r7,lr}
+  28 0008 01F00305 	 and r5,r1,#3
+  29 000c 1E69     	 ldr r6,[r3,#16]
+  30 000e 1C4F     	 ldr r7,.L7
+  31 0010 ED00     	 lsls r5,r5,#3
+  32 0012 F824     	 movs r4,#248
+  33 0014 AC40     	 lsls r4,r4,r5
+  34 0016 26EA0404 	 bic r4,r6,r4
+  35 001a 1C61     	 str r4,[r3,#16]
+  36 001c 466F     	 ldr r6,[r0,#116]
+  37 001e 4FEA410E 	 lsl lr,r1,#1
+  38 0022 0324     	 movs r4,#3
+  39 0024 04FA0EF4 	 lsl r4,r4,lr
+  40 0028 26EA0404 	 bic r4,r6,r4
+  41 002c B842     	 cmp r0,r7
+  42 002e 4467     	 str r4,[r0,#116]
+  43 0030 1DD0     	 beq .L2
+  44 0032 144C     	 ldr r4,.L7+4
+  45 0034 A042     	 cmp r0,r4
+  46 0036 1AD0     	 beq .L2
+  47 0038 5768     	 ldr r7,[r2,#4]
+  48 003a 167A     	 ldrb r6,[r2,#8]
+  49 003c CC08     	 lsrs r4,r1,#3
+  50 003e 00EB8404 	 add r4,r0,r4,lsl#2
+  51 0042 8F40     	 lsls r7,r7,r1
+  52 0044 4760     	 str r7,[r0,#4]
+  53 0046 01F00701 	 and r1,r1,#7
+  54 004a 276C     	 ldr r7,[r4,#64]
+  55 004c 8900     	 lsls r1,r1,#2
+  56 004e 0720     	 movs r0,#7
+  57 0050 8840     	 lsls r0,r0,r1
+  58 0052 27EA0000 	 bic r0,r7,r0
+  59 0056 2064     	 str r0,[r4,#64]
+  60 0058 206C     	 ldr r0,[r4,#64]
+  61 005a 06FA01F1 	 lsl r1,r6,r1
+  62 005e 0143     	 orrs r1,r1,r0
+  63 0060 2164     	 str r1,[r4,#64]
+  64              	.L4:
+  65 0062 1278     	 ldrb r2,[r2]
+  66 0064 1969     	 ldr r1,[r3,#16]
+  67 0066 AA40     	 lsls r2,r2,r5
+  68 0068 0A43     	 orrs r2,r2,r1
+  69 006a 1A61     	 str r2,[r3,#16]
+  70 006c F0BD     	 pop {r4,r5,r6,r7,pc}
+  71              	.L2:
+  72 006e 046E     	 ldr r4,[r0,#96]
+  73 0070 0126     	 movs r6,#1
+  74 0072 06FA01F1 	 lsl r1,r6,r1
+  75 0076 24EA0101 	 bic r1,r4,r1
+  76 007a 0166     	 str r1,[r0,#96]
+  77 007c F1E7     	 b .L4
+  78              	.L8:
+  79 007e 00BF     	 .align 2
+  80              	.L7:
+  81 0080 008E0248 	 .word 1208126976
+  82 0084 008F0248 	 .word 1208127232
+  84              	 .section .text.XMC_GPIO_SetOutputStrength,"ax",%progbits
+  85              	 .align 2
+  86              	 .global XMC_GPIO_SetOutputStrength
+  87              	 .thumb
+  88              	 .thumb_func
+  90              	XMC_GPIO_SetOutputStrength:
+  91              	 
+  92              	 
+  93              	 
+  94 0000 CB08     	 lsrs r3,r1,#3
+  95 0002 00EB8300 	 add r0,r0,r3,lsl#2
+  96 0006 01F00701 	 and r1,r1,#7
+  97 000a 10B4     	 push {r4}
+  98 000c 8900     	 lsls r1,r1,#2
+  99 000e 046C     	 ldr r4,[r0,#64]
+ 100 0010 0723     	 movs r3,#7
+ 101 0012 8B40     	 lsls r3,r3,r1
+ 102 0014 24EA0303 	 bic r3,r4,r3
+ 103 0018 0364     	 str r3,[r0,#64]
+ 104 001a 036C     	 ldr r3,[r0,#64]
+ 105 001c 5DF8044B 	 ldr r4,[sp],#4
+ 106 0020 8A40     	 lsls r2,r2,r1
+ 107 0022 1343     	 orrs r3,r3,r2
+ 108 0024 0364     	 str r3,[r0,#64]
+ 109 0026 7047     	 bx lr
+ 111              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc4_gpio.c
+    {standard input}:17     .text.XMC_GPIO_Init:00000000 $t
+    {standard input}:22     .text.XMC_GPIO_Init:00000000 XMC_GPIO_Init
+    {standard input}:81     .text.XMC_GPIO_Init:00000080 $d
+    {standard input}:85     .text.XMC_GPIO_SetOutputStrength:00000000 $t
+    {standard input}:90     .text.XMC_GPIO_SetOutputStrength:00000000 XMC_GPIO_SetOutputStrength
+
+NO UNDEFINED SYMBOLS

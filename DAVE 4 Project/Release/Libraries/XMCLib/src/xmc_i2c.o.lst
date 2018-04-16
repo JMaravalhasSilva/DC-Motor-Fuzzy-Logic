@@ -1,0 +1,466 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc_i2c.c"
+  16              	 .section .text.XMC_I2C_CH_Init,"ax",%progbits
+  17              	 .align 2
+  18              	 .global XMC_I2C_CH_Init
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	XMC_I2C_CH_Init:
+  23              	 
+  24              	 
+  25 0000 38B5     	 push {r3,r4,r5,lr}
+  26 0002 0D46     	 mov r5,r1
+  27 0004 0446     	 mov r4,r0
+  28 0006 FFF7FEFF 	 bl XMC_USIC_CH_Enable
+  29 000a AB88     	 ldrh r3,[r5,#4]
+  30 000c 184A     	 ldr r2,.L11
+  31 000e 6263     	 str r2,[r4,#52]
+  32 0010 03F4F842 	 and r2,r3,#31744
+  33 0014 B2F5F04F 	 cmp r2,#30720
+  34 0018 23D0     	 beq .L8
+  35 001a 1B02     	 lsls r3,r3,#8
+  36 001c E363     	 str r3,[r4,#60]
+  37              	.L3:
+  38 001e 2968     	 ldr r1,[r5]
+  39 0020 144B     	 ldr r3,.L11+4
+  40 0022 9942     	 cmp r1,r3
+  41 0024 14D9     	 bls .L9
+  42 0026 144B     	 ldr r3,.L11+8
+  43 0028 9942     	 cmp r1,r3
+  44 002a 08D9     	 bls .L10
+  45              	.L5:
+  46 002c 4FF4A061 	 mov r1,#1280
+  47 0030 4FF0FF32 	 mov r2,#-1
+  48 0034 0023     	 movs r3,#0
+  49 0036 A163     	 str r1,[r4,#56]
+  50 0038 E264     	 str r2,[r4,#76]
+  51 003a 2364     	 str r3,[r4,#64]
+  52 003c 38BD     	 pop {r3,r4,r5,pc}
+  53              	.L10:
+  54 003e E36B     	 ldr r3,[r4,#60]
+  55 0040 43F40033 	 orr r3,r3,#131072
+  56 0044 E363     	 str r3,[r4,#60]
+  57 0046 2046     	 mov r0,r4
+  58 0048 1922     	 movs r2,#25
+  59 004a FFF7FEFF 	 bl XMC_USIC_CH_SetBaudrate
+  60 004e EDE7     	 b .L5
+  61              	.L9:
+  62 0050 E36B     	 ldr r3,[r4,#60]
+  63 0052 23F40033 	 bic r3,r3,#131072
+  64 0056 E363     	 str r3,[r4,#60]
+  65 0058 2046     	 mov r0,r4
+  66 005a 0A22     	 movs r2,#10
+  67 005c FFF7FEFF 	 bl XMC_USIC_CH_SetBaudrate
+  68 0060 E4E7     	 b .L5
+  69              	.L8:
+  70 0062 5A00     	 lsls r2,r3,#1
+  71 0064 02F47E42 	 and r2,r2,#65024
+  72 0068 DBB2     	 uxtb r3,r3
+  73 006a 1343     	 orrs r3,r3,r2
+  74 006c E363     	 str r3,[r4,#60]
+  75 006e D6E7     	 b .L3
+  76              	.L12:
+  77              	 .align 2
+  78              	.L11:
+  79 0070 03033F07 	 .word 121570051
+  80 0074 A0860100 	 .word 100000
+  81 0078 801A0600 	 .word 400000
+  83              	 .section .text.XMC_I2C_CH_SetSlaveAddress,"ax",%progbits
+  84              	 .align 2
+  85              	 .global XMC_I2C_CH_SetSlaveAddress
+  86              	 .thumb
+  87              	 .thumb_func
+  89              	XMC_I2C_CH_SetSlaveAddress:
+  90              	 
+  91              	 
+  92              	 
+  93 0000 01F4F843 	 and r3,r1,#31744
+  94 0004 B3F5F04F 	 cmp r3,#30720
+  95 0008 02D0     	 beq .L16
+  96 000a 0902     	 lsls r1,r1,#8
+  97 000c C163     	 str r1,[r0,#60]
+  98 000e 7047     	 bx lr
+  99              	.L16:
+ 100 0010 4B00     	 lsls r3,r1,#1
+ 101 0012 03F47E43 	 and r3,r3,#65024
+ 102 0016 C9B2     	 uxtb r1,r1
+ 103 0018 1943     	 orrs r1,r1,r3
+ 104 001a C163     	 str r1,[r0,#60]
+ 105 001c 7047     	 bx lr
+ 107 001e 00BF     	 .section .text.XMC_I2C_CH_GetSlaveAddress,"ax",%progbits
+ 108              	 .align 2
+ 109              	 .global XMC_I2C_CH_GetSlaveAddress
+ 110              	 .thumb
+ 111              	 .thumb_func
+ 113              	XMC_I2C_CH_GetSlaveAddress:
+ 114              	 
+ 115              	 
+ 116              	 
+ 117 0000 C36B     	 ldr r3,[r0,#60]
+ 118 0002 98B2     	 uxth r0,r3
+ 119 0004 13F0FF03 	 ands r3,r3,#255
+ 120 0008 0FBF     	 iteee eq
+ 121 000a 000A     	 lsreq r0,r0,#8
+ 122 000c 4008     	 lsrne r0,r0,#1
+ 123 000e 00F44070 	 andne r0,r0,#768
+ 124 0012 1843     	 orrne r0,r0,r3
+ 125 0014 7047     	 bx lr
+ 127 0016 00BF     	 .section .text.XMC_I2C_CH_SetBaudrate,"ax",%progbits
+ 128              	 .align 2
+ 129              	 .global XMC_I2C_CH_SetBaudrate
+ 130              	 .thumb
+ 131              	 .thumb_func
+ 133              	XMC_I2C_CH_SetBaudrate:
+ 134              	 
+ 135              	 
+ 136 0000 10B5     	 push {r4,lr}
+ 137 0002 0F4C     	 ldr r4,.L27
+ 138 0004 A142     	 cmp r1,r4
+ 139 0006 0FD9     	 bls .L25
+ 140 0008 0E4C     	 ldr r4,.L27+4
+ 141 000a A142     	 cmp r1,r4
+ 142 000c 01D9     	 bls .L26
+ 143 000e 0120     	 movs r0,#1
+ 144 0010 10BD     	 pop {r4,pc}
+ 145              	.L26:
+ 146 0012 C36B     	 ldr r3,[r0,#60]
+ 147 0014 43F40033 	 orr r3,r3,#131072
+ 148 0018 C363     	 str r3,[r0,#60]
+ 149 001a 1922     	 movs r2,#25
+ 150 001c FFF7FEFF 	 bl XMC_USIC_CH_SetBaudrate
+ 151 0020 0030     	 adds r0,r0,#0
+ 152 0022 18BF     	 it ne
+ 153 0024 0120     	 movne r0,#1
+ 154 0026 10BD     	 pop {r4,pc}
+ 155              	.L25:
+ 156 0028 C36B     	 ldr r3,[r0,#60]
+ 157 002a 23F40033 	 bic r3,r3,#131072
+ 158 002e C363     	 str r3,[r0,#60]
+ 159 0030 0A22     	 movs r2,#10
+ 160 0032 FFF7FEFF 	 bl XMC_USIC_CH_SetBaudrate
+ 161 0036 0030     	 adds r0,r0,#0
+ 162 0038 18BF     	 it ne
+ 163 003a 0120     	 movne r0,#1
+ 164 003c 10BD     	 pop {r4,pc}
+ 165              	.L28:
+ 166 003e 00BF     	 .align 2
+ 167              	.L27:
+ 168 0040 A0860100 	 .word 100000
+ 169 0044 801A0600 	 .word 400000
+ 171              	 .section .text.XMC_I2C_CH_MasterStart,"ax",%progbits
+ 172              	 .align 2
+ 173              	 .global XMC_I2C_CH_MasterStart
+ 174              	 .thumb
+ 175              	 .thumb_func
+ 177              	XMC_I2C_CH_MasterStart:
+ 178              	 
+ 179              	 
+ 180              	 
+ 181 0000 D0F80831 	 ldr r3,[r0,#264]
+ 182 0004 012A     	 cmp r2,#1
+ 183 0006 41F48061 	 orr r1,r1,#1024
+ 184 000a 08BF     	 it eq
+ 185 000c 41F00101 	 orreq r1,r1,#1
+ 186 0010 13F0E06F 	 tst r3,#117440512
+ 187 0014 02D0     	 beq .L33
+ 188 0016 C0F88011 	 str r1,[r0,#384]
+ 189 001a 7047     	 bx lr
+ 190              	.L33:
+ 191 001c 836B     	 ldr r3,[r0,#56]
+ 192 001e 1B06     	 lsls r3,r3,#24
+ 193 0020 FCD4     	 bmi .L33
+ 194 0022 C36C     	 ldr r3,[r0,#76]
+ 195 0024 43F40053 	 orr r3,r3,#8192
+ 196 0028 C364     	 str r3,[r0,#76]
+ 197 002a C0F88010 	 str r1,[r0,#128]
+ 198 002e 7047     	 bx lr
+ 200              	 .section .text.XMC_I2C_CH_MasterRepeatedStart,"ax",%progbits
+ 201              	 .align 2
+ 202              	 .global XMC_I2C_CH_MasterRepeatedStart
+ 203              	 .thumb
+ 204              	 .thumb_func
+ 206              	XMC_I2C_CH_MasterRepeatedStart:
+ 207              	 
+ 208              	 
+ 209              	 
+ 210 0000 D0F80831 	 ldr r3,[r0,#264]
+ 211 0004 012A     	 cmp r2,#1
+ 212 0006 41F4A061 	 orr r1,r1,#1280
+ 213 000a 08BF     	 it eq
+ 214 000c 41F00101 	 orreq r1,r1,#1
+ 215 0010 13F0E06F 	 tst r3,#117440512
+ 216 0014 02D0     	 beq .L41
+ 217 0016 C0F88011 	 str r1,[r0,#384]
+ 218 001a 7047     	 bx lr
+ 219              	.L41:
+ 220 001c 836B     	 ldr r3,[r0,#56]
+ 221 001e 1B06     	 lsls r3,r3,#24
+ 222 0020 FCD4     	 bmi .L41
+ 223 0022 C36C     	 ldr r3,[r0,#76]
+ 224 0024 43F40053 	 orr r3,r3,#8192
+ 225 0028 C364     	 str r3,[r0,#76]
+ 226 002a C0F88010 	 str r1,[r0,#128]
+ 227 002e 7047     	 bx lr
+ 229              	 .section .text.XMC_I2C_CH_MasterStop,"ax",%progbits
+ 230              	 .align 2
+ 231              	 .global XMC_I2C_CH_MasterStop
+ 232              	 .thumb
+ 233              	 .thumb_func
+ 235              	XMC_I2C_CH_MasterStop:
+ 236              	 
+ 237              	 
+ 238              	 
+ 239 0000 D0F80831 	 ldr r3,[r0,#264]
+ 240 0004 13F0E06F 	 tst r3,#117440512
+ 241 0008 04D0     	 beq .L47
+ 242 000a 4FF4C063 	 mov r3,#1536
+ 243 000e C0F88031 	 str r3,[r0,#384]
+ 244 0012 7047     	 bx lr
+ 245              	.L47:
+ 246 0014 836B     	 ldr r3,[r0,#56]
+ 247 0016 1B06     	 lsls r3,r3,#24
+ 248 0018 FCD4     	 bmi .L47
+ 249 001a C36C     	 ldr r3,[r0,#76]
+ 250 001c 4FF4C062 	 mov r2,#1536
+ 251 0020 43F40053 	 orr r3,r3,#8192
+ 252 0024 C364     	 str r3,[r0,#76]
+ 253 0026 C0F88020 	 str r2,[r0,#128]
+ 254 002a 7047     	 bx lr
+ 256              	 .section .text.XMC_I2C_CH_MasterTransmit,"ax",%progbits
+ 257              	 .align 2
+ 258              	 .global XMC_I2C_CH_MasterTransmit
+ 259              	 .thumb
+ 260              	 .thumb_func
+ 262              	XMC_I2C_CH_MasterTransmit:
+ 263              	 
+ 264              	 
+ 265              	 
+ 266 0000 D0F80831 	 ldr r3,[r0,#264]
+ 267 0004 13F0E06F 	 tst r3,#117440512
+ 268 0008 02D0     	 beq .L53
+ 269 000a C0F88011 	 str r1,[r0,#384]
+ 270 000e 7047     	 bx lr
+ 271              	.L53:
+ 272 0010 836B     	 ldr r3,[r0,#56]
+ 273 0012 1B06     	 lsls r3,r3,#24
+ 274 0014 FCD4     	 bmi .L53
+ 275 0016 C36C     	 ldr r3,[r0,#76]
+ 276 0018 43F40053 	 orr r3,r3,#8192
+ 277 001c C364     	 str r3,[r0,#76]
+ 278 001e C0F88010 	 str r1,[r0,#128]
+ 279 0022 7047     	 bx lr
+ 281              	 .section .text.XMC_I2C_CH_SlaveTransmit,"ax",%progbits
+ 282              	 .align 2
+ 283              	 .global XMC_I2C_CH_SlaveTransmit
+ 284              	 .thumb
+ 285              	 .thumb_func
+ 287              	XMC_I2C_CH_SlaveTransmit:
+ 288              	 
+ 289              	 
+ 290              	 
+ 291 0000 D0F80831 	 ldr r3,[r0,#264]
+ 292 0004 13F0E06F 	 tst r3,#117440512
+ 293 0008 04D0     	 beq .L59
+ 294 000a 41F48071 	 orr r1,r1,#256
+ 295 000e C0F88011 	 str r1,[r0,#384]
+ 296 0012 7047     	 bx lr
+ 297              	.L59:
+ 298 0014 836B     	 ldr r3,[r0,#56]
+ 299 0016 1B06     	 lsls r3,r3,#24
+ 300 0018 FCD4     	 bmi .L59
+ 301 001a C36C     	 ldr r3,[r0,#76]
+ 302 001c 41F48071 	 orr r1,r1,#256
+ 303 0020 43F40053 	 orr r3,r3,#8192
+ 304 0024 C364     	 str r3,[r0,#76]
+ 305 0026 C0F88010 	 str r1,[r0,#128]
+ 306 002a 7047     	 bx lr
+ 308              	 .section .text.XMC_I2C_CH_MasterReceiveAck,"ax",%progbits
+ 309              	 .align 2
+ 310              	 .global XMC_I2C_CH_MasterReceiveAck
+ 311              	 .thumb
+ 312              	 .thumb_func
+ 314              	XMC_I2C_CH_MasterReceiveAck:
+ 315              	 
+ 316              	 
+ 317              	 
+ 318 0000 D0F80831 	 ldr r3,[r0,#264]
+ 319 0004 13F0E06F 	 tst r3,#117440512
+ 320 0008 04D0     	 beq .L65
+ 321 000a 4FF40073 	 mov r3,#512
+ 322 000e C0F88031 	 str r3,[r0,#384]
+ 323 0012 7047     	 bx lr
+ 324              	.L65:
+ 325 0014 836B     	 ldr r3,[r0,#56]
+ 326 0016 1B06     	 lsls r3,r3,#24
+ 327 0018 FCD4     	 bmi .L65
+ 328 001a C36C     	 ldr r3,[r0,#76]
+ 329 001c 4FF40072 	 mov r2,#512
+ 330 0020 43F40053 	 orr r3,r3,#8192
+ 331 0024 C364     	 str r3,[r0,#76]
+ 332 0026 C0F88020 	 str r2,[r0,#128]
+ 333 002a 7047     	 bx lr
+ 335              	 .section .text.XMC_I2C_CH_MasterReceiveNack,"ax",%progbits
+ 336              	 .align 2
+ 337              	 .global XMC_I2C_CH_MasterReceiveNack
+ 338              	 .thumb
+ 339              	 .thumb_func
+ 341              	XMC_I2C_CH_MasterReceiveNack:
+ 342              	 
+ 343              	 
+ 344              	 
+ 345 0000 D0F80831 	 ldr r3,[r0,#264]
+ 346 0004 13F0E06F 	 tst r3,#117440512
+ 347 0008 04D0     	 beq .L71
+ 348 000a 4FF44073 	 mov r3,#768
+ 349 000e C0F88031 	 str r3,[r0,#384]
+ 350 0012 7047     	 bx lr
+ 351              	.L71:
+ 352 0014 836B     	 ldr r3,[r0,#56]
+ 353 0016 1B06     	 lsls r3,r3,#24
+ 354 0018 FCD4     	 bmi .L71
+ 355 001a C36C     	 ldr r3,[r0,#76]
+ 356 001c 4FF44072 	 mov r2,#768
+ 357 0020 43F40053 	 orr r3,r3,#8192
+ 358 0024 C364     	 str r3,[r0,#76]
+ 359 0026 C0F88020 	 str r2,[r0,#128]
+ 360 002a 7047     	 bx lr
+ 362              	 .section .text.XMC_I2C_CH_GetReceivedData,"ax",%progbits
+ 363              	 .align 2
+ 364              	 .global XMC_I2C_CH_GetReceivedData
+ 365              	 .thumb
+ 366              	 .thumb_func
+ 368              	XMC_I2C_CH_GetReceivedData:
+ 369              	 
+ 370              	 
+ 371              	 
+ 372 0000 D0F80C31 	 ldr r3,[r0,#268]
+ 373 0004 13F0E06F 	 tst r3,#117440512
+ 374 0008 0CBF     	 ite eq
+ 375 000a 406D     	 ldreq r0,[r0,#84]
+ 376 000c D0F81C01 	 ldrne r0,[r0,#284]
+ 377 0010 C0B2     	 uxtb r0,r0
+ 378 0012 7047     	 bx lr
+ 380              	 .section .text.XMC_I2C_CH_Stop,"ax",%progbits
+ 381              	 .align 2
+ 382              	 .global XMC_I2C_CH_Stop
+ 383              	 .thumb
+ 384              	 .thumb_func
+ 386              	XMC_I2C_CH_Stop:
+ 387              	 
+ 388              	 
+ 389              	 
+ 390 0000 836B     	 ldr r3,[r0,#56]
+ 391 0002 1B06     	 lsls r3,r3,#24
+ 392 0004 05D4     	 bmi .L80
+ 393 0006 036C     	 ldr r3,[r0,#64]
+ 394 0008 23F00F03 	 bic r3,r3,#15
+ 395 000c 0364     	 str r3,[r0,#64]
+ 396 000e 0020     	 movs r0,#0
+ 397 0010 7047     	 bx lr
+ 398              	.L80:
+ 399 0012 0220     	 movs r0,#2
+ 400 0014 7047     	 bx lr
+ 402 0016 00BF     	 .section .text.XMC_I2C_CH_EnableEvent,"ax",%progbits
+ 403              	 .align 2
+ 404              	 .global XMC_I2C_CH_EnableEvent
+ 405              	 .thumb
+ 406              	 .thumb_func
+ 408              	XMC_I2C_CH_EnableEvent:
+ 409              	 
+ 410              	 
+ 411              	 
+ 412 0000 036C     	 ldr r3,[r0,#64]
+ 413 0002 064A     	 ldr r2,.L83
+ 414 0004 10B4     	 push {r4}
+ 415 0006 01F4FE34 	 and r4,r1,#130048
+ 416 000a 2343     	 orrs r3,r3,r4
+ 417 000c 0364     	 str r3,[r0,#64]
+ 418 000e C36B     	 ldr r3,[r0,#60]
+ 419 0010 5DF8044B 	 ldr r4,[sp],#4
+ 420 0014 0A40     	 ands r2,r2,r1
+ 421 0016 1343     	 orrs r3,r3,r2
+ 422 0018 C363     	 str r3,[r0,#60]
+ 423 001a 7047     	 bx lr
+ 424              	.L84:
+ 425              	 .align 2
+ 426              	.L83:
+ 427 001c 0000FC41 	 .word 1107034112
+ 429              	 .section .text.XMC_I2C_CH_DisableEvent,"ax",%progbits
+ 430              	 .align 2
+ 431              	 .global XMC_I2C_CH_DisableEvent
+ 432              	 .thumb
+ 433              	 .thumb_func
+ 435              	XMC_I2C_CH_DisableEvent:
+ 436              	 
+ 437              	 
+ 438              	 
+ 439 0000 036C     	 ldr r3,[r0,#64]
+ 440 0002 074A     	 ldr r2,.L87
+ 441 0004 10B4     	 push {r4}
+ 442 0006 01F4FE34 	 and r4,r1,#130048
+ 443 000a 23EA0403 	 bic r3,r3,r4
+ 444 000e 0364     	 str r3,[r0,#64]
+ 445 0010 C36B     	 ldr r3,[r0,#60]
+ 446 0012 5DF8044B 	 ldr r4,[sp],#4
+ 447 0016 0A40     	 ands r2,r2,r1
+ 448 0018 23EA0203 	 bic r3,r3,r2
+ 449 001c C363     	 str r3,[r0,#60]
+ 450 001e 7047     	 bx lr
+ 451              	.L88:
+ 452              	 .align 2
+ 453              	.L87:
+ 454 0020 0000FC41 	 .word 1107034112
+ 456              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_i2c.c
+    {standard input}:17     .text.XMC_I2C_CH_Init:00000000 $t
+    {standard input}:22     .text.XMC_I2C_CH_Init:00000000 XMC_I2C_CH_Init
+    {standard input}:79     .text.XMC_I2C_CH_Init:00000070 $d
+    {standard input}:84     .text.XMC_I2C_CH_SetSlaveAddress:00000000 $t
+    {standard input}:89     .text.XMC_I2C_CH_SetSlaveAddress:00000000 XMC_I2C_CH_SetSlaveAddress
+    {standard input}:108    .text.XMC_I2C_CH_GetSlaveAddress:00000000 $t
+    {standard input}:113    .text.XMC_I2C_CH_GetSlaveAddress:00000000 XMC_I2C_CH_GetSlaveAddress
+    {standard input}:128    .text.XMC_I2C_CH_SetBaudrate:00000000 $t
+    {standard input}:133    .text.XMC_I2C_CH_SetBaudrate:00000000 XMC_I2C_CH_SetBaudrate
+    {standard input}:168    .text.XMC_I2C_CH_SetBaudrate:00000040 $d
+    {standard input}:172    .text.XMC_I2C_CH_MasterStart:00000000 $t
+    {standard input}:177    .text.XMC_I2C_CH_MasterStart:00000000 XMC_I2C_CH_MasterStart
+    {standard input}:201    .text.XMC_I2C_CH_MasterRepeatedStart:00000000 $t
+    {standard input}:206    .text.XMC_I2C_CH_MasterRepeatedStart:00000000 XMC_I2C_CH_MasterRepeatedStart
+    {standard input}:230    .text.XMC_I2C_CH_MasterStop:00000000 $t
+    {standard input}:235    .text.XMC_I2C_CH_MasterStop:00000000 XMC_I2C_CH_MasterStop
+    {standard input}:257    .text.XMC_I2C_CH_MasterTransmit:00000000 $t
+    {standard input}:262    .text.XMC_I2C_CH_MasterTransmit:00000000 XMC_I2C_CH_MasterTransmit
+    {standard input}:282    .text.XMC_I2C_CH_SlaveTransmit:00000000 $t
+    {standard input}:287    .text.XMC_I2C_CH_SlaveTransmit:00000000 XMC_I2C_CH_SlaveTransmit
+    {standard input}:309    .text.XMC_I2C_CH_MasterReceiveAck:00000000 $t
+    {standard input}:314    .text.XMC_I2C_CH_MasterReceiveAck:00000000 XMC_I2C_CH_MasterReceiveAck
+    {standard input}:336    .text.XMC_I2C_CH_MasterReceiveNack:00000000 $t
+    {standard input}:341    .text.XMC_I2C_CH_MasterReceiveNack:00000000 XMC_I2C_CH_MasterReceiveNack
+    {standard input}:363    .text.XMC_I2C_CH_GetReceivedData:00000000 $t
+    {standard input}:368    .text.XMC_I2C_CH_GetReceivedData:00000000 XMC_I2C_CH_GetReceivedData
+    {standard input}:381    .text.XMC_I2C_CH_Stop:00000000 $t
+    {standard input}:386    .text.XMC_I2C_CH_Stop:00000000 XMC_I2C_CH_Stop
+    {standard input}:403    .text.XMC_I2C_CH_EnableEvent:00000000 $t
+    {standard input}:408    .text.XMC_I2C_CH_EnableEvent:00000000 XMC_I2C_CH_EnableEvent
+    {standard input}:427    .text.XMC_I2C_CH_EnableEvent:0000001c $d
+    {standard input}:430    .text.XMC_I2C_CH_DisableEvent:00000000 $t
+    {standard input}:435    .text.XMC_I2C_CH_DisableEvent:00000000 XMC_I2C_CH_DisableEvent
+    {standard input}:454    .text.XMC_I2C_CH_DisableEvent:00000020 $d
+
+UNDEFINED SYMBOLS
+XMC_USIC_CH_Enable
+XMC_USIC_CH_SetBaudrate

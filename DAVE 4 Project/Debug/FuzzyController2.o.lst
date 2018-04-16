@@ -1,0 +1,2634 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "FuzzyController2.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.setupFuzzyController,"ax",%progbits
+  20              	 .align 2
+  21              	 .global setupFuzzyController
+  22              	 .thumb
+  23              	 .thumb_func
+  25              	setupFuzzyController:
+  26              	.LFB0:
+  27              	 .file 1 "../FuzzyController2.c"
+   1:../FuzzyController2.c **** #include "FuzzyController.h"
+   2:../FuzzyController2.c **** #include <stdlib.h>
+   3:../FuzzyController2.c **** #include <inttypes.h>
+   4:../FuzzyController2.c **** 
+   5:../FuzzyController2.c **** // A struct for storing the 3 parameters of a triangular membership function
+   6:../FuzzyController2.c **** struct mf_struct{
+   7:../FuzzyController2.c **** 	float params[3];
+   8:../FuzzyController2.c **** };
+   9:../FuzzyController2.c **** 
+  10:../FuzzyController2.c **** // An enumerator for accessing the membership functions of the error fuzzy variable
+  11:../FuzzyController2.c **** enum error_mf_names{
+  12:../FuzzyController2.c **** 	error_VN,
+  13:../FuzzyController2.c **** 	error_N,
+  14:../FuzzyController2.c **** 	error_Z,
+  15:../FuzzyController2.c **** 	error_P,
+  16:../FuzzyController2.c **** 	error_VP,
+  17:../FuzzyController2.c **** 	error_mf_count
+  18:../FuzzyController2.c **** };
+  19:../FuzzyController2.c **** 
+  20:../FuzzyController2.c **** // An enumerator for accessing the membership functions of the acceleration fuzzy variable
+  21:../FuzzyController2.c **** enum accel_mf_names{
+  22:../FuzzyController2.c **** 	accel_N,
+  23:../FuzzyController2.c **** 	accel_Z,
+  24:../FuzzyController2.c **** 	accel_P,
+  25:../FuzzyController2.c **** 	accel_mf_count
+  26:../FuzzyController2.c **** };
+  27:../FuzzyController2.c **** 
+  28:../FuzzyController2.c **** // An enumerator for accessing the membership functions of the pwm fuzzy variable
+  29:../FuzzyController2.c **** enum pwm_mf_names{
+  30:../FuzzyController2.c **** 	pwm_BDecrease,
+  31:../FuzzyController2.c **** 	pwm_MDecrease,
+  32:../FuzzyController2.c **** 	pwm_SDecrease,
+  33:../FuzzyController2.c **** 	pwm_NoChange,
+  34:../FuzzyController2.c **** 	pwm_SIncrease,
+  35:../FuzzyController2.c **** 	pwm_MIncrease,
+  36:../FuzzyController2.c **** 	pwm_BIncrease,
+  37:../FuzzyController2.c **** 	pwm_mf_count
+  38:../FuzzyController2.c **** };
+  39:../FuzzyController2.c **** 
+  40:../FuzzyController2.c **** // A struct for storing fuzzy variables
+  41:../FuzzyController2.c **** struct fuzzy_variable{
+  42:../FuzzyController2.c **** 	struct mf_struct* mf;
+  43:../FuzzyController2.c **** 	float* mf_values;
+  44:../FuzzyController2.c **** 	float range[2];
+  45:../FuzzyController2.c **** };
+  46:../FuzzyController2.c **** 
+  47:../FuzzyController2.c **** struct fuzzy_variable error_fuzzy, accel_fuzzy, pwm_fuzzy;
+  48:../FuzzyController2.c **** 
+  49:../FuzzyController2.c **** // File-scope functions
+  50:../FuzzyController2.c **** void assignMembershipFunctionParams(struct mf_struct* mf, float p1, float p2, float p3);
+  51:../FuzzyController2.c **** void fuzzify(struct fuzzy_variable* fuzzy_var,float input, uint32_t number_of_mf);
+  52:../FuzzyController2.c **** float getTruthValue(struct mf_struct mf, float input);
+  53:../FuzzyController2.c **** void inference (void);
+  54:../FuzzyController2.c **** float fuzzyAnd(float a, float b);
+  55:../FuzzyController2.c **** float defuzzify(float samples);
+  56:../FuzzyController2.c **** 
+  57:../FuzzyController2.c **** 
+  58:../FuzzyController2.c **** void setupFuzzyController(void){
+  28              	 .loc 1 58 0
+  29              	 .cfi_startproc
+  30              	 
+  31              	 
+  32 0000 2DE9F84F 	 push {r3,r4,r5,r6,r7,r8,r9,r10,fp,lr}
+  33              	.LCFI0:
+  34              	 .cfi_def_cfa_offset 40
+  35              	 .cfi_offset 3,-40
+  36              	 .cfi_offset 4,-36
+  37              	 .cfi_offset 5,-32
+  38              	 .cfi_offset 6,-28
+  39              	 .cfi_offset 7,-24
+  40              	 .cfi_offset 8,-20
+  41              	 .cfi_offset 9,-16
+  42              	 .cfi_offset 10,-12
+  43              	 .cfi_offset 11,-8
+  44              	 .cfi_offset 14,-4
+  59:../FuzzyController2.c **** 	uint8_t i;
+  60:../FuzzyController2.c **** 
+  61:../FuzzyController2.c **** 	// Allocate memory for each fuzzy variable
+  62:../FuzzyController2.c **** 	error_fuzzy.mf = malloc(sizeof(struct mf_struct)*error_mf_count);
+  45              	 .loc 1 62 0
+  46 0004 3C20     	 movs r0,#60
+  47 0006 FFF7FEFF 	 bl malloc
+  48              	.LVL0:
+  49 000a DFF89481 	 ldr r8,.L3+32
+  63:../FuzzyController2.c **** 	error_fuzzy.mf_values = malloc(sizeof(float)*error_mf_count);
+  64:../FuzzyController2.c **** 
+  65:../FuzzyController2.c **** 	accel_fuzzy.mf = malloc(sizeof(struct mf_struct)*accel_mf_count);
+  50              	 .loc 1 65 0
+  51 000e 5C4F     	 ldr r7,.L3
+  66:../FuzzyController2.c **** 	accel_fuzzy.mf_values = malloc(sizeof(float)*accel_mf_count);
+  67:../FuzzyController2.c **** 
+  68:../FuzzyController2.c **** 	pwm_fuzzy.mf = malloc(sizeof(struct mf_struct)*pwm_mf_count);
+  52              	 .loc 1 68 0
+  53 0010 DFF89091 	 ldr r9,.L3+36
+  62:../FuzzyController2.c **** 	error_fuzzy.mf_values = malloc(sizeof(float)*error_mf_count);
+  54              	 .loc 1 62 0
+  55 0014 0546     	 mov r5,r0
+  63:../FuzzyController2.c **** 	error_fuzzy.mf_values = malloc(sizeof(float)*error_mf_count);
+  56              	 .loc 1 63 0
+  57 0016 1420     	 movs r0,#20
+  62:../FuzzyController2.c **** 	error_fuzzy.mf_values = malloc(sizeof(float)*error_mf_count);
+  58              	 .loc 1 62 0
+  59 0018 C8F80050 	 str r5,[r8]
+  63:../FuzzyController2.c **** 	error_fuzzy.mf_values = malloc(sizeof(float)*error_mf_count);
+  60              	 .loc 1 63 0
+  61 001c FFF7FEFF 	 bl malloc
+  62              	.LVL1:
+  63 0020 8346     	 mov fp,r0
+  65:../FuzzyController2.c **** 	accel_fuzzy.mf_values = malloc(sizeof(float)*accel_mf_count);
+  64              	 .loc 1 65 0
+  65 0022 2420     	 movs r0,#36
+  63:../FuzzyController2.c **** 
+  66              	 .loc 1 63 0
+  67 0024 C8F804B0 	 str fp,[r8,#4]
+  65:../FuzzyController2.c **** 	accel_fuzzy.mf_values = malloc(sizeof(float)*accel_mf_count);
+  68              	 .loc 1 65 0
+  69 0028 FFF7FEFF 	 bl malloc
+  70              	.LVL2:
+  71 002c 0646     	 mov r6,r0
+  66:../FuzzyController2.c **** 
+  72              	 .loc 1 66 0
+  73 002e 0C20     	 movs r0,#12
+  65:../FuzzyController2.c **** 	accel_fuzzy.mf_values = malloc(sizeof(float)*accel_mf_count);
+  74              	 .loc 1 65 0
+  75 0030 3E60     	 str r6,[r7]
+  66:../FuzzyController2.c **** 
+  76              	 .loc 1 66 0
+  77 0032 FFF7FEFF 	 bl malloc
+  78              	.LVL3:
+  79 0036 8246     	 mov r10,r0
+  80              	 .loc 1 68 0
+  81 0038 5420     	 movs r0,#84
+  66:../FuzzyController2.c **** 
+  82              	 .loc 1 66 0
+  83 003a C7F804A0 	 str r10,[r7,#4]
+  84              	 .loc 1 68 0
+  85 003e FFF7FEFF 	 bl malloc
+  86              	.LVL4:
+  87 0042 0446     	 mov r4,r0
+  69:../FuzzyController2.c **** 	pwm_fuzzy.mf_values = malloc(sizeof(float)*pwm_mf_count);
+  88              	 .loc 1 69 0
+  89 0044 1C20     	 movs r0,#28
+  68:../FuzzyController2.c **** 	pwm_fuzzy.mf_values = malloc(sizeof(float)*pwm_mf_count);
+  90              	 .loc 1 68 0
+  91 0046 C9F80040 	 str r4,[r9]
+  92              	 .loc 1 69 0
+  93 004a FFF7FEFF 	 bl malloc
+  94              	.LVL5:
+  95 004e 5B46     	 mov r3,fp
+  96 0050 0022     	 movs r2,#0
+  97 0052 43F8042B 	 str r2,[r3],#4
+  98 0056 0433     	 adds r3,r3,#4
+  99 0058 CBF80420 	 str r2,[fp,#4]
+ 100 005c 43F8042B 	 str r2,[r3],#4
+ 101 0060 43F8042B 	 str r2,[r3],#4
+ 102              	.LBB66:
+ 103              	.LBB67:
+  70:../FuzzyController2.c **** 
+  71:../FuzzyController2.c **** 	// Initialize each triangular membership function parameters
+  72:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(error_fuzzy.mf[error_VN]), -3, -2, -1);
+  73:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(error_fuzzy.mf[error_N]),  -2, -1,  0);
+  74:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(error_fuzzy.mf[error_Z]),  -1,  0,  1);
+  75:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(error_fuzzy.mf[error_P]),   0,  1,  2);
+  76:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(error_fuzzy.mf[error_VP]),  1,  2,  3);
+  77:../FuzzyController2.c **** 
+  78:../FuzzyController2.c **** 	// Reset all truth values for the error fuzzy variable
+  79:../FuzzyController2.c **** 	for(i=0; i<error_mf_count; i++){
+  80:../FuzzyController2.c **** 		error_fuzzy.mf_values[i] = 0.0F;
+  81:../FuzzyController2.c **** 	}
+  82:../FuzzyController2.c **** 
+  83:../FuzzyController2.c **** 	// Set the input range
+  84:../FuzzyController2.c **** 	error_fuzzy.range[0] = -2;
+  85:../FuzzyController2.c **** 	error_fuzzy.range[1] = 2;
+  86:../FuzzyController2.c **** 
+  87:../FuzzyController2.c **** 	// Same as the above but for the acceleration fuzzy variable
+  88:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(accel_fuzzy.mf[accel_N]), -180, -120,    0);
+  89:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(accel_fuzzy.mf[accel_Z]), -120,    0,  120);
+  90:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(accel_fuzzy.mf[accel_P]),    0,  120,  180);
+  91:../FuzzyController2.c **** 
+  92:../FuzzyController2.c **** 	for(i=0; i<accel_mf_count; i++){
+  93:../FuzzyController2.c **** 		accel_fuzzy.mf_values[i] = 0.0F;
+  94:../FuzzyController2.c **** 	}
+  95:../FuzzyController2.c **** 
+  96:../FuzzyController2.c **** 	accel_fuzzy.range[0] = -120;
+  97:../FuzzyController2.c **** 	accel_fuzzy.range[1] = 120;
+  98:../FuzzyController2.c **** 
+  99:../FuzzyController2.c **** 	// Same as the above but for the pwm fuzzy variable
+ 100:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(pwm_fuzzy.mf[pwm_BDecrease]), -3,     -2, -0.7);
+ 101:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(pwm_fuzzy.mf[pwm_MDecrease]), -1,   -0.7, -0.4);
+ 102:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(pwm_fuzzy.mf[pwm_SDecrease]), -0.7, -0.4,	  0);
+ 103:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(pwm_fuzzy.mf[pwm_NoChange]),  -0.3,    0,  0.3);
+ 104:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(pwm_fuzzy.mf[pwm_SIncrease]),    0,  0.4,  0.7);
+ 105:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(pwm_fuzzy.mf[pwm_MIncrease]),  0.4,  0.7,    1);
+ 106:../FuzzyController2.c **** 	assignMembershipFunctionParams(&(pwm_fuzzy.mf[pwm_BIncrease]),    1,    2,    3);
+ 107:../FuzzyController2.c **** 
+ 108:../FuzzyController2.c **** 	for(i=0; i<pwm_mf_count; i++){
+ 109:../FuzzyController2.c **** 		pwm_fuzzy.mf_values[i] = 0.0F;
+ 110:../FuzzyController2.c **** 	}
+ 111:../FuzzyController2.c **** 
+ 112:../FuzzyController2.c **** 	pwm_fuzzy.range[0] = -2;
+ 113:../FuzzyController2.c **** 	pwm_fuzzy.range[1] = 2;
+ 114:../FuzzyController2.c **** }
+ 115:../FuzzyController2.c **** 
+ 116:../FuzzyController2.c **** float computeFuzzy(float error_val, float accel_val){
+ 117:../FuzzyController2.c **** 	static float pwm_increment = 0;
+ 118:../FuzzyController2.c **** 
+ 119:../FuzzyController2.c **** 	fuzzify(&error_fuzzy, error_val, error_mf_count);
+ 120:../FuzzyController2.c **** 	fuzzify(&accel_fuzzy, accel_val, accel_mf_count);
+ 121:../FuzzyController2.c **** 
+ 122:../FuzzyController2.c **** 	inference();
+ 123:../FuzzyController2.c **** 
+ 124:../FuzzyController2.c **** 	pwm_increment = defuzzify(100);
+ 125:../FuzzyController2.c **** 
+ 126:../FuzzyController2.c **** 	return pwm_increment;
+ 127:../FuzzyController2.c **** }
+ 128:../FuzzyController2.c **** 
+ 129:../FuzzyController2.c **** // Assigns the 3 parameters of a triangular membership function
+ 130:../FuzzyController2.c **** void assignMembershipFunctionParams(struct mf_struct* mf, float p1, float p2, float p3){
+ 131:../FuzzyController2.c **** 	mf->params[0] = p1;
+ 132:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 104              	 .loc 1 132 0
+ 105 0064 DFED476A 	 flds s13,.L3+4
+ 106              	.LBE67:
+ 107              	.LBE66:
+ 108              	.LBB72:
+ 109              	.LBB73:
+ 133:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 110              	 .loc 1 133 0
+ 111 0068 9FED477A 	 flds s14,.L3+8
+ 112              	.LBE73:
+ 113              	.LBE72:
+ 114              	.LBB76:
+ 115              	.LBB68:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 116              	 .loc 1 131 0
+ 117 006c DFF838E1 	 ldr lr,.L3+40
+ 118              	.LBE68:
+ 119              	.LBE76:
+ 120              	.LBB77:
+ 121              	.LBB78:
+ 122              	 .loc 1 133 0
+ 123 0070 DFF838B1 	 ldr fp,.L3+44
+ 124 0074 1A60     	 str r2,[r3]
+ 125 0076 0346     	 mov r3,r0
+ 126              	.LBE78:
+ 127              	.LBE77:
+ 128              	.LBB82:
+ 129              	.LBB83:
+ 130 0078 0021     	 movs r1,#0
+ 131              	.LBE83:
+ 132              	.LBE82:
+ 133              	.LBB87:
+ 134              	.LBB88:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 135              	 .loc 1 132 0
+ 136 007a 4FF0404C 	 mov ip,#-1073741824
+ 137              	 .loc 1 133 0
+ 138 007e FFEE007A 	 fconsts s15,#240
+ 139              	.LBE88:
+ 140              	.LBE87:
+ 141              	.LBB92:
+ 142              	.LBB69:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 143              	 .loc 1 131 0
+ 144 0082 C6F800E0 	 str lr,[r6]
+ 145              	.LBE69:
+ 146              	.LBE92:
+ 147              	.LBB93:
+ 148              	.LBB79:
+ 149              	 .loc 1 133 0
+ 150 0086 C6F820B0 	 str fp,[r6,#32]
+ 151              	.LBE79:
+ 152              	.LBE93:
+ 153              	.LBB94:
+ 154              	.LBB95:
+ 155 008a 4FF0804E 	 mov lr,#1073741824
+ 156              	.LBE95:
+ 157              	.LBE94:
+ 158              	.LBB99:
+ 159              	.LBB100:
+ 160 008e 4FF07E5B 	 mov fp,#1065353216
+ 161              	.LBE100:
+ 162              	.LBE99:
+ 163              	.LBB104:
+ 164              	.LBB89:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 165              	 .loc 1 131 0
+ 166 0092 F8EE085A 	 fconsts s11,#136
+ 167              	.LBE89:
+ 168              	.LBE104:
+ 169              	.LBB105:
+ 170              	.LBB106:
+ 171              	 .loc 1 133 0
+ 172 0096 B0EE086A 	 fconsts s12,#8
+ 173              	.LBE106:
+ 174              	.LBE105:
+  69:../FuzzyController2.c **** 
+ 175              	 .loc 1 69 0
+ 176 009a C9F80400 	 str r0,[r9,#4]
+ 177              	.LVL6:
+ 178              	.LBB109:
+ 179              	.LBB90:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 180              	 .loc 1 131 0
+ 181 009e C5ED005A 	 fsts s11,[r5]
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 182              	 .loc 1 132 0
+ 183 00a2 C5F804C0 	 str ip,[r5,#4]
+ 184              	.LBE90:
+ 185              	.LBE109:
+ 186              	.LBB110:
+ 187              	.LBB84:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 188              	 .loc 1 131 0
+ 189 00a6 C5F80CC0 	 str ip,[r5,#12]
+ 190              	.LBE84:
+ 191              	.LBE110:
+  84:../FuzzyController2.c **** 	error_fuzzy.range[1] = 2;
+ 192              	 .loc 1 84 0
+ 193 00aa C8F808C0 	 str ip,[r8,#8]
+  85:../FuzzyController2.c **** 
+ 194              	 .loc 1 85 0
+ 195 00ae C8F80CE0 	 str lr,[r8,#12]
+ 196              	.LBB111:
+ 197              	.LBB96:
+ 198              	 .loc 1 133 0
+ 199 00b2 C5F82CE0 	 str lr,[r5,#44]
+ 200              	.LBE96:
+ 201              	.LBE111:
+ 202              	.LBB112:
+ 203              	.LBB107:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 204              	 .loc 1 132 0
+ 205 00b6 C5F834E0 	 str lr,[r5,#52]
+ 206              	.LBE107:
+ 207              	.LBE112:
+ 208              	.LBB113:
+ 209              	.LBB91:
+ 210              	 .loc 1 133 0
+ 211 00ba C5ED027A 	 fsts s15,[r5,#8]
+ 212              	.LVL7:
+ 213              	.LBE91:
+ 214              	.LBE113:
+ 215              	.LBB114:
+ 216              	.LBB85:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 217              	 .loc 1 132 0
+ 218 00be C5ED047A 	 fsts s15,[r5,#16]
+ 219              	.LBE85:
+ 220              	.LBE114:
+ 221              	.LBB115:
+ 222              	.LBB101:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 223              	 .loc 1 131 0
+ 224 00c2 C5ED067A 	 fsts s15,[r5,#24]
+ 225              	.LBE101:
+ 226              	.LBE115:
+ 227              	.LBB116:
+ 228              	.LBB86:
+ 229              	 .loc 1 133 0
+ 230 00c6 6961     	 str r1,[r5,#20]
+ 231              	.LVL8:
+ 232              	.LBE86:
+ 233              	.LBE116:
+ 234              	.LBB117:
+ 235              	.LBB102:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 236              	 .loc 1 132 0
+ 237 00c8 E961     	 str r1,[r5,#28]
+ 238              	.LBE102:
+ 239              	.LBE117:
+ 240              	.LBB118:
+ 241              	.LBB97:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 242              	 .loc 1 131 0
+ 243 00ca 6962     	 str r1,[r5,#36]
+ 244              	.LBE97:
+ 245              	.LBE118:
+ 246              	.LBB119:
+ 247              	.LBB70:
+ 248              	 .loc 1 133 0
+ 249 00cc B160     	 str r1,[r6,#8]
+ 250              	.LBE70:
+ 251              	.LBE119:
+ 252              	.LBB120:
+ 253              	.LBB74:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 254              	 .loc 1 132 0
+ 255 00ce 3161     	 str r1,[r6,#16]
+ 256              	.LBE74:
+ 257              	.LBE120:
+ 258              	.LBB121:
+ 259              	.LBB80:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 260              	 .loc 1 131 0
+ 261 00d0 B161     	 str r1,[r6,#24]
+ 262              	.LBE80:
+ 263              	.LBE121:
+ 264              	.LBB122:
+ 265              	.LBB103:
+ 266              	 .loc 1 133 0
+ 267 00d2 C5F820B0 	 str fp,[r5,#32]
+ 268              	.LVL9:
+ 269              	.LBE103:
+ 270              	.LBE122:
+ 271              	.LBB123:
+ 272              	.LBB98:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 273              	 .loc 1 132 0
+ 274 00d6 C5F828B0 	 str fp,[r5,#40]
+ 275              	.LBE98:
+ 276              	.LBE123:
+ 277              	.LBB124:
+ 278              	.LBB108:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 279              	 .loc 1 131 0
+ 280 00da C5F830B0 	 str fp,[r5,#48]
+ 281              	 .loc 1 133 0
+ 282 00de 85ED0E6A 	 fsts s12,[r5,#56]
+ 283              	.LVL10:
+ 284              	.LBE108:
+ 285              	.LBE124:
+ 286              	.LBB125:
+ 287              	.LBB71:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 288              	 .loc 1 132 0
+ 289 00e2 C6ED016A 	 fsts s13,[r6,#4]
+ 290              	.LBE71:
+ 291              	.LBE125:
+ 292              	.LBB126:
+ 293              	.LBB75:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 294              	 .loc 1 131 0
+ 295 00e6 C6ED036A 	 fsts s13,[r6,#12]
+ 296              	 .loc 1 133 0
+ 297 00ea 86ED057A 	 fsts s14,[r6,#20]
+ 298              	.LVL11:
+ 299              	.LBE75:
+ 300              	.LBE126:
+ 301              	.LBB127:
+ 302              	.LBB81:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 303              	 .loc 1 132 0
+ 304 00ee 86ED077A 	 fsts s14,[r6,#28]
+ 305              	.LBE81:
+ 306              	.LBE127:
+  93:../FuzzyController2.c **** 	}
+ 307              	 .loc 1 93 0
+ 308 00f2 CAF80010 	 str r1,[r10]
+ 309 00f6 CAF80410 	 str r1,[r10,#4]
+ 310              	.LVL12:
+ 311 00fa 43F8042B 	 str r2,[r3],#4
+ 312 00fe 0433     	 adds r3,r3,#4
+ 313 0100 4260     	 str r2,[r0,#4]
+ 314 0102 43F8042B 	 str r2,[r3],#4
+ 315 0106 43F8042B 	 str r2,[r3],#4
+ 316 010a 43F8042B 	 str r2,[r3],#4
+ 317 010e 43F8042B 	 str r2,[r3],#4
+ 318              	.LBB128:
+ 319              	.LBB129:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 320              	 .loc 1 131 0
+ 321 0112 DFED1E4A 	 flds s9,.L3+12
+ 322              	 .loc 1 133 0
+ 323 0116 9FED1E5A 	 flds s10,.L3+16
+ 324              	.LBE129:
+ 325              	.LBE128:
+ 326              	.LBB132:
+ 327              	.LBB133:
+ 328 011a 1E48     	 ldr r0,.L3+20
+ 329              	.LBE133:
+ 330              	.LBE132:
+ 331              	.LBB136:
+ 332              	.LBB137:
+ 333 011c DFF89080 	 ldr r8,.L3+48
+ 334              	.LBE137:
+ 335              	.LBE136:
+ 336              	.LBB141:
+ 337              	.LBB142:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 338              	 .loc 1 132 0
+ 339 0120 1D4E     	 ldr r6,.L3+24
+ 340              	.LVL13:
+ 341              	 .loc 1 133 0
+ 342 0122 1E4D     	 ldr r5,.L3+28
+ 343              	.LVL14:
+ 344 0124 1A60     	 str r2,[r3]
+ 345              	.LBE142:
+ 346              	.LBE141:
+  93:../FuzzyController2.c **** 	}
+ 347              	 .loc 1 93 0
+ 348 0126 CAF80810 	 str r1,[r10,#8]
+ 349              	.LVL15:
+  96:../FuzzyController2.c **** 	accel_fuzzy.range[1] = 120;
+ 350              	 .loc 1 96 0
+ 351 012a C7ED026A 	 fsts s13,[r7,#8]
+  97:../FuzzyController2.c **** 
+ 352              	 .loc 1 97 0
+ 353 012e 87ED037A 	 fsts s14,[r7,#12]
+ 354              	.LVL16:
+ 355              	.LBB146:
+ 356              	.LBB134:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 357              	 .loc 1 131 0
+ 358 0132 C4ED005A 	 fsts s11,[r4]
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 359              	 .loc 1 132 0
+ 360 0136 C4F804C0 	 str ip,[r4,#4]
+ 361              	.LBE134:
+ 362              	.LBE146:
+ 363              	.LBB147:
+ 364              	.LBB138:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 365              	 .loc 1 131 0
+ 366 013a C4ED037A 	 fsts s15,[r4,#12]
+ 367              	.LBE138:
+ 368              	.LBE147:
+ 369              	.LBB148:
+ 370              	.LBB149:
+ 371              	 .loc 1 133 0
+ 372 013e 2162     	 str r1,[r4,#32]
+ 373              	.LBE149:
+ 374              	.LBE148:
+ 375              	.LBB152:
+ 376              	.LBB130:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 377              	 .loc 1 132 0
+ 378 0140 A162     	 str r1,[r4,#40]
+ 379              	.LBE130:
+ 380              	.LBE152:
+ 381              	.LBB153:
+ 382              	.LBB143:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 383              	 .loc 1 131 0
+ 384 0142 2163     	 str r1,[r4,#48]
+ 385              	.LBE143:
+ 386              	.LBE153:
+ 387              	.LBB154:
+ 388              	.LBB155:
+ 389              	 .loc 1 133 0
+ 390 0144 C4F844B0 	 str fp,[r4,#68]
+ 391              	.LBE155:
+ 392              	.LBE154:
+ 393              	.LBB158:
+ 394              	.LBB159:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 395              	 .loc 1 131 0
+ 396 0148 C4F848B0 	 str fp,[r4,#72]
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 397              	 .loc 1 132 0
+ 398 014c C4F84CE0 	 str lr,[r4,#76]
+ 399              	 .loc 1 133 0
+ 400 0150 84ED146A 	 fsts s12,[r4,#80]
+ 401              	.LBE159:
+ 402              	.LBE158:
+ 112:../FuzzyController2.c **** 	pwm_fuzzy.range[1] = 2;
+ 403              	 .loc 1 112 0
+ 404 0154 C9F808C0 	 str ip,[r9,#8]
+ 113:../FuzzyController2.c **** }
+ 405              	 .loc 1 113 0
+ 406 0158 C9F80CE0 	 str lr,[r9,#12]
+ 407              	.LBB160:
+ 408              	.LBB131:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 409              	 .loc 1 131 0
+ 410 015c C4ED094A 	 fsts s9,[r4,#36]
+ 411              	 .loc 1 133 0
+ 412 0160 84ED0B5A 	 fsts s10,[r4,#44]
+ 413              	.LBE131:
+ 414              	.LBE160:
+ 415              	.LBB161:
+ 416              	.LBB135:
+ 417 0164 A060     	 str r0,[r4,#8]
+ 418              	.LVL17:
+ 419              	.LBE135:
+ 420              	.LBE161:
+ 421              	.LBB162:
+ 422              	.LBB139:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 423              	 .loc 1 132 0
+ 424 0166 2061     	 str r0,[r4,#16]
+ 425              	.LBE139:
+ 426              	.LBE162:
+ 427              	.LBB163:
+ 428              	.LBB150:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 429              	 .loc 1 131 0
+ 430 0168 A061     	 str r0,[r4,#24]
+ 431              	.LBE150:
+ 432              	.LBE163:
+ 433              	.LBB164:
+ 434              	.LBB140:
+ 435              	 .loc 1 133 0
+ 436 016a C4F81480 	 str r8,[r4,#20]
+ 437              	.LVL18:
+ 438              	.LBE140:
+ 439              	.LBE164:
+ 440              	.LBB165:
+ 441              	.LBB151:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 442              	 .loc 1 132 0
+ 443 016e C4F81C80 	 str r8,[r4,#28]
+ 444              	.LBE151:
+ 445              	.LBE165:
+ 446              	.LBB166:
+ 447              	.LBB144:
+ 448 0172 6663     	 str r6,[r4,#52]
+ 449              	.LBE144:
+ 450              	.LBE166:
+ 451              	.LBB167:
+ 452              	.LBB156:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 453              	 .loc 1 131 0
+ 454 0174 E663     	 str r6,[r4,#60]
+ 455              	.LBE156:
+ 456              	.LBE167:
+ 457              	.LBB168:
+ 458              	.LBB145:
+ 459              	 .loc 1 133 0
+ 460 0176 A563     	 str r5,[r4,#56]
+ 461              	.LVL19:
+ 462              	.LBE145:
+ 463              	.LBE168:
+ 464              	.LBB169:
+ 465              	.LBB157:
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 466              	 .loc 1 132 0
+ 467 0178 2564     	 str r5,[r4,#64]
+ 468 017a BDE8F88F 	 pop {r3,r4,r5,r6,r7,r8,r9,r10,fp,pc}
+ 469              	.LVL20:
+ 470              	.L4:
+ 471 017e 00BF     	 .align 2
+ 472              	.L3:
+ 473 0180 00000000 	 .word accel_fuzzy
+ 474 0184 0000F0C2 	 .word -1024458752
+ 475 0188 0000F042 	 .word 1123024896
+ 476 018c 9A9999BE 	 .word -1097229926
+ 477 0190 9A99993E 	 .word 1050253722
+ 478 0194 333333BF 	 .word -1087163597
+ 479 0198 CDCCCC3E 	 .word 1053609165
+ 480 019c 3333333F 	 .word 1060320051
+ 481 01a0 00000000 	 .word error_fuzzy
+ 482 01a4 00000000 	 .word pwm_fuzzy
+ 483 01a8 000034C3 	 .word -1020002304
+ 484 01ac 00003443 	 .word 1127481344
+ 485 01b0 CDCCCCBE 	 .word -1093874483
+ 486              	.LBE157:
+ 487              	.LBE169:
+ 488              	 .cfi_endproc
+ 489              	.LFE0:
+ 491              	 .section .text.assignMembershipFunctionParams,"ax",%progbits
+ 492              	 .align 2
+ 493              	 .global assignMembershipFunctionParams
+ 494              	 .thumb
+ 495              	 .thumb_func
+ 497              	assignMembershipFunctionParams:
+ 498              	.LFB2:
+ 130:../FuzzyController2.c **** 	mf->params[0] = p1;
+ 499              	 .loc 1 130 0
+ 500              	 .cfi_startproc
+ 501              	 
+ 502              	 
+ 503              	 
+ 504              	.LVL21:
+ 131:../FuzzyController2.c **** 	mf->params[1] = p2;
+ 505              	 .loc 1 131 0
+ 506 0000 0160     	 str r1,[r0]
+ 132:../FuzzyController2.c **** 	mf->params[2] = p3;
+ 507              	 .loc 1 132 0
+ 508 0002 4260     	 str r2,[r0,#4]
+ 509              	 .loc 1 133 0
+ 510 0004 8360     	 str r3,[r0,#8]
+ 511 0006 7047     	 bx lr
+ 512              	 .cfi_endproc
+ 513              	.LFE2:
+ 515              	 .section .text.fuzzify,"ax",%progbits
+ 516              	 .align 2
+ 517              	 .global fuzzify
+ 518              	 .thumb
+ 519              	 .thumb_func
+ 521              	fuzzify:
+ 522              	.LFB3:
+ 134:../FuzzyController2.c **** }
+ 135:../FuzzyController2.c **** 
+ 136:../FuzzyController2.c **** // Fuzzyfies an input of a given fuzzy variable. Takes as argument the number of mfs
+ 137:../FuzzyController2.c **** void fuzzify(struct fuzzy_variable* fuzzy_var,float input, uint32_t number_of_mf){
+ 523              	 .loc 1 137 0
+ 524              	 .cfi_startproc
+ 525              	 
+ 526              	 
+ 527              	 
+ 528              	.LVL22:
+ 138:../FuzzyController2.c **** 	static uint32_t i;
+ 139:../FuzzyController2.c **** 
+ 140:../FuzzyController2.c **** 	// Limit input
+ 141:../FuzzyController2.c **** 	if(input < fuzzy_var->range[0]){
+ 529              	 .loc 1 141 0
+ 530 0000 D0ED026A 	 flds s13,[r0,#8]
+ 137:../FuzzyController2.c **** 	static uint32_t i;
+ 531              	 .loc 1 137 0
+ 532 0004 07EE901A 	 fmsr s15,r1
+ 533              	 .loc 1 141 0
+ 534 0008 F4EEE76A 	 fcmpes s13,s15
+ 535 000c F1EE10FA 	 fmstat
+ 137:../FuzzyController2.c **** 	static uint32_t i;
+ 536              	 .loc 1 137 0
+ 537 0010 10B4     	 push {r4}
+ 538              	.LCFI1:
+ 539              	 .cfi_def_cfa_offset 4
+ 540              	 .cfi_offset 4,-4
+ 541              	 .loc 1 141 0
+ 542 0012 08DC     	 bgt .L7
+ 142:../FuzzyController2.c **** 		input = fuzzy_var->range[0];
+ 143:../FuzzyController2.c **** 	} else if (input > fuzzy_var->range[1]){
+ 543              	 .loc 1 143 0
+ 544 0014 D0ED036A 	 flds s13,[r0,#12]
+ 545 0018 F4EEE67A 	 fcmpes s15,s13
+ 546 001c F1EE10FA 	 fmstat
+ 547 0020 D8BF     	 it le
+ 548 0022 F0EE676A 	 fcpysle s13,s15
+ 549              	.L7:
+ 550              	.LVL23:
+ 144:../FuzzyController2.c **** 		input = fuzzy_var->range[1];
+ 145:../FuzzyController2.c **** 	}
+ 146:../FuzzyController2.c **** 
+ 147:../FuzzyController2.c **** 	for(i=0; i<number_of_mf; i++){
+ 551              	 .loc 1 147 0
+ 552 0026 224C     	 ldr r4,.L26
+ 553 0028 0023     	 movs r3,#0
+ 554 002a 2360     	 str r3,[r4]
+ 555 002c 7AB3     	 cbz r2,.L6
+ 556 002e 0368     	 ldr r3,[r0]
+ 557 0030 4168     	 ldr r1,[r0,#4]
+ 558 0032 0433     	 adds r3,r3,#4
+ 559 0034 01EB8200 	 add r0,r1,r2,lsl#2
+ 560              	.LVL24:
+ 561              	.L14:
+ 562 0038 13ED016A 	 flds s12,[r3,#-4]
+ 563              	.LVL25:
+ 564 003c D3ED007A 	 flds s15,[r3]
+ 565              	.LVL26:
+ 566 0040 93ED017A 	 flds s14,[r3,#4]
+ 567              	.LVL27:
+ 568              	.LBB172:
+ 569              	.LBB173:
+ 148:../FuzzyController2.c **** 		fuzzy_var->mf_values[i] = getTruthValue(fuzzy_var->mf[i],input);
+ 149:../FuzzyController2.c **** 	}
+ 150:../FuzzyController2.c **** 
+ 151:../FuzzyController2.c **** }
+ 152:../FuzzyController2.c **** 
+ 153:../FuzzyController2.c **** // Given a membership function, returns the truth value for a given input
+ 154:../FuzzyController2.c **** float getTruthValue(struct mf_struct mf, float input){
+ 155:../FuzzyController2.c **** 
+ 156:../FuzzyController2.c **** 	if(input <= mf.params[0])  return 0;
+ 570              	 .loc 1 156 0 discriminator 3
+ 571 0044 F4EEC66A 	 fcmpes s13,s12
+ 572 0048 F1EE10FA 	 fmstat
+ 573 004c 22D9     	 bls .L18
+ 157:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 574              	 .loc 1 157 0
+ 575 004e F4EEC76A 	 fcmpes s13,s14
+ 576 0052 F1EE10FA 	 fmstat
+ 577 0056 1DDA     	 bge .L18
+ 158:../FuzzyController2.c **** 	if(input == mf.params[1]) return 1;
+ 578              	 .loc 1 158 0
+ 579 0058 F4EE676A 	 fcmps s13,s15
+ 580 005c F1EE10FA 	 fmstat
+ 581 0060 1BD0     	 beq .L19
+ 159:../FuzzyController2.c **** 
+ 160:../FuzzyController2.c **** 	if((input > mf.params[0]) && (input < mf.params[1])){
+ 582              	 .loc 1 160 0
+ 583 0062 F4EEC66A 	 fcmpes s13,s12
+ 584 0066 F1EE10FA 	 fmstat
+ 585 006a 04DD     	 ble .L11
+ 586 006c F4EEE76A 	 fcmpes s13,s15
+ 587 0070 F1EE10FA 	 fmstat
+ 588 0074 14D4     	 bmi .L25
+ 589              	.L11:
+ 161:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 162:../FuzzyController2.c **** 	}
+ 163:../FuzzyController2.c **** 
+ 164:../FuzzyController2.c **** 	return ((mf.params[2] - input) / (mf.params[2] - mf.params[1]));
+ 590              	 .loc 1 164 0
+ 591 0076 77EE677A 	 fsubs s15,s14,s15
+ 592              	.LVL28:
+ 593 007a 37EE667A 	 fsubs s14,s14,s13
+ 594              	.LVL29:
+ 595 007e C7EE277A 	 fdivs s15,s14,s15
+ 596              	.LVL30:
+ 597              	.L10:
+ 598 0082 0C33     	 adds r3,r3,#12
+ 599              	.LVL31:
+ 600              	.LBE173:
+ 601              	.LBE172:
+ 148:../FuzzyController2.c **** 	}
+ 602              	 .loc 1 148 0
+ 603 0084 E1EC017A 	 fstmias r1!,{s15}
+ 604              	.LVL32:
+ 147:../FuzzyController2.c **** 		fuzzy_var->mf_values[i] = getTruthValue(fuzzy_var->mf[i],input);
+ 605              	 .loc 1 147 0
+ 606 0088 8142     	 cmp r1,r0
+ 607 008a D5D1     	 bne .L14
+ 608 008c 2260     	 str r2,[r4]
+ 609              	.LVL33:
+ 610              	.L6:
+ 151:../FuzzyController2.c **** 
+ 611              	 .loc 1 151 0
+ 612 008e 5DF8044B 	 ldr r4,[sp],#4
+ 613              	.LCFI2:
+ 614              	 .cfi_remember_state
+ 615              	 .cfi_restore 4
+ 616              	 .cfi_def_cfa_offset 0
+ 617 0092 7047     	 bx lr
+ 618              	.LVL34:
+ 619              	.L18:
+ 620              	.LCFI3:
+ 621              	 .cfi_restore_state
+ 622              	.LBB175:
+ 623              	.LBB174:
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 624              	 .loc 1 156 0
+ 625 0094 DFED077A 	 flds s15,.L26+4
+ 626              	.LVL35:
+ 627 0098 F3E7     	 b .L10
+ 628              	.LVL36:
+ 629              	.L19:
+ 158:../FuzzyController2.c **** 
+ 630              	 .loc 1 158 0
+ 631 009a F7EE007A 	 fconsts s15,#112
+ 632              	.LVL37:
+ 633 009e F0E7     	 b .L10
+ 634              	.LVL38:
+ 635              	.L25:
+ 161:../FuzzyController2.c **** 	}
+ 636              	 .loc 1 161 0
+ 637 00a0 77EEC67A 	 fsubs s15,s15,s12
+ 638              	.LVL39:
+ 639 00a4 36EEC66A 	 fsubs s12,s13,s12
+ 640              	.LVL40:
+ 641 00a8 C6EE277A 	 fdivs s15,s12,s15
+ 642 00ac E9E7     	 b .L10
+ 643              	.L27:
+ 644 00ae 00BF     	 .align 2
+ 645              	.L26:
+ 646 00b0 00000000 	 .word .LANCHOR0
+ 647 00b4 00000000 	 .word 0
+ 648              	.LBE174:
+ 649              	.LBE175:
+ 650              	 .cfi_endproc
+ 651              	.LFE3:
+ 653              	 .section .text.getTruthValue,"ax",%progbits
+ 654              	 .align 2
+ 655              	 .global getTruthValue
+ 656              	 .thumb
+ 657              	 .thumb_func
+ 659              	getTruthValue:
+ 660              	.LFB4:
+ 154:../FuzzyController2.c **** 
+ 661              	 .loc 1 154 0
+ 662              	 .cfi_startproc
+ 663              	 
+ 664              	 
+ 665              	.LVL41:
+ 666 0000 00B5     	 push {lr}
+ 667              	.LCFI4:
+ 668              	 .cfi_def_cfa_offset 4
+ 669              	 .cfi_offset 14,-4
+ 670 0002 85B0     	 sub sp,sp,#20
+ 671              	.LCFI5:
+ 672              	 .cfi_def_cfa_offset 24
+ 154:../FuzzyController2.c **** 
+ 673              	 .loc 1 154 0
+ 674 0004 0DF1100E 	 add lr,sp,#16
+ 675 0008 0EE90700 	 stmdb lr,{r0,r1,r2}
+ 676 000c 07EE903A 	 fmsr s15,r3
+ 677 0010 DDED016A 	 flds s13,[sp,#4]
+ 678              	.LVL42:
+ 679 0014 9DED026A 	 flds s12,[sp,#8]
+ 680              	.LVL43:
+ 681 0018 9DED037A 	 flds s14,[sp,#12]
+ 682              	.LVL44:
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 683              	 .loc 1 156 0
+ 684 001c F4EEE67A 	 fcmpes s15,s13
+ 685 0020 F1EE10FA 	 fmstat
+ 686 0024 1ED9     	 bls .L34
+ 157:../FuzzyController2.c **** 	if(input == mf.params[1]) return 1;
+ 687              	 .loc 1 157 0
+ 688 0026 F4EEC77A 	 fcmpes s15,s14
+ 689 002a F1EE10FA 	 fmstat
+ 690 002e 19DA     	 bge .L34
+ 158:../FuzzyController2.c **** 
+ 691              	 .loc 1 158 0
+ 692 0030 F4EE467A 	 fcmps s15,s12
+ 693 0034 F1EE10FA 	 fmstat
+ 694 0038 1BD0     	 beq .L35
+ 160:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 695              	 .loc 1 160 0
+ 696 003a F4EEE67A 	 fcmpes s15,s13
+ 697 003e F1EE10FA 	 fmstat
+ 698 0042 04DD     	 ble .L30
+ 160:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 699              	 .loc 1 160 0 is_stmt 0 discriminator 1
+ 700 0044 F4EEC67A 	 fcmpes s15,s12
+ 701 0048 F1EE10FA 	 fmstat
+ 702 004c 18D4     	 bmi .L39
+ 703              	.L30:
+ 704              	 .loc 1 164 0 is_stmt 1
+ 705 004e 77EE677A 	 fsubs s15,s14,s15
+ 706 0052 37EE467A 	 fsubs s14,s14,s12
+ 707              	.LVL45:
+ 708 0056 C7EE877A 	 fdivs s15,s15,s14
+ 165:../FuzzyController2.c **** }
+ 709              	 .loc 1 165 0
+ 710 005a 17EE900A 	 fmrs r0,s15
+ 711 005e 05B0     	 add sp,sp,#20
+ 712              	.LCFI6:
+ 713              	 .cfi_remember_state
+ 714              	 .cfi_def_cfa_offset 4
+ 715              	 
+ 716 0060 5DF804FB 	 ldr pc,[sp],#4
+ 717              	.LVL46:
+ 718              	.L34:
+ 719              	.LCFI7:
+ 720              	 .cfi_restore_state
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 721              	 .loc 1 156 0
+ 722 0064 DFED0A7A 	 flds s15,.L40
+ 723              	.LVL47:
+ 724              	.L29:
+ 725              	 .loc 1 165 0
+ 726 0068 17EE900A 	 fmrs r0,s15
+ 727 006c 05B0     	 add sp,sp,#20
+ 728              	.LCFI8:
+ 729              	 .cfi_remember_state
+ 730              	 .cfi_def_cfa_offset 4
+ 731              	 
+ 732 006e 5DF804FB 	 ldr pc,[sp],#4
+ 733              	.LVL48:
+ 734              	.L35:
+ 735              	.LCFI9:
+ 736              	 .cfi_restore_state
+ 158:../FuzzyController2.c **** 
+ 737              	 .loc 1 158 0
+ 738 0072 F7EE007A 	 fconsts s15,#112
+ 739              	 .loc 1 165 0
+ 740 0076 17EE900A 	 fmrs r0,s15
+ 741 007a 05B0     	 add sp,sp,#20
+ 742              	.LCFI10:
+ 743              	 .cfi_remember_state
+ 744              	 .cfi_def_cfa_offset 4
+ 745              	 
+ 746 007c 5DF804FB 	 ldr pc,[sp],#4
+ 747              	.L39:
+ 748              	.LCFI11:
+ 749              	 .cfi_restore_state
+ 161:../FuzzyController2.c **** 	}
+ 750              	 .loc 1 161 0
+ 751 0080 37EEE67A 	 fsubs s14,s15,s13
+ 752              	.LVL49:
+ 753 0084 76EE667A 	 fsubs s15,s12,s13
+ 754 0088 C7EE277A 	 fdivs s15,s14,s15
+ 755 008c ECE7     	 b .L29
+ 756              	.L41:
+ 757 008e 00BF     	 .align 2
+ 758              	.L40:
+ 759 0090 00000000 	 .word 0
+ 760              	 .cfi_endproc
+ 761              	.LFE4:
+ 763              	 .section .text.inference,"ax",%progbits
+ 764              	 .align 2
+ 765              	 .global inference
+ 766              	 .thumb
+ 767              	 .thumb_func
+ 769              	inference:
+ 770              	.LFB5:
+ 166:../FuzzyController2.c **** 
+ 167:../FuzzyController2.c **** void inference (void){
+ 771              	 .loc 1 167 0
+ 772              	 .cfi_startproc
+ 773              	 
+ 774              	 
+ 775              	.LVL50:
+ 776 0000 9C4B     	 ldr r3,.L114
+ 777 0002 10B5     	 push {r4,lr}
+ 778              	.LCFI12:
+ 779              	 .cfi_def_cfa_offset 8
+ 780              	 .cfi_offset 4,-8
+ 781              	 .cfi_offset 14,-4
+ 782 0004 5C68     	 ldr r4,[r3,#4]
+ 783 0006 1C22     	 movs r2,#28
+ 784 0008 0021     	 movs r1,#0
+ 785 000a 2046     	 mov r0,r4
+ 786 000c FFF7FEFF 	 bl memset
+ 787              	.LVL51:
+ 168:../FuzzyController2.c **** 	uint8_t i;
+ 169:../FuzzyController2.c **** 	float and_result;
+ 170:../FuzzyController2.c **** 
+ 171:../FuzzyController2.c **** 	for(i=0; i<pwm_mf_count; i++){
+ 172:../FuzzyController2.c **** 		pwm_fuzzy.mf_values[i] = 0;
+ 173:../FuzzyController2.c **** 	}
+ 174:../FuzzyController2.c **** 
+ 175:../FuzzyController2.c **** 	// 1) If Error is Z and Accel is Z then PWM is NoChange
+ 176:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_Z],accel_fuzzy.mf_values[accel_Z]);
+ 788              	 .loc 1 176 0
+ 789 0010 994A     	 ldr r2,.L114+4
+ 790 0012 9A4B     	 ldr r3,.L114+8
+ 791 0014 5268     	 ldr r2,[r2,#4]
+ 792 0016 5B68     	 ldr r3,[r3,#4]
+ 793 0018 D2ED027A 	 flds s15,[r2,#8]
+ 794 001c 93ED017A 	 flds s14,[r3,#4]
+ 795              	.LVL52:
+ 177:../FuzzyController2.c **** 
+ 178:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_NoChange]){
+ 796              	 .loc 1 178 0
+ 797 0020 94ED036A 	 flds s12,[r4,#12]
+ 798              	.LBB176:
+ 799              	.LBB177:
+ 179:../FuzzyController2.c **** 		pwm_fuzzy.mf_values[pwm_NoChange] = and_result;
+ 180:../FuzzyController2.c **** 	}
+ 181:../FuzzyController2.c **** 
+ 182:../FuzzyController2.c **** 	// 2) If Error is Z and Accel is P then PWM is SDecrease
+ 183:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_Z],accel_fuzzy.mf_values[accel_P]);
+ 184:../FuzzyController2.c **** 
+ 185:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_SDecrease]){
+ 186:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SDecrease] = and_result;
+ 187:../FuzzyController2.c **** 	}
+ 188:../FuzzyController2.c **** 
+ 189:../FuzzyController2.c **** 	// 3) If Error is Z and Accel is N then PWM is SIncrease
+ 190:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_Z],accel_fuzzy.mf_values[accel_N]);
+ 191:../FuzzyController2.c **** 
+ 192:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_SIncrease]){
+ 193:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SIncrease] = and_result;
+ 194:../FuzzyController2.c **** 	}
+ 195:../FuzzyController2.c **** 
+ 196:../FuzzyController2.c **** 	// 4) If Error is P and Accel is Z then PWM is SIncrease
+ 197:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_P],accel_fuzzy.mf_values[accel_Z]);
+ 198:../FuzzyController2.c **** 
+ 199:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_SIncrease]){
+ 200:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SIncrease] = and_result;
+ 201:../FuzzyController2.c **** 	}
+ 202:../FuzzyController2.c **** 
+ 203:../FuzzyController2.c **** 	// 5) If Error is P and Accel is P then PWM is NoChange
+ 204:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_P],accel_fuzzy.mf_values[accel_P]);
+ 205:../FuzzyController2.c **** 
+ 206:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_NoChange]){
+ 207:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_NoChange] = and_result;
+ 208:../FuzzyController2.c **** 	}
+ 209:../FuzzyController2.c **** 
+ 210:../FuzzyController2.c **** 	// 6) If Error is P and Accel is N then PWM is MIncrease
+ 211:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_P],accel_fuzzy.mf_values[accel_N]);
+ 212:../FuzzyController2.c **** 
+ 213:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_MIncrease]){
+ 214:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_MIncrease] = and_result;
+ 215:../FuzzyController2.c **** 	}
+ 216:../FuzzyController2.c **** 
+ 217:../FuzzyController2.c **** 	// 7) If Error is VP and Accel is Z then PWM is MIncrease
+ 218:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_VP],accel_fuzzy.mf_values[accel_Z]);
+ 219:../FuzzyController2.c **** 
+ 220:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_MIncrease]){
+ 221:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_MIncrease] = and_result;
+ 222:../FuzzyController2.c **** 	}
+ 223:../FuzzyController2.c **** 
+ 224:../FuzzyController2.c **** 	// 8) If Error is VP and Accel is P then PWM is SIncrease
+ 225:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_VP],accel_fuzzy.mf_values[accel_P]);
+ 226:../FuzzyController2.c **** 
+ 227:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_SIncrease]){
+ 228:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SIncrease] = and_result;
+ 229:../FuzzyController2.c **** 	}
+ 230:../FuzzyController2.c **** 
+ 231:../FuzzyController2.c **** 	// 9) If Error is VP and Accel is N then PWM is BIncrease
+ 232:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_VP],accel_fuzzy.mf_values[accel_N]);
+ 233:../FuzzyController2.c **** 
+ 234:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_BIncrease]){
+ 235:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_BIncrease] = and_result;
+ 236:../FuzzyController2.c **** 	}
+ 237:../FuzzyController2.c **** 
+ 238:../FuzzyController2.c **** 	// 10) If Error is N and Accel is Z then PWM is SDecrease
+ 239:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_N],accel_fuzzy.mf_values[accel_Z]);
+ 240:../FuzzyController2.c **** 
+ 241:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_SDecrease]){
+ 242:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SDecrease] = and_result;
+ 243:../FuzzyController2.c **** 	}
+ 244:../FuzzyController2.c **** 
+ 245:../FuzzyController2.c **** 	// 11) If Error is N and Accel is P then PWM is MDecrease
+ 246:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_N],accel_fuzzy.mf_values[accel_P]);
+ 247:../FuzzyController2.c **** 
+ 248:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_MDecrease]){
+ 249:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_MDecrease] = and_result;
+ 250:../FuzzyController2.c **** 	}
+ 251:../FuzzyController2.c **** 
+ 252:../FuzzyController2.c **** 	// 12) If Error is N and Accel is N then PWM is NoChange
+ 253:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_N],accel_fuzzy.mf_values[accel_N]);
+ 254:../FuzzyController2.c **** 
+ 255:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_NoChange]){
+ 256:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_NoChange] = and_result;
+ 257:../FuzzyController2.c **** 	}
+ 258:../FuzzyController2.c **** 
+ 259:../FuzzyController2.c **** 	// 13) If Error is VN and Accel is Z then PWM is MDecrease
+ 260:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_VN],accel_fuzzy.mf_values[accel_Z]);
+ 261:../FuzzyController2.c **** 
+ 262:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_MDecrease]){
+ 263:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_MDecrease] = and_result;
+ 264:../FuzzyController2.c **** 	}
+ 265:../FuzzyController2.c **** 
+ 266:../FuzzyController2.c **** 	// 14) If Error is VN and Accel is P then PWM is BDecrease
+ 267:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_VN],accel_fuzzy.mf_values[accel_P]);
+ 268:../FuzzyController2.c **** 
+ 269:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_BDecrease]){
+ 270:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_BDecrease] = and_result;
+ 271:../FuzzyController2.c **** 	}
+ 272:../FuzzyController2.c **** 
+ 273:../FuzzyController2.c **** 	// 15) If Error is VN and Accel is N then PWM is SDecrease
+ 274:../FuzzyController2.c **** 	and_result = fuzzyAnd(error_fuzzy.mf_values[error_VN],accel_fuzzy.mf_values[accel_N]);
+ 275:../FuzzyController2.c **** 
+ 276:../FuzzyController2.c **** 	if(and_result > pwm_fuzzy.mf_values[pwm_SDecrease]){
+ 277:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SDecrease] = and_result;
+ 278:../FuzzyController2.c **** 	}
+ 279:../FuzzyController2.c **** 
+ 280:../FuzzyController2.c **** }
+ 281:../FuzzyController2.c **** 
+ 282:../FuzzyController2.c **** float fuzzyAnd(float a, float b){
+ 283:../FuzzyController2.c **** 	return (a<b) ? a : b;
+ 800              	 .loc 1 283 0
+ 801 0024 F4EE477A 	 fcmps s15,s14
+ 802 0028 F1EE10FA 	 fmstat
+ 803 002c 48BF     	 it mi
+ 804 002e B0EE677A 	 fcpysmi s14,s15
+ 805              	.LVL53:
+ 806              	.LBE177:
+ 807              	.LBE176:
+ 178:../FuzzyController2.c **** 		pwm_fuzzy.mf_values[pwm_NoChange] = and_result;
+ 808              	 .loc 1 178 0
+ 809 0032 B4EEC76A 	 fcmpes s12,s14
+ 810 0036 F1EE10FA 	 fmstat
+ 811 003a 05D5     	 bpl .L44
+ 179:../FuzzyController2.c **** 		pwm_fuzzy.mf_values[pwm_NoChange] = and_result;
+ 812              	 .loc 1 179 0
+ 813 003c 84ED037A 	 fsts s14,[r4,#12]
+ 814              	.LVL54:
+ 815 0040 D2ED027A 	 flds s15,[r2,#8]
+ 816              	.LVL55:
+ 817 0044 B0EE476A 	 fcpys s12,s14
+ 818              	.L44:
+ 183:../FuzzyController2.c **** 
+ 819              	 .loc 1 183 0
+ 820 0048 93ED027A 	 flds s14,[r3,#8]
+ 821              	.LVL56:
+ 185:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SDecrease] = and_result;
+ 822              	 .loc 1 185 0
+ 823 004c D4ED026A 	 flds s13,[r4,#8]
+ 824              	.LBB178:
+ 825              	.LBB179:
+ 826              	 .loc 1 283 0
+ 827 0050 B4EE677A 	 fcmps s14,s15
+ 828 0054 F1EE10FA 	 fmstat
+ 829 0058 C8BF     	 it gt
+ 830 005a B0EE677A 	 fcpysgt s14,s15
+ 831              	.LVL57:
+ 832              	.LBE179:
+ 833              	.LBE178:
+ 185:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SDecrease] = and_result;
+ 834              	 .loc 1 185 0
+ 835 005e F4EEC76A 	 fcmpes s13,s14
+ 836 0062 F1EE10FA 	 fmstat
+ 837 0066 05D5     	 bpl .L47
+ 186:../FuzzyController2.c **** 	}
+ 838              	 .loc 1 186 0
+ 839 0068 84ED027A 	 fsts s14,[r4,#8]
+ 840              	.LVL58:
+ 841 006c D2ED027A 	 flds s15,[r2,#8]
+ 842              	.LVL59:
+ 843 0070 F0EE476A 	 fcpys s13,s14
+ 844              	.L47:
+ 190:../FuzzyController2.c **** 
+ 845              	 .loc 1 190 0
+ 846 0074 93ED007A 	 flds s14,[r3]
+ 847              	.LVL60:
+ 192:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SIncrease] = and_result;
+ 848              	 .loc 1 192 0
+ 849 0078 D4ED045A 	 flds s11,[r4,#16]
+ 850              	.LBB180:
+ 851              	.LBB181:
+ 852              	 .loc 1 283 0
+ 853 007c B4EEE77A 	 fcmpes s14,s15
+ 854 0080 F1EE10FA 	 fmstat
+ 855 0084 D8BF     	 it le
+ 856 0086 F0EE477A 	 fcpysle s15,s14
+ 857              	.LVL61:
+ 858              	.LBE181:
+ 859              	.LBE180:
+ 192:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SIncrease] = and_result;
+ 860              	 .loc 1 192 0
+ 861 008a F4EEE75A 	 fcmpes s11,s15
+ 862 008e F1EE10FA 	 fmstat
+ 193:../FuzzyController2.c **** 	}
+ 863              	 .loc 1 193 0
+ 864 0092 44BF     	 itt mi
+ 865 0094 C4ED047A 	 fstsmi s15,[r4,#16]
+ 866 0098 F0EE675A 	 fcpysmi s11,s15
+ 197:../FuzzyController2.c **** 
+ 867              	 .loc 1 197 0
+ 868 009c 93ED017A 	 flds s14,[r3,#4]
+ 869              	.LVL62:
+ 870 00a0 D2ED037A 	 flds s15,[r2,#12]
+ 871              	.LVL63:
+ 872              	.LBB182:
+ 873              	.LBB183:
+ 874              	 .loc 1 283 0
+ 875 00a4 F4EE477A 	 fcmps s15,s14
+ 876 00a8 F1EE10FA 	 fmstat
+ 877 00ac 48BF     	 it mi
+ 878 00ae B0EE677A 	 fcpysmi s14,s15
+ 879              	.LVL64:
+ 880              	.LBE183:
+ 881              	.LBE182:
+ 199:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SIncrease] = and_result;
+ 882              	 .loc 1 199 0
+ 883 00b2 B4EEE57A 	 fcmpes s14,s11
+ 884 00b6 F1EE10FA 	 fmstat
+ 200:../FuzzyController2.c **** 	}
+ 885              	 .loc 1 200 0
+ 886 00ba C4BF     	 itt gt
+ 887 00bc 84ED047A 	 fstsgt s14,[r4,#16]
+ 888              	.LVL65:
+ 889 00c0 D2ED037A 	 fldsgt s15,[r2,#12]
+ 890              	.LVL66:
+ 204:../FuzzyController2.c **** 
+ 891              	 .loc 1 204 0
+ 892 00c4 93ED027A 	 flds s14,[r3,#8]
+ 893              	.LVL67:
+ 894              	.LBB184:
+ 895              	.LBB185:
+ 896              	 .loc 1 283 0
+ 897 00c8 B4EE677A 	 fcmps s14,s15
+ 898 00cc F1EE10FA 	 fmstat
+ 899 00d0 C8BF     	 it gt
+ 900 00d2 B0EE677A 	 fcpysgt s14,s15
+ 901              	.LVL68:
+ 902              	.LBE185:
+ 903              	.LBE184:
+ 206:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_NoChange] = and_result;
+ 904              	 .loc 1 206 0
+ 905 00d6 B4EEC76A 	 fcmpes s12,s14
+ 906 00da F1EE10FA 	 fmstat
+ 907 00de 05D5     	 bpl .L56
+ 207:../FuzzyController2.c **** 	}
+ 908              	 .loc 1 207 0
+ 909 00e0 84ED037A 	 fsts s14,[r4,#12]
+ 910              	.LVL69:
+ 911 00e4 D2ED037A 	 flds s15,[r2,#12]
+ 912              	.LVL70:
+ 913 00e8 B0EE476A 	 fcpys s12,s14
+ 914              	.L56:
+ 211:../FuzzyController2.c **** 
+ 915              	 .loc 1 211 0
+ 916 00ec 93ED007A 	 flds s14,[r3]
+ 917              	.LVL71:
+ 213:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_MIncrease] = and_result;
+ 918              	 .loc 1 213 0
+ 919 00f0 D4ED055A 	 flds s11,[r4,#20]
+ 920              	.LBB186:
+ 921              	.LBB187:
+ 922              	 .loc 1 283 0
+ 923 00f4 B4EEE77A 	 fcmpes s14,s15
+ 924 00f8 F1EE10FA 	 fmstat
+ 925 00fc D8BF     	 it le
+ 926 00fe F0EE477A 	 fcpysle s15,s14
+ 927              	.LVL72:
+ 928              	.LBE187:
+ 929              	.LBE186:
+ 213:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_MIncrease] = and_result;
+ 930              	 .loc 1 213 0
+ 931 0102 F4EEE75A 	 fcmpes s11,s15
+ 932 0106 F1EE10FA 	 fmstat
+ 214:../FuzzyController2.c **** 	}
+ 933              	 .loc 1 214 0
+ 934 010a 48BF     	 it mi
+ 935 010c C4ED057A 	 fstsmi s15,[r4,#20]
+ 218:../FuzzyController2.c **** 
+ 936              	 .loc 1 218 0
+ 937 0110 93ED017A 	 flds s14,[r3,#4]
+ 938              	.LVL73:
+ 214:../FuzzyController2.c **** 	}
+ 939              	 .loc 1 214 0
+ 940 0114 48BF     	 it mi
+ 941 0116 F0EE675A 	 fcpysmi s11,s15
+ 218:../FuzzyController2.c **** 
+ 942              	 .loc 1 218 0
+ 943 011a D2ED047A 	 flds s15,[r2,#16]
+ 944              	.LVL74:
+ 945              	.LBB188:
+ 946              	.LBB189:
+ 947              	 .loc 1 283 0
+ 948 011e F4EE477A 	 fcmps s15,s14
+ 949 0122 F1EE10FA 	 fmstat
+ 950 0126 48BF     	 it mi
+ 951 0128 B0EE677A 	 fcpysmi s14,s15
+ 952              	.LVL75:
+ 953              	.LBE189:
+ 954              	.LBE188:
+ 220:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_MIncrease] = and_result;
+ 955              	 .loc 1 220 0
+ 956 012c B4EEE57A 	 fcmpes s14,s11
+ 957 0130 F1EE10FA 	 fmstat
+ 221:../FuzzyController2.c **** 	}
+ 958              	 .loc 1 221 0
+ 959 0134 C4BF     	 itt gt
+ 960 0136 84ED057A 	 fstsgt s14,[r4,#20]
+ 961              	.LVL76:
+ 962 013a D2ED047A 	 fldsgt s15,[r2,#16]
+ 963              	.LVL77:
+ 225:../FuzzyController2.c **** 
+ 964              	 .loc 1 225 0
+ 965 013e 93ED027A 	 flds s14,[r3,#8]
+ 966              	.LVL78:
+ 227:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SIncrease] = and_result;
+ 967              	 .loc 1 227 0
+ 968 0142 D4ED045A 	 flds s11,[r4,#16]
+ 969              	.LBB190:
+ 970              	.LBB191:
+ 971              	 .loc 1 283 0
+ 972 0146 B4EE677A 	 fcmps s14,s15
+ 973 014a F1EE10FA 	 fmstat
+ 974 014e C8BF     	 it gt
+ 975 0150 B0EE677A 	 fcpysgt s14,s15
+ 976              	.LVL79:
+ 977              	.LBE191:
+ 978              	.LBE190:
+ 227:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SIncrease] = and_result;
+ 979              	 .loc 1 227 0
+ 980 0154 F4EEC75A 	 fcmpes s11,s14
+ 981 0158 F1EE10FA 	 fmstat
+ 228:../FuzzyController2.c **** 	}
+ 982              	 .loc 1 228 0
+ 983 015c 44BF     	 itt mi
+ 984 015e 84ED047A 	 fstsmi s14,[r4,#16]
+ 985              	.LVL80:
+ 986 0162 D2ED047A 	 fldsmi s15,[r2,#16]
+ 987              	.LVL81:
+ 232:../FuzzyController2.c **** 
+ 988              	 .loc 1 232 0
+ 989 0166 93ED007A 	 flds s14,[r3]
+ 990              	.LVL82:
+ 234:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_BIncrease] = and_result;
+ 991              	 .loc 1 234 0
+ 992 016a D4ED065A 	 flds s11,[r4,#24]
+ 993              	.LBB192:
+ 994              	.LBB193:
+ 995              	 .loc 1 283 0
+ 996 016e B4EEE77A 	 fcmpes s14,s15
+ 997 0172 F1EE10FA 	 fmstat
+ 998 0176 D8BF     	 it le
+ 999 0178 F0EE477A 	 fcpysle s15,s14
+ 1000              	.LVL83:
+ 1001              	.LBE193:
+ 1002              	.LBE192:
+ 234:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_BIncrease] = and_result;
+ 1003              	 .loc 1 234 0
+ 1004 017c F4EEE75A 	 fcmpes s11,s15
+ 1005 0180 F1EE10FA 	 fmstat
+ 235:../FuzzyController2.c **** 	}
+ 1006              	 .loc 1 235 0
+ 1007 0184 48BF     	 it mi
+ 1008 0186 C4ED067A 	 fstsmi s15,[r4,#24]
+ 239:../FuzzyController2.c **** 
+ 1009              	 .loc 1 239 0
+ 1010 018a D2ED017A 	 flds s15,[r2,#4]
+ 1011 018e 93ED017A 	 flds s14,[r3,#4]
+ 1012              	.LVL84:
+ 1013              	.LBB194:
+ 1014              	.LBB195:
+ 1015              	 .loc 1 283 0
+ 1016 0192 F4EE477A 	 fcmps s15,s14
+ 1017 0196 F1EE10FA 	 fmstat
+ 1018 019a 48BF     	 it mi
+ 1019 019c B0EE677A 	 fcpysmi s14,s15
+ 1020              	.LVL85:
+ 1021              	.LBE195:
+ 1022              	.LBE194:
+ 241:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SDecrease] = and_result;
+ 1023              	 .loc 1 241 0
+ 1024 01a0 F4EEC76A 	 fcmpes s13,s14
+ 1025 01a4 F1EE10FA 	 fmstat
+ 1026 01a8 05D5     	 bpl .L71
+ 242:../FuzzyController2.c **** 	}
+ 1027              	 .loc 1 242 0
+ 1028 01aa 84ED027A 	 fsts s14,[r4,#8]
+ 1029              	.LVL86:
+ 1030 01ae D2ED017A 	 flds s15,[r2,#4]
+ 1031              	.LVL87:
+ 1032 01b2 F0EE476A 	 fcpys s13,s14
+ 1033              	.L71:
+ 246:../FuzzyController2.c **** 
+ 1034              	 .loc 1 246 0
+ 1035 01b6 93ED027A 	 flds s14,[r3,#8]
+ 1036              	.LVL88:
+ 248:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_MDecrease] = and_result;
+ 1037              	 .loc 1 248 0
+ 1038 01ba D4ED015A 	 flds s11,[r4,#4]
+ 1039              	.LBB196:
+ 1040              	.LBB197:
+ 1041              	 .loc 1 283 0
+ 1042 01be B4EE677A 	 fcmps s14,s15
+ 1043 01c2 F1EE10FA 	 fmstat
+ 1044 01c6 C8BF     	 it gt
+ 1045 01c8 B0EE677A 	 fcpysgt s14,s15
+ 1046              	.LVL89:
+ 1047              	.LBE197:
+ 1048              	.LBE196:
+ 248:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_MDecrease] = and_result;
+ 1049              	 .loc 1 248 0
+ 1050 01cc F4EEC75A 	 fcmpes s11,s14
+ 1051 01d0 F1EE10FA 	 fmstat
+ 1052 01d4 05D5     	 bpl .L74
+ 249:../FuzzyController2.c **** 	}
+ 1053              	 .loc 1 249 0
+ 1054 01d6 84ED017A 	 fsts s14,[r4,#4]
+ 1055              	.LVL90:
+ 1056 01da D2ED017A 	 flds s15,[r2,#4]
+ 1057              	.LVL91:
+ 1058 01de F0EE475A 	 fcpys s11,s14
+ 1059              	.L74:
+ 253:../FuzzyController2.c **** 
+ 1060              	 .loc 1 253 0
+ 1061 01e2 93ED007A 	 flds s14,[r3]
+ 1062              	.LVL92:
+ 1063              	.LBB198:
+ 1064              	.LBB199:
+ 1065              	 .loc 1 283 0
+ 1066 01e6 B4EEE77A 	 fcmpes s14,s15
+ 1067 01ea F1EE10FA 	 fmstat
+ 1068 01ee D8BF     	 it le
+ 1069 01f0 F0EE477A 	 fcpysle s15,s14
+ 1070              	.LVL93:
+ 1071              	.LBE199:
+ 1072              	.LBE198:
+ 255:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_NoChange] = and_result;
+ 1073              	 .loc 1 255 0
+ 1074 01f4 B4EEE76A 	 fcmpes s12,s15
+ 1075 01f8 F1EE10FA 	 fmstat
+ 256:../FuzzyController2.c **** 	}
+ 1076              	 .loc 1 256 0
+ 1077 01fc 48BF     	 it mi
+ 1078 01fe C4ED037A 	 fstsmi s15,[r4,#12]
+ 260:../FuzzyController2.c **** 
+ 1079              	 .loc 1 260 0
+ 1080 0202 D2ED007A 	 flds s15,[r2]
+ 1081 0206 93ED017A 	 flds s14,[r3,#4]
+ 1082              	.LVL94:
+ 269:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_BDecrease] = and_result;
+ 1083              	 .loc 1 269 0
+ 1084 020a 94ED006A 	 flds s12,[r4]
+ 1085              	.LBB200:
+ 1086              	.LBB201:
+ 1087              	 .loc 1 283 0
+ 1088 020e F4EE477A 	 fcmps s15,s14
+ 1089 0212 F1EE10FA 	 fmstat
+ 1090 0216 48BF     	 it mi
+ 1091 0218 B0EE677A 	 fcpysmi s14,s15
+ 1092              	.LVL95:
+ 1093              	.LBE201:
+ 1094              	.LBE200:
+ 262:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_MDecrease] = and_result;
+ 1095              	 .loc 1 262 0
+ 1096 021c F4EEC75A 	 fcmpes s11,s14
+ 1097 0220 F1EE10FA 	 fmstat
+ 263:../FuzzyController2.c **** 	}
+ 1098              	 .loc 1 263 0
+ 1099 0224 44BF     	 itt mi
+ 1100 0226 84ED017A 	 fstsmi s14,[r4,#4]
+ 1101              	.LVL96:
+ 1102 022a D2ED007A 	 fldsmi s15,[r2]
+ 1103              	.LVL97:
+ 267:../FuzzyController2.c **** 
+ 1104              	 .loc 1 267 0
+ 1105 022e 93ED027A 	 flds s14,[r3,#8]
+ 1106              	.LVL98:
+ 1107              	.LBB202:
+ 1108              	.LBB203:
+ 1109              	 .loc 1 283 0
+ 1110 0232 B4EE677A 	 fcmps s14,s15
+ 1111 0236 F1EE10FA 	 fmstat
+ 1112 023a C8BF     	 it gt
+ 1113 023c B0EE677A 	 fcpysgt s14,s15
+ 1114              	.LVL99:
+ 1115              	.LBE203:
+ 1116              	.LBE202:
+ 269:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_BDecrease] = and_result;
+ 1117              	 .loc 1 269 0
+ 1118 0240 B4EEC76A 	 fcmpes s12,s14
+ 1119 0244 F1EE10FA 	 fmstat
+ 270:../FuzzyController2.c **** 	}
+ 1120              	 .loc 1 270 0
+ 1121 0248 44BF     	 itt mi
+ 1122 024a 84ED007A 	 fstsmi s14,[r4]
+ 1123              	.LVL100:
+ 1124 024e D2ED007A 	 fldsmi s15,[r2]
+ 1125              	.LVL101:
+ 274:../FuzzyController2.c **** 
+ 1126              	 .loc 1 274 0
+ 1127 0252 93ED007A 	 flds s14,[r3]
+ 1128              	.LVL102:
+ 1129              	.LBB204:
+ 1130              	.LBB205:
+ 1131              	 .loc 1 283 0
+ 1132 0256 B4EEE77A 	 fcmpes s14,s15
+ 1133 025a F1EE10FA 	 fmstat
+ 1134 025e D8BF     	 it le
+ 1135 0260 F0EE477A 	 fcpysle s15,s14
+ 1136              	.LVL103:
+ 1137              	.LBE205:
+ 1138              	.LBE204:
+ 276:../FuzzyController2.c **** 			pwm_fuzzy.mf_values[pwm_SDecrease] = and_result;
+ 1139              	 .loc 1 276 0
+ 1140 0264 F4EEE76A 	 fcmpes s13,s15
+ 1141 0268 F1EE10FA 	 fmstat
+ 277:../FuzzyController2.c **** 	}
+ 1142              	 .loc 1 277 0
+ 1143 026c 48BF     	 it mi
+ 1144 026e C4ED027A 	 fstsmi s15,[r4,#8]
+ 1145 0272 10BD     	 pop {r4,pc}
+ 1146              	.L115:
+ 1147              	 .align 2
+ 1148              	.L114:
+ 1149 0274 00000000 	 .word pwm_fuzzy
+ 1150 0278 00000000 	 .word error_fuzzy
+ 1151 027c 00000000 	 .word accel_fuzzy
+ 1152              	 .cfi_endproc
+ 1153              	.LFE5:
+ 1155              	 .section .text.fuzzyAnd,"ax",%progbits
+ 1156              	 .align 2
+ 1157              	 .global fuzzyAnd
+ 1158              	 .thumb
+ 1159              	 .thumb_func
+ 1161              	fuzzyAnd:
+ 1162              	.LFB6:
+ 282:../FuzzyController2.c **** 	return (a<b) ? a : b;
+ 1163              	 .loc 1 282 0
+ 1164              	 .cfi_startproc
+ 1165              	 
+ 1166              	 
+ 1167              	 
+ 1168              	.LVL104:
+ 282:../FuzzyController2.c **** 	return (a<b) ? a : b;
+ 1169              	 .loc 1 282 0
+ 1170 0000 07EE100A 	 fmsr s14,r0
+ 1171 0004 07EE901A 	 fmsr s15,r1
+ 1172              	 .loc 1 283 0
+ 1173 0008 B4EEE77A 	 fcmpes s14,s15
+ 1174 000c F1EE10FA 	 fmstat
+ 284:../FuzzyController2.c **** }
+ 1175              	 .loc 1 284 0
+ 1176 0010 54BF     	 ite pl
+ 1177 0012 17EE900A 	 fmrspl r0,s15
+ 1178 0016 17EE100A 	 fmrsmi r0,s14
+ 1179              	.LVL105:
+ 1180 001a 7047     	 bx lr
+ 1181              	 .cfi_endproc
+ 1182              	.LFE6:
+ 1184              	 .section .text.defuzzify,"ax",%progbits
+ 1185              	 .align 2
+ 1186              	 .global defuzzify
+ 1187              	 .thumb
+ 1188              	 .thumb_func
+ 1190              	defuzzify:
+ 1191              	.LFB7:
+ 285:../FuzzyController2.c **** 
+ 286:../FuzzyController2.c **** float defuzzify(float samples){
+ 1192              	 .loc 1 286 0
+ 1193              	 .cfi_startproc
+ 1194              	 
+ 1195              	 
+ 1196              	.LVL106:
+ 287:../FuzzyController2.c **** 	static uint32_t i;
+ 288:../FuzzyController2.c **** 	static float current_x;
+ 289:../FuzzyController2.c **** 	static float x_increment;
+ 290:../FuzzyController2.c **** 	static float top_sum;
+ 291:../FuzzyController2.c **** 	static float bottom_sum;
+ 292:../FuzzyController2.c **** 	static float truth_value;
+ 293:../FuzzyController2.c **** 
+ 294:../FuzzyController2.c **** 	current_x = pwm_fuzzy.range[0];
+ 1197              	 .loc 1 294 0
+ 1198 0000 454B     	 ldr r3,.L142
+ 295:../FuzzyController2.c **** 	x_increment = (pwm_fuzzy.range[1] - pwm_fuzzy.range[0])/samples;
+ 296:../FuzzyController2.c **** 
+ 297:../FuzzyController2.c **** 	top_sum = 0;
+ 1199              	 .loc 1 297 0
+ 1200 0002 DFED465A 	 flds s11,.L142+4
+ 294:../FuzzyController2.c **** 	x_increment = (pwm_fuzzy.range[1] - pwm_fuzzy.range[0])/samples;
+ 1201              	 .loc 1 294 0
+ 1202 0006 D3ED026A 	 flds s13,[r3,#8]
+ 295:../FuzzyController2.c **** 	x_increment = (pwm_fuzzy.range[1] - pwm_fuzzy.range[0])/samples;
+ 1203              	 .loc 1 295 0
+ 1204 000a 93ED034A 	 flds s8,[r3,#12]
+ 1205 000e 444A     	 ldr r2,.L142+8
+ 1206 0010 74EE664A 	 fsubs s9,s8,s13
+ 1207 0014 07EE900A 	 fmsr s15,r0
+ 1208 0018 C4EEA74A 	 fdivs s9,s9,s15
+ 286:../FuzzyController2.c **** 	static uint32_t i;
+ 1209              	 .loc 1 286 0
+ 1210 001c F0B5     	 push {r4,r5,r6,r7,lr}
+ 1211              	.LCFI13:
+ 1212              	 .cfi_def_cfa_offset 20
+ 1213              	 .cfi_offset 4,-20
+ 1214              	 .cfi_offset 5,-16
+ 1215              	 .cfi_offset 6,-12
+ 1216              	 .cfi_offset 7,-8
+ 1217              	 .cfi_offset 14,-4
+ 294:../FuzzyController2.c **** 	x_increment = (pwm_fuzzy.range[1] - pwm_fuzzy.range[0])/samples;
+ 1218              	 .loc 1 294 0
+ 1219 001e 414D     	 ldr r5,.L142+12
+ 1220              	 .loc 1 297 0
+ 1221 0020 414F     	 ldr r7,.L142+16
+ 298:../FuzzyController2.c **** 	bottom_sum = 0;
+ 1222              	 .loc 1 298 0
+ 1223 0022 DFF810E1 	 ldr lr,.L142+28
+ 299:../FuzzyController2.c **** 	truth_value = 0;
+ 1224              	 .loc 1 299 0
+ 1225 0026 414E     	 ldr r6,.L142+20
+ 300:../FuzzyController2.c **** 
+ 301:../FuzzyController2.c **** 	while(current_x <= pwm_fuzzy.range[1]){
+ 1226              	 .loc 1 301 0
+ 1227 0028 F4EEC46A 	 fcmpes s13,s8
+ 1228 002c F1EE10FA 	 fmstat
+ 294:../FuzzyController2.c **** 	x_increment = (pwm_fuzzy.range[1] - pwm_fuzzy.range[0])/samples;
+ 1229              	 .loc 1 294 0
+ 1230 0030 C5ED006A 	 fsts s13,[r5]
+ 297:../FuzzyController2.c **** 	bottom_sum = 0;
+ 1231              	 .loc 1 297 0
+ 1232 0034 C7ED005A 	 fsts s11,[r7]
+ 298:../FuzzyController2.c **** 	truth_value = 0;
+ 1233              	 .loc 1 298 0
+ 1234 0038 CEED005A 	 fsts s11,[lr]
+ 295:../FuzzyController2.c **** 
+ 1235              	 .loc 1 295 0
+ 1236 003c C2ED004A 	 fsts s9,[r2]
+ 299:../FuzzyController2.c **** 
+ 1237              	 .loc 1 299 0
+ 1238 0040 C6ED005A 	 fsts s11,[r6]
+ 1239              	 .loc 1 301 0
+ 1240 0044 61D8     	 bhi .L138
+ 1241 0046 93E81100 	 ldmia r3,{r0,r4}
+ 1242              	.LVL107:
+ 1243 004a B0EE655A 	 fcpys s10,s11
+ 1244 004e 00F15401 	 add r1,r0,#84
+ 1245              	.LVL108:
+ 1246              	.L128:
+ 1247 0052 0346     	 mov r3,r0
+ 1248 0054 2246     	 mov r2,r4
+ 1249 0056 29E0     	 b .L127
+ 1250              	.LVL109:
+ 1251              	.L141:
+ 1252              	.LBB206:
+ 1253              	.LBB207:
+ 157:../FuzzyController2.c **** 	if(input == mf.params[1]) return 1;
+ 1254              	 .loc 1 157 0
+ 1255 0058 F4EEE67A 	 fcmpes s15,s13
+ 1256 005c F1EE10FA 	 fmstat
+ 1257 0060 2FD9     	 bls .L131
+ 158:../FuzzyController2.c **** 
+ 1258              	 .loc 1 158 0
+ 1259 0062 F4EE476A 	 fcmps s13,s14
+ 1260 0066 F1EE10FA 	 fmstat
+ 1261 006a 2DD0     	 beq .L132
+ 160:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 1262              	 .loc 1 160 0
+ 1263 006c B4EEE66A 	 fcmpes s12,s13
+ 1264 0070 F1EE10FA 	 fmstat
+ 1265 0074 42D5     	 bpl .L123
+ 1266 0076 B4EEE67A 	 fcmpes s14,s13
+ 1267 007a F1EE10FA 	 fmstat
+ 1268 007e 3DDD     	 ble .L123
+ 161:../FuzzyController2.c **** 	}
+ 1269              	 .loc 1 161 0
+ 1270 0080 37EE467A 	 fsubs s14,s14,s12
+ 1271              	.LVL110:
+ 1272 0084 36EEC66A 	 fsubs s12,s13,s12
+ 1273              	.LVL111:
+ 1274 0088 86EE077A 	 fdivs s14,s12,s14
+ 1275              	.LVL112:
+ 1276              	.L122:
+ 1277 008c 0C33     	 adds r3,r3,#12
+ 1278              	.LVL113:
+ 1279              	.LBE207:
+ 1280              	.LBE206:
+ 302:../FuzzyController2.c **** 		for(i=0; i<pwm_mf_count; i++){
+ 303:../FuzzyController2.c **** 			truth_value = getTruthValue(pwm_fuzzy.mf[i], current_x);
+ 304:../FuzzyController2.c **** 			if(truth_value>pwm_fuzzy.mf_values[i]){
+ 1281              	 .loc 1 304 0
+ 1282 008e F2EC017A 	 fldmias r2!,{s15}
+ 1283 0092 F4EEC77A 	 fcmpes s15,s14
+ 1284 0096 F1EE10FA 	 fmstat
+ 1285 009a 58BF     	 it pl
+ 1286 009c F0EE477A 	 fcpyspl s15,s14
+ 302:../FuzzyController2.c **** 		for(i=0; i<pwm_mf_count; i++){
+ 1287              	 .loc 1 302 0
+ 1288 00a0 8B42     	 cmp r3,r1
+ 305:../FuzzyController2.c **** 				truth_value = pwm_fuzzy.mf_values[i];
+ 306:../FuzzyController2.c **** 			}
+ 307:../FuzzyController2.c **** 			top_sum += current_x * truth_value;
+ 1289              	 .loc 1 307 0
+ 1290 00a2 A6EEA75A 	 vfma.f32 s10,s13,s15
+ 308:../FuzzyController2.c **** 			bottom_sum += truth_value;
+ 1291              	 .loc 1 308 0
+ 1292 00a6 75EEA75A 	 fadds s11,s11,s15
+ 302:../FuzzyController2.c **** 		for(i=0; i<pwm_mf_count; i++){
+ 1293              	 .loc 1 302 0
+ 1294 00aa 10D0     	 beq .L140
+ 1295              	.LVL114:
+ 1296              	.L127:
+ 1297 00ac 93ED006A 	 flds s12,[r3]
+ 1298              	.LVL115:
+ 1299 00b0 93ED017A 	 flds s14,[r3,#4]
+ 1300              	.LVL116:
+ 1301 00b4 D3ED027A 	 flds s15,[r3,#8]
+ 1302              	.LVL117:
+ 1303              	.LBB210:
+ 1304              	.LBB208:
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 1305              	 .loc 1 156 0
+ 1306 00b8 B4EEE66A 	 fcmpes s12,s13
+ 1307 00bc F1EE10FA 	 fmstat
+ 1308 00c0 CADB     	 blt .L141
+ 1309              	.L131:
+ 1310 00c2 9FED167A 	 flds s14,.L142+4
+ 1311              	.LVL118:
+ 1312 00c6 E1E7     	 b .L122
+ 1313              	.LVL119:
+ 1314              	.L132:
+ 158:../FuzzyController2.c **** 
+ 1315              	 .loc 1 158 0
+ 1316 00c8 B7EE007A 	 fconsts s14,#112
+ 1317              	.LVL120:
+ 1318 00cc DEE7     	 b .L122
+ 1319              	.LVL121:
+ 1320              	.L140:
+ 1321              	.LBE208:
+ 1322              	.LBE210:
+ 309:../FuzzyController2.c **** 		}
+ 310:../FuzzyController2.c **** 		current_x += x_increment;
+ 1323              	 .loc 1 310 0
+ 1324 00ce 76EEA46A 	 fadds s13,s13,s9
+ 1325              	.LVL122:
+ 301:../FuzzyController2.c **** 		for(i=0; i<pwm_mf_count; i++){
+ 1326              	 .loc 1 301 0
+ 1327 00d2 B4EEE64A 	 fcmpes s8,s13
+ 1328 00d6 F1EE10FA 	 fmstat
+ 1329 00da BADA     	 bge .L128
+ 1330 00dc C6ED007A 	 fsts s15,[r6]
+ 311:../FuzzyController2.c **** 	}
+ 312:../FuzzyController2.c **** 	return (top_sum/bottom_sum);
+ 313:../FuzzyController2.c **** }
+ 1331              	 .loc 1 313 0
+ 1332 00e0 C5EE257A 	 fdivs s15,s10,s11
+ 1333 00e4 124B     	 ldr r3,.L142+24
+ 1334              	.LVL123:
+ 1335 00e6 0722     	 movs r2,#7
+ 1336 00e8 1A60     	 str r2,[r3]
+ 1337 00ea CEED005A 	 fsts s11,[lr]
+ 1338 00ee 87ED005A 	 fsts s10,[r7]
+ 1339 00f2 C5ED006A 	 fsts s13,[r5]
+ 1340 00f6 17EE900A 	 fmrs r0,s15
+ 1341 00fa F0BD     	 pop {r4,r5,r6,r7,pc}
+ 1342              	.LVL124:
+ 1343              	.L123:
+ 1344              	.LBB211:
+ 1345              	.LBB209:
+ 164:../FuzzyController2.c **** }
+ 1346              	 .loc 1 164 0
+ 1347 00fc 37EEC77A 	 fsubs s14,s15,s14
+ 1348              	.LVL125:
+ 1349 0100 77EEE67A 	 fsubs s15,s15,s13
+ 1350              	.LVL126:
+ 1351 0104 87EE877A 	 fdivs s14,s15,s14
+ 1352 0108 C0E7     	 b .L122
+ 1353              	.LVL127:
+ 1354              	.L138:
+ 1355              	.LBE209:
+ 1356              	.LBE211:
+ 301:../FuzzyController2.c **** 		for(i=0; i<pwm_mf_count; i++){
+ 1357              	 .loc 1 301 0
+ 1358 010a B0EE655A 	 fcpys s10,s11
+ 1359              	 .loc 1 313 0
+ 1360 010e C5EE257A 	 fdivs s15,s10,s11
+ 1361 0112 17EE900A 	 fmrs r0,s15
+ 1362              	.LVL128:
+ 1363 0116 F0BD     	 pop {r4,r5,r6,r7,pc}
+ 1364              	.L143:
+ 1365              	 .align 2
+ 1366              	.L142:
+ 1367 0118 00000000 	 .word pwm_fuzzy
+ 1368 011c 00000000 	 .word 0
+ 1369 0120 00000000 	 .word .LANCHOR2
+ 1370 0124 00000000 	 .word .LANCHOR1
+ 1371 0128 00000000 	 .word .LANCHOR3
+ 1372 012c 00000000 	 .word .LANCHOR5
+ 1373 0130 00000000 	 .word .LANCHOR6
+ 1374 0134 00000000 	 .word .LANCHOR4
+ 1375              	 .cfi_endproc
+ 1376              	.LFE7:
+ 1378              	 .section .text.computeFuzzy,"ax",%progbits
+ 1379              	 .align 2
+ 1380              	 .global computeFuzzy
+ 1381              	 .thumb
+ 1382              	 .thumb_func
+ 1384              	computeFuzzy:
+ 1385              	.LFB1:
+ 116:../FuzzyController2.c **** 	static float pwm_increment = 0;
+ 1386              	 .loc 1 116 0
+ 1387              	 .cfi_startproc
+ 1388              	 
+ 1389              	 
+ 1390              	.LVL129:
+ 1391              	.LBB220:
+ 1392              	.LBB221:
+ 141:../FuzzyController2.c **** 		input = fuzzy_var->range[0];
+ 1393              	 .loc 1 141 0
+ 1394 0000 E24A     	 ldr r2,.L229
+ 1395              	.LBE221:
+ 1396              	.LBE220:
+ 116:../FuzzyController2.c **** 	static float pwm_increment = 0;
+ 1397              	 .loc 1 116 0
+ 1398 0002 07EE100A 	 fmsr s14,r0
+ 1399              	.LVL130:
+ 1400              	.LBB247:
+ 1401              	.LBB240:
+ 141:../FuzzyController2.c **** 		input = fuzzy_var->range[0];
+ 1402              	 .loc 1 141 0
+ 1403 0006 D2ED027A 	 flds s15,[r2,#8]
+ 1404 000a B4EEE77A 	 fcmpes s14,s15
+ 1405 000e F1EE10FA 	 fmstat
+ 1406              	.LBE240:
+ 1407              	.LBE247:
+ 116:../FuzzyController2.c **** 	static float pwm_increment = 0;
+ 1408              	 .loc 1 116 0
+ 1409 0012 08B5     	 push {r3,lr}
+ 1410              	.LCFI14:
+ 1411              	 .cfi_def_cfa_offset 8
+ 1412              	 .cfi_offset 3,-8
+ 1413              	 .cfi_offset 14,-4
+ 116:../FuzzyController2.c **** 	static float pwm_increment = 0;
+ 1414              	 .loc 1 116 0
+ 1415 0014 06EE101A 	 fmsr s12,r1
+ 1416              	.LBB248:
+ 1417              	.LBB241:
+ 141:../FuzzyController2.c **** 		input = fuzzy_var->range[0];
+ 1418              	 .loc 1 141 0
+ 1419 0018 08D4     	 bmi .L145
+ 143:../FuzzyController2.c **** 		input = fuzzy_var->range[1];
+ 1420              	 .loc 1 143 0
+ 1421 001a D2ED037A 	 flds s15,[r2,#12]
+ 144:../FuzzyController2.c **** 	}
+ 1422              	 .loc 1 144 0
+ 1423 001e B4EE677A 	 fcmps s14,s15
+ 1424 0022 F1EE10FA 	 fmstat
+ 1425 0026 D8BF     	 it le
+ 1426 0028 F0EE477A 	 fcpysle s15,s14
+ 1427              	.LVL131:
+ 1428              	.L145:
+ 1429 002c 1368     	 ldr r3,[r2]
+ 1430 002e 5268     	 ldr r2,[r2,#4]
+ 1431 0030 93ED007A 	 flds s14,[r3]
+ 1432              	.LVL132:
+ 1433 0034 D3ED015A 	 flds s11,[r3,#4]
+ 1434              	.LVL133:
+ 1435 0038 D3ED026A 	 flds s13,[r3,#8]
+ 1436              	.LVL134:
+ 1437              	.LBB222:
+ 1438              	.LBB223:
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 1439              	 .loc 1 156 0
+ 1440 003c F4EEC77A 	 fcmpes s15,s14
+ 1441 0040 F1EE10FA 	 fmstat
+ 1442 0044 00F25F81 	 bhi .L220
+ 1443              	.L184:
+ 1444 0048 9FEDD17A 	 flds s14,.L229+4
+ 1445              	.LVL135:
+ 1446              	.L148:
+ 1447              	.LBE223:
+ 1448              	.LBE222:
+ 148:../FuzzyController2.c **** 	}
+ 1449              	 .loc 1 148 0
+ 1450 004c 82ED007A 	 fsts s14,[r2]
+ 1451              	.LVL136:
+ 1452 0050 93ED037A 	 flds s14,[r3,#12]
+ 1453              	.LVL137:
+ 1454 0054 D3ED045A 	 flds s11,[r3,#16]
+ 1455              	.LVL138:
+ 1456 0058 D3ED056A 	 flds s13,[r3,#20]
+ 1457              	.LVL139:
+ 1458              	.LBB232:
+ 1459              	.LBB224:
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 1460              	 .loc 1 156 0
+ 1461 005c F4EEC77A 	 fcmpes s15,s14
+ 1462 0060 F1EE10FA 	 fmstat
+ 1463 0064 00F23381 	 bhi .L221
+ 1464              	.L187:
+ 1465 0068 9FEDC97A 	 flds s14,.L229+4
+ 1466              	.LVL140:
+ 1467              	.L152:
+ 1468              	.LBE224:
+ 1469              	.LBE232:
+ 148:../FuzzyController2.c **** 	}
+ 1470              	 .loc 1 148 0
+ 1471 006c 82ED017A 	 fsts s14,[r2,#4]
+ 1472              	.LVL141:
+ 1473 0070 93ED067A 	 flds s14,[r3,#24]
+ 1474              	.LVL142:
+ 1475 0074 D3ED075A 	 flds s11,[r3,#28]
+ 1476              	.LVL143:
+ 1477 0078 D3ED086A 	 flds s13,[r3,#32]
+ 1478              	.LVL144:
+ 1479              	.LBB233:
+ 1480              	.LBB225:
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 1481              	 .loc 1 156 0
+ 1482 007c F4EEC77A 	 fcmpes s15,s14
+ 1483 0080 F1EE10FA 	 fmstat
+ 1484 0084 00F20781 	 bhi .L222
+ 1485              	.L190:
+ 1486 0088 9FEDC17A 	 flds s14,.L229+4
+ 1487              	.LVL145:
+ 1488              	.L156:
+ 1489              	.LBE225:
+ 1490              	.LBE233:
+ 148:../FuzzyController2.c **** 	}
+ 1491              	 .loc 1 148 0
+ 1492 008c 82ED027A 	 fsts s14,[r2,#8]
+ 1493              	.LVL146:
+ 1494 0090 93ED097A 	 flds s14,[r3,#36]
+ 1495              	.LVL147:
+ 1496 0094 D3ED0A5A 	 flds s11,[r3,#40]
+ 1497              	.LVL148:
+ 1498 0098 D3ED0B6A 	 flds s13,[r3,#44]
+ 1499              	.LVL149:
+ 1500              	.LBB234:
+ 1501              	.LBB226:
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 1502              	 .loc 1 156 0
+ 1503 009c F4EEC77A 	 fcmpes s15,s14
+ 1504 00a0 F1EE10FA 	 fmstat
+ 1505 00a4 00F2D980 	 bhi .L223
+ 1506              	.L193:
+ 1507 00a8 9FEDB97A 	 flds s14,.L229+4
+ 1508              	.LVL150:
+ 1509              	.L160:
+ 1510              	.LBE226:
+ 1511              	.LBE234:
+ 148:../FuzzyController2.c **** 	}
+ 1512              	 .loc 1 148 0
+ 1513 00ac 82ED037A 	 fsts s14,[r2,#12]
+ 1514              	.LVL151:
+ 1515 00b0 93ED0C7A 	 flds s14,[r3,#48]
+ 1516              	.LVL152:
+ 1517 00b4 D3ED0D5A 	 flds s11,[r3,#52]
+ 1518              	.LVL153:
+ 1519 00b8 D3ED0E6A 	 flds s13,[r3,#56]
+ 1520              	.LVL154:
+ 1521              	.LBB235:
+ 1522              	.LBB227:
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 1523              	 .loc 1 156 0
+ 1524 00bc B4EEE77A 	 fcmpes s14,s15
+ 1525 00c0 F1EE10FA 	 fmstat
+ 1526 00c4 C0F2AA80 	 blt .L224
+ 1527              	.L196:
+ 1528 00c8 DFEDB17A 	 flds s15,.L229+4
+ 1529              	.LVL155:
+ 1530              	.L164:
+ 1531              	.LBE227:
+ 1532              	.LBE235:
+ 1533              	.LBE241:
+ 1534              	.LBE248:
+ 1535              	.LBB249:
+ 1536              	.LBB250:
+ 141:../FuzzyController2.c **** 		input = fuzzy_var->range[0];
+ 1537              	 .loc 1 141 0
+ 1538 00cc B149     	 ldr r1,.L229+8
+ 1539              	.LVL156:
+ 1540              	.LBE250:
+ 1541              	.LBE249:
+ 1542              	.LBB270:
+ 1543              	.LBB242:
+ 148:../FuzzyController2.c **** 	}
+ 1544              	 .loc 1 148 0
+ 1545 00ce C2ED047A 	 fsts s15,[r2,#16]
+ 1546              	.LVL157:
+ 1547              	.LBE242:
+ 1548              	.LBE270:
+ 1549              	.LBB271:
+ 1550              	.LBB265:
+ 141:../FuzzyController2.c **** 		input = fuzzy_var->range[0];
+ 1551              	 .loc 1 141 0
+ 1552 00d2 D1ED027A 	 flds s15,[r1,#8]
+ 1553 00d6 F4EEC67A 	 fcmpes s15,s12
+ 1554 00da F1EE10FA 	 fmstat
+ 1555 00de 39DD     	 ble .L225
+ 1556              	.LVL158:
+ 1557              	.L168:
+ 1558 00e0 0B68     	 ldr r3,[r1]
+ 1559 00e2 4A68     	 ldr r2,[r1,#4]
+ 1560 00e4 93ED007A 	 flds s14,[r3]
+ 1561              	.LVL159:
+ 1562 00e8 93ED016A 	 flds s12,[r3,#4]
+ 1563              	.LVL160:
+ 1564 00ec D3ED026A 	 flds s13,[r3,#8]
+ 1565              	.LVL161:
+ 1566              	.LBB251:
+ 1567              	.LBB252:
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 1568              	 .loc 1 156 0
+ 1569 00f0 F4EEC77A 	 fcmpes s15,s14
+ 1570 00f4 F1EE10FA 	 fmstat
+ 1571 00f8 72D8     	 bhi .L226
+ 1572              	.L199:
+ 1573 00fa 9FEDA57A 	 flds s14,.L229+4
+ 1574              	.LVL162:
+ 1575              	.L171:
+ 1576              	.LBE252:
+ 1577              	.LBE251:
+ 148:../FuzzyController2.c **** 	}
+ 1578              	 .loc 1 148 0
+ 1579 00fe 82ED007A 	 fsts s14,[r2]
+ 1580              	.LVL163:
+ 1581 0102 93ED037A 	 flds s14,[r3,#12]
+ 1582              	.LVL164:
+ 1583 0106 93ED046A 	 flds s12,[r3,#16]
+ 1584              	.LVL165:
+ 1585 010a D3ED056A 	 flds s13,[r3,#20]
+ 1586              	.LVL166:
+ 1587              	.LBB259:
+ 1588              	.LBB253:
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 1589              	 .loc 1 156 0
+ 1590 010e F4EEC77A 	 fcmpes s15,s14
+ 1591 0112 F1EE10FA 	 fmstat
+ 1592 0116 45D8     	 bhi .L227
+ 1593              	.L202:
+ 1594 0118 9FED9D7A 	 flds s14,.L229+4
+ 1595              	.LVL167:
+ 1596              	.L175:
+ 1597              	.LBE253:
+ 1598              	.LBE259:
+ 148:../FuzzyController2.c **** 	}
+ 1599              	 .loc 1 148 0
+ 1600 011c 82ED017A 	 fsts s14,[r2,#4]
+ 1601              	.LVL168:
+ 1602 0120 93ED067A 	 flds s14,[r3,#24]
+ 1603              	.LVL169:
+ 1604 0124 93ED076A 	 flds s12,[r3,#28]
+ 1605              	.LVL170:
+ 1606 0128 D3ED086A 	 flds s13,[r3,#32]
+ 1607              	.LVL171:
+ 1608              	.LBB260:
+ 1609              	.LBB254:
+ 156:../FuzzyController2.c **** 	if(input >= mf.params[2])  return 0;
+ 1610              	 .loc 1 156 0
+ 1611 012c F4EEC77A 	 fcmpes s15,s14
+ 1612 0130 F1EE10FA 	 fmstat
+ 1613 0134 18D8     	 bhi .L228
+ 1614              	.L205:
+ 1615 0136 DFED967A 	 flds s15,.L229+4
+ 1616              	.LVL172:
+ 1617              	.L179:
+ 1618 013a 974B     	 ldr r3,.L229+12
+ 1619              	.LVL173:
+ 1620              	.LBE254:
+ 1621              	.LBE260:
+ 148:../FuzzyController2.c **** 	}
+ 1622              	 .loc 1 148 0
+ 1623 013c C2ED027A 	 fsts s15,[r2,#8]
+ 1624 0140 0322     	 movs r2,#3
+ 1625 0142 1A60     	 str r2,[r3]
+ 1626              	.LBE265:
+ 1627              	.LBE271:
+ 122:../FuzzyController2.c **** 
+ 1628              	 .loc 1 122 0
+ 1629 0144 FFF7FEFF 	 bl inference
+ 1630              	.LVL174:
+ 124:../FuzzyController2.c **** 
+ 1631              	 .loc 1 124 0
+ 1632 0148 9448     	 ldr r0,.L229+16
+ 1633 014a FFF7FEFF 	 bl defuzzify
+ 1634              	.LVL175:
+ 1635 014e 944B     	 ldr r3,.L229+20
+ 1636 0150 1860     	 str r0,[r3]
+ 127:../FuzzyController2.c **** 
+ 1637              	 .loc 1 127 0
+ 1638 0152 08BD     	 pop {r3,pc}
+ 1639              	.LVL176:
+ 1640              	.L225:
+ 1641              	.LBB272:
+ 1642              	.LBB266:
+ 143:../FuzzyController2.c **** 		input = fuzzy_var->range[1];
+ 1643              	 .loc 1 143 0
+ 1644 0154 D1ED037A 	 flds s15,[r1,#12]
+ 144:../FuzzyController2.c **** 	}
+ 1645              	 .loc 1 144 0
+ 1646 0158 B4EE676A 	 fcmps s12,s15
+ 1647 015c F1EE10FA 	 fmstat
+ 1648 0160 D8BF     	 it le
+ 1649 0162 F0EE467A 	 fcpysle s15,s12
+ 1650 0166 BBE7     	 b .L168
+ 1651              	.LVL177:
+ 1652              	.L228:
+ 1653              	.LBB261:
+ 1654              	.LBB255:
+ 157:../FuzzyController2.c **** 	if(input == mf.params[1]) return 1;
+ 1655              	 .loc 1 157 0
+ 1656 0168 F4EEE67A 	 fcmpes s15,s13
+ 1657 016c F1EE10FA 	 fmstat
+ 1658 0170 E1DA     	 bge .L205
+ 158:../FuzzyController2.c **** 
+ 1659              	 .loc 1 158 0
+ 1660 0172 B4EE676A 	 fcmps s12,s15
+ 1661 0176 F1EE10FA 	 fmstat
+ 1662 017a 00F0F580 	 beq .L206
+ 160:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 1663              	 .loc 1 160 0
+ 1664 017e F4EEC77A 	 fcmpes s15,s14
+ 1665 0182 F1EE10FA 	 fmstat
+ 1666 0186 40F3F980 	 ble .L180
+ 1667 018a F4EEC67A 	 fcmpes s15,s12
+ 1668 018e F1EE10FA 	 fmstat
+ 1669 0192 40F1F380 	 bpl .L180
+ 161:../FuzzyController2.c **** 	}
+ 1670              	 .loc 1 161 0
+ 1671 0196 77EEC77A 	 fsubs s15,s15,s14
+ 1672              	.LVL178:
+ 1673 019a 36EE477A 	 fsubs s14,s12,s14
+ 1674              	.LVL179:
+ 1675 019e C7EE877A 	 fdivs s15,s15,s14
+ 1676 01a2 CAE7     	 b .L179
+ 1677              	.LVL180:
+ 1678              	.L227:
+ 157:../FuzzyController2.c **** 	if(input == mf.params[1]) return 1;
+ 1679              	 .loc 1 157 0
+ 1680 01a4 F4EEE67A 	 fcmpes s15,s13
+ 1681 01a8 F1EE10FA 	 fmstat
+ 1682 01ac B4DA     	 bge .L202
+ 158:../FuzzyController2.c **** 
+ 1683              	 .loc 1 158 0
+ 1684 01ae B4EE676A 	 fcmps s12,s15
+ 1685 01b2 F1EE10FA 	 fmstat
+ 1686 01b6 00F0D480 	 beq .L203
+ 160:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 1687              	 .loc 1 160 0
+ 1688 01ba F4EEC77A 	 fcmpes s15,s14
+ 1689 01be F1EE10FA 	 fmstat
+ 1690 01c2 40F3FD80 	 ble .L177
+ 1691 01c6 F4EEC67A 	 fcmpes s15,s12
+ 1692 01ca F1EE10FA 	 fmstat
+ 1693 01ce 40F1F780 	 bpl .L177
+ 161:../FuzzyController2.c **** 	}
+ 1694              	 .loc 1 161 0
+ 1695 01d2 36EE476A 	 fsubs s12,s12,s14
+ 1696              	.LVL181:
+ 1697 01d6 37EEC77A 	 fsubs s14,s15,s14
+ 1698              	.LVL182:
+ 1699 01da 87EE067A 	 fdivs s14,s14,s12
+ 1700 01de 9DE7     	 b .L175
+ 1701              	.LVL183:
+ 1702              	.L226:
+ 157:../FuzzyController2.c **** 	if(input == mf.params[1]) return 1;
+ 1703              	 .loc 1 157 0
+ 1704 01e0 F4EEE67A 	 fcmpes s15,s13
+ 1705 01e4 F1EE10FA 	 fmstat
+ 1706 01e8 87DA     	 bge .L199
+ 158:../FuzzyController2.c **** 
+ 1707              	 .loc 1 158 0
+ 1708 01ea B4EE676A 	 fcmps s12,s15
+ 1709 01ee F1EE10FA 	 fmstat
+ 1710 01f2 00F0B380 	 beq .L200
+ 160:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 1711              	 .loc 1 160 0
+ 1712 01f6 F4EEC77A 	 fcmpes s15,s14
+ 1713 01fa F1EE10FA 	 fmstat
+ 1714 01fe 40F3D880 	 ble .L173
+ 1715 0202 F4EEC67A 	 fcmpes s15,s12
+ 1716 0206 F1EE10FA 	 fmstat
+ 1717 020a 40F1D280 	 bpl .L173
+ 161:../FuzzyController2.c **** 	}
+ 1718              	 .loc 1 161 0
+ 1719 020e 36EE476A 	 fsubs s12,s12,s14
+ 1720              	.LVL184:
+ 1721 0212 37EEC77A 	 fsubs s14,s15,s14
+ 1722              	.LVL185:
+ 1723 0216 87EE067A 	 fdivs s14,s14,s12
+ 1724 021a 70E7     	 b .L171
+ 1725              	.LVL186:
+ 1726              	.L224:
+ 1727              	.LBE255:
+ 1728              	.LBE261:
+ 1729              	.LBE266:
+ 1730              	.LBE272:
+ 1731              	.LBB273:
+ 1732              	.LBB243:
+ 1733              	.LBB236:
+ 1734              	.LBB228:
+ 157:../FuzzyController2.c **** 	if(input == mf.params[1]) return 1;
+ 1735              	 .loc 1 157 0
+ 1736 021c F4EEE76A 	 fcmpes s13,s15
+ 1737 0220 F1EE10FA 	 fmstat
+ 1738 0224 7FF650AF 	 bls .L196
+ 158:../FuzzyController2.c **** 
+ 1739              	 .loc 1 158 0
+ 1740 0228 F4EE675A 	 fcmps s11,s15
+ 1741 022c F1EE10FA 	 fmstat
+ 1742 0230 00F09180 	 beq .L197
+ 160:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 1743              	 .loc 1 160 0
+ 1744 0234 B4EEE77A 	 fcmpes s14,s15
+ 1745 0238 F1EE10FA 	 fmstat
+ 1746 023c 40F1D580 	 bpl .L165
+ 1747 0240 F4EEE75A 	 fcmpes s11,s15
+ 1748 0244 F1EE10FA 	 fmstat
+ 1749 0248 40F3CF80 	 ble .L165
+ 161:../FuzzyController2.c **** 	}
+ 1750              	 .loc 1 161 0
+ 1751 024c 77EEC77A 	 fsubs s15,s15,s14
+ 1752              	.LVL187:
+ 1753 0250 35EEC77A 	 fsubs s14,s11,s14
+ 1754              	.LVL188:
+ 1755 0254 C7EE877A 	 fdivs s15,s15,s14
+ 1756 0258 38E7     	 b .L164
+ 1757              	.LVL189:
+ 1758              	.L223:
+ 157:../FuzzyController2.c **** 	if(input == mf.params[1]) return 1;
+ 1759              	 .loc 1 157 0
+ 1760 025a F4EEE67A 	 fcmpes s15,s13
+ 1761 025e F1EE10FA 	 fmstat
+ 1762 0262 BFF621AF 	 bge .L193
+ 158:../FuzzyController2.c **** 
+ 1763              	 .loc 1 158 0
+ 1764 0266 F4EE675A 	 fcmps s11,s15
+ 1765 026a F1EE10FA 	 fmstat
+ 1766 026e 6FD0     	 beq .L194
+ 160:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 1767              	 .loc 1 160 0
+ 1768 0270 F4EEC77A 	 fcmpes s15,s14
+ 1769 0274 F1EE10FA 	 fmstat
+ 1770 0278 40F3B080 	 ble .L162
+ 1771 027c F4EEE57A 	 fcmpes s15,s11
+ 1772 0280 F1EE10FA 	 fmstat
+ 1773 0284 40F1AA80 	 bpl .L162
+ 161:../FuzzyController2.c **** 	}
+ 1774              	 .loc 1 161 0
+ 1775 0288 75EEC75A 	 fsubs s11,s11,s14
+ 1776              	.LVL190:
+ 1777 028c 37EEC77A 	 fsubs s14,s15,s14
+ 1778              	.LVL191:
+ 1779 0290 87EE257A 	 fdivs s14,s14,s11
+ 1780 0294 0AE7     	 b .L160
+ 1781              	.LVL192:
+ 1782              	.L222:
+ 157:../FuzzyController2.c **** 	if(input == mf.params[1]) return 1;
+ 1783              	 .loc 1 157 0
+ 1784 0296 F4EEE67A 	 fcmpes s15,s13
+ 1785 029a F1EE10FA 	 fmstat
+ 1786 029e BFF6F3AE 	 bge .L190
+ 158:../FuzzyController2.c **** 
+ 1787              	 .loc 1 158 0
+ 1788 02a2 F4EE675A 	 fcmps s11,s15
+ 1789 02a6 F1EE10FA 	 fmstat
+ 1790 02aa 4ED0     	 beq .L191
+ 160:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 1791              	 .loc 1 160 0
+ 1792 02ac F4EEC77A 	 fcmpes s15,s14
+ 1793 02b0 F1EE10FA 	 fmstat
+ 1794 02b4 5BDD     	 ble .L158
+ 1795 02b6 F4EEE57A 	 fcmpes s15,s11
+ 1796 02ba F1EE10FA 	 fmstat
+ 1797 02be 56D5     	 bpl .L158
+ 161:../FuzzyController2.c **** 	}
+ 1798              	 .loc 1 161 0
+ 1799 02c0 75EEC75A 	 fsubs s11,s11,s14
+ 1800              	.LVL193:
+ 1801 02c4 37EEC77A 	 fsubs s14,s15,s14
+ 1802              	.LVL194:
+ 1803 02c8 87EE257A 	 fdivs s14,s14,s11
+ 1804 02cc DEE6     	 b .L156
+ 1805              	.LVL195:
+ 1806              	.L221:
+ 157:../FuzzyController2.c **** 	if(input == mf.params[1]) return 1;
+ 1807              	 .loc 1 157 0
+ 1808 02ce F4EEE67A 	 fcmpes s15,s13
+ 1809 02d2 F1EE10FA 	 fmstat
+ 1810 02d6 BFF6C7AE 	 bge .L187
+ 158:../FuzzyController2.c **** 
+ 1811              	 .loc 1 158 0
+ 1812 02da F4EE675A 	 fcmps s11,s15
+ 1813 02de F1EE10FA 	 fmstat
+ 1814 02e2 2FD0     	 beq .L188
+ 160:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 1815              	 .loc 1 160 0
+ 1816 02e4 F4EEC77A 	 fcmpes s15,s14
+ 1817 02e8 F1EE10FA 	 fmstat
+ 1818 02ec 6FDD     	 ble .L154
+ 1819 02ee F4EEE57A 	 fcmpes s15,s11
+ 1820 02f2 F1EE10FA 	 fmstat
+ 1821 02f6 6AD5     	 bpl .L154
+ 161:../FuzzyController2.c **** 	}
+ 1822              	 .loc 1 161 0
+ 1823 02f8 75EEC75A 	 fsubs s11,s11,s14
+ 1824              	.LVL196:
+ 1825 02fc 37EEC77A 	 fsubs s14,s15,s14
+ 1826              	.LVL197:
+ 1827 0300 87EE257A 	 fdivs s14,s14,s11
+ 1828 0304 B2E6     	 b .L152
+ 1829              	.LVL198:
+ 1830              	.L220:
+ 157:../FuzzyController2.c **** 	if(input == mf.params[1]) return 1;
+ 1831              	 .loc 1 157 0
+ 1832 0306 F4EEE67A 	 fcmpes s15,s13
+ 1833 030a F1EE10FA 	 fmstat
+ 1834 030e BFF69BAE 	 bge .L184
+ 158:../FuzzyController2.c **** 
+ 1835              	 .loc 1 158 0
+ 1836 0312 F4EE675A 	 fcmps s11,s15
+ 1837 0316 F1EE10FA 	 fmstat
+ 1838 031a 10D0     	 beq .L185
+ 160:../FuzzyController2.c **** 		return ((input - mf.params[0]) / (mf.params[1] -  mf.params[0]));
+ 1839              	 .loc 1 160 0
+ 1840 031c F4EEC77A 	 fcmpes s15,s14
+ 1841 0320 F1EE10FA 	 fmstat
+ 1842 0324 3EDD     	 ble .L150
+ 1843 0326 F4EEE57A 	 fcmpes s15,s11
+ 1844 032a F1EE10FA 	 fmstat
+ 1845 032e 39D5     	 bpl .L150
+ 161:../FuzzyController2.c **** 	}
+ 1846              	 .loc 1 161 0
+ 1847 0330 75EEC75A 	 fsubs s11,s11,s14
+ 1848              	.LVL199:
+ 1849 0334 37EEC77A 	 fsubs s14,s15,s14
+ 1850              	.LVL200:
+ 1851 0338 87EE257A 	 fdivs s14,s14,s11
+ 1852 033c 86E6     	 b .L148
+ 1853              	.LVL201:
+ 1854              	.L185:
+ 158:../FuzzyController2.c **** 
+ 1855              	 .loc 1 158 0
+ 1856 033e B7EE007A 	 fconsts s14,#112
+ 1857              	.LVL202:
+ 1858 0342 83E6     	 b .L148
+ 1859              	.LVL203:
+ 1860              	.L188:
+ 1861 0344 B7EE007A 	 fconsts s14,#112
+ 1862              	.LVL204:
+ 1863 0348 90E6     	 b .L152
+ 1864              	.LVL205:
+ 1865              	.L191:
+ 1866 034a B7EE007A 	 fconsts s14,#112
+ 1867              	.LVL206:
+ 1868 034e 9DE6     	 b .L156
+ 1869              	.LVL207:
+ 1870              	.L194:
+ 1871 0350 B7EE007A 	 fconsts s14,#112
+ 1872              	.LVL208:
+ 1873 0354 AAE6     	 b .L160
+ 1874              	.LVL209:
+ 1875              	.L197:
+ 1876 0356 F7EE007A 	 fconsts s15,#112
+ 1877              	.LVL210:
+ 1878 035a B7E6     	 b .L164
+ 1879              	.LVL211:
+ 1880              	.L200:
+ 1881              	.LBE228:
+ 1882              	.LBE236:
+ 1883              	.LBE243:
+ 1884              	.LBE273:
+ 1885              	.LBB274:
+ 1886              	.LBB267:
+ 1887              	.LBB262:
+ 1888              	.LBB256:
+ 1889 035c B7EE007A 	 fconsts s14,#112
+ 1890              	.LVL212:
+ 1891 0360 CDE6     	 b .L171
+ 1892              	.LVL213:
+ 1893              	.L203:
+ 1894 0362 B7EE007A 	 fconsts s14,#112
+ 1895              	.LVL214:
+ 1896 0366 D9E6     	 b .L175
+ 1897              	.LVL215:
+ 1898              	.L206:
+ 1899 0368 F7EE007A 	 fconsts s15,#112
+ 1900              	.LVL216:
+ 1901 036c E5E6     	 b .L179
+ 1902              	.LVL217:
+ 1903              	.L158:
+ 1904              	.LBE256:
+ 1905              	.LBE262:
+ 1906              	.LBE267:
+ 1907              	.LBE274:
+ 1908              	.LBB275:
+ 1909              	.LBB244:
+ 1910              	.LBB237:
+ 1911              	.LBB229:
+ 164:../FuzzyController2.c **** }
+ 1912              	 .loc 1 164 0
+ 1913 036e 36EEE57A 	 fsubs s14,s13,s11
+ 1914              	.LVL218:
+ 1915 0372 76EEE76A 	 fsubs s13,s13,s15
+ 1916              	.LVL219:
+ 1917 0376 86EE877A 	 fdivs s14,s13,s14
+ 1918 037a 87E6     	 b .L156
+ 1919              	.LVL220:
+ 1920              	.L180:
+ 1921              	.LBE229:
+ 1922              	.LBE237:
+ 1923              	.LBE244:
+ 1924              	.LBE275:
+ 1925              	.LBB276:
+ 1926              	.LBB268:
+ 1927              	.LBB263:
+ 1928              	.LBB257:
+ 1929 037c 76EEE77A 	 fsubs s15,s13,s15
+ 1930              	.LVL221:
+ 1931 0380 76EEC66A 	 fsubs s13,s13,s12
+ 1932              	.LVL222:
+ 1933 0384 C7EEA67A 	 fdivs s15,s15,s13
+ 1934 0388 D7E6     	 b .L179
+ 1935              	.L230:
+ 1936 038a 00BF     	 .align 2
+ 1937              	.L229:
+ 1938 038c 00000000 	 .word error_fuzzy
+ 1939 0390 00000000 	 .word 0
+ 1940 0394 00000000 	 .word accel_fuzzy
+ 1941 0398 00000000 	 .word .LANCHOR0
+ 1942 039c 0000C842 	 .word 1120403456
+ 1943 03a0 00000000 	 .word .LANCHOR7
+ 1944              	.LVL223:
+ 1945              	.L150:
+ 1946              	.LBE257:
+ 1947              	.LBE263:
+ 1948              	.LBE268:
+ 1949              	.LBE276:
+ 1950              	.LBB277:
+ 1951              	.LBB245:
+ 1952              	.LBB238:
+ 1953              	.LBB230:
+ 1954 03a4 36EEE57A 	 fsubs s14,s13,s11
+ 1955              	.LVL224:
+ 1956 03a8 76EEE76A 	 fsubs s13,s13,s15
+ 1957              	.LVL225:
+ 1958 03ac 86EE877A 	 fdivs s14,s13,s14
+ 1959 03b0 4CE6     	 b .L148
+ 1960              	.LVL226:
+ 1961              	.L173:
+ 1962              	.LBE230:
+ 1963              	.LBE238:
+ 1964              	.LBE245:
+ 1965              	.LBE277:
+ 1966              	.LBB278:
+ 1967              	.LBB269:
+ 1968              	.LBB264:
+ 1969              	.LBB258:
+ 1970 03b2 36EEC67A 	 fsubs s14,s13,s12
+ 1971              	.LVL227:
+ 1972 03b6 76EEE76A 	 fsubs s13,s13,s15
+ 1973              	.LVL228:
+ 1974 03ba 86EE877A 	 fdivs s14,s13,s14
+ 1975 03be 9EE6     	 b .L171
+ 1976              	.LVL229:
+ 1977              	.L177:
+ 1978 03c0 36EEC67A 	 fsubs s14,s13,s12
+ 1979              	.LVL230:
+ 1980 03c4 76EEE76A 	 fsubs s13,s13,s15
+ 1981              	.LVL231:
+ 1982 03c8 86EE877A 	 fdivs s14,s13,s14
+ 1983 03cc A6E6     	 b .L175
+ 1984              	.LVL232:
+ 1985              	.L154:
+ 1986              	.LBE258:
+ 1987              	.LBE264:
+ 1988              	.LBE269:
+ 1989              	.LBE278:
+ 1990              	.LBB279:
+ 1991              	.LBB246:
+ 1992              	.LBB239:
+ 1993              	.LBB231:
+ 1994 03ce 36EEE57A 	 fsubs s14,s13,s11
+ 1995              	.LVL233:
+ 1996 03d2 76EEE76A 	 fsubs s13,s13,s15
+ 1997              	.LVL234:
+ 1998 03d6 86EE877A 	 fdivs s14,s13,s14
+ 1999 03da 47E6     	 b .L152
+ 2000              	.LVL235:
+ 2001              	.L162:
+ 2002 03dc 36EEE57A 	 fsubs s14,s13,s11
+ 2003              	.LVL236:
+ 2004 03e0 76EEE76A 	 fsubs s13,s13,s15
+ 2005              	.LVL237:
+ 2006 03e4 86EE877A 	 fdivs s14,s13,s14
+ 2007 03e8 60E6     	 b .L160
+ 2008              	.LVL238:
+ 2009              	.L165:
+ 2010 03ea 76EEE77A 	 fsubs s15,s13,s15
+ 2011              	.LVL239:
+ 2012 03ee 76EEE56A 	 fsubs s13,s13,s11
+ 2013              	.LVL240:
+ 2014 03f2 C7EEA67A 	 fdivs s15,s15,s13
+ 2015 03f6 69E6     	 b .L164
+ 2016              	.LBE231:
+ 2017              	.LBE239:
+ 2018              	.LBE246:
+ 2019              	.LBE279:
+ 2020              	 .cfi_endproc
+ 2021              	.LFE1:
+ 2023              	 .comm pwm_fuzzy,16,4
+ 2024              	 .comm accel_fuzzy,16,4
+ 2025              	 .comm error_fuzzy,16,4
+ 2026              	 .section .bss.current_x.4809,"aw",%nobits
+ 2027              	 .align 2
+ 2028              	 .set .LANCHOR1,.+0
+ 2031              	current_x.4809:
+ 2032 0000 00000000 	 .space 4
+ 2033              	 .section .bss.i.4808,"aw",%nobits
+ 2034              	 .align 2
+ 2035              	 .set .LANCHOR6,.+0
+ 2038              	i.4808:
+ 2039 0000 00000000 	 .space 4
+ 2040              	 .section .bss.truth_value.4813,"aw",%nobits
+ 2041              	 .align 2
+ 2042              	 .set .LANCHOR5,.+0
+ 2045              	truth_value.4813:
+ 2046 0000 00000000 	 .space 4
+ 2047              	 .section .bss.pwm_increment.4773,"aw",%nobits
+ 2048              	 .align 2
+ 2049              	 .set .LANCHOR7,.+0
+ 2052              	pwm_increment.4773:
+ 2053 0000 00000000 	 .space 4
+ 2054              	 .section .bss.bottom_sum.4812,"aw",%nobits
+ 2055              	 .align 2
+ 2056              	 .set .LANCHOR4,.+0
+ 2059              	bottom_sum.4812:
+ 2060 0000 00000000 	 .space 4
+ 2061              	 .section .bss.i.4785,"aw",%nobits
+ 2062              	 .align 2
+ 2063              	 .set .LANCHOR0,.+0
+ 2066              	i.4785:
+ 2067 0000 00000000 	 .space 4
+ 2068              	 .section .bss.top_sum.4811,"aw",%nobits
+ 2069              	 .align 2
+ 2070              	 .set .LANCHOR3,.+0
+ 2073              	top_sum.4811:
+ 2074 0000 00000000 	 .space 4
+ 2075              	 .section .bss.x_increment.4810,"aw",%nobits
+ 2076              	 .align 2
+ 2077              	 .set .LANCHOR2,.+0
+ 2080              	x_increment.4810:
+ 2081 0000 00000000 	 .space 4
+ 2082              	 .text
+ 2083              	.Letext0:
+ 2084              	 .file 2 "c:\\dave 4\\eclipse\\arm-gcc-49\\lib\\gcc\\arm-none-eabi\\4.9.3\\include\\stddef.h"
+ 2085              	 .file 3 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 2086              	 .file 4 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 2087              	 .file 5 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdlib.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 FuzzyController2.c
+    {standard input}:20     .text.setupFuzzyController:00000000 $t
+    {standard input}:25     .text.setupFuzzyController:00000000 setupFuzzyController
+    {standard input}:473    .text.setupFuzzyController:00000180 $d
+                            *COM*:00000010 accel_fuzzy
+                            *COM*:00000010 error_fuzzy
+                            *COM*:00000010 pwm_fuzzy
+    {standard input}:492    .text.assignMembershipFunctionParams:00000000 $t
+    {standard input}:497    .text.assignMembershipFunctionParams:00000000 assignMembershipFunctionParams
+    {standard input}:516    .text.fuzzify:00000000 $t
+    {standard input}:521    .text.fuzzify:00000000 fuzzify
+    {standard input}:646    .text.fuzzify:000000b0 $d
+    {standard input}:654    .text.getTruthValue:00000000 $t
+    {standard input}:659    .text.getTruthValue:00000000 getTruthValue
+    {standard input}:759    .text.getTruthValue:00000090 $d
+    {standard input}:764    .text.inference:00000000 $t
+    {standard input}:769    .text.inference:00000000 inference
+    {standard input}:1149   .text.inference:00000274 $d
+    {standard input}:1156   .text.fuzzyAnd:00000000 $t
+    {standard input}:1161   .text.fuzzyAnd:00000000 fuzzyAnd
+    {standard input}:1185   .text.defuzzify:00000000 $t
+    {standard input}:1190   .text.defuzzify:00000000 defuzzify
+    {standard input}:1367   .text.defuzzify:00000118 $d
+    {standard input}:1379   .text.computeFuzzy:00000000 $t
+    {standard input}:1384   .text.computeFuzzy:00000000 computeFuzzy
+    {standard input}:1938   .text.computeFuzzy:0000038c $d
+    {standard input}:1954   .text.computeFuzzy:000003a4 $t
+    {standard input}:2027   .bss.current_x.4809:00000000 $d
+    {standard input}:2031   .bss.current_x.4809:00000000 current_x.4809
+    {standard input}:2034   .bss.i.4808:00000000 $d
+    {standard input}:2038   .bss.i.4808:00000000 i.4808
+    {standard input}:2041   .bss.truth_value.4813:00000000 $d
+    {standard input}:2045   .bss.truth_value.4813:00000000 truth_value.4813
+    {standard input}:2048   .bss.pwm_increment.4773:00000000 $d
+    {standard input}:2052   .bss.pwm_increment.4773:00000000 pwm_increment.4773
+    {standard input}:2055   .bss.bottom_sum.4812:00000000 $d
+    {standard input}:2059   .bss.bottom_sum.4812:00000000 bottom_sum.4812
+    {standard input}:2062   .bss.i.4785:00000000 $d
+    {standard input}:2066   .bss.i.4785:00000000 i.4785
+    {standard input}:2069   .bss.top_sum.4811:00000000 $d
+    {standard input}:2073   .bss.top_sum.4811:00000000 top_sum.4811
+    {standard input}:2076   .bss.x_increment.4810:00000000 $d
+    {standard input}:2080   .bss.x_increment.4810:00000000 x_increment.4810
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+malloc
+memset

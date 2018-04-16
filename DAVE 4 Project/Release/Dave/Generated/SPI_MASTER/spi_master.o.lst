@@ -1,0 +1,1375 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "spi_master.c"
+  16              	 .section .text.SPI_MASTER_lReceiveIRQ,"ax",%progbits
+  17              	 .align 2
+  18              	 .thumb
+  19              	 .thumb_func
+  21              	SPI_MASTER_lReceiveIRQ:
+  22              	 
+  23              	 
+  24 0000 F8B5     	 push {r3,r4,r5,r6,r7,lr}
+  25 0002 0446     	 mov r4,r0
+  26 0004 0020     	 movs r0,#0
+  27 0006 A568     	 ldr r5,[r4,#8]
+  28 0008 6268     	 ldr r2,[r4,#4]
+  29 000a 2B68     	 ldr r3,[r5]
+  30 000c 92F87D20 	 ldrb r2,[r2,#125]
+  31 0010 2668     	 ldr r6,[r4]
+  32 0012 2861     	 str r0,[r5,#16]
+  33 0014 082B     	 cmp r3,#8
+  34 0016 94BF     	 ite ls
+  35 0018 0023     	 movls r3,#0
+  36 001a 0123     	 movhi r3,#1
+  37 001c 9940     	 lsls r1,r1,r3
+  38 001e E960     	 str r1,[r5,#12]
+  39 0020 02B3     	 cbz r2,.L2
+  40 0022 4FF48043 	 mov r3,#16384
+  41 0026 C6F81831 	 str r3,[r6,#280]
+  42 002a 3046     	 mov r0,r6
+  43 002c FFF7FEFF 	 bl XMC_SPI_CH_GetReceivedData
+  44 0030 3046     	 mov r0,r6
+  45 0032 FFF7FEFF 	 bl XMC_SPI_CH_GetReceivedData
+  46 0036 6368     	 ldr r3,[r4,#4]
+  47 0038 E868     	 ldr r0,[r5,#12]
+  48 003a 93F87D10 	 ldrb r1,[r3,#125]
+  49 003e 29B3     	 cbz r1,.L13
+  50 0040 20B3     	 cbz r0,.L13
+  51 0042 A368     	 ldr r3,[r4,#8]
+  52 0044 1B68     	 ldr r3,[r3]
+  53 0046 0122     	 movs r2,#1
+  54 0048 8A40     	 lsls r2,r2,r1
+  55 004a 082B     	 cmp r3,#8
+  56 004c 88BF     	 it hi
+  57 004e 4008     	 lsrhi r0,r0,#1
+  58 0050 5208     	 lsrs r2,r2,#1
+  59 0052 8242     	 cmp r2,r0
+  60 0054 88BF     	 it hi
+  61 0056 00F1FF32 	 addhi r2,r0,#-1
+  62 005a 2068     	 ldr r0,[r4]
+  63 005c FFF7FEFF 	 bl XMC_USIC_CH_RXFIFO_SetSizeTriggerLimit
+  64 0060 6168     	 ldr r1,[r4,#4]
+  65 0062 14E0     	 b .L3
+  66              	.L2:
+  67 0064 3046     	 mov r0,r6
+  68 0066 FFF7FEFF 	 bl XMC_SPI_CH_GetReceivedData
+  69 006a 3046     	 mov r0,r6
+  70 006c FFF7FEFF 	 bl XMC_SPI_CH_GetReceivedData
+  71 0070 2368     	 ldr r3,[r4]
+  72 0072 6168     	 ldr r1,[r4,#4]
+  73 0074 1A6C     	 ldr r2,[r3,#64]
+  74 0076 AE69     	 ldr r6,[r5,#24]
+  75 0078 6868     	 ldr r0,[r5,#4]
+  76 007a 42F44042 	 orr r2,r2,#49152
+  77 007e 1A64     	 str r2,[r3,#64]
+  78 0080 1A46     	 mov r2,r3
+  79 0082 91F88430 	 ldrb r3,[r1,#132]
+  80 0086 83B1     	 cbz r3,.L11
+  81              	.L20:
+  82 0088 0120     	 movs r0,#1
+  83 008a F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+  84              	.L13:
+  85 008c 1946     	 mov r1,r3
+  86              	.L3:
+  87 008e 2368     	 ldr r3,[r4]
+  88 0090 AE69     	 ldr r6,[r5,#24]
+  89 0092 D3F80C21 	 ldr r2,[r3,#268]
+  90 0096 6868     	 ldr r0,[r5,#4]
+  91 0098 42F0C042 	 orr r2,r2,#1610612736
+  92 009c C3F80C21 	 str r2,[r3,#268]
+  93 00a0 1A46     	 mov r2,r3
+  94 00a2 91F88430 	 ldrb r3,[r1,#132]
+  95 00a6 002B     	 cmp r3,#0
+  96 00a8 EED1     	 bne .L20
+  97              	.L11:
+  98 00aa A468     	 ldr r4,[r4,#8]
+  99 00ac 06B1     	 cbz r6,.L18
+ 100 00ae 08B9     	 cbnz r0,.L21
+ 101              	.L18:
+ 102 00b0 0320     	 movs r0,#3
+ 103 00b2 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 104              	.L21:
+ 105 00b4 94F82030 	 ldrb r3,[r4,#32]
+ 106 00b8 03F0FF05 	 and r5,r3,#255
+ 107 00bc 0BB1     	 cbz r3,.L22
+ 108 00be 0220     	 movs r0,#2
+ 109 00c0 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 110              	.L22:
+ 111 00c2 2368     	 ldr r3,[r4]
+ 112 00c4 91F87C70 	 ldrb r7,[r1,#124]
+ 113 00c8 A560     	 str r5,[r4,#8]
+ 114 00ca 082B     	 cmp r3,#8
+ 115 00cc 94BF     	 ite ls
+ 116 00ce 0023     	 movls r3,#0
+ 117 00d0 0123     	 movhi r3,#1
+ 118 00d2 9840     	 lsls r0,r0,r3
+ 119 00d4 0123     	 movs r3,#1
+ 120 00d6 A661     	 str r6,[r4,#24]
+ 121 00d8 6060     	 str r0,[r4,#4]
+ 122 00da 84F82030 	 strb r3,[r4,#32]
+ 123 00de D7B1     	 cbz r7,.L8
+ 124 00e0 4FF40043 	 mov r3,#32768
+ 125 00e4 C2F81831 	 str r3,[r2,#280]
+ 126 00e8 D2F80831 	 ldr r3,[r2,#264]
+ 127 00ec 43F08043 	 orr r3,r3,#1073741824
+ 128 00f0 C2F80831 	 str r3,[r2,#264]
+ 129              	.L9:
+ 130 00f4 207F     	 ldrb r0,[r4,#28]
+ 131 00f6 136C     	 ldr r3,[r2,#64]
+ 132 00f8 91F88940 	 ldrb r4,[r1,#137]
+ 133 00fc 8101     	 lsls r1,r0,#6
+ 134 00fe C9B2     	 uxtb r1,r1
+ 135 0100 4FF48030 	 mov r0,#65536
+ 136 0104 23F0C003 	 bic r3,r3,#192
+ 137 0108 0B43     	 orrs r3,r3,r1
+ 138 010a 00FA04F1 	 lsl r1,r0,r4
+ 139 010e 1364     	 str r3,[r2,#64]
+ 140 0110 0020     	 movs r0,#0
+ 141 0112 9166     	 str r1,[r2,#104]
+ 142 0114 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 143              	.L8:
+ 144 0116 136C     	 ldr r3,[r2,#64]
+ 145 0118 43F40053 	 orr r3,r3,#8192
+ 146 011c 1364     	 str r3,[r2,#64]
+ 147 011e E9E7     	 b .L9
+ 149              	 .section .text.SPI_MASTER_GetAppVersion,"ax",%progbits
+ 150              	 .align 2
+ 151              	 .global SPI_MASTER_GetAppVersion
+ 152              	 .thumb
+ 153              	 .thumb_func
+ 155              	SPI_MASTER_GetAppVersion:
+ 156              	 
+ 157              	 
+ 158              	 
+ 159 0000 0423     	 movs r3,#4
+ 160 0002 0020     	 movs r0,#0
+ 161 0004 63F30700 	 bfi r0,r3,#0,#8
+ 162 0008 0323     	 movs r3,#3
+ 163 000a 63F30F20 	 bfi r0,r3,#8,#8
+ 164 000e 1423     	 movs r3,#20
+ 165 0010 63F31740 	 bfi r0,r3,#16,#8
+ 166 0014 82B0     	 sub sp,sp,#8
+ 167 0016 02B0     	 add sp,sp,#8
+ 168              	 
+ 169 0018 7047     	 bx lr
+ 171 001a 00BF     	 .section .text.SPI_MASTER_Init,"ax",%progbits
+ 172              	 .align 2
+ 173              	 .global SPI_MASTER_Init
+ 174              	 .thumb
+ 175              	 .thumb_func
+ 177              	SPI_MASTER_Init:
+ 178              	 
+ 179              	 
+ 180              	 
+ 181 0000 4368     	 ldr r3,[r0,#4]
+ 182 0002 5B68     	 ldr r3,[r3,#4]
+ 183 0004 1847     	 bx r3
+ 185 0006 00BF     	 .section .text.SPI_MASTER_SetMode,"ax",%progbits
+ 186              	 .align 2
+ 187              	 .global SPI_MASTER_SetMode
+ 188              	 .thumb
+ 189              	 .thumb_func
+ 191              	SPI_MASTER_SetMode:
+ 192              	 
+ 193              	 
+ 194 0000 8368     	 ldr r3,[r0,#8]
+ 195 0002 93F82020 	 ldrb r2,[r3,#32]
+ 196 0006 70B5     	 push {r4,r5,r6,lr}
+ 197 0008 0446     	 mov r4,r0
+ 198 000a 0AB1     	 cbz r2,.L46
+ 199              	.L36:
+ 200 000c 0220     	 movs r0,#2
+ 201 000e 70BD     	 pop {r4,r5,r6,pc}
+ 202              	.L46:
+ 203 0010 DA7F     	 ldrb r2,[r3,#31]
+ 204 0012 02F0FF00 	 and r0,r2,#255
+ 205 0016 002A     	 cmp r2,#0
+ 206 0018 F8D1     	 bne .L36
+ 207 001a 1A7F     	 ldrb r2,[r3,#28]
+ 208 001c 8A42     	 cmp r2,r1
+ 209 001e 1BD0     	 beq .L44
+ 210 0020 6068     	 ldr r0,[r4,#4]
+ 211 0022 90F88620 	 ldrb r2,[r0,#134]
+ 212 0026 042A     	 cmp r2,#4
+ 213 0028 14D0     	 beq .L42
+ 214 002a 9142     	 cmp r1,r2
+ 215 002c 12D8     	 bhi .L42
+ 216 002e 002A     	 cmp r2,#0
+ 217 0030 73D1     	 bne .L28
+ 218 0032 0529     	 cmp r1,#5
+ 219 0034 0ED8     	 bhi .L42
+ 220              	.L29:
+ 221 0036 1977     	 strb r1,[r3,#28]
+ 222 0038 1A7F     	 ldrb r2,[r3,#28]
+ 223 003a 072A     	 cmp r2,#7
+ 224 003c 6BD8     	 bhi .L43
+ 225 003e DFE802F0 	 tbb [pc,r2]
+ 226              	.L34:
+ 227 0042 47       	 .byte (.L31-.L34)/2
+ 228 0043 6A       	 .byte (.L43-.L34)/2
+ 229 0044 6A       	 .byte (.L43-.L34)/2
+ 230 0045 6A       	 .byte (.L43-.L34)/2
+ 231 0046 32       	 .byte (.L32-.L34)/2
+ 232 0047 6A       	 .byte (.L43-.L34)/2
+ 233 0048 0C       	 .byte (.L33-.L34)/2
+ 234 0049 0C       	 .byte (.L33-.L34)/2
+ 235              	 .p2align 1
+ 236              	.L30:
+ 237 004a 0429     	 cmp r1,#4
+ 238 004c F3D1     	 bne .L29
+ 239 004e 9A7F     	 ldrb r2,[r3,#30]
+ 240 0050 072A     	 cmp r2,#7
+ 241 0052 F0D1     	 bne .L29
+ 242              	.L42:
+ 243 0054 0120     	 movs r0,#1
+ 244 0056 70BD     	 pop {r4,r5,r6,pc}
+ 245              	.L44:
+ 246 0058 70BD     	 pop {r4,r5,r6,pc}
+ 247              	.L33:
+ 248 005a 2168     	 ldr r1,[r4]
+ 249 005c 0569     	 ldr r5,[r0,#16]
+ 250 005e CB69     	 ldr r3,[r1,#28]
+ 251 0060 4269     	 ldr r2,[r0,#20]
+ 252 0062 2868     	 ldr r0,[r5]
+ 253 0064 1278     	 ldrb r2,[r2]
+ 254 0066 23F05003 	 bic r3,r3,#80
+ 255 006a 43F01003 	 orr r3,r3,#16
+ 256 006e CB61     	 str r3,[r1,#28]
+ 257 0070 CB69     	 ldr r3,[r1,#28]
+ 258 0072 23F00703 	 bic r3,r3,#7
+ 259 0076 43F00603 	 orr r3,r3,#6
+ 260 007a CB61     	 str r3,[r1,#28]
+ 261 007c 2979     	 ldrb r1,[r5,#4]
+ 262 007e FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 263 0082 6268     	 ldr r2,[r4,#4]
+ 264 0084 9368     	 ldr r3,[r2,#8]
+ 265 0086 D268     	 ldr r2,[r2,#12]
+ 266 0088 1868     	 ldr r0,[r3]
+ 267 008a 1979     	 ldrb r1,[r3,#4]
+ 268 008c 127B     	 ldrb r2,[r2,#12]
+ 269 008e FFF7FEFF 	 bl XMC_GPIO_SetHardwareControl
+ 270 0092 6268     	 ldr r2,[r4,#4]
+ 271 0094 1369     	 ldr r3,[r2,#16]
+ 272 0096 5269     	 ldr r2,[r2,#20]
+ 273 0098 1868     	 ldr r0,[r3]
+ 274 009a 127B     	 ldrb r2,[r2,#12]
+ 275 009c 1979     	 ldrb r1,[r3,#4]
+ 276 009e FFF7FEFF 	 bl XMC_GPIO_SetHardwareControl
+ 277 00a2 0020     	 movs r0,#0
+ 278 00a4 70BD     	 pop {r4,r5,r6,pc}
+ 279              	.L32:
+ 280 00a6 2168     	 ldr r1,[r4]
+ 281 00a8 9D7F     	 ldrb r5,[r3,#30]
+ 282 00aa CA69     	 ldr r2,[r1,#28]
+ 283 00ac 8468     	 ldr r4,[r0,#8]
+ 284 00ae 22F05002 	 bic r2,r2,#80
+ 285 00b2 42F01002 	 orr r2,r2,#16
+ 286 00b6 CA61     	 str r2,[r1,#28]
+ 287 00b8 CB69     	 ldr r3,[r1,#28]
+ 288 00ba 2068     	 ldr r0,[r4]
+ 289 00bc 23F00703 	 bic r3,r3,#7
+ 290 00c0 2B43     	 orrs r3,r3,r5
+ 291 00c2 CB61     	 str r3,[r1,#28]
+ 292 00c4 2179     	 ldrb r1,[r4,#4]
+ 293 00c6 0022     	 movs r2,#0
+ 294 00c8 FFF7FEFF 	 bl XMC_GPIO_SetHardwareControl
+ 295 00cc 0020     	 movs r0,#0
+ 296 00ce 70BD     	 pop {r4,r5,r6,pc}
+ 297              	.L31:
+ 298 00d0 2168     	 ldr r1,[r4]
+ 299 00d2 5E7F     	 ldrb r6,[r3,#29]
+ 300 00d4 CA69     	 ldr r2,[r1,#28]
+ 301 00d6 0569     	 ldr r5,[r0,#16]
+ 302 00d8 22F05002 	 bic r2,r2,#80
+ 303 00dc 42F01002 	 orr r2,r2,#16
+ 304 00e0 CA61     	 str r2,[r1,#28]
+ 305 00e2 CB69     	 ldr r3,[r1,#28]
+ 306 00e4 2868     	 ldr r0,[r5]
+ 307 00e6 23F00703 	 bic r3,r3,#7
+ 308 00ea 3343     	 orrs r3,r3,r6
+ 309 00ec CB61     	 str r3,[r1,#28]
+ 310 00ee 2979     	 ldrb r1,[r5,#4]
+ 311 00f0 0022     	 movs r2,#0
+ 312 00f2 FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 313 00f6 6368     	 ldr r3,[r4,#4]
+ 314 00f8 9B68     	 ldr r3,[r3,#8]
+ 315 00fa 0022     	 movs r2,#0
+ 316 00fc 1868     	 ldr r0,[r3]
+ 317 00fe 1979     	 ldrb r1,[r3,#4]
+ 318 0100 FFF7FEFF 	 bl XMC_GPIO_SetHardwareControl
+ 319 0104 6368     	 ldr r3,[r4,#4]
+ 320 0106 1B69     	 ldr r3,[r3,#16]
+ 321 0108 0022     	 movs r2,#0
+ 322 010a 1868     	 ldr r0,[r3]
+ 323 010c 1979     	 ldrb r1,[r3,#4]
+ 324 010e FFF7FEFF 	 bl XMC_GPIO_SetHardwareControl
+ 325 0112 0020     	 movs r0,#0
+ 326 0114 70BD     	 pop {r4,r5,r6,pc}
+ 327              	.L43:
+ 328 0116 0020     	 movs r0,#0
+ 329 0118 70BD     	 pop {r4,r5,r6,pc}
+ 330              	.L28:
+ 331 011a 0029     	 cmp r1,#0
+ 332 011c 95D1     	 bne .L30
+ 333 011e 5A7F     	 ldrb r2,[r3,#29]
+ 334 0120 072A     	 cmp r2,#7
+ 335 0122 88D1     	 bne .L29
+ 336 0124 96E7     	 b .L42
+ 338 0126 00BF     	 .section .text.SPI_MASTER_SetBaudRate,"ax",%progbits
+ 339              	 .align 2
+ 340              	 .global SPI_MASTER_SetBaudRate
+ 341              	 .thumb
+ 342              	 .thumb_func
+ 344              	SPI_MASTER_SetBaudRate:
+ 345              	 
+ 346              	 
+ 347 0000 8368     	 ldr r3,[r0,#8]
+ 348 0002 93F82020 	 ldrb r2,[r3,#32]
+ 349 0006 70B5     	 push {r4,r5,r6,lr}
+ 350 0008 12B1     	 cbz r2,.L73
+ 351              	.L65:
+ 352 000a 0224     	 movs r4,#2
+ 353              	.L48:
+ 354 000c 2046     	 mov r0,r4
+ 355 000e 70BD     	 pop {r4,r5,r6,pc}
+ 356              	.L73:
+ 357 0010 DB7F     	 ldrb r3,[r3,#31]
+ 358 0012 002B     	 cmp r3,#0
+ 359 0014 F9D1     	 bne .L65
+ 360 0016 0546     	 mov r5,r0
+ 361 0018 0068     	 ldr r0,[r0]
+ 362 001a 0E46     	 mov r6,r1
+ 363 001c FFF7FEFF 	 bl XMC_SPI_CH_Stop
+ 364 0020 0446     	 mov r4,r0
+ 365 0022 0028     	 cmp r0,#0
+ 366 0024 F2D1     	 bne .L48
+ 367 0026 6B68     	 ldr r3,[r5,#4]
+ 368 0028 93F88720 	 ldrb r2,[r3,#135]
+ 369 002c 72B1     	 cbz r2,.L49
+ 370              	.L50:
+ 371 002e 04F10C01 	 add r1,r4,#12
+ 372 0032 0022     	 movs r2,#0
+ 373 0034 53F82130 	 ldr r3,[r3,r1,lsl#2]
+ 374 0038 1868     	 ldr r0,[r3]
+ 375 003a 1979     	 ldrb r1,[r3,#4]
+ 376 003c FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 377 0040 6B68     	 ldr r3,[r5,#4]
+ 378 0042 93F88720 	 ldrb r2,[r3,#135]
+ 379 0046 0134     	 adds r4,r4,#1
+ 380 0048 9442     	 cmp r4,r2
+ 381 004a F0D3     	 bcc .L50
+ 382              	.L49:
+ 383 004c 9B6A     	 ldr r3,[r3,#40]
+ 384 004e 0022     	 movs r2,#0
+ 385 0050 1868     	 ldr r0,[r3]
+ 386 0052 1979     	 ldrb r1,[r3,#4]
+ 387 0054 FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 388 0058 AB68     	 ldr r3,[r5,#8]
+ 389 005a 1B7F     	 ldrb r3,[r3,#28]
+ 390 005c 072B     	 cmp r3,#7
+ 391 005e 25D8     	 bhi .L51
+ 392 0060 DFE813F0 	 tbh [pc,r3,lsl#1]
+ 393              	.L53:
+ 394 0064 B100     	 .2byte (.L52-.L53)/2
+ 395 0066 2400     	 .2byte (.L51-.L53)/2
+ 396 0068 2400     	 .2byte (.L51-.L53)/2
+ 397 006a 2400     	 .2byte (.L51-.L53)/2
+ 398 006c B100     	 .2byte (.L52-.L53)/2
+ 399 006e 2400     	 .2byte (.L51-.L53)/2
+ 400 0070 B900     	 .2byte (.L54-.L53)/2
+ 401 0072 0800     	 .2byte (.L55-.L53)/2
+ 402              	 .p2align 1
+ 403              	.L55:
+ 404 0074 6B68     	 ldr r3,[r5,#4]
+ 405 0076 9B68     	 ldr r3,[r3,#8]
+ 406 0078 0022     	 movs r2,#0
+ 407 007a 1868     	 ldr r0,[r3]
+ 408 007c 1979     	 ldrb r1,[r3,#4]
+ 409 007e FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 410 0082 6B68     	 ldr r3,[r5,#4]
+ 411 0084 1B69     	 ldr r3,[r3,#16]
+ 412 0086 0022     	 movs r2,#0
+ 413 0088 1868     	 ldr r0,[r3]
+ 414 008a 1979     	 ldrb r1,[r3,#4]
+ 415 008c FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 416 0090 6B68     	 ldr r3,[r5,#4]
+ 417 0092 9B69     	 ldr r3,[r3,#24]
+ 418 0094 0022     	 movs r2,#0
+ 419 0096 1868     	 ldr r0,[r3]
+ 420 0098 1979     	 ldrb r1,[r3,#4]
+ 421 009a FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 422 009e 6B68     	 ldr r3,[r5,#4]
+ 423 00a0 1B6A     	 ldr r3,[r3,#32]
+ 424 00a2 0022     	 movs r2,#0
+ 425 00a4 1868     	 ldr r0,[r3]
+ 426 00a6 1979     	 ldrb r1,[r3,#4]
+ 427 00a8 FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 428              	.L51:
+ 429 00ac 3146     	 mov r1,r6
+ 430 00ae 2868     	 ldr r0,[r5]
+ 431 00b0 FFF7FEFF 	 bl XMC_SPI_CH_SetBaudrate
+ 432 00b4 95E80C00 	 ldmia r5,{r2,r3}
+ 433 00b8 0446     	 mov r4,r0
+ 434 00ba 50B9     	 cbnz r0,.L57
+ 435 00bc 5169     	 ldr r1,[r2,#20]
+ 436 00be 93F88800 	 ldrb r0,[r3,#136]
+ 437 00c2 21F4FE41 	 bic r1,r1,#32512
+ 438 00c6 41F48071 	 orr r1,r1,#256
+ 439 00ca 0138     	 subs r0,r0,#1
+ 440 00cc 41EA8021 	 orr r1,r1,r0,lsl#10
+ 441 00d0 5161     	 str r1,[r2,#20]
+ 442              	.L57:
+ 443 00d2 5069     	 ldr r0,[r2,#20]
+ 444 00d4 D3F88010 	 ldr r1,[r3,#128]
+ 445 00d8 20F05040 	 bic r0,r0,#-805306368
+ 446 00dc 0143     	 orrs r1,r1,r0
+ 447 00de 5161     	 str r1,[r2,#20]
+ 448 00e0 116C     	 ldr r1,[r2,#64]
+ 449 00e2 21F00F01 	 bic r1,r1,#15
+ 450 00e6 41F00101 	 orr r1,r1,#1
+ 451 00ea 1164     	 str r1,[r2,#64]
+ 452 00ec 93F88720 	 ldrb r2,[r3,#135]
+ 453 00f0 7AB1     	 cbz r2,.L58
+ 454 00f2 0026     	 movs r6,#0
+ 455              	.L59:
+ 456 00f4 03EB8603 	 add r3,r3,r6,lsl#2
+ 457 00f8 0136     	 adds r6,r6,#1
+ 458 00fa 196B     	 ldr r1,[r3,#48]
+ 459 00fc 1B6D     	 ldr r3,[r3,#80]
+ 460 00fe 0868     	 ldr r0,[r1]
+ 461 0100 1A78     	 ldrb r2,[r3]
+ 462 0102 0979     	 ldrb r1,[r1,#4]
+ 463 0104 FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 464 0108 6B68     	 ldr r3,[r5,#4]
+ 465 010a 93F88720 	 ldrb r2,[r3,#135]
+ 466 010e 9642     	 cmp r6,r2
+ 467 0110 F0D3     	 bcc .L59
+ 468              	.L58:
+ 469 0112 996A     	 ldr r1,[r3,#40]
+ 470 0114 DB6A     	 ldr r3,[r3,#44]
+ 471 0116 0868     	 ldr r0,[r1]
+ 472 0118 1A78     	 ldrb r2,[r3]
+ 473 011a 0979     	 ldrb r1,[r1,#4]
+ 474 011c FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 475 0120 AB68     	 ldr r3,[r5,#8]
+ 476 0122 1B7F     	 ldrb r3,[r3,#28]
+ 477 0124 072B     	 cmp r3,#7
+ 478 0126 3FF671AF 	 bhi .L48
+ 479 012a 01A2     	 adr r2,.L61
+ 480 012c 52F823F0 	 ldr pc,[r2,r3,lsl#2]
+ 481              	 .p2align 2
+ 482              	.L61:
+ 483 0130 B5010000 	 .word .L60+1
+ 484 0134 0D000000 	 .word .L48+1
+ 485 0138 0D000000 	 .word .L48+1
+ 486 013c 0D000000 	 .word .L48+1
+ 487 0140 B5010000 	 .word .L60+1
+ 488 0144 0D000000 	 .word .L48+1
+ 489 0148 93010000 	 .word .L62+1
+ 490 014c 51010000 	 .word .L63+1
+ 491              	 .p2align 1
+ 492              	.L63:
+ 493 0150 6A68     	 ldr r2,[r5,#4]
+ 494 0152 9368     	 ldr r3,[r2,#8]
+ 495 0154 D268     	 ldr r2,[r2,#12]
+ 496 0156 1868     	 ldr r0,[r3]
+ 497 0158 1979     	 ldrb r1,[r3,#4]
+ 498 015a 1278     	 ldrb r2,[r2]
+ 499 015c FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 500 0160 6A68     	 ldr r2,[r5,#4]
+ 501 0162 1369     	 ldr r3,[r2,#16]
+ 502 0164 5269     	 ldr r2,[r2,#20]
+ 503 0166 1868     	 ldr r0,[r3]
+ 504 0168 1979     	 ldrb r1,[r3,#4]
+ 505 016a 1278     	 ldrb r2,[r2]
+ 506 016c FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 507 0170 6A68     	 ldr r2,[r5,#4]
+ 508 0172 9369     	 ldr r3,[r2,#24]
+ 509 0174 D269     	 ldr r2,[r2,#28]
+ 510 0176 1868     	 ldr r0,[r3]
+ 511 0178 1979     	 ldrb r1,[r3,#4]
+ 512 017a 1278     	 ldrb r2,[r2]
+ 513 017c FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 514 0180 6A68     	 ldr r2,[r5,#4]
+ 515 0182 136A     	 ldr r3,[r2,#32]
+ 516 0184 526A     	 ldr r2,[r2,#36]
+ 517 0186 1868     	 ldr r0,[r3]
+ 518 0188 1278     	 ldrb r2,[r2]
+ 519 018a 1979     	 ldrb r1,[r3,#4]
+ 520 018c FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 521 0190 3CE7     	 b .L48
+ 522              	.L62:
+ 523 0192 6A68     	 ldr r2,[r5,#4]
+ 524 0194 9368     	 ldr r3,[r2,#8]
+ 525 0196 D268     	 ldr r2,[r2,#12]
+ 526 0198 1868     	 ldr r0,[r3]
+ 527 019a 1979     	 ldrb r1,[r3,#4]
+ 528 019c 1278     	 ldrb r2,[r2]
+ 529 019e FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 530 01a2 6A68     	 ldr r2,[r5,#4]
+ 531 01a4 1369     	 ldr r3,[r2,#16]
+ 532 01a6 5269     	 ldr r2,[r2,#20]
+ 533 01a8 1868     	 ldr r0,[r3]
+ 534 01aa 1278     	 ldrb r2,[r2]
+ 535 01ac 1979     	 ldrb r1,[r3,#4]
+ 536 01ae FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 537 01b2 2BE7     	 b .L48
+ 538              	.L60:
+ 539 01b4 6A68     	 ldr r2,[r5,#4]
+ 540 01b6 9368     	 ldr r3,[r2,#8]
+ 541 01b8 D268     	 ldr r2,[r2,#12]
+ 542 01ba 1868     	 ldr r0,[r3]
+ 543 01bc 1278     	 ldrb r2,[r2]
+ 544 01be 1979     	 ldrb r1,[r3,#4]
+ 545 01c0 FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 546 01c4 22E7     	 b .L48
+ 547              	.L52:
+ 548 01c6 6B68     	 ldr r3,[r5,#4]
+ 549 01c8 9B68     	 ldr r3,[r3,#8]
+ 550 01ca 0022     	 movs r2,#0
+ 551 01cc 1868     	 ldr r0,[r3]
+ 552 01ce 1979     	 ldrb r1,[r3,#4]
+ 553 01d0 FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 554 01d4 6AE7     	 b .L51
+ 555              	.L54:
+ 556 01d6 6B68     	 ldr r3,[r5,#4]
+ 557 01d8 9B68     	 ldr r3,[r3,#8]
+ 558 01da 0022     	 movs r2,#0
+ 559 01dc 1868     	 ldr r0,[r3]
+ 560 01de 1979     	 ldrb r1,[r3,#4]
+ 561 01e0 FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 562 01e4 6B68     	 ldr r3,[r5,#4]
+ 563 01e6 1B69     	 ldr r3,[r3,#16]
+ 564 01e8 0022     	 movs r2,#0
+ 565 01ea 1868     	 ldr r0,[r3]
+ 566 01ec 1979     	 ldrb r1,[r3,#4]
+ 567 01ee FFF7FEFF 	 bl XMC_GPIO_SetMode
+ 568 01f2 5BE7     	 b .L51
+ 570              	 .section .text.SPI_MASTER_Transmit,"ax",%progbits
+ 571              	 .align 2
+ 572              	 .global SPI_MASTER_Transmit
+ 573              	 .thumb
+ 574              	 .thumb_func
+ 576              	SPI_MASTER_Transmit:
+ 577              	 
+ 578              	 
+ 579              	 
+ 580 0000 4368     	 ldr r3,[r0,#4]
+ 581 0002 F0B4     	 push {r4,r5,r6,r7}
+ 582 0004 93F88440 	 ldrb r4,[r3,#132]
+ 583 0008 14B1     	 cbz r4,.L83
+ 584 000a 0120     	 movs r0,#1
+ 585              	.L75:
+ 586 000c F0BC     	 pop {r4,r5,r6,r7}
+ 587 000e 7047     	 bx lr
+ 588              	.L83:
+ 589 0010 8468     	 ldr r4,[r0,#8]
+ 590 0012 01B1     	 cbz r1,.L80
+ 591 0014 12B9     	 cbnz r2,.L84
+ 592              	.L80:
+ 593 0016 0320     	 movs r0,#3
+ 594 0018 F0BC     	 pop {r4,r5,r6,r7}
+ 595 001a 7047     	 bx lr
+ 596              	.L84:
+ 597 001c 94F82050 	 ldrb r5,[r4,#32]
+ 598 0020 05F0FF06 	 and r6,r5,#255
+ 599 0024 0DB1     	 cbz r5,.L85
+ 600 0026 0220     	 movs r0,#2
+ 601 0028 F0E7     	 b .L75
+ 602              	.L85:
+ 603 002a 2568     	 ldr r5,[r4]
+ 604 002c 93F87C70 	 ldrb r7,[r3,#124]
+ 605 0030 A660     	 str r6,[r4,#8]
+ 606 0032 082D     	 cmp r5,#8
+ 607 0034 94BF     	 ite ls
+ 608 0036 0025     	 movls r5,#0
+ 609 0038 0125     	 movhi r5,#1
+ 610 003a AA40     	 lsls r2,r2,r5
+ 611 003c 0125     	 movs r5,#1
+ 612 003e 6260     	 str r2,[r4,#4]
+ 613 0040 A161     	 str r1,[r4,#24]
+ 614 0042 84F82050 	 strb r5,[r4,#32]
+ 615 0046 0268     	 ldr r2,[r0]
+ 616 0048 CFB1     	 cbz r7,.L76
+ 617 004a 4FF40041 	 mov r1,#32768
+ 618 004e C2F81811 	 str r1,[r2,#280]
+ 619 0052 D2F80811 	 ldr r1,[r2,#264]
+ 620 0056 41F08041 	 orr r1,r1,#1073741824
+ 621 005a C2F80811 	 str r1,[r2,#264]
+ 622              	.L77:
+ 623 005e 207F     	 ldrb r0,[r4,#28]
+ 624 0060 116C     	 ldr r1,[r2,#64]
+ 625 0062 93F88940 	 ldrb r4,[r3,#137]
+ 626 0066 8301     	 lsls r3,r0,#6
+ 627 0068 D8B2     	 uxtb r0,r3
+ 628 006a 21F0C003 	 bic r3,r1,#192
+ 629 006e 4FF48031 	 mov r1,#65536
+ 630 0072 0343     	 orrs r3,r3,r0
+ 631 0074 A140     	 lsls r1,r1,r4
+ 632 0076 1364     	 str r3,[r2,#64]
+ 633 0078 0020     	 movs r0,#0
+ 634 007a 9166     	 str r1,[r2,#104]
+ 635 007c C6E7     	 b .L75
+ 636              	.L76:
+ 637 007e 116C     	 ldr r1,[r2,#64]
+ 638 0080 41F40051 	 orr r1,r1,#8192
+ 639 0084 1164     	 str r1,[r2,#64]
+ 640 0086 EAE7     	 b .L77
+ 642              	 .section .text.SPI_MASTER_Receive,"ax",%progbits
+ 643              	 .align 2
+ 644              	 .global SPI_MASTER_Receive
+ 645              	 .thumb
+ 646              	 .thumb_func
+ 648              	SPI_MASTER_Receive:
+ 649              	 
+ 650              	 
+ 651              	 
+ 652 0000 70B4     	 push {r4,r5,r6}
+ 653 0002 4468     	 ldr r4,[r0,#4]
+ 654 0004 94F88540 	 ldrb r4,[r4,#133]
+ 655 0008 14B1     	 cbz r4,.L94
+ 656 000a 0120     	 movs r0,#1
+ 657              	.L87:
+ 658 000c 70BC     	 pop {r4,r5,r6}
+ 659 000e 7047     	 bx lr
+ 660              	.L94:
+ 661 0010 8368     	 ldr r3,[r0,#8]
+ 662 0012 01B1     	 cbz r1,.L90
+ 663 0014 12B9     	 cbnz r2,.L95
+ 664              	.L90:
+ 665 0016 0320     	 movs r0,#3
+ 666 0018 70BC     	 pop {r4,r5,r6}
+ 667 001a 7047     	 bx lr
+ 668              	.L95:
+ 669 001c DC7F     	 ldrb r4,[r3,#31]
+ 670 001e 0CB1     	 cbz r4,.L96
+ 671              	.L92:
+ 672 0020 0220     	 movs r0,#2
+ 673 0022 F3E7     	 b .L87
+ 674              	.L96:
+ 675 0024 93F82040 	 ldrb r4,[r3,#32]
+ 676 0028 04F0FF05 	 and r5,r4,#255
+ 677 002c 002C     	 cmp r4,#0
+ 678 002e F7D1     	 bne .L92
+ 679 0030 0124     	 movs r4,#1
+ 680 0032 064E     	 ldr r6,.L97
+ 681 0034 DC77     	 strb r4,[r3,#31]
+ 682 0036 5961     	 str r1,[r3,#20]
+ 683 0038 83F82140 	 strb r4,[r3,#33]
+ 684 003c 9E61     	 str r6,[r3,#24]
+ 685 003e 83F82250 	 strb r5,[r3,#34]
+ 686 0042 5A60     	 str r2,[r3,#4]
+ 687 0044 1146     	 mov r1,r2
+ 688 0046 70BC     	 pop {r4,r5,r6}
+ 689 0048 FFF7FEBF 	 b SPI_MASTER_lReceiveIRQ
+ 690              	.L98:
+ 691              	 .align 2
+ 692              	.L97:
+ 693 004c 00000000 	 .word .LANCHOR0
+ 695              	 .section .text.SPI_MASTER_StartTransmitIRQ,"ax",%progbits
+ 696              	 .align 2
+ 697              	 .global SPI_MASTER_StartTransmitIRQ
+ 698              	 .thumb
+ 699              	 .thumb_func
+ 701              	SPI_MASTER_StartTransmitIRQ:
+ 702              	 
+ 703              	 
+ 704              	 
+ 705 0000 4368     	 ldr r3,[r0,#4]
+ 706 0002 F0B4     	 push {r4,r5,r6,r7}
+ 707 0004 93F88440 	 ldrb r4,[r3,#132]
+ 708 0008 8568     	 ldr r5,[r0,#8]
+ 709 000a 14B1     	 cbz r4,.L108
+ 710 000c 0420     	 movs r0,#4
+ 711              	.L100:
+ 712 000e F0BC     	 pop {r4,r5,r6,r7}
+ 713 0010 7047     	 bx lr
+ 714              	.L108:
+ 715 0012 01B1     	 cbz r1,.L105
+ 716 0014 12B9     	 cbnz r2,.L109
+ 717              	.L105:
+ 718 0016 0320     	 movs r0,#3
+ 719 0018 F0BC     	 pop {r4,r5,r6,r7}
+ 720 001a 7047     	 bx lr
+ 721              	.L109:
+ 722 001c 95F82040 	 ldrb r4,[r5,#32]
+ 723 0020 04F0FF06 	 and r6,r4,#255
+ 724 0024 0CB1     	 cbz r4,.L110
+ 725 0026 0220     	 movs r0,#2
+ 726 0028 F1E7     	 b .L100
+ 727              	.L110:
+ 728 002a 2C68     	 ldr r4,[r5]
+ 729 002c 93F87C70 	 ldrb r7,[r3,#124]
+ 730 0030 AE60     	 str r6,[r5,#8]
+ 731 0032 082C     	 cmp r4,#8
+ 732 0034 94BF     	 ite ls
+ 733 0036 0024     	 movls r4,#0
+ 734 0038 0124     	 movhi r4,#1
+ 735 003a A240     	 lsls r2,r2,r4
+ 736 003c 0124     	 movs r4,#1
+ 737 003e 6A60     	 str r2,[r5,#4]
+ 738 0040 A961     	 str r1,[r5,#24]
+ 739 0042 85F82040 	 strb r4,[r5,#32]
+ 740 0046 0268     	 ldr r2,[r0]
+ 741 0048 CFB1     	 cbz r7,.L101
+ 742 004a 4FF40041 	 mov r1,#32768
+ 743 004e C2F81811 	 str r1,[r2,#280]
+ 744 0052 D2F80811 	 ldr r1,[r2,#264]
+ 745 0056 41F08041 	 orr r1,r1,#1073741824
+ 746 005a C2F80811 	 str r1,[r2,#264]
+ 747              	.L102:
+ 748 005e 287F     	 ldrb r0,[r5,#28]
+ 749 0060 116C     	 ldr r1,[r2,#64]
+ 750 0062 93F88940 	 ldrb r4,[r3,#137]
+ 751 0066 8301     	 lsls r3,r0,#6
+ 752 0068 D8B2     	 uxtb r0,r3
+ 753 006a 21F0C003 	 bic r3,r1,#192
+ 754 006e 4FF48031 	 mov r1,#65536
+ 755 0072 0343     	 orrs r3,r3,r0
+ 756 0074 A140     	 lsls r1,r1,r4
+ 757 0076 1364     	 str r3,[r2,#64]
+ 758 0078 0020     	 movs r0,#0
+ 759 007a 9166     	 str r1,[r2,#104]
+ 760 007c C7E7     	 b .L100
+ 761              	.L101:
+ 762 007e 116C     	 ldr r1,[r2,#64]
+ 763 0080 41F40051 	 orr r1,r1,#8192
+ 764 0084 1164     	 str r1,[r2,#64]
+ 765 0086 EAE7     	 b .L102
+ 767              	 .section .text.SPI_MASTER_StartReceiveIRQ,"ax",%progbits
+ 768              	 .align 2
+ 769              	 .global SPI_MASTER_StartReceiveIRQ
+ 770              	 .thumb
+ 771              	 .thumb_func
+ 773              	SPI_MASTER_StartReceiveIRQ:
+ 774              	 
+ 775              	 
+ 776              	 
+ 777 0000 70B4     	 push {r4,r5,r6}
+ 778 0002 4468     	 ldr r4,[r0,#4]
+ 779 0004 8568     	 ldr r5,[r0,#8]
+ 780 0006 94F88530 	 ldrb r3,[r4,#133]
+ 781 000a 13B1     	 cbz r3,.L119
+ 782 000c 0420     	 movs r0,#4
+ 783              	.L112:
+ 784 000e 70BC     	 pop {r4,r5,r6}
+ 785 0010 7047     	 bx lr
+ 786              	.L119:
+ 787 0012 01B1     	 cbz r1,.L115
+ 788 0014 12B9     	 cbnz r2,.L120
+ 789              	.L115:
+ 790 0016 0320     	 movs r0,#3
+ 791 0018 70BC     	 pop {r4,r5,r6}
+ 792 001a 7047     	 bx lr
+ 793              	.L120:
+ 794 001c EB7F     	 ldrb r3,[r5,#31]
+ 795 001e 0BB1     	 cbz r3,.L121
+ 796              	.L117:
+ 797 0020 0220     	 movs r0,#2
+ 798 0022 F4E7     	 b .L112
+ 799              	.L121:
+ 800 0024 95F82030 	 ldrb r3,[r5,#32]
+ 801 0028 03F0FF04 	 and r4,r3,#255
+ 802 002c 002B     	 cmp r3,#0
+ 803 002e F7D1     	 bne .L117
+ 804 0030 0123     	 movs r3,#1
+ 805 0032 064E     	 ldr r6,.L122
+ 806 0034 EB77     	 strb r3,[r5,#31]
+ 807 0036 6961     	 str r1,[r5,#20]
+ 808 0038 85F82130 	 strb r3,[r5,#33]
+ 809 003c 6A60     	 str r2,[r5,#4]
+ 810 003e AE61     	 str r6,[r5,#24]
+ 811 0040 85F82240 	 strb r4,[r5,#34]
+ 812 0044 1146     	 mov r1,r2
+ 813 0046 70BC     	 pop {r4,r5,r6}
+ 814 0048 FFF7FEBF 	 b SPI_MASTER_lReceiveIRQ
+ 815              	.L123:
+ 816              	 .align 2
+ 817              	.L122:
+ 818 004c 00000000 	 .word .LANCHOR0
+ 820              	 .section .text.SPI_MASTER_Transfer,"ax",%progbits
+ 821              	 .align 2
+ 822              	 .global SPI_MASTER_Transfer
+ 823              	 .thumb
+ 824              	 .thumb_func
+ 826              	SPI_MASTER_Transfer:
+ 827              	 
+ 828              	 
+ 829              	 
+ 830 0000 F0B4     	 push {r4,r5,r6,r7}
+ 831 0002 8468     	 ldr r4,[r0,#8]
+ 832 0004 267F     	 ldrb r6,[r4,#28]
+ 833 0006 2EB9     	 cbnz r6,.L128
+ 834 0008 09B1     	 cbz r1,.L131
+ 835 000a 02B1     	 cbz r2,.L131
+ 836 000c 2BB9     	 cbnz r3,.L133
+ 837              	.L131:
+ 838 000e 0320     	 movs r0,#3
+ 839 0010 F0BC     	 pop {r4,r5,r6,r7}
+ 840 0012 7047     	 bx lr
+ 841              	.L128:
+ 842 0014 0120     	 movs r0,#1
+ 843 0016 F0BC     	 pop {r4,r5,r6,r7}
+ 844 0018 7047     	 bx lr
+ 845              	.L133:
+ 846 001a E67F     	 ldrb r6,[r4,#31]
+ 847 001c 16B1     	 cbz r6,.L126
+ 848              	.L127:
+ 849 001e 0220     	 movs r0,#2
+ 850 0020 F0BC     	 pop {r4,r5,r6,r7}
+ 851 0022 7047     	 bx lr
+ 852              	.L126:
+ 853 0024 94F82060 	 ldrb r6,[r4,#32]
+ 854 0028 06F0FF07 	 and r7,r6,#255
+ 855 002c 002E     	 cmp r6,#0
+ 856 002e F6D1     	 bne .L127
+ 857 0030 4568     	 ldr r5,[r0,#4]
+ 858 0032 6261     	 str r2,[r4,#20]
+ 859 0034 95F88520 	 ldrb r2,[r5,#133]
+ 860 0038 A161     	 str r1,[r4,#24]
+ 861 003a 0121     	 movs r1,#1
+ 862 003c E177     	 strb r1,[r4,#31]
+ 863 003e 6360     	 str r3,[r4,#4]
+ 864 0040 84F82170 	 strb r7,[r4,#33]
+ 865 0044 84F82270 	 strb r7,[r4,#34]
+ 866 0048 002A     	 cmp r2,#0
+ 867 004a E8D1     	 bne .L127
+ 868 004c 1946     	 mov r1,r3
+ 869 004e F0BC     	 pop {r4,r5,r6,r7}
+ 870 0050 FFF7FEBF 	 b SPI_MASTER_lReceiveIRQ
+ 872              	 .section .text.SPI_MASTER_AbortReceive,"ax",%progbits
+ 873              	 .align 2
+ 874              	 .global SPI_MASTER_AbortReceive
+ 875              	 .thumb
+ 876              	 .thumb_func
+ 878              	SPI_MASTER_AbortReceive:
+ 879              	 
+ 880              	 
+ 881 0000 4268     	 ldr r2,[r0,#4]
+ 882 0002 38B5     	 push {r3,r4,r5,lr}
+ 883 0004 92F88530 	 ldrb r3,[r2,#133]
+ 884 0008 022B     	 cmp r3,#2
+ 885 000a 02D0     	 beq .L143
+ 886 000c 8368     	 ldr r3,[r0,#8]
+ 887 000e D97F     	 ldrb r1,[r3,#31]
+ 888 0010 09B9     	 cbnz r1,.L148
+ 889              	.L143:
+ 890 0012 0120     	 movs r0,#1
+ 891 0014 38BD     	 pop {r3,r4,r5,pc}
+ 892              	.L148:
+ 893 0016 92F88410 	 ldrb r1,[r2,#132]
+ 894 001a 0229     	 cmp r1,#2
+ 895 001c F9D0     	 beq .L143
+ 896 001e 93F82010 	 ldrb r1,[r3,#32]
+ 897 0022 0029     	 cmp r1,#0
+ 898 0024 F5D0     	 beq .L143
+ 899 0026 0446     	 mov r4,r0
+ 900 0028 92F87C00 	 ldrb r0,[r2,#124]
+ 901 002c 0021     	 movs r1,#0
+ 902 002e 83F82010 	 strb r1,[r3,#32]
+ 903 0032 9961     	 str r1,[r3,#24]
+ 904 0034 83F82110 	 strb r1,[r3,#33]
+ 905 0038 10B3     	 cbz r0,.L136
+ 906 003a 2168     	 ldr r1,[r4]
+ 907 003c D1F80801 	 ldr r0,[r1,#264]
+ 908 0040 4FF40045 	 mov r5,#32768
+ 909 0044 20F08040 	 bic r0,r0,#1073741824
+ 910 0048 C1F80801 	 str r0,[r1,#264]
+ 911 004c 0C46     	 mov r4,r1
+ 912 004e C1F81851 	 str r5,[r1,#280]
+ 913              	.L137:
+ 914 0052 92F87D50 	 ldrb r5,[r2,#125]
+ 915 0056 0022     	 movs r2,#0
+ 916 0058 DA77     	 strb r2,[r3,#31]
+ 917 005a 5A61     	 str r2,[r3,#20]
+ 918 005c 83F82120 	 strb r2,[r3,#33]
+ 919 0060 3DB1     	 cbz r5,.L149
+ 920 0062 D4F80C31 	 ldr r3,[r4,#268]
+ 921 0066 23F0C043 	 bic r3,r3,#1610612736
+ 922 006a 1046     	 mov r0,r2
+ 923 006c C4F80C31 	 str r3,[r4,#268]
+ 924 0070 38BD     	 pop {r3,r4,r5,pc}
+ 925              	.L149:
+ 926 0072 2046     	 mov r0,r4
+ 927 0074 4FF44041 	 mov r1,#49152
+ 928 0078 FFF7FEFF 	 bl XMC_SPI_CH_DisableEvent
+ 929 007c 2846     	 mov r0,r5
+ 930 007e 38BD     	 pop {r3,r4,r5,pc}
+ 931              	.L136:
+ 932 0080 2068     	 ldr r0,[r4]
+ 933 0082 4FF40051 	 mov r1,#8192
+ 934 0086 FFF7FEFF 	 bl XMC_SPI_CH_DisableEvent
+ 935 008a A368     	 ldr r3,[r4,#8]
+ 936 008c 6268     	 ldr r2,[r4,#4]
+ 937 008e 2468     	 ldr r4,[r4]
+ 938 0090 DFE7     	 b .L137
+ 940 0092 00BF     	 .section .text.SPI_MASTER_AbortTransmit,"ax",%progbits
+ 941              	 .align 2
+ 942              	 .global SPI_MASTER_AbortTransmit
+ 943              	 .thumb
+ 944              	 .thumb_func
+ 946              	SPI_MASTER_AbortTransmit:
+ 947              	 
+ 948              	 
+ 949 0000 4368     	 ldr r3,[r0,#4]
+ 950 0002 93F88420 	 ldrb r2,[r3,#132]
+ 951 0006 022A     	 cmp r2,#2
+ 952 0008 1AD0     	 beq .L154
+ 953 000a 8268     	 ldr r2,[r0,#8]
+ 954 000c 92F82010 	 ldrb r1,[r2,#32]
+ 955 0010 B1B1     	 cbz r1,.L154
+ 956 0012 10B5     	 push {r4,lr}
+ 957 0014 93F87C40 	 ldrb r4,[r3,#124]
+ 958 0018 0023     	 movs r3,#0
+ 959 001a 82F82030 	 strb r3,[r2,#32]
+ 960 001e 9361     	 str r3,[r2,#24]
+ 961 0020 82F82130 	 strb r3,[r2,#33]
+ 962 0024 74B1     	 cbz r4,.L152
+ 963 0026 0268     	 ldr r2,[r0]
+ 964 0028 D2F80811 	 ldr r1,[r2,#264]
+ 965 002c 4FF40044 	 mov r4,#32768
+ 966 0030 21F08041 	 bic r1,r1,#1073741824
+ 967 0034 C2F80811 	 str r1,[r2,#264]
+ 968 0038 1846     	 mov r0,r3
+ 969 003a C2F81841 	 str r4,[r2,#280]
+ 970 003e 10BD     	 pop {r4,pc}
+ 971              	.L154:
+ 972 0040 0120     	 movs r0,#1
+ 973 0042 7047     	 bx lr
+ 974              	.L152:
+ 975 0044 0068     	 ldr r0,[r0]
+ 976 0046 4FF40051 	 mov r1,#8192
+ 977 004a FFF7FEFF 	 bl XMC_SPI_CH_DisableEvent
+ 978 004e 2046     	 mov r0,r4
+ 979 0050 10BD     	 pop {r4,pc}
+ 981 0052 00BF     	 .section .text.SPI_MASTER_lTransmitHandler,"ax",%progbits
+ 982              	 .align 2
+ 983              	 .global SPI_MASTER_lTransmitHandler
+ 984              	 .thumb
+ 985              	 .thumb_func
+ 987              	SPI_MASTER_lTransmitHandler:
+ 988              	 
+ 989              	 
+ 990              	 
+ 991 0000 8368     	 ldr r3,[r0,#8]
+ 992 0002 1968     	 ldr r1,[r3]
+ 993 0004 9A68     	 ldr r2,[r3,#8]
+ 994 0006 70B4     	 push {r4,r5,r6}
+ 995 0008 5C68     	 ldr r4,[r3,#4]
+ 996 000a 0929     	 cmp r1,#9
+ 997 000c 34BF     	 ite cc
+ 998 000e 0125     	 movcc r5,#1
+ 999 0010 0225     	 movcs r5,#2
+ 1000 0012 A242     	 cmp r2,r4
+ 1001 0014 2BD2     	 bcs .L159
+ 1002 0016 4268     	 ldr r2,[r0,#4]
+ 1003 0018 92F87C20 	 ldrb r2,[r2,#124]
+ 1004 001c 002A     	 cmp r2,#0
+ 1005 001e 40D0     	 beq .L160
+ 1006 0020 0168     	 ldr r1,[r0]
+ 1007 0022 D1F81421 	 ldr r2,[r1,#276]
+ 1008 0026 D204     	 lsls r2,r2,#19
+ 1009 0028 4CD4     	 bmi .L157
+ 1010 002a 9A68     	 ldr r2,[r3,#8]
+ 1011 002c 9442     	 cmp r4,r2
+ 1012 002e 49D9     	 bls .L157
+ 1013 0030 022D     	 cmp r5,#2
+ 1014 0032 58D0     	 beq .L192
+ 1015 0034 4FF6FF75 	 movw r5,#65535
+ 1016 0038 10E0     	 b .L185
+ 1017              	.L193:
+ 1018 003a 9868     	 ldr r0,[r3,#8]
+ 1019 003c 1A7F     	 ldrb r2,[r3,#28]
+ 1020 003e 9E69     	 ldr r6,[r3,#24]
+ 1021 0040 6032     	 adds r2,r2,#96
+ 1022 0042 305C     	 ldrb r0,[r6,r0]
+ 1023 0044 41F82200 	 str r0,[r1,r2,lsl#2]
+ 1024              	.L166:
+ 1025 0048 9A68     	 ldr r2,[r3,#8]
+ 1026 004a 0132     	 adds r2,r2,#1
+ 1027 004c 9A60     	 str r2,[r3,#8]
+ 1028 004e D1F81421 	 ldr r2,[r1,#276]
+ 1029 0052 D604     	 lsls r6,r2,#19
+ 1030 0054 36D4     	 bmi .L157
+ 1031 0056 9A68     	 ldr r2,[r3,#8]
+ 1032 0058 9442     	 cmp r4,r2
+ 1033 005a 33D9     	 bls .L157
+ 1034              	.L185:
+ 1035 005c 93F82120 	 ldrb r2,[r3,#33]
+ 1036 0060 002A     	 cmp r2,#0
+ 1037 0062 EAD0     	 beq .L193
+ 1038 0064 1A7F     	 ldrb r2,[r3,#28]
+ 1039 0066 6032     	 adds r2,r2,#96
+ 1040 0068 41F82250 	 str r5,[r1,r2,lsl#2]
+ 1041 006c ECE7     	 b .L166
+ 1042              	.L159:
+ 1043 006e 0168     	 ldr r1,[r0]
+ 1044 0070 D1F81421 	 ldr r2,[r1,#276]
+ 1045 0074 1405     	 lsls r4,r2,#20
+ 1046 0076 25D5     	 bpl .L157
+ 1047 0078 4068     	 ldr r0,[r0,#4]
+ 1048 007a 90F87C20 	 ldrb r2,[r0,#124]
+ 1049 007e 1ABB     	 cbnz r2,.L194
+ 1050 0080 0A6C     	 ldr r2,[r1,#64]
+ 1051 0082 22F40052 	 bic r2,r2,#8192
+ 1052 0086 0A64     	 str r2,[r1,#64]
+ 1053              	.L177:
+ 1054 0088 8A6B     	 ldr r2,[r1,#56]
+ 1055 008a 1206     	 lsls r2,r2,#24
+ 1056 008c FCD4     	 bmi .L177
+ 1057 008e 016F     	 ldr r1,[r0,#112]
+ 1058 0090 0022     	 movs r2,#0
+ 1059 0092 83F82020 	 strb r2,[r3,#32]
+ 1060 0096 9A61     	 str r2,[r3,#24]
+ 1061 0098 A1B1     	 cbz r1,.L157
+ 1062 009a DB7F     	 ldrb r3,[r3,#31]
+ 1063 009c 93B9     	 cbnz r3,.L157
+ 1064 009e 70BC     	 pop {r4,r5,r6}
+ 1065 00a0 0847     	 bx r1
+ 1066              	.L160:
+ 1067 00a2 93F82120 	 ldrb r2,[r3,#33]
+ 1068 00a6 B2B9     	 cbnz r2,.L195
+ 1069 00a8 9A68     	 ldr r2,[r3,#8]
+ 1070 00aa 9969     	 ldr r1,[r3,#24]
+ 1071 00ac 022D     	 cmp r5,#2
+ 1072 00ae 0CBF     	 ite eq
+ 1073 00b0 8C5A     	 ldrheq r4,[r1,r2]
+ 1074 00b2 8C5C     	 ldrbne r4,[r1,r2]
+ 1075 00b4 1A7F     	 ldrb r2,[r3,#28]
+ 1076 00b6 0168     	 ldr r1,[r0]
+ 1077 00b8 2032     	 adds r2,r2,#32
+ 1078 00ba 41F82240 	 str r4,[r1,r2,lsl#2]
+ 1079              	.L172:
+ 1080 00be 9A68     	 ldr r2,[r3,#8]
+ 1081 00c0 1544     	 add r5,r5,r2
+ 1082 00c2 9D60     	 str r5,[r3,#8]
+ 1083              	.L157:
+ 1084 00c4 70BC     	 pop {r4,r5,r6}
+ 1085 00c6 7047     	 bx lr
+ 1086              	.L194:
+ 1087 00c8 D1F80821 	 ldr r2,[r1,#264]
+ 1088 00cc 22F08042 	 bic r2,r2,#1073741824
+ 1089 00d0 C1F80821 	 str r2,[r1,#264]
+ 1090 00d4 D8E7     	 b .L177
+ 1091              	.L195:
+ 1092 00d6 1A7F     	 ldrb r2,[r3,#28]
+ 1093 00d8 0168     	 ldr r1,[r0]
+ 1094 00da 2032     	 adds r2,r2,#32
+ 1095 00dc 4FF6FF70 	 movw r0,#65535
+ 1096 00e0 41F82200 	 str r0,[r1,r2,lsl#2]
+ 1097 00e4 EBE7     	 b .L172
+ 1098              	.L192:
+ 1099 00e6 4FF6FF70 	 movw r0,#65535
+ 1100 00ea 10E0     	 b .L164
+ 1101              	.L168:
+ 1102 00ec 9D68     	 ldr r5,[r3,#8]
+ 1103 00ee 1A7F     	 ldrb r2,[r3,#28]
+ 1104 00f0 9E69     	 ldr r6,[r3,#24]
+ 1105 00f2 6032     	 adds r2,r2,#96
+ 1106 00f4 755B     	 ldrh r5,[r6,r5]
+ 1107 00f6 41F82250 	 str r5,[r1,r2,lsl#2]
+ 1108              	.L169:
+ 1109 00fa 9A68     	 ldr r2,[r3,#8]
+ 1110 00fc 0232     	 adds r2,r2,#2
+ 1111 00fe 9A60     	 str r2,[r3,#8]
+ 1112 0100 D1F81421 	 ldr r2,[r1,#276]
+ 1113 0104 D504     	 lsls r5,r2,#19
+ 1114 0106 DDD4     	 bmi .L157
+ 1115 0108 9A68     	 ldr r2,[r3,#8]
+ 1116 010a 9442     	 cmp r4,r2
+ 1117 010c DAD9     	 bls .L157
+ 1118              	.L164:
+ 1119 010e 93F82120 	 ldrb r2,[r3,#33]
+ 1120 0112 002A     	 cmp r2,#0
+ 1121 0114 EAD0     	 beq .L168
+ 1122 0116 1A7F     	 ldrb r2,[r3,#28]
+ 1123 0118 6032     	 adds r2,r2,#96
+ 1124 011a 41F82200 	 str r0,[r1,r2,lsl#2]
+ 1125 011e ECE7     	 b .L169
+ 1127              	 .section .text.SPI_MASTER_lReceiveHandler,"ax",%progbits
+ 1128              	 .align 2
+ 1129              	 .global SPI_MASTER_lReceiveHandler
+ 1130              	 .thumb
+ 1131              	 .thumb_func
+ 1133              	SPI_MASTER_lReceiveHandler:
+ 1134              	 
+ 1135              	 
+ 1136 0000 70B5     	 push {r4,r5,r6,lr}
+ 1137 0002 8468     	 ldr r4,[r0,#8]
+ 1138 0004 2368     	 ldr r3,[r4]
+ 1139 0006 082B     	 cmp r3,#8
+ 1140 0008 0546     	 mov r5,r0
+ 1141 000a 1CD9     	 bls .L240
+ 1142 000c 4368     	 ldr r3,[r0,#4]
+ 1143 000e 93F87D30 	 ldrb r3,[r3,#125]
+ 1144 0012 002B     	 cmp r3,#0
+ 1145 0014 59D1     	 bne .L219
+ 1146 0016 2868     	 ldr r0,[r5]
+ 1147 0018 036D     	 ldr r3,[r0,#80]
+ 1148 001a 9904     	 lsls r1,r3,#18
+ 1149 001c 4FF00206 	 mov r6,#2
+ 1150 0020 1CD5     	 bpl .L241
+ 1151              	.L212:
+ 1152 0022 2269     	 ldr r2,[r4,#16]
+ 1153 0024 E368     	 ldr r3,[r4,#12]
+ 1154 0026 9A42     	 cmp r2,r3
+ 1155 0028 19D2     	 bcs .L213
+ 1156 002a FFF7FEFF 	 bl XMC_SPI_CH_GetReceivedData
+ 1157 002e 2369     	 ldr r3,[r4,#16]
+ 1158 0030 6269     	 ldr r2,[r4,#20]
+ 1159 0032 022E     	 cmp r6,#2
+ 1160 0034 D054     	 strb r0,[r2,r3]
+ 1161 0036 00F0B380 	 beq .L242
+ 1162              	.L214:
+ 1163 003a 2269     	 ldr r2,[r4,#16]
+ 1164 003c 2868     	 ldr r0,[r5]
+ 1165 003e E368     	 ldr r3,[r4,#12]
+ 1166 0040 3244     	 add r2,r2,r6
+ 1167 0042 2261     	 str r2,[r4,#16]
+ 1168 0044 0BE0     	 b .L213
+ 1169              	.L240:
+ 1170 0046 4368     	 ldr r3,[r0,#4]
+ 1171 0048 93F87D30 	 ldrb r3,[r3,#125]
+ 1172 004c 002B     	 cmp r3,#0
+ 1173 004e 59D1     	 bne .L221
+ 1174 0050 2868     	 ldr r0,[r5]
+ 1175 0052 036D     	 ldr r3,[r0,#80]
+ 1176 0054 9904     	 lsls r1,r3,#18
+ 1177 0056 4FF00106 	 mov r6,#1
+ 1178 005a E2D4     	 bmi .L212
+ 1179              	.L241:
+ 1180 005c E368     	 ldr r3,[r4,#12]
+ 1181              	.L213:
+ 1182 005e 026D     	 ldr r2,[r0,#80]
+ 1183 0060 5204     	 lsls r2,r2,#17
+ 1184 0062 02D5     	 bpl .L215
+ 1185 0064 2269     	 ldr r2,[r4,#16]
+ 1186 0066 9A42     	 cmp r2,r3
+ 1187 0068 23D3     	 bcc .L243
+ 1188              	.L215:
+ 1189 006a 2269     	 ldr r2,[r4,#16]
+ 1190 006c 9A42     	 cmp r2,r3
+ 1191 006e 00D0     	 beq .L244
+ 1192              	.L196:
+ 1193 0070 70BD     	 pop {r4,r5,r6,pc}
+ 1194              	.L244:
+ 1195 0072 6B68     	 ldr r3,[r5,#4]
+ 1196 0074 93F87D20 	 ldrb r2,[r3,#125]
+ 1197 0078 A2B1     	 cbz r2,.L217
+ 1198 007a 2968     	 ldr r1,[r5]
+ 1199 007c D1F80C21 	 ldr r2,[r1,#268]
+ 1200 0080 22F0C042 	 bic r2,r2,#1610612736
+ 1201 0084 C1F80C21 	 str r2,[r1,#268]
+ 1202              	.L218:
+ 1203 0088 5A6F     	 ldr r2,[r3,#116]
+ 1204 008a 0121     	 movs r1,#1
+ 1205 008c 0023     	 movs r3,#0
+ 1206 008e E377     	 strb r3,[r4,#31]
+ 1207 0090 6361     	 str r3,[r4,#20]
+ 1208 0092 84F82130 	 strb r3,[r4,#33]
+ 1209 0096 84F82210 	 strb r1,[r4,#34]
+ 1210 009a 002A     	 cmp r2,#0
+ 1211 009c E8D0     	 beq .L196
+ 1212 009e BDE87040 	 pop {r4,r5,r6,lr}
+ 1213 00a2 1047     	 bx r2
+ 1214              	.L217:
+ 1215 00a4 2868     	 ldr r0,[r5]
+ 1216 00a6 4FF44041 	 mov r1,#49152
+ 1217 00aa FFF7FEFF 	 bl XMC_SPI_CH_DisableEvent
+ 1218 00ae 6B68     	 ldr r3,[r5,#4]
+ 1219 00b0 EAE7     	 b .L218
+ 1220              	.L243:
+ 1221 00b2 FFF7FEFF 	 bl XMC_SPI_CH_GetReceivedData
+ 1222 00b6 2369     	 ldr r3,[r4,#16]
+ 1223 00b8 6269     	 ldr r2,[r4,#20]
+ 1224 00ba 022E     	 cmp r6,#2
+ 1225 00bc D054     	 strb r0,[r2,r3]
+ 1226 00be 75D0     	 beq .L245
+ 1227              	.L216:
+ 1228 00c0 2269     	 ldr r2,[r4,#16]
+ 1229 00c2 E368     	 ldr r3,[r4,#12]
+ 1230 00c4 1644     	 add r6,r6,r2
+ 1231 00c6 2661     	 str r6,[r4,#16]
+ 1232 00c8 CFE7     	 b .L215
+ 1233              	.L219:
+ 1234 00ca E368     	 ldr r3,[r4,#12]
+ 1235 00cc 2868     	 ldr r0,[r5]
+ 1236 00ce 02E0     	 b .L200
+ 1237              	.L199:
+ 1238 00d0 2269     	 ldr r2,[r4,#16]
+ 1239 00d2 9A42     	 cmp r2,r3
+ 1240 00d4 30D0     	 beq .L204
+ 1241              	.L200:
+ 1242 00d6 D0F81421 	 ldr r2,[r0,#276]
+ 1243 00da 1607     	 lsls r6,r2,#28
+ 1244 00dc 3DD4     	 bmi .L202
+ 1245 00de 2269     	 ldr r2,[r4,#16]
+ 1246 00e0 9A42     	 cmp r2,r3
+ 1247 00e2 F5D2     	 bcs .L199
+ 1248 00e4 FFF7FEFF 	 bl XMC_SPI_CH_GetReceivedData
+ 1249 00e8 2369     	 ldr r3,[r4,#16]
+ 1250 00ea 6269     	 ldr r2,[r4,#20]
+ 1251 00ec D054     	 strb r0,[r2,r3]
+ 1252 00ee 2369     	 ldr r3,[r4,#16]
+ 1253 00f0 6269     	 ldr r2,[r4,#20]
+ 1254 00f2 1344     	 add r3,r3,r2
+ 1255 00f4 000A     	 lsrs r0,r0,#8
+ 1256 00f6 5870     	 strb r0,[r3,#1]
+ 1257 00f8 2269     	 ldr r2,[r4,#16]
+ 1258 00fa 2868     	 ldr r0,[r5]
+ 1259 00fc E368     	 ldr r3,[r4,#12]
+ 1260 00fe 0232     	 adds r2,r2,#2
+ 1261 0100 2261     	 str r2,[r4,#16]
+ 1262 0102 E5E7     	 b .L199
+ 1263              	.L221:
+ 1264 0104 E368     	 ldr r3,[r4,#12]
+ 1265 0106 2868     	 ldr r0,[r5]
+ 1266 0108 02E0     	 b .L205
+ 1267              	.L203:
+ 1268 010a 2269     	 ldr r2,[r4,#16]
+ 1269 010c 9A42     	 cmp r2,r3
+ 1270 010e 13D0     	 beq .L204
+ 1271              	.L205:
+ 1272 0110 D0F81421 	 ldr r2,[r0,#276]
+ 1273 0114 1207     	 lsls r2,r2,#28
+ 1274 0116 20D4     	 bmi .L202
+ 1275 0118 2269     	 ldr r2,[r4,#16]
+ 1276 011a 9A42     	 cmp r2,r3
+ 1277 011c F5D2     	 bcs .L203
+ 1278 011e FFF7FEFF 	 bl XMC_SPI_CH_GetReceivedData
+ 1279 0122 2369     	 ldr r3,[r4,#16]
+ 1280 0124 6269     	 ldr r2,[r4,#20]
+ 1281 0126 D054     	 strb r0,[r2,r3]
+ 1282 0128 2269     	 ldr r2,[r4,#16]
+ 1283 012a 2868     	 ldr r0,[r5]
+ 1284 012c E368     	 ldr r3,[r4,#12]
+ 1285 012e 0132     	 adds r2,r2,#1
+ 1286 0130 2261     	 str r2,[r4,#16]
+ 1287 0132 2269     	 ldr r2,[r4,#16]
+ 1288 0134 9A42     	 cmp r2,r3
+ 1289 0136 EBD1     	 bne .L205
+ 1290              	.L204:
+ 1291 0138 0021     	 movs r1,#0
+ 1292 013a E177     	 strb r1,[r4,#31]
+ 1293 013c 6A68     	 ldr r2,[r5,#4]
+ 1294 013e 84F82110 	 strb r1,[r4,#33]
+ 1295 0142 D0F80C11 	 ldr r1,[r0,#268]
+ 1296 0146 566F     	 ldr r6,[r2,#116]
+ 1297 0148 21F0C041 	 bic r1,r1,#1610612736
+ 1298 014c C0F80C11 	 str r1,[r0,#268]
+ 1299 0150 26B1     	 cbz r6,.L201
+ 1300 0152 B047     	 blx r6
+ 1301 0154 E368     	 ldr r3,[r4,#12]
+ 1302 0156 6A68     	 ldr r2,[r5,#4]
+ 1303 0158 00E0     	 b .L201
+ 1304              	.L202:
+ 1305 015a 6A68     	 ldr r2,[r5,#4]
+ 1306              	.L201:
+ 1307 015c 92F87D10 	 ldrb r1,[r2,#125]
+ 1308 0160 2269     	 ldr r2,[r4,#16]
+ 1309 0162 4E1E     	 subs r6,r1,#1
+ 1310 0164 0120     	 movs r0,#1
+ 1311 0166 00FA06F6 	 lsl r6,r0,r6
+ 1312 016a 9A1A     	 subs r2,r3,r2
+ 1313 016c B242     	 cmp r2,r6
+ 1314 016e 3FF67FAF 	 bhi .L196
+ 1315 0172 2269     	 ldr r2,[r4,#16]
+ 1316 0174 0029     	 cmp r1,#0
+ 1317 0176 3FF47BAF 	 beq .L196
+ 1318 017a 9B1A     	 subs r3,r3,r2
+ 1319 017c 3FF478AF 	 beq .L196
+ 1320 0180 AA68     	 ldr r2,[r5,#8]
+ 1321 0182 1268     	 ldr r2,[r2]
+ 1322 0184 8840     	 lsls r0,r0,r1
+ 1323 0186 082A     	 cmp r2,#8
+ 1324 0188 88BF     	 it hi
+ 1325 018a 5B08     	 lsrhi r3,r3,#1
+ 1326 018c 4208     	 lsrs r2,r0,#1
+ 1327 018e 9A42     	 cmp r2,r3
+ 1328 0190 2868     	 ldr r0,[r5]
+ 1329 0192 88BF     	 it hi
+ 1330 0194 03F1FF32 	 addhi r2,r3,#-1
+ 1331 0198 BDE87040 	 pop {r4,r5,r6,lr}
+ 1332 019c FFF7FEBF 	 b XMC_USIC_CH_RXFIFO_SetSizeTriggerLimit
+ 1333              	.L242:
+ 1334 01a0 2369     	 ldr r3,[r4,#16]
+ 1335 01a2 6269     	 ldr r2,[r4,#20]
+ 1336 01a4 1344     	 add r3,r3,r2
+ 1337 01a6 000A     	 lsrs r0,r0,#8
+ 1338 01a8 5870     	 strb r0,[r3,#1]
+ 1339 01aa 46E7     	 b .L214
+ 1340              	.L245:
+ 1341 01ac 2369     	 ldr r3,[r4,#16]
+ 1342 01ae 6269     	 ldr r2,[r4,#20]
+ 1343 01b0 1344     	 add r3,r3,r2
+ 1344 01b2 000A     	 lsrs r0,r0,#8
+ 1345 01b4 5870     	 strb r0,[r3,#1]
+ 1346 01b6 83E7     	 b .L216
+ 1348              	 .section .data.dummy_data.8576,"aw",%progbits
+ 1349              	 .align 2
+ 1350              	 .set .LANCHOR0,.+0
+ 1353              	dummy_data.8576:
+ 1354 0000 FF       	 .byte -1
+ 1355 0001 FF       	 .byte -1
+ 1356 0002 0000     	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 spi_master.c
+    {standard input}:17     .text.SPI_MASTER_lReceiveIRQ:00000000 $t
+    {standard input}:21     .text.SPI_MASTER_lReceiveIRQ:00000000 SPI_MASTER_lReceiveIRQ
+    {standard input}:150    .text.SPI_MASTER_GetAppVersion:00000000 $t
+    {standard input}:155    .text.SPI_MASTER_GetAppVersion:00000000 SPI_MASTER_GetAppVersion
+    {standard input}:172    .text.SPI_MASTER_Init:00000000 $t
+    {standard input}:177    .text.SPI_MASTER_Init:00000000 SPI_MASTER_Init
+    {standard input}:186    .text.SPI_MASTER_SetMode:00000000 $t
+    {standard input}:191    .text.SPI_MASTER_SetMode:00000000 SPI_MASTER_SetMode
+    {standard input}:227    .text.SPI_MASTER_SetMode:00000042 $d
+    {standard input}:235    .text.SPI_MASTER_SetMode:0000004a $t
+    {standard input}:339    .text.SPI_MASTER_SetBaudRate:00000000 $t
+    {standard input}:344    .text.SPI_MASTER_SetBaudRate:00000000 SPI_MASTER_SetBaudRate
+    {standard input}:394    .text.SPI_MASTER_SetBaudRate:00000064 $d
+    {standard input}:402    .text.SPI_MASTER_SetBaudRate:00000074 $t
+    {standard input}:483    .text.SPI_MASTER_SetBaudRate:00000130 $d
+    {standard input}:491    .text.SPI_MASTER_SetBaudRate:00000150 $t
+    {standard input}:571    .text.SPI_MASTER_Transmit:00000000 $t
+    {standard input}:576    .text.SPI_MASTER_Transmit:00000000 SPI_MASTER_Transmit
+    {standard input}:643    .text.SPI_MASTER_Receive:00000000 $t
+    {standard input}:648    .text.SPI_MASTER_Receive:00000000 SPI_MASTER_Receive
+    {standard input}:693    .text.SPI_MASTER_Receive:0000004c $d
+    {standard input}:696    .text.SPI_MASTER_StartTransmitIRQ:00000000 $t
+    {standard input}:701    .text.SPI_MASTER_StartTransmitIRQ:00000000 SPI_MASTER_StartTransmitIRQ
+    {standard input}:768    .text.SPI_MASTER_StartReceiveIRQ:00000000 $t
+    {standard input}:773    .text.SPI_MASTER_StartReceiveIRQ:00000000 SPI_MASTER_StartReceiveIRQ
+    {standard input}:818    .text.SPI_MASTER_StartReceiveIRQ:0000004c $d
+    {standard input}:821    .text.SPI_MASTER_Transfer:00000000 $t
+    {standard input}:826    .text.SPI_MASTER_Transfer:00000000 SPI_MASTER_Transfer
+    {standard input}:873    .text.SPI_MASTER_AbortReceive:00000000 $t
+    {standard input}:878    .text.SPI_MASTER_AbortReceive:00000000 SPI_MASTER_AbortReceive
+    {standard input}:941    .text.SPI_MASTER_AbortTransmit:00000000 $t
+    {standard input}:946    .text.SPI_MASTER_AbortTransmit:00000000 SPI_MASTER_AbortTransmit
+    {standard input}:982    .text.SPI_MASTER_lTransmitHandler:00000000 $t
+    {standard input}:987    .text.SPI_MASTER_lTransmitHandler:00000000 SPI_MASTER_lTransmitHandler
+    {standard input}:1128   .text.SPI_MASTER_lReceiveHandler:00000000 $t
+    {standard input}:1133   .text.SPI_MASTER_lReceiveHandler:00000000 SPI_MASTER_lReceiveHandler
+    {standard input}:1349   .data.dummy_data.8576:00000000 $d
+    {standard input}:1353   .data.dummy_data.8576:00000000 dummy_data.8576
+
+UNDEFINED SYMBOLS
+XMC_SPI_CH_GetReceivedData
+XMC_USIC_CH_RXFIFO_SetSizeTriggerLimit
+XMC_GPIO_SetMode
+XMC_GPIO_SetHardwareControl
+XMC_SPI_CH_Stop
+XMC_SPI_CH_SetBaudrate
+XMC_SPI_CH_DisableEvent

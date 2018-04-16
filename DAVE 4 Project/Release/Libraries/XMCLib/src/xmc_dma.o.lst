@@ -1,0 +1,1390 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc_dma.c"
+  16              	 .section .text.XMC_DMA_Init,"ax",%progbits
+  17              	 .align 2
+  18              	 .global XMC_DMA_Init
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	XMC_DMA_Init:
+  23              	 
+  24              	 
+  25 0000 0C4B     	 ldr r3,.L7
+  26 0002 9842     	 cmp r0,r3
+  27 0004 10B5     	 push {r4,lr}
+  28 0006 0446     	 mov r4,r0
+  29 0008 09D0     	 beq .L6
+  30 000a 0B48     	 ldr r0,.L7+4
+  31 000c FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  32 0010 0948     	 ldr r0,.L7+4
+  33 0012 FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+  34 0016 0123     	 movs r3,#1
+  35 0018 C4F89833 	 str r3,[r4,#920]
+  36 001c 10BD     	 pop {r4,pc}
+  37              	.L6:
+  38 001e 0748     	 ldr r0,.L7+8
+  39 0020 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  40 0024 0548     	 ldr r0,.L7+8
+  41 0026 FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+  42 002a 0123     	 movs r3,#1
+  43 002c C4F89833 	 str r3,[r4,#920]
+  44 0030 10BD     	 pop {r4,pc}
+  45              	.L8:
+  46 0032 00BF     	 .align 2
+  47              	.L7:
+  48 0034 00400150 	 .word 1342259200
+  49 0038 20000020 	 .word 536870944
+  50 003c 10000020 	 .word 536870928
+  52              	 .section .text.XMC_DMA_Enable,"ax",%progbits
+  53              	 .align 2
+  54              	 .global XMC_DMA_Enable
+  55              	 .thumb
+  56              	 .thumb_func
+  58              	XMC_DMA_Enable:
+  59              	 
+  60              	 
+  61 0000 0C4B     	 ldr r3,.L14
+  62 0002 9842     	 cmp r0,r3
+  63 0004 10B5     	 push {r4,lr}
+  64 0006 0446     	 mov r4,r0
+  65 0008 09D0     	 beq .L13
+  66 000a 0B48     	 ldr r0,.L14+4
+  67 000c FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  68 0010 0948     	 ldr r0,.L14+4
+  69 0012 FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+  70 0016 0123     	 movs r3,#1
+  71 0018 C4F89833 	 str r3,[r4,#920]
+  72 001c 10BD     	 pop {r4,pc}
+  73              	.L13:
+  74 001e 0748     	 ldr r0,.L14+8
+  75 0020 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  76 0024 0548     	 ldr r0,.L14+8
+  77 0026 FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+  78 002a 0123     	 movs r3,#1
+  79 002c C4F89833 	 str r3,[r4,#920]
+  80 0030 10BD     	 pop {r4,pc}
+  81              	.L15:
+  82 0032 00BF     	 .align 2
+  83              	.L14:
+  84 0034 00400150 	 .word 1342259200
+  85 0038 20000020 	 .word 536870944
+  86 003c 10000020 	 .word 536870928
+  88              	 .section .text.XMC_DMA_Disable,"ax",%progbits
+  89              	 .align 2
+  90              	 .global XMC_DMA_Disable
+  91              	 .thumb
+  92              	 .thumb_func
+  94              	XMC_DMA_Disable:
+  95              	 
+  96              	 
+  97 0000 08B5     	 push {r3,lr}
+  98 0002 0B4B     	 ldr r3,.L20
+  99 0004 0022     	 movs r2,#0
+ 100 0006 9842     	 cmp r0,r3
+ 101 0008 C0F89823 	 str r2,[r0,#920]
+ 102 000c 07D0     	 beq .L19
+ 103 000e 0948     	 ldr r0,.L20+4
+ 104 0010 FFF7FEFF 	 bl XMC_SCU_RESET_AssertPeripheralReset
+ 105 0014 0748     	 ldr r0,.L20+4
+ 106 0016 BDE80840 	 pop {r3,lr}
+ 107 001a FFF7FEBF 	 b XMC_SCU_CLOCK_GatePeripheralClock
+ 108              	.L19:
+ 109 001e 0648     	 ldr r0,.L20+8
+ 110 0020 FFF7FEFF 	 bl XMC_SCU_RESET_AssertPeripheralReset
+ 111 0024 0448     	 ldr r0,.L20+8
+ 112 0026 BDE80840 	 pop {r3,lr}
+ 113 002a FFF7FEBF 	 b XMC_SCU_CLOCK_GatePeripheralClock
+ 114              	.L21:
+ 115 002e 00BF     	 .align 2
+ 116              	.L20:
+ 117 0030 00400150 	 .word 1342259200
+ 118 0034 20000020 	 .word 536870944
+ 119 0038 10000020 	 .word 536870928
+ 121              	 .section .text.XMC_DMA_IsEnabled,"ax",%progbits
+ 122              	 .align 2
+ 123              	 .global XMC_DMA_IsEnabled
+ 124              	 .thumb
+ 125              	 .thumb_func
+ 127              	XMC_DMA_IsEnabled:
+ 128              	 
+ 129              	 
+ 130 0000 124B     	 ldr r3,.L36
+ 131 0002 9842     	 cmp r0,r3
+ 132 0004 10B5     	 push {r4,lr}
+ 133 0006 0446     	 mov r4,r0
+ 134 0008 13D0     	 beq .L33
+ 135 000a 1148     	 ldr r0,.L36+4
+ 136 000c FFF7FEFF 	 bl XMC_SCU_RESET_IsPeripheralResetAsserted
+ 137 0010 08B1     	 cbz r0,.L34
+ 138              	.L30:
+ 139 0012 0020     	 movs r0,#0
+ 140 0014 10BD     	 pop {r4,pc}
+ 141              	.L34:
+ 142 0016 0E48     	 ldr r0,.L36+4
+ 143 0018 FFF7FEFF 	 bl XMC_SCU_CLOCK_IsPeripheralClockGated
+ 144 001c 80F00100 	 eor r0,r0,#1
+ 145 0020 C0B2     	 uxtb r0,r0
+ 146              	.L25:
+ 147 0022 28B1     	 cbz r0,.L35
+ 148 0024 D4F89803 	 ldr r0,[r4,#920]
+ 149 0028 0030     	 adds r0,r0,#0
+ 150 002a 18BF     	 it ne
+ 151 002c 0120     	 movne r0,#1
+ 152 002e 10BD     	 pop {r4,pc}
+ 153              	.L35:
+ 154 0030 10BD     	 pop {r4,pc}
+ 155              	.L33:
+ 156 0032 0848     	 ldr r0,.L36+8
+ 157 0034 FFF7FEFF 	 bl XMC_SCU_RESET_IsPeripheralResetAsserted
+ 158 0038 0028     	 cmp r0,#0
+ 159 003a EAD1     	 bne .L30
+ 160 003c 0548     	 ldr r0,.L36+8
+ 161 003e FFF7FEFF 	 bl XMC_SCU_CLOCK_IsPeripheralClockGated
+ 162 0042 80F00100 	 eor r0,r0,#1
+ 163 0046 C0B2     	 uxtb r0,r0
+ 164 0048 EBE7     	 b .L25
+ 165              	.L37:
+ 166 004a 00BF     	 .align 2
+ 167              	.L36:
+ 168 004c 00400150 	 .word 1342259200
+ 169 0050 20000020 	 .word 536870944
+ 170 0054 10000020 	 .word 536870928
+ 172              	 .section .text.XMC_DMA_EnableRequestLine,"ax",%progbits
+ 173              	 .align 2
+ 174              	 .global XMC_DMA_EnableRequestLine
+ 175              	 .thumb
+ 176              	 .thumb_func
+ 178              	XMC_DMA_EnableRequestLine:
+ 179              	 
+ 180              	 
+ 181              	 
+ 182 0000 144B     	 ldr r3,.L43
+ 183 0002 9842     	 cmp r0,r3
+ 184 0004 30B4     	 push {r4,r5}
+ 185 0006 11D0     	 beq .L42
+ 186 0008 134B     	 ldr r3,.L43+4
+ 187 000a 8D00     	 lsls r5,r1,#2
+ 188 000c DC68     	 ldr r4,[r3,#12]
+ 189 000e 0F20     	 movs r0,#15
+ 190 0010 A840     	 lsls r0,r0,r5
+ 191 0012 24EA0000 	 bic r0,r4,r0
+ 192 0016 AA40     	 lsls r2,r2,r5
+ 193 0018 0243     	 orrs r2,r2,r0
+ 194 001a DA60     	 str r2,[r3,#12]
+ 195 001c 1869     	 ldr r0,[r3,#16]
+ 196 001e 4FF48072 	 mov r2,#256
+ 197 0022 8A40     	 lsls r2,r2,r1
+ 198 0024 0243     	 orrs r2,r2,r0
+ 199 0026 1A61     	 str r2,[r3,#16]
+ 200 0028 30BC     	 pop {r4,r5}
+ 201 002a 7047     	 bx lr
+ 202              	.L42:
+ 203 002c A3F57743 	 sub r3,r3,#63232
+ 204 0030 8D00     	 lsls r5,r1,#2
+ 205 0032 9C68     	 ldr r4,[r3,#8]
+ 206 0034 0F20     	 movs r0,#15
+ 207 0036 A840     	 lsls r0,r0,r5
+ 208 0038 24EA0000 	 bic r0,r4,r0
+ 209 003c AA40     	 lsls r2,r2,r5
+ 210 003e 0243     	 orrs r2,r2,r0
+ 211 0040 9A60     	 str r2,[r3,#8]
+ 212 0042 1869     	 ldr r0,[r3,#16]
+ 213 0044 01F00701 	 and r1,r1,#7
+ 214 0048 0122     	 movs r2,#1
+ 215 004a 8A40     	 lsls r2,r2,r1
+ 216 004c 0243     	 orrs r2,r2,r0
+ 217 004e 1A61     	 str r2,[r3,#16]
+ 218 0050 30BC     	 pop {r4,r5}
+ 219 0052 7047     	 bx lr
+ 220              	.L44:
+ 221              	 .align 2
+ 222              	.L43:
+ 223 0054 00400150 	 .word 1342259200
+ 224 0058 00490050 	 .word 1342195968
+ 226              	 .section .text.XMC_DMA_DisableRequestLine,"ax",%progbits
+ 227              	 .align 2
+ 228              	 .global XMC_DMA_DisableRequestLine
+ 229              	 .thumb
+ 230              	 .thumb_func
+ 232              	XMC_DMA_DisableRequestLine:
+ 233              	 
+ 234              	 
+ 235              	 
+ 236 0000 064B     	 ldr r3,.L48
+ 237 0002 9842     	 cmp r0,r3
+ 238 0004 0648     	 ldr r0,.L48+4
+ 239 0006 08BF     	 it eq
+ 240 0008 0123     	 moveq r3,#1
+ 241 000a 0269     	 ldr r2,[r0,#16]
+ 242 000c 18BF     	 it ne
+ 243 000e 4FF48073 	 movne r3,#256
+ 244 0012 8B40     	 lsls r3,r3,r1
+ 245 0014 22EA0303 	 bic r3,r2,r3
+ 246 0018 0361     	 str r3,[r0,#16]
+ 247 001a 7047     	 bx lr
+ 248              	.L49:
+ 249              	 .align 2
+ 250              	.L48:
+ 251 001c 00400150 	 .word 1342259200
+ 252 0020 00490050 	 .word 1342195968
+ 254              	 .section .text.XMC_DMA_ClearRequestLine,"ax",%progbits
+ 255              	 .align 2
+ 256              	 .global XMC_DMA_ClearRequestLine
+ 257              	 .thumb
+ 258              	 .thumb_func
+ 260              	XMC_DMA_ClearRequestLine:
+ 261              	 
+ 262              	 
+ 263              	 
+ 264 0000 094B     	 ldr r3,.L54
+ 265 0002 9842     	 cmp r0,r3
+ 266 0004 0ABF     	 itet eq
+ 267 0006 A3F57743 	 subeq r3,r3,#63232
+ 268 000a 084B     	 ldrne r3,.L54+4
+ 269 000c 0122     	 moveq r2,#1
+ 270 000e 1869     	 ldr r0,[r3,#16]
+ 271 0010 18BF     	 it ne
+ 272 0012 4FF48072 	 movne r2,#256
+ 273 0016 8A40     	 lsls r2,r2,r1
+ 274 0018 20EA0201 	 bic r1,r0,r2
+ 275 001c 1961     	 str r1,[r3,#16]
+ 276 001e 1969     	 ldr r1,[r3,#16]
+ 277 0020 0A43     	 orrs r2,r2,r1
+ 278 0022 1A61     	 str r2,[r3,#16]
+ 279 0024 7047     	 bx lr
+ 280              	.L55:
+ 281 0026 00BF     	 .align 2
+ 282              	.L54:
+ 283 0028 00400150 	 .word 1342259200
+ 284 002c 00490050 	 .word 1342195968
+ 286              	 .section .text.XMC_DMA_GetOverrunStatus,"ax",%progbits
+ 287              	 .align 2
+ 288              	 .global XMC_DMA_GetOverrunStatus
+ 289              	 .thumb
+ 290              	 .thumb_func
+ 292              	XMC_DMA_GetOverrunStatus:
+ 293              	 
+ 294              	 
+ 295              	 
+ 296 0000 094B     	 ldr r3,.L60
+ 297 0002 9842     	 cmp r0,r3
+ 298 0004 09D0     	 beq .L59
+ 299 0006 094A     	 ldr r2,.L60+4
+ 300 0008 4FF48073 	 mov r3,#256
+ 301 000c 1268     	 ldr r2,[r2]
+ 302 000e 8B40     	 lsls r3,r3,r1
+ 303 0010 1342     	 tst r3,r2
+ 304 0012 14BF     	 ite ne
+ 305 0014 0120     	 movne r0,#1
+ 306 0016 0020     	 moveq r0,#0
+ 307 0018 7047     	 bx lr
+ 308              	.L59:
+ 309 001a A3F57743 	 sub r3,r3,#63232
+ 310 001e 1868     	 ldr r0,[r3]
+ 311 0020 C840     	 lsrs r0,r0,r1
+ 312 0022 00F00100 	 and r0,r0,#1
+ 313 0026 7047     	 bx lr
+ 314              	.L61:
+ 315              	 .align 2
+ 316              	.L60:
+ 317 0028 00400150 	 .word 1342259200
+ 318 002c 00490050 	 .word 1342195968
+ 320              	 .section .text.XMC_DMA_ClearOverrunStatus,"ax",%progbits
+ 321              	 .align 2
+ 322              	 .global XMC_DMA_ClearOverrunStatus
+ 323              	 .thumb
+ 324              	 .thumb_func
+ 326              	XMC_DMA_ClearOverrunStatus:
+ 327              	 
+ 328              	 
+ 329              	 
+ 330 0000 044B     	 ldr r3,.L65
+ 331 0002 054A     	 ldr r2,.L65+4
+ 332 0004 9842     	 cmp r0,r3
+ 333 0006 0CBF     	 ite eq
+ 334 0008 0123     	 moveq r3,#1
+ 335 000a 4FF48073 	 movne r3,#256
+ 336 000e 8B40     	 lsls r3,r3,r1
+ 337 0010 5360     	 str r3,[r2,#4]
+ 338 0012 7047     	 bx lr
+ 339              	.L66:
+ 340              	 .align 2
+ 341              	.L65:
+ 342 0014 00400150 	 .word 1342259200
+ 343 0018 00490050 	 .word 1342195968
+ 345              	 .section .text.XMC_DMA_CH_Disable,"ax",%progbits
+ 346              	 .align 2
+ 347              	 .global XMC_DMA_CH_Disable
+ 348              	 .thumb
+ 349              	 .thumb_func
+ 351              	XMC_DMA_CH_Disable:
+ 352              	 
+ 353              	 
+ 354              	 
+ 355 0000 4FF48073 	 mov r3,#256
+ 356 0004 8B40     	 lsls r3,r3,r1
+ 357 0006 0122     	 movs r2,#1
+ 358 0008 C0F8A033 	 str r3,[r0,#928]
+ 359 000c 8A40     	 lsls r2,r2,r1
+ 360              	.L68:
+ 361 000e D0F8A033 	 ldr r3,[r0,#928]
+ 362 0012 1A42     	 tst r2,r3
+ 363 0014 FBD1     	 bne .L68
+ 364 0016 7047     	 bx lr
+ 366              	 .section .text.XMC_DMA_CH_IsEnabled,"ax",%progbits
+ 367              	 .align 2
+ 368              	 .global XMC_DMA_CH_IsEnabled
+ 369              	 .thumb
+ 370              	 .thumb_func
+ 372              	XMC_DMA_CH_IsEnabled:
+ 373              	 
+ 374              	 
+ 375              	 
+ 376 0000 D0F8A003 	 ldr r0,[r0,#928]
+ 377 0004 C840     	 lsrs r0,r0,r1
+ 378 0006 00F00100 	 and r0,r0,#1
+ 379 000a 7047     	 bx lr
+ 381              	 .section .text.XMC_DMA_CH_Init,"ax",%progbits
+ 382              	 .align 2
+ 383              	 .global XMC_DMA_CH_Init
+ 384              	 .thumb
+ 385              	 .thumb_func
+ 387              	XMC_DMA_CH_Init:
+ 388              	 
+ 389              	 
+ 390 0000 F8B5     	 push {r3,r4,r5,r6,r7,lr}
+ 391 0002 A14B     	 ldr r3,.L110
+ 392 0004 9842     	 cmp r0,r3
+ 393 0006 0446     	 mov r4,r0
+ 394 0008 0E46     	 mov r6,r1
+ 395 000a 1546     	 mov r5,r2
+ 396 000c 53D0     	 beq .L102
+ 397 000e 9F48     	 ldr r0,.L110+4
+ 398 0010 FFF7FEFF 	 bl XMC_SCU_RESET_IsPeripheralResetAsserted
+ 399 0014 08B1     	 cbz r0,.L103
+ 400              	.L99:
+ 401 0016 0120     	 movs r0,#1
+ 402 0018 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 403              	.L103:
+ 404 001a 9C48     	 ldr r0,.L110+4
+ 405 001c FFF7FEFF 	 bl XMC_SCU_CLOCK_IsPeripheralClockGated
+ 406 0020 80F00100 	 eor r0,r0,#1
+ 407 0024 C0B2     	 uxtb r0,r0
+ 408              	.L74:
+ 409 0026 0028     	 cmp r0,#0
+ 410 0028 F5D0     	 beq .L99
+ 411 002a D4F89833 	 ldr r3,[r4,#920]
+ 412 002e 002B     	 cmp r3,#0
+ 413 0030 F1D0     	 beq .L99
+ 414 0032 D4F8A033 	 ldr r3,[r4,#928]
+ 415 0036 F340     	 lsrs r3,r3,r6
+ 416 0038 DB07     	 lsls r3,r3,#31
+ 417 003a 01D5     	 bpl .L104
+ 418 003c 0220     	 movs r0,#2
+ 419 003e F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 420              	.L104:
+ 421 0040 5822     	 movs r2,#88
+ 422 0042 02FB06F2 	 mul r2,r2,r6
+ 423 0046 6968     	 ldr r1,[r5,#4]
+ 424 0048 A150     	 str r1,[r4,r2]
+ 425 004a A318     	 adds r3,r4,r2
+ 426 004c A968     	 ldr r1,[r5,#8]
+ 427 004e EA7E     	 ldrb r2,[r5,#27]
+ 428 0050 D5F80CE0 	 ldr lr,[r5,#12]
+ 429 0054 2F8B     	 ldrh r7,[r5,#24]
+ 430 0056 9960     	 str r1,[r3,#8]
+ 431 0058 8B49     	 ldr r1,.L110
+ 432 005a C3F810E0 	 str lr,[r3,#16]
+ 433 005e DF61     	 str r7,[r3,#28]
+ 434 0060 2868     	 ldr r0,[r5]
+ 435 0062 9861     	 str r0,[r3,#24]
+ 436 0064 42F44062 	 orr r2,r2,#3072
+ 437 0068 8C42     	 cmp r4,r1
+ 438 006a 1A64     	 str r2,[r3,#64]
+ 439 006c 2FD0     	 beq .L105
+ 440              	.L77:
+ 441 006e 2B8C     	 ldrh r3,[r5,#32]
+ 442 0070 23B9     	 cbnz r3,.L78
+ 443 0072 AB78     	 ldrb r3,[r5,#2]
+ 444 0074 03F05003 	 and r3,r3,#80
+ 445 0078 102B     	 cmp r3,#16
+ 446 007a 2FD0     	 beq .L106
+ 447              	.L78:
+ 448 007c AB8B     	 ldrh r3,[r5,#28]
+ 449 007e 23B9     	 cbnz r3,.L81
+ 450 0080 AB78     	 ldrb r3,[r5,#2]
+ 451 0082 03F06003 	 and r3,r3,#96
+ 452 0086 202B     	 cmp r3,#32
+ 453 0088 53D0     	 beq .L107
+ 454              	.L81:
+ 455 008a AA7E     	 ldrb r2,[r5,#26]
+ 456 008c 0123     	 movs r3,#1
+ 457 008e B340     	 lsls r3,r3,r6
+ 458 0090 013A     	 subs r2,r2,#1
+ 459 0092 C4F83833 	 str r3,[r4,#824]
+ 460 0096 C4F84033 	 str r3,[r4,#832]
+ 461 009a C4F84833 	 str r3,[r4,#840]
+ 462 009e C4F85033 	 str r3,[r4,#848]
+ 463 00a2 C4F85833 	 str r3,[r4,#856]
+ 464 00a6 072A     	 cmp r2,#7
+ 465 00a8 6CD8     	 bhi .L98
+ 466 00aa DFE802F0 	 tbb [pc,r2]
+ 467              	.L93:
+ 468 00ae 95       	 .byte (.L84-.L93)/2
+ 469 00af 9E       	 .byte (.L85-.L93)/2
+ 470 00b0 6D       	 .byte (.L86-.L93)/2
+ 471 00b1 76       	 .byte (.L87-.L93)/2
+ 472 00b2 7F       	 .byte (.L88-.L93)/2
+ 473 00b3 8C       	 .byte (.L89-.L93)/2
+ 474 00b4 A7       	 .byte (.L90-.L93)/2
+ 475 00b5 B4       	 .byte (.L91-.L93)/2
+ 476              	 .p2align 1
+ 477              	.L102:
+ 478 00b6 7648     	 ldr r0,.L110+8
+ 479 00b8 FFF7FEFF 	 bl XMC_SCU_RESET_IsPeripheralResetAsserted
+ 480 00bc 0028     	 cmp r0,#0
+ 481 00be AAD1     	 bne .L99
+ 482 00c0 7348     	 ldr r0,.L110+8
+ 483 00c2 FFF7FEFF 	 bl XMC_SCU_CLOCK_IsPeripheralClockGated
+ 484 00c6 80F00100 	 eor r0,r0,#1
+ 485 00ca C0B2     	 uxtb r0,r0
+ 486 00cc ABE7     	 b .L74
+ 487              	.L105:
+ 488 00ce 012E     	 cmp r6,#1
+ 489 00d0 CDD8     	 bhi .L77
+ 490 00d2 2A69     	 ldr r2,[r5,#16]
+ 491 00d4 9A64     	 str r2,[r3,#72]
+ 492 00d6 6A69     	 ldr r2,[r5,#20]
+ 493 00d8 1A65     	 str r2,[r3,#80]
+ 494 00da C8E7     	 b .L77
+ 495              	.L106:
+ 496 00dc 6A4B     	 ldr r3,.L110
+ 497 00de 6D49     	 ldr r1,.L110+12
+ 498 00e0 5822     	 movs r2,#88
+ 499 00e2 02FB0642 	 mla r2,r2,r6,r4
+ 500 00e6 9C42     	 cmp r4,r3
+ 501 00e8 576C     	 ldr r7,[r2,#68]
+ 502 00ea 95F82230 	 ldrb r3,[r5,#34]
+ 503 00ee 00F0B380 	 beq .L108
+ 504 00f2 03F00300 	 and r0,r3,#3
+ 505 00f6 47EAC027 	 orr r7,r7,r0,lsl#11
+ 506 00fa 5764     	 str r7,[r2,#68]
+ 507 00fc CF68     	 ldr r7,[r1,#12]
+ 508 00fe 4FEA800E 	 lsl lr,r0,#2
+ 509 0102 0F22     	 movs r2,#15
+ 510 0104 1B09     	 lsrs r3,r3,#4
+ 511 0106 02FA0EF2 	 lsl r2,r2,lr
+ 512 010a 27EA0202 	 bic r2,r7,r2
+ 513 010e 03FA0EF3 	 lsl r3,r3,lr
+ 514 0112 1343     	 orrs r3,r3,r2
+ 515 0114 CB60     	 str r3,[r1,#12]
+ 516 0116 0A69     	 ldr r2,[r1,#16]
+ 517 0118 4FF48073 	 mov r3,#256
+ 518 011c 8340     	 lsls r3,r3,r0
+ 519 011e 1343     	 orrs r3,r3,r2
+ 520 0120 0B61     	 str r3,[r1,#16]
+ 521              	.L80:
+ 522 0122 5823     	 movs r3,#88
+ 523 0124 03FB0643 	 mla r3,r3,r6,r4
+ 524 0128 1A6C     	 ldr r2,[r3,#64]
+ 525 012a 22F48062 	 bic r2,r2,#1024
+ 526 012e 1A64     	 str r2,[r3,#64]
+ 527 0130 A4E7     	 b .L78
+ 528              	.L107:
+ 529 0132 554B     	 ldr r3,.L110
+ 530 0134 5749     	 ldr r1,.L110+12
+ 531 0136 5822     	 movs r2,#88
+ 532 0138 02FB0642 	 mla r2,r2,r6,r4
+ 533 013c 9C42     	 cmp r4,r3
+ 534 013e 576C     	 ldr r7,[r2,#68]
+ 535 0140 AB7F     	 ldrb r3,[r5,#30]
+ 536 0142 71D0     	 beq .L109
+ 537 0144 03F00300 	 and r0,r3,#3
+ 538 0148 47EAC017 	 orr r7,r7,r0,lsl#7
+ 539 014c 5764     	 str r7,[r2,#68]
+ 540 014e CF68     	 ldr r7,[r1,#12]
+ 541 0150 4FEA800E 	 lsl lr,r0,#2
+ 542 0154 0F22     	 movs r2,#15
+ 543 0156 1B09     	 lsrs r3,r3,#4
+ 544 0158 02FA0EF2 	 lsl r2,r2,lr
+ 545 015c 27EA0202 	 bic r2,r7,r2
+ 546 0160 03FA0EF3 	 lsl r3,r3,lr
+ 547 0164 1343     	 orrs r3,r3,r2
+ 548 0166 CB60     	 str r3,[r1,#12]
+ 549 0168 0A69     	 ldr r2,[r1,#16]
+ 550 016a 4FF48073 	 mov r3,#256
+ 551 016e 8340     	 lsls r3,r3,r0
+ 552 0170 1343     	 orrs r3,r3,r2
+ 553 0172 0B61     	 str r3,[r1,#16]
+ 554              	.L83:
+ 555 0174 5823     	 movs r3,#88
+ 556 0176 03FB0643 	 mla r3,r3,r6,r4
+ 557 017a 1A6C     	 ldr r2,[r3,#64]
+ 558 017c 22F40062 	 bic r2,r2,#2048
+ 559 0180 1A64     	 str r2,[r3,#64]
+ 560 0182 82E7     	 b .L81
+ 561              	.L98:
+ 562 0184 0020     	 movs r0,#0
+ 563 0186 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 564              	.L86:
+ 565 0188 5821     	 movs r1,#88
+ 566 018a 01FB0644 	 mla r4,r1,r6,r4
+ 567 018e 0020     	 movs r0,#0
+ 568 0190 236C     	 ldr r3,[r4,#64]
+ 569 0192 43F04043 	 orr r3,r3,#-1073741824
+ 570 0196 2364     	 str r3,[r4,#64]
+ 571 0198 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 572              	.L87:
+ 573 019a 5821     	 movs r1,#88
+ 574 019c 01FB0644 	 mla r4,r1,r6,r4
+ 575 01a0 0020     	 movs r0,#0
+ 576 01a2 A369     	 ldr r3,[r4,#24]
+ 577 01a4 43F00063 	 orr r3,r3,#134217728
+ 578 01a8 A361     	 str r3,[r4,#24]
+ 579 01aa F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 580              	.L88:
+ 581 01ac 5821     	 movs r1,#88
+ 582 01ae 01FB0644 	 mla r4,r1,r6,r4
+ 583 01b2 0020     	 movs r0,#0
+ 584 01b4 236C     	 ldr r3,[r4,#64]
+ 585 01b6 43F08043 	 orr r3,r3,#1073741824
+ 586 01ba 2364     	 str r3,[r4,#64]
+ 587 01bc A369     	 ldr r3,[r4,#24]
+ 588 01be 43F00063 	 orr r3,r3,#134217728
+ 589 01c2 A361     	 str r3,[r4,#24]
+ 590 01c4 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 591              	.L89:
+ 592 01c6 5821     	 movs r1,#88
+ 593 01c8 01FB0644 	 mla r4,r1,r6,r4
+ 594 01cc 0020     	 movs r0,#0
+ 595 01ce A369     	 ldr r3,[r4,#24]
+ 596 01d0 43F08053 	 orr r3,r3,#268435456
+ 597 01d4 A361     	 str r3,[r4,#24]
+ 598 01d6 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 599              	.L84:
+ 600 01d8 5821     	 movs r1,#88
+ 601 01da 01FB0644 	 mla r4,r1,r6,r4
+ 602 01de 0020     	 movs r0,#0
+ 603 01e0 236C     	 ldr r3,[r4,#64]
+ 604 01e2 43F00043 	 orr r3,r3,#-2147483648
+ 605 01e6 2364     	 str r3,[r4,#64]
+ 606 01e8 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 607              	.L85:
+ 608 01ea 5821     	 movs r1,#88
+ 609 01ec 01FB0644 	 mla r4,r1,r6,r4
+ 610 01f0 0020     	 movs r0,#0
+ 611 01f2 236C     	 ldr r3,[r4,#64]
+ 612 01f4 43F08043 	 orr r3,r3,#1073741824
+ 613 01f8 2364     	 str r3,[r4,#64]
+ 614 01fa F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 615              	.L90:
+ 616 01fc 5821     	 movs r1,#88
+ 617 01fe 01FB0644 	 mla r4,r1,r6,r4
+ 618 0202 0020     	 movs r0,#0
+ 619 0204 236C     	 ldr r3,[r4,#64]
+ 620 0206 43F00043 	 orr r3,r3,#-2147483648
+ 621 020a 2364     	 str r3,[r4,#64]
+ 622 020c A369     	 ldr r3,[r4,#24]
+ 623 020e 43F08053 	 orr r3,r3,#268435456
+ 624 0212 A361     	 str r3,[r4,#24]
+ 625 0214 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 626              	.L91:
+ 627 0216 5821     	 movs r1,#88
+ 628 0218 01FB0644 	 mla r4,r1,r6,r4
+ 629 021c 0020     	 movs r0,#0
+ 630 021e A369     	 ldr r3,[r4,#24]
+ 631 0220 43F0C053 	 orr r3,r3,#402653184
+ 632 0224 A361     	 str r3,[r4,#24]
+ 633 0226 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 634              	.L109:
+ 635 0228 03F00700 	 and r0,r3,#7
+ 636 022c 47EAC017 	 orr r7,r7,r0,lsl#7
+ 637 0230 5764     	 str r7,[r2,#68]
+ 638 0232 8F68     	 ldr r7,[r1,#8]
+ 639 0234 4FEA800E 	 lsl lr,r0,#2
+ 640 0238 0F22     	 movs r2,#15
+ 641 023a 1B09     	 lsrs r3,r3,#4
+ 642 023c 02FA0EF2 	 lsl r2,r2,lr
+ 643 0240 27EA0202 	 bic r2,r7,r2
+ 644 0244 03FA0EF3 	 lsl r3,r3,lr
+ 645 0248 1343     	 orrs r3,r3,r2
+ 646 024a 8B60     	 str r3,[r1,#8]
+ 647 024c 0A69     	 ldr r2,[r1,#16]
+ 648 024e 0123     	 movs r3,#1
+ 649 0250 8340     	 lsls r3,r3,r0
+ 650 0252 1343     	 orrs r3,r3,r2
+ 651 0254 0B61     	 str r3,[r1,#16]
+ 652 0256 8DE7     	 b .L83
+ 653              	.L108:
+ 654 0258 03F00700 	 and r0,r3,#7
+ 655 025c 47EAC027 	 orr r7,r7,r0,lsl#11
+ 656 0260 5764     	 str r7,[r2,#68]
+ 657 0262 8F68     	 ldr r7,[r1,#8]
+ 658 0264 4FEA800E 	 lsl lr,r0,#2
+ 659 0268 0F22     	 movs r2,#15
+ 660 026a 1B09     	 lsrs r3,r3,#4
+ 661 026c 02FA0EF2 	 lsl r2,r2,lr
+ 662 0270 27EA0202 	 bic r2,r7,r2
+ 663 0274 03FA0EF3 	 lsl r3,r3,lr
+ 664 0278 1343     	 orrs r3,r3,r2
+ 665 027a 8B60     	 str r3,[r1,#8]
+ 666 027c 0A69     	 ldr r2,[r1,#16]
+ 667 027e 0123     	 movs r3,#1
+ 668 0280 8340     	 lsls r3,r3,r0
+ 669 0282 1343     	 orrs r3,r3,r2
+ 670 0284 0B61     	 str r3,[r1,#16]
+ 671 0286 4CE7     	 b .L80
+ 672              	.L111:
+ 673              	 .align 2
+ 674              	.L110:
+ 675 0288 00400150 	 .word 1342259200
+ 676 028c 20000020 	 .word 536870944
+ 677 0290 10000020 	 .word 536870928
+ 678 0294 00490050 	 .word 1342195968
+ 680              	 .section .text.XMC_DMA_CH_Suspend,"ax",%progbits
+ 681              	 .align 2
+ 682              	 .global XMC_DMA_CH_Suspend
+ 683              	 .thumb
+ 684              	 .thumb_func
+ 686              	XMC_DMA_CH_Suspend:
+ 687              	 
+ 688              	 
+ 689              	 
+ 690 0000 5823     	 movs r3,#88
+ 691 0002 03FB0101 	 mla r1,r3,r1,r0
+ 692 0006 0B6C     	 ldr r3,[r1,#64]
+ 693 0008 43F48073 	 orr r3,r3,#256
+ 694 000c 0B64     	 str r3,[r1,#64]
+ 695 000e 7047     	 bx lr
+ 697              	 .section .text.XMC_DMA_CH_Resume,"ax",%progbits
+ 698              	 .align 2
+ 699              	 .global XMC_DMA_CH_Resume
+ 700              	 .thumb
+ 701              	 .thumb_func
+ 703              	XMC_DMA_CH_Resume:
+ 704              	 
+ 705              	 
+ 706              	 
+ 707 0000 5823     	 movs r3,#88
+ 708 0002 03FB0101 	 mla r1,r3,r1,r0
+ 709 0006 0B6C     	 ldr r3,[r1,#64]
+ 710 0008 23F48073 	 bic r3,r3,#256
+ 711 000c 0B64     	 str r3,[r1,#64]
+ 712 000e 7047     	 bx lr
+ 714              	 .section .text.XMC_DMA_CH_IsSuspended,"ax",%progbits
+ 715              	 .align 2
+ 716              	 .global XMC_DMA_CH_IsSuspended
+ 717              	 .thumb
+ 718              	 .thumb_func
+ 720              	XMC_DMA_CH_IsSuspended:
+ 721              	 
+ 722              	 
+ 723              	 
+ 724 0000 5823     	 movs r3,#88
+ 725 0002 03FB0101 	 mla r1,r3,r1,r0
+ 726 0006 086C     	 ldr r0,[r1,#64]
+ 727 0008 C0F30020 	 ubfx r0,r0,#8,#1
+ 728 000c 7047     	 bx lr
+ 730 000e 00BF     	 .section .text.XMC_DMA_CH_EnableEvent,"ax",%progbits
+ 731              	 .align 2
+ 732              	 .global XMC_DMA_CH_EnableEvent
+ 733              	 .thumb
+ 734              	 .thumb_func
+ 736              	XMC_DMA_CH_EnableEvent:
+ 737              	 
+ 738              	 
+ 739              	 
+ 740 0000 40F20113 	 movw r3,#257
+ 741 0004 8B40     	 lsls r3,r3,r1
+ 742 0006 D107     	 lsls r1,r2,#31
+ 743 0008 48BF     	 it mi
+ 744 000a C0F81033 	 strmi r3,[r0,#784]
+ 745 000e 9107     	 lsls r1,r2,#30
+ 746 0010 48BF     	 it mi
+ 747 0012 C0F81833 	 strmi r3,[r0,#792]
+ 748 0016 5107     	 lsls r1,r2,#29
+ 749 0018 48BF     	 it mi
+ 750 001a C0F82033 	 strmi r3,[r0,#800]
+ 751 001e 1107     	 lsls r1,r2,#28
+ 752 0020 48BF     	 it mi
+ 753 0022 C0F82833 	 strmi r3,[r0,#808]
+ 754 0026 D206     	 lsls r2,r2,#27
+ 755 0028 48BF     	 it mi
+ 756 002a C0F83033 	 strmi r3,[r0,#816]
+ 757 002e 7047     	 bx lr
+ 759              	 .section .text.XMC_DMA_CH_DisableEvent,"ax",%progbits
+ 760              	 .align 2
+ 761              	 .global XMC_DMA_CH_DisableEvent
+ 762              	 .thumb
+ 763              	 .thumb_func
+ 765              	XMC_DMA_CH_DisableEvent:
+ 766              	 
+ 767              	 
+ 768              	 
+ 769 0000 4FF48073 	 mov r3,#256
+ 770 0004 8B40     	 lsls r3,r3,r1
+ 771 0006 D107     	 lsls r1,r2,#31
+ 772 0008 48BF     	 it mi
+ 773 000a C0F81033 	 strmi r3,[r0,#784]
+ 774 000e 9107     	 lsls r1,r2,#30
+ 775 0010 48BF     	 it mi
+ 776 0012 C0F81833 	 strmi r3,[r0,#792]
+ 777 0016 5107     	 lsls r1,r2,#29
+ 778 0018 48BF     	 it mi
+ 779 001a C0F82033 	 strmi r3,[r0,#800]
+ 780 001e 1107     	 lsls r1,r2,#28
+ 781 0020 48BF     	 it mi
+ 782 0022 C0F82833 	 strmi r3,[r0,#808]
+ 783 0026 D206     	 lsls r2,r2,#27
+ 784 0028 48BF     	 it mi
+ 785 002a C0F83033 	 strmi r3,[r0,#816]
+ 786 002e 7047     	 bx lr
+ 788              	 .section .text.XMC_DMA_CH_ClearEventStatus,"ax",%progbits
+ 789              	 .align 2
+ 790              	 .global XMC_DMA_CH_ClearEventStatus
+ 791              	 .thumb
+ 792              	 .thumb_func
+ 794              	XMC_DMA_CH_ClearEventStatus:
+ 795              	 
+ 796              	 
+ 797              	 
+ 798 0000 0123     	 movs r3,#1
+ 799 0002 8B40     	 lsls r3,r3,r1
+ 800 0004 D107     	 lsls r1,r2,#31
+ 801 0006 48BF     	 it mi
+ 802 0008 C0F83833 	 strmi r3,[r0,#824]
+ 803 000c 9107     	 lsls r1,r2,#30
+ 804 000e 48BF     	 it mi
+ 805 0010 C0F84033 	 strmi r3,[r0,#832]
+ 806 0014 5107     	 lsls r1,r2,#29
+ 807 0016 48BF     	 it mi
+ 808 0018 C0F84833 	 strmi r3,[r0,#840]
+ 809 001c 1107     	 lsls r1,r2,#28
+ 810 001e 48BF     	 it mi
+ 811 0020 C0F85033 	 strmi r3,[r0,#848]
+ 812 0024 D206     	 lsls r2,r2,#27
+ 813 0026 48BF     	 it mi
+ 814 0028 C0F85833 	 strmi r3,[r0,#856]
+ 815 002c 7047     	 bx lr
+ 817 002e 00BF     	 .section .text.XMC_DMA_CH_GetEventStatus,"ax",%progbits
+ 818              	 .align 2
+ 819              	 .global XMC_DMA_CH_GetEventStatus
+ 820              	 .thumb
+ 821              	 .thumb_func
+ 823              	XMC_DMA_CH_GetEventStatus:
+ 824              	 
+ 825              	 
+ 826              	 
+ 827 0000 F0B4     	 push {r4,r5,r6,r7}
+ 828 0002 0123     	 movs r3,#1
+ 829 0004 D0F8E872 	 ldr r7,[r0,#744]
+ 830 0008 D0F8F022 	 ldr r2,[r0,#752]
+ 831 000c D0F8F862 	 ldr r6,[r0,#760]
+ 832 0010 D0F80053 	 ldr r5,[r0,#768]
+ 833 0014 D0F80843 	 ldr r4,[r0,#776]
+ 834 0018 8B40     	 lsls r3,r3,r1
+ 835 001a 3B42     	 tst r3,r7
+ 836 001c 14BF     	 ite ne
+ 837 001e 0120     	 movne r0,#1
+ 838 0020 0020     	 moveq r0,#0
+ 839 0022 1342     	 tst r3,r2
+ 840 0024 14BF     	 ite ne
+ 841 0026 0222     	 movne r2,#2
+ 842 0028 0022     	 moveq r2,#0
+ 843 002a 3342     	 tst r3,r6
+ 844 002c 40EA0200 	 orr r0,r0,r2
+ 845 0030 14BF     	 ite ne
+ 846 0032 0422     	 movne r2,#4
+ 847 0034 0022     	 moveq r2,#0
+ 848 0036 1D42     	 tst r5,r3
+ 849 0038 40EA0200 	 orr r0,r0,r2
+ 850 003c 14BF     	 ite ne
+ 851 003e 0822     	 movne r2,#8
+ 852 0040 0022     	 moveq r2,#0
+ 853 0042 1C42     	 tst r4,r3
+ 854 0044 40EA0203 	 orr r3,r0,r2
+ 855 0048 14BF     	 ite ne
+ 856 004a 1020     	 movne r0,#16
+ 857 004c 0020     	 moveq r0,#0
+ 858 004e 1843     	 orrs r0,r0,r3
+ 859 0050 F0BC     	 pop {r4,r5,r6,r7}
+ 860 0052 7047     	 bx lr
+ 862              	 .section .text.XMC_DMA_CH_EnableSourceGather,"ax",%progbits
+ 863              	 .align 2
+ 864              	 .global XMC_DMA_CH_EnableSourceGather
+ 865              	 .thumb
+ 866              	 .thumb_func
+ 868              	XMC_DMA_CH_EnableSourceGather:
+ 869              	 
+ 870              	 
+ 871              	 
+ 872 0000 10B4     	 push {r4}
+ 873 0002 5824     	 movs r4,#88
+ 874 0004 04FB0101 	 mla r1,r4,r1,r0
+ 875 0008 42EA0353 	 orr r3,r2,r3,lsl#20
+ 876 000c 8869     	 ldr r0,[r1,#24]
+ 877 000e 5DF8044B 	 ldr r4,[sp],#4
+ 878 0012 40F40030 	 orr r0,r0,#131072
+ 879 0016 8861     	 str r0,[r1,#24]
+ 880 0018 8B64     	 str r3,[r1,#72]
+ 881 001a 7047     	 bx lr
+ 883              	 .section .text.XMC_DMA_CH_DisableSourceGather,"ax",%progbits
+ 884              	 .align 2
+ 885              	 .global XMC_DMA_CH_DisableSourceGather
+ 886              	 .thumb
+ 887              	 .thumb_func
+ 889              	XMC_DMA_CH_DisableSourceGather:
+ 890              	 
+ 891              	 
+ 892              	 
+ 893 0000 5823     	 movs r3,#88
+ 894 0002 03FB0101 	 mla r1,r3,r1,r0
+ 895 0006 8B69     	 ldr r3,[r1,#24]
+ 896 0008 23F40033 	 bic r3,r3,#131072
+ 897 000c 8B61     	 str r3,[r1,#24]
+ 898 000e 7047     	 bx lr
+ 900              	 .section .text.XMC_DMA_CH_EnableDestinationScatter,"ax",%progbits
+ 901              	 .align 2
+ 902              	 .global XMC_DMA_CH_EnableDestinationScatter
+ 903              	 .thumb
+ 904              	 .thumb_func
+ 906              	XMC_DMA_CH_EnableDestinationScatter:
+ 907              	 
+ 908              	 
+ 909              	 
+ 910 0000 10B4     	 push {r4}
+ 911 0002 5824     	 movs r4,#88
+ 912 0004 04FB0101 	 mla r1,r4,r1,r0
+ 913 0008 42EA0353 	 orr r3,r2,r3,lsl#20
+ 914 000c 8869     	 ldr r0,[r1,#24]
+ 915 000e 5DF8044B 	 ldr r4,[sp],#4
+ 916 0012 40F48020 	 orr r0,r0,#262144
+ 917 0016 8861     	 str r0,[r1,#24]
+ 918 0018 0B65     	 str r3,[r1,#80]
+ 919 001a 7047     	 bx lr
+ 921              	 .section .text.XMC_DMA_CH_DisableDestinationScatter,"ax",%progbits
+ 922              	 .align 2
+ 923              	 .global XMC_DMA_CH_DisableDestinationScatter
+ 924              	 .thumb
+ 925              	 .thumb_func
+ 927              	XMC_DMA_CH_DisableDestinationScatter:
+ 928              	 
+ 929              	 
+ 930              	 
+ 931 0000 5823     	 movs r3,#88
+ 932 0002 03FB0101 	 mla r1,r3,r1,r0
+ 933 0006 8B69     	 ldr r3,[r1,#24]
+ 934 0008 23F48023 	 bic r3,r3,#262144
+ 935 000c 8B61     	 str r3,[r1,#24]
+ 936 000e 7047     	 bx lr
+ 938              	 .section .text.XMC_DMA_CH_TriggerSourceRequest,"ax",%progbits
+ 939              	 .align 2
+ 940              	 .global XMC_DMA_CH_TriggerSourceRequest
+ 941              	 .thumb
+ 942              	 .thumb_func
+ 944              	XMC_DMA_CH_TriggerSourceRequest:
+ 945              	 
+ 946              	 
+ 947              	 
+ 948 0000 42B1     	 cbz r2,.L187
+ 949 0002 40F20112 	 movw r2,#257
+ 950 0006 8A40     	 lsls r2,r2,r1
+ 951              	.L188:
+ 952 0008 0BB1     	 cbz r3,.L189
+ 953 000a C0F88823 	 str r2,[r0,#904]
+ 954              	.L189:
+ 955 000e C0F86823 	 str r2,[r0,#872]
+ 956 0012 7047     	 bx lr
+ 957              	.L187:
+ 958 0014 40F20112 	 movw r2,#257
+ 959 0018 8A40     	 lsls r2,r2,r1
+ 960 001a C0F87823 	 str r2,[r0,#888]
+ 961 001e F3E7     	 b .L188
+ 963              	 .section .text.XMC_DMA_CH_TriggerDestinationRequest,"ax",%progbits
+ 964              	 .align 2
+ 965              	 .global XMC_DMA_CH_TriggerDestinationRequest
+ 966              	 .thumb
+ 967              	 .thumb_func
+ 969              	XMC_DMA_CH_TriggerDestinationRequest:
+ 970              	 
+ 971              	 
+ 972              	 
+ 973 0000 42B1     	 cbz r2,.L194
+ 974 0002 40F20112 	 movw r2,#257
+ 975 0006 8A40     	 lsls r2,r2,r1
+ 976              	.L195:
+ 977 0008 0BB1     	 cbz r3,.L196
+ 978 000a C0F89023 	 str r2,[r0,#912]
+ 979              	.L196:
+ 980 000e C0F87023 	 str r2,[r0,#880]
+ 981 0012 7047     	 bx lr
+ 982              	.L194:
+ 983 0014 40F20112 	 movw r2,#257
+ 984 0018 8A40     	 lsls r2,r2,r1
+ 985 001a C0F88023 	 str r2,[r0,#896]
+ 986 001e F3E7     	 b .L195
+ 988              	 .section .text.XMC_DMA_CH_EnableSourceAddressReload,"ax",%progbits
+ 989              	 .align 2
+ 990              	 .global XMC_DMA_CH_EnableSourceAddressReload
+ 991              	 .thumb
+ 992              	 .thumb_func
+ 994              	XMC_DMA_CH_EnableSourceAddressReload:
+ 995              	 
+ 996              	 
+ 997              	 
+ 998 0000 5823     	 movs r3,#88
+ 999 0002 03FB0101 	 mla r1,r3,r1,r0
+ 1000 0006 0B6C     	 ldr r3,[r1,#64]
+ 1001 0008 43F08043 	 orr r3,r3,#1073741824
+ 1002 000c 0B64     	 str r3,[r1,#64]
+ 1003 000e 7047     	 bx lr
+ 1005              	 .section .text.XMC_DMA_CH_DisableSourceAddressReload,"ax",%progbits
+ 1006              	 .align 2
+ 1007              	 .global XMC_DMA_CH_DisableSourceAddressReload
+ 1008              	 .thumb
+ 1009              	 .thumb_func
+ 1011              	XMC_DMA_CH_DisableSourceAddressReload:
+ 1012              	 
+ 1013              	 
+ 1014              	 
+ 1015 0000 5823     	 movs r3,#88
+ 1016 0002 03FB0101 	 mla r1,r3,r1,r0
+ 1017 0006 0B6C     	 ldr r3,[r1,#64]
+ 1018 0008 23F08043 	 bic r3,r3,#1073741824
+ 1019 000c 0B64     	 str r3,[r1,#64]
+ 1020 000e 7047     	 bx lr
+ 1022              	 .section .text.XMC_DMA_CH_EnableDestinationAddressReload,"ax",%progbits
+ 1023              	 .align 2
+ 1024              	 .global XMC_DMA_CH_EnableDestinationAddressReload
+ 1025              	 .thumb
+ 1026              	 .thumb_func
+ 1028              	XMC_DMA_CH_EnableDestinationAddressReload:
+ 1029              	 
+ 1030              	 
+ 1031              	 
+ 1032 0000 5823     	 movs r3,#88
+ 1033 0002 03FB0101 	 mla r1,r3,r1,r0
+ 1034 0006 0B6C     	 ldr r3,[r1,#64]
+ 1035 0008 43F00043 	 orr r3,r3,#-2147483648
+ 1036 000c 0B64     	 str r3,[r1,#64]
+ 1037 000e 7047     	 bx lr
+ 1039              	 .section .text.XMC_DMA_CH_DisableDestinationAddressReload,"ax",%progbits
+ 1040              	 .align 2
+ 1041              	 .global XMC_DMA_CH_DisableDestinationAddressReload
+ 1042              	 .thumb
+ 1043              	 .thumb_func
+ 1045              	XMC_DMA_CH_DisableDestinationAddressReload:
+ 1046              	 
+ 1047              	 
+ 1048              	 
+ 1049 0000 5823     	 movs r3,#88
+ 1050 0002 03FB0101 	 mla r1,r3,r1,r0
+ 1051 0006 0B6C     	 ldr r3,[r1,#64]
+ 1052 0008 23F00043 	 bic r3,r3,#-2147483648
+ 1053 000c 0B64     	 str r3,[r1,#64]
+ 1054 000e 7047     	 bx lr
+ 1056              	 .section .text.XMC_DMA_CH_RequestLastMultiblockTransfer,"ax",%progbits
+ 1057              	 .align 2
+ 1058              	 .global XMC_DMA_CH_RequestLastMultiblockTransfer
+ 1059              	 .thumb
+ 1060              	 .thumb_func
+ 1062              	XMC_DMA_CH_RequestLastMultiblockTransfer:
+ 1063              	 
+ 1064              	 
+ 1065              	 
+ 1066 0000 5823     	 movs r3,#88
+ 1067 0002 03FB0101 	 mla r1,r3,r1,r0
+ 1068 0006 0B6C     	 ldr r3,[r1,#64]
+ 1069 0008 23F04043 	 bic r3,r3,#-1073741824
+ 1070 000c 0B64     	 str r3,[r1,#64]
+ 1071 000e 7047     	 bx lr
+ 1073              	 .section .text.XMC_DMA_CH_SetEventHandler,"ax",%progbits
+ 1074              	 .align 2
+ 1075              	 .global XMC_DMA_CH_SetEventHandler
+ 1076              	 .thumb
+ 1077              	 .thumb_func
+ 1079              	XMC_DMA_CH_SetEventHandler:
+ 1080              	 
+ 1081              	 
+ 1082              	 
+ 1083 0000 034B     	 ldr r3,.L208
+ 1084 0002 9842     	 cmp r0,r3
+ 1085 0004 0CBF     	 ite eq
+ 1086 0006 034B     	 ldreq r3,.L208+4
+ 1087 0008 034B     	 ldrne r3,.L208+8
+ 1088 000a 43F82120 	 str r2,[r3,r1,lsl#2]
+ 1089 000e 7047     	 bx lr
+ 1090              	.L209:
+ 1091              	 .align 2
+ 1092              	.L208:
+ 1093 0010 00400150 	 .word 1342259200
+ 1094 0014 00000000 	 .word dma0_event_handlers
+ 1095 0018 00000000 	 .word dma1_event_handlers
+ 1097              	 .section .text.XMC_DMA_CH_ClearSourcePeripheralRequest,"ax",%progbits
+ 1098              	 .align 2
+ 1099              	 .global XMC_DMA_CH_ClearSourcePeripheralRequest
+ 1100              	 .thumb
+ 1101              	 .thumb_func
+ 1103              	XMC_DMA_CH_ClearSourcePeripheralRequest:
+ 1104              	 
+ 1105              	 
+ 1106              	 
+ 1107 0000 5823     	 movs r3,#88
+ 1108 0002 03FB0101 	 mla r1,r3,r1,r0
+ 1109 0006 0A4A     	 ldr r2,.L214
+ 1110 0008 4B6C     	 ldr r3,[r1,#68]
+ 1111 000a C3F3C311 	 ubfx r1,r3,#7,#4
+ 1112 000e 094B     	 ldr r3,.L214+4
+ 1113 0010 9042     	 cmp r0,r2
+ 1114 0012 08BF     	 it eq
+ 1115 0014 0122     	 moveq r2,#1
+ 1116 0016 1869     	 ldr r0,[r3,#16]
+ 1117 0018 18BF     	 it ne
+ 1118 001a 4FF48072 	 movne r2,#256
+ 1119 001e 8A40     	 lsls r2,r2,r1
+ 1120 0020 20EA0201 	 bic r1,r0,r2
+ 1121 0024 1961     	 str r1,[r3,#16]
+ 1122 0026 1969     	 ldr r1,[r3,#16]
+ 1123 0028 0A43     	 orrs r2,r2,r1
+ 1124 002a 1A61     	 str r2,[r3,#16]
+ 1125 002c 7047     	 bx lr
+ 1126              	.L215:
+ 1127 002e 00BF     	 .align 2
+ 1128              	.L214:
+ 1129 0030 00400150 	 .word 1342259200
+ 1130 0034 00490050 	 .word 1342195968
+ 1132              	 .section .text.XMC_DMA_CH_ClearDestinationPeripheralRequest,"ax",%progbits
+ 1133              	 .align 2
+ 1134              	 .global XMC_DMA_CH_ClearDestinationPeripheralRequest
+ 1135              	 .thumb
+ 1136              	 .thumb_func
+ 1138              	XMC_DMA_CH_ClearDestinationPeripheralRequest:
+ 1139              	 
+ 1140              	 
+ 1141              	 
+ 1142 0000 5823     	 movs r3,#88
+ 1143 0002 03FB0101 	 mla r1,r3,r1,r0
+ 1144 0006 0A4A     	 ldr r2,.L220
+ 1145 0008 4B6C     	 ldr r3,[r1,#68]
+ 1146 000a C3F3C321 	 ubfx r1,r3,#11,#4
+ 1147 000e 094B     	 ldr r3,.L220+4
+ 1148 0010 9042     	 cmp r0,r2
+ 1149 0012 08BF     	 it eq
+ 1150 0014 0122     	 moveq r2,#1
+ 1151 0016 1869     	 ldr r0,[r3,#16]
+ 1152 0018 18BF     	 it ne
+ 1153 001a 4FF48072 	 movne r2,#256
+ 1154 001e 8A40     	 lsls r2,r2,r1
+ 1155 0020 20EA0201 	 bic r1,r0,r2
+ 1156 0024 1961     	 str r1,[r3,#16]
+ 1157 0026 1969     	 ldr r1,[r3,#16]
+ 1158 0028 0A43     	 orrs r2,r2,r1
+ 1159 002a 1A61     	 str r2,[r3,#16]
+ 1160 002c 7047     	 bx lr
+ 1161              	.L221:
+ 1162 002e 00BF     	 .align 2
+ 1163              	.L220:
+ 1164 0030 00400150 	 .word 1342259200
+ 1165 0034 00490050 	 .word 1342195968
+ 1167              	 .section .text.XMC_DMA_IRQHandler,"ax",%progbits
+ 1168              	 .align 2
+ 1169              	 .global XMC_DMA_IRQHandler
+ 1170              	 .thumb
+ 1171              	 .thumb_func
+ 1173              	XMC_DMA_IRQHandler:
+ 1174              	 
+ 1175              	 
+ 1176              	 
+ 1177 0000 5A4A     	 ldr r2,.L275
+ 1178 0002 5B49     	 ldr r1,.L275+4
+ 1179 0004 D0F86033 	 ldr r3,[r0,#864]
+ 1180 0008 30B4     	 push {r4,r5}
+ 1181 000a 5A4D     	 ldr r5,.L275+8
+ 1182 000c A842     	 cmp r0,r5
+ 1183 000e 0CBF     	 ite eq
+ 1184 0010 0D46     	 moveq r5,r1
+ 1185 0012 1546     	 movne r5,r2
+ 1186 0014 13F01002 	 ands r2,r3,#16
+ 1187 0018 1DD0     	 beq .L224
+ 1188 001a D0F80813 	 ldr r1,[r0,#776]
+ 1189 001e C1B1     	 cbz r1,.L222
+ 1190 0020 CB07     	 lsls r3,r1,#31
+ 1191 0022 00F19780 	 bmi .L252
+ 1192 0026 0123     	 movs r3,#1
+ 1193 0028 1C46     	 mov r4,r3
+ 1194 002a 00E0     	 b .L241
+ 1195              	.L228:
+ 1196 002c 0133     	 adds r3,r3,#1
+ 1197              	.L241:
+ 1198 002e 04FA03F2 	 lsl r2,r4,r3
+ 1199 0032 0A42     	 tst r2,r1
+ 1200 0034 FAD0     	 beq .L228
+ 1201 0036 9A00     	 lsls r2,r3,#2
+ 1202              	.L227:
+ 1203 0038 A958     	 ldr r1,[r5,r2]
+ 1204 003a DBB2     	 uxtb r3,r3
+ 1205 003c 0122     	 movs r2,#1
+ 1206 003e 02FA03F3 	 lsl r3,r2,r3
+ 1207 0042 C0F85833 	 str r3,[r0,#856]
+ 1208 0046 21B1     	 cbz r1,.L222
+ 1209 0048 1020     	 movs r0,#16
+ 1210 004a 30BC     	 pop {r4,r5}
+ 1211 004c 0847     	 bx r1
+ 1212              	.L236:
+ 1213 004e 1A07     	 lsls r2,r3,#28
+ 1214 0050 65D4     	 bmi .L273
+ 1215              	.L222:
+ 1216 0052 30BC     	 pop {r4,r5}
+ 1217 0054 7047     	 bx lr
+ 1218              	.L224:
+ 1219 0056 13F00104 	 ands r4,r3,#1
+ 1220 005a 20D0     	 beq .L229
+ 1221 005c D0F8E812 	 ldr r1,[r0,#744]
+ 1222 0060 0029     	 cmp r1,#0
+ 1223 0062 F6D0     	 beq .L222
+ 1224 0064 CC07     	 lsls r4,r1,#31
+ 1225 0066 78D4     	 bmi .L253
+ 1226 0068 0123     	 movs r3,#1
+ 1227 006a 1C46     	 mov r4,r3
+ 1228 006c 00E0     	 b .L242
+ 1229              	.L232:
+ 1230 006e 0133     	 adds r3,r3,#1
+ 1231              	.L242:
+ 1232 0070 04FA03F2 	 lsl r2,r4,r3
+ 1233 0074 0A42     	 tst r2,r1
+ 1234 0076 FAD0     	 beq .L232
+ 1235 0078 9A00     	 lsls r2,r3,#2
+ 1236              	.L231:
+ 1237 007a AA58     	 ldr r2,[r5,r2]
+ 1238 007c DBB2     	 uxtb r3,r3
+ 1239 007e 0121     	 movs r1,#1
+ 1240 0080 01FA03F3 	 lsl r3,r1,r3
+ 1241 0084 C0F83833 	 str r3,[r0,#824]
+ 1242 0088 C0F84033 	 str r3,[r0,#832]
+ 1243 008c C0F84833 	 str r3,[r0,#840]
+ 1244 0090 C0F85033 	 str r3,[r0,#848]
+ 1245 0094 002A     	 cmp r2,#0
+ 1246 0096 DCD0     	 beq .L222
+ 1247 0098 0846     	 mov r0,r1
+ 1248 009a 30BC     	 pop {r4,r5}
+ 1249 009c 1047     	 bx r2
+ 1250              	.L229:
+ 1251 009e 13F00202 	 ands r2,r3,#2
+ 1252 00a2 1DD1     	 bne .L274
+ 1253 00a4 13F00404 	 ands r4,r3,#4
+ 1254 00a8 D1D0     	 beq .L236
+ 1255 00aa D0F8F812 	 ldr r1,[r0,#760]
+ 1256 00ae 0029     	 cmp r1,#0
+ 1257 00b0 CFD0     	 beq .L222
+ 1258 00b2 CC07     	 lsls r4,r1,#31
+ 1259 00b4 55D4     	 bmi .L255
+ 1260 00b6 0123     	 movs r3,#1
+ 1261 00b8 1C46     	 mov r4,r3
+ 1262 00ba 00E0     	 b .L244
+ 1263              	.L238:
+ 1264 00bc 0133     	 adds r3,r3,#1
+ 1265              	.L244:
+ 1266 00be 04FA03F2 	 lsl r2,r4,r3
+ 1267 00c2 0A42     	 tst r2,r1
+ 1268 00c4 FAD0     	 beq .L238
+ 1269 00c6 9A00     	 lsls r2,r3,#2
+ 1270              	.L237:
+ 1271 00c8 A958     	 ldr r1,[r5,r2]
+ 1272 00ca DBB2     	 uxtb r3,r3
+ 1273 00cc 0122     	 movs r2,#1
+ 1274 00ce 02FA03F3 	 lsl r3,r2,r3
+ 1275 00d2 C0F84833 	 str r3,[r0,#840]
+ 1276 00d6 0029     	 cmp r1,#0
+ 1277 00d8 BBD0     	 beq .L222
+ 1278 00da 0420     	 movs r0,#4
+ 1279 00dc 30BC     	 pop {r4,r5}
+ 1280 00de 0847     	 bx r1
+ 1281              	.L274:
+ 1282 00e0 D0F8F012 	 ldr r1,[r0,#752]
+ 1283 00e4 0029     	 cmp r1,#0
+ 1284 00e6 B4D0     	 beq .L222
+ 1285 00e8 CB07     	 lsls r3,r1,#31
+ 1286 00ea 38D4     	 bmi .L254
+ 1287 00ec 0123     	 movs r3,#1
+ 1288 00ee 1C46     	 mov r4,r3
+ 1289 00f0 00E0     	 b .L243
+ 1290              	.L235:
+ 1291 00f2 0133     	 adds r3,r3,#1
+ 1292              	.L243:
+ 1293 00f4 04FA03F2 	 lsl r2,r4,r3
+ 1294 00f8 0A42     	 tst r2,r1
+ 1295 00fa FAD0     	 beq .L235
+ 1296 00fc 9C00     	 lsls r4,r3,#2
+ 1297              	.L234:
+ 1298 00fe 2959     	 ldr r1,[r5,r4]
+ 1299 0100 DBB2     	 uxtb r3,r3
+ 1300 0102 0122     	 movs r2,#1
+ 1301 0104 02FA03F3 	 lsl r3,r2,r3
+ 1302 0108 C0F84033 	 str r3,[r0,#832]
+ 1303 010c C0F84833 	 str r3,[r0,#840]
+ 1304 0110 C0F85033 	 str r3,[r0,#848]
+ 1305 0114 0029     	 cmp r1,#0
+ 1306 0116 9CD0     	 beq .L222
+ 1307 0118 0220     	 movs r0,#2
+ 1308 011a 30BC     	 pop {r4,r5}
+ 1309 011c 0847     	 bx r1
+ 1310              	.L273:
+ 1311 011e D0F80013 	 ldr r1,[r0,#768]
+ 1312 0122 0029     	 cmp r1,#0
+ 1313 0124 95D0     	 beq .L222
+ 1314 0126 CB07     	 lsls r3,r1,#31
+ 1315 0128 1DD4     	 bmi .L256
+ 1316 012a 0123     	 movs r3,#1
+ 1317 012c 1C46     	 mov r4,r3
+ 1318 012e 00E0     	 b .L245
+ 1319              	.L240:
+ 1320 0130 0133     	 adds r3,r3,#1
+ 1321              	.L245:
+ 1322 0132 04FA03F2 	 lsl r2,r4,r3
+ 1323 0136 0A42     	 tst r2,r1
+ 1324 0138 FAD0     	 beq .L240
+ 1325 013a 9C00     	 lsls r4,r3,#2
+ 1326              	.L239:
+ 1327 013c DBB2     	 uxtb r3,r3
+ 1328 013e 2959     	 ldr r1,[r5,r4]
+ 1329 0140 0122     	 movs r2,#1
+ 1330 0142 02FA03F3 	 lsl r3,r2,r3
+ 1331 0146 C0F85033 	 str r3,[r0,#848]
+ 1332 014a 0029     	 cmp r1,#0
+ 1333 014c 81D0     	 beq .L222
+ 1334 014e 0820     	 movs r0,#8
+ 1335 0150 30BC     	 pop {r4,r5}
+ 1336 0152 0847     	 bx r1
+ 1337              	.L252:
+ 1338 0154 0022     	 movs r2,#0
+ 1339 0156 1346     	 mov r3,r2
+ 1340 0158 6EE7     	 b .L227
+ 1341              	.L253:
+ 1342 015a 1346     	 mov r3,r2
+ 1343 015c 8DE7     	 b .L231
+ 1344              	.L254:
+ 1345 015e 2346     	 mov r3,r4
+ 1346 0160 CDE7     	 b .L234
+ 1347              	.L255:
+ 1348 0162 1346     	 mov r3,r2
+ 1349 0164 B0E7     	 b .L237
+ 1350              	.L256:
+ 1351 0166 2346     	 mov r3,r4
+ 1352 0168 E8E7     	 b .L239
+ 1353              	.L276:
+ 1354 016a 00BF     	 .align 2
+ 1355              	.L275:
+ 1356 016c 00000000 	 .word dma1_event_handlers
+ 1357 0170 00000000 	 .word dma0_event_handlers
+ 1358 0174 00400150 	 .word 1342259200
+ 1360              	 .comm dma1_event_handlers,16,4
+ 1361              	 .comm dma0_event_handlers,32,4
+ 1362              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_dma.c
+    {standard input}:17     .text.XMC_DMA_Init:00000000 $t
+    {standard input}:22     .text.XMC_DMA_Init:00000000 XMC_DMA_Init
+    {standard input}:48     .text.XMC_DMA_Init:00000034 $d
+    {standard input}:53     .text.XMC_DMA_Enable:00000000 $t
+    {standard input}:58     .text.XMC_DMA_Enable:00000000 XMC_DMA_Enable
+    {standard input}:84     .text.XMC_DMA_Enable:00000034 $d
+    {standard input}:89     .text.XMC_DMA_Disable:00000000 $t
+    {standard input}:94     .text.XMC_DMA_Disable:00000000 XMC_DMA_Disable
+    {standard input}:117    .text.XMC_DMA_Disable:00000030 $d
+    {standard input}:122    .text.XMC_DMA_IsEnabled:00000000 $t
+    {standard input}:127    .text.XMC_DMA_IsEnabled:00000000 XMC_DMA_IsEnabled
+    {standard input}:168    .text.XMC_DMA_IsEnabled:0000004c $d
+    {standard input}:173    .text.XMC_DMA_EnableRequestLine:00000000 $t
+    {standard input}:178    .text.XMC_DMA_EnableRequestLine:00000000 XMC_DMA_EnableRequestLine
+    {standard input}:223    .text.XMC_DMA_EnableRequestLine:00000054 $d
+    {standard input}:227    .text.XMC_DMA_DisableRequestLine:00000000 $t
+    {standard input}:232    .text.XMC_DMA_DisableRequestLine:00000000 XMC_DMA_DisableRequestLine
+    {standard input}:251    .text.XMC_DMA_DisableRequestLine:0000001c $d
+    {standard input}:255    .text.XMC_DMA_ClearRequestLine:00000000 $t
+    {standard input}:260    .text.XMC_DMA_ClearRequestLine:00000000 XMC_DMA_ClearRequestLine
+    {standard input}:283    .text.XMC_DMA_ClearRequestLine:00000028 $d
+    {standard input}:287    .text.XMC_DMA_GetOverrunStatus:00000000 $t
+    {standard input}:292    .text.XMC_DMA_GetOverrunStatus:00000000 XMC_DMA_GetOverrunStatus
+    {standard input}:317    .text.XMC_DMA_GetOverrunStatus:00000028 $d
+    {standard input}:321    .text.XMC_DMA_ClearOverrunStatus:00000000 $t
+    {standard input}:326    .text.XMC_DMA_ClearOverrunStatus:00000000 XMC_DMA_ClearOverrunStatus
+    {standard input}:342    .text.XMC_DMA_ClearOverrunStatus:00000014 $d
+    {standard input}:346    .text.XMC_DMA_CH_Disable:00000000 $t
+    {standard input}:351    .text.XMC_DMA_CH_Disable:00000000 XMC_DMA_CH_Disable
+    {standard input}:367    .text.XMC_DMA_CH_IsEnabled:00000000 $t
+    {standard input}:372    .text.XMC_DMA_CH_IsEnabled:00000000 XMC_DMA_CH_IsEnabled
+    {standard input}:382    .text.XMC_DMA_CH_Init:00000000 $t
+    {standard input}:387    .text.XMC_DMA_CH_Init:00000000 XMC_DMA_CH_Init
+    {standard input}:468    .text.XMC_DMA_CH_Init:000000ae $d
+    {standard input}:476    .text.XMC_DMA_CH_Init:000000b6 $t
+    {standard input}:675    .text.XMC_DMA_CH_Init:00000288 $d
+    {standard input}:681    .text.XMC_DMA_CH_Suspend:00000000 $t
+    {standard input}:686    .text.XMC_DMA_CH_Suspend:00000000 XMC_DMA_CH_Suspend
+    {standard input}:698    .text.XMC_DMA_CH_Resume:00000000 $t
+    {standard input}:703    .text.XMC_DMA_CH_Resume:00000000 XMC_DMA_CH_Resume
+    {standard input}:715    .text.XMC_DMA_CH_IsSuspended:00000000 $t
+    {standard input}:720    .text.XMC_DMA_CH_IsSuspended:00000000 XMC_DMA_CH_IsSuspended
+    {standard input}:731    .text.XMC_DMA_CH_EnableEvent:00000000 $t
+    {standard input}:736    .text.XMC_DMA_CH_EnableEvent:00000000 XMC_DMA_CH_EnableEvent
+    {standard input}:760    .text.XMC_DMA_CH_DisableEvent:00000000 $t
+    {standard input}:765    .text.XMC_DMA_CH_DisableEvent:00000000 XMC_DMA_CH_DisableEvent
+    {standard input}:789    .text.XMC_DMA_CH_ClearEventStatus:00000000 $t
+    {standard input}:794    .text.XMC_DMA_CH_ClearEventStatus:00000000 XMC_DMA_CH_ClearEventStatus
+    {standard input}:818    .text.XMC_DMA_CH_GetEventStatus:00000000 $t
+    {standard input}:823    .text.XMC_DMA_CH_GetEventStatus:00000000 XMC_DMA_CH_GetEventStatus
+    {standard input}:863    .text.XMC_DMA_CH_EnableSourceGather:00000000 $t
+    {standard input}:868    .text.XMC_DMA_CH_EnableSourceGather:00000000 XMC_DMA_CH_EnableSourceGather
+    {standard input}:884    .text.XMC_DMA_CH_DisableSourceGather:00000000 $t
+    {standard input}:889    .text.XMC_DMA_CH_DisableSourceGather:00000000 XMC_DMA_CH_DisableSourceGather
+    {standard input}:901    .text.XMC_DMA_CH_EnableDestinationScatter:00000000 $t
+    {standard input}:906    .text.XMC_DMA_CH_EnableDestinationScatter:00000000 XMC_DMA_CH_EnableDestinationScatter
+    {standard input}:922    .text.XMC_DMA_CH_DisableDestinationScatter:00000000 $t
+    {standard input}:927    .text.XMC_DMA_CH_DisableDestinationScatter:00000000 XMC_DMA_CH_DisableDestinationScatter
+    {standard input}:939    .text.XMC_DMA_CH_TriggerSourceRequest:00000000 $t
+    {standard input}:944    .text.XMC_DMA_CH_TriggerSourceRequest:00000000 XMC_DMA_CH_TriggerSourceRequest
+    {standard input}:964    .text.XMC_DMA_CH_TriggerDestinationRequest:00000000 $t
+    {standard input}:969    .text.XMC_DMA_CH_TriggerDestinationRequest:00000000 XMC_DMA_CH_TriggerDestinationRequest
+    {standard input}:989    .text.XMC_DMA_CH_EnableSourceAddressReload:00000000 $t
+    {standard input}:994    .text.XMC_DMA_CH_EnableSourceAddressReload:00000000 XMC_DMA_CH_EnableSourceAddressReload
+    {standard input}:1006   .text.XMC_DMA_CH_DisableSourceAddressReload:00000000 $t
+    {standard input}:1011   .text.XMC_DMA_CH_DisableSourceAddressReload:00000000 XMC_DMA_CH_DisableSourceAddressReload
+    {standard input}:1023   .text.XMC_DMA_CH_EnableDestinationAddressReload:00000000 $t
+    {standard input}:1028   .text.XMC_DMA_CH_EnableDestinationAddressReload:00000000 XMC_DMA_CH_EnableDestinationAddressReload
+    {standard input}:1040   .text.XMC_DMA_CH_DisableDestinationAddressReload:00000000 $t
+    {standard input}:1045   .text.XMC_DMA_CH_DisableDestinationAddressReload:00000000 XMC_DMA_CH_DisableDestinationAddressReload
+    {standard input}:1057   .text.XMC_DMA_CH_RequestLastMultiblockTransfer:00000000 $t
+    {standard input}:1062   .text.XMC_DMA_CH_RequestLastMultiblockTransfer:00000000 XMC_DMA_CH_RequestLastMultiblockTransfer
+    {standard input}:1074   .text.XMC_DMA_CH_SetEventHandler:00000000 $t
+    {standard input}:1079   .text.XMC_DMA_CH_SetEventHandler:00000000 XMC_DMA_CH_SetEventHandler
+    {standard input}:1093   .text.XMC_DMA_CH_SetEventHandler:00000010 $d
+                            *COM*:00000020 dma0_event_handlers
+                            *COM*:00000010 dma1_event_handlers
+    {standard input}:1098   .text.XMC_DMA_CH_ClearSourcePeripheralRequest:00000000 $t
+    {standard input}:1103   .text.XMC_DMA_CH_ClearSourcePeripheralRequest:00000000 XMC_DMA_CH_ClearSourcePeripheralRequest
+    {standard input}:1129   .text.XMC_DMA_CH_ClearSourcePeripheralRequest:00000030 $d
+    {standard input}:1133   .text.XMC_DMA_CH_ClearDestinationPeripheralRequest:00000000 $t
+    {standard input}:1138   .text.XMC_DMA_CH_ClearDestinationPeripheralRequest:00000000 XMC_DMA_CH_ClearDestinationPeripheralRequest
+    {standard input}:1164   .text.XMC_DMA_CH_ClearDestinationPeripheralRequest:00000030 $d
+    {standard input}:1168   .text.XMC_DMA_IRQHandler:00000000 $t
+    {standard input}:1173   .text.XMC_DMA_IRQHandler:00000000 XMC_DMA_IRQHandler
+    {standard input}:1356   .text.XMC_DMA_IRQHandler:0000016c $d
+
+UNDEFINED SYMBOLS
+XMC_SCU_CLOCK_UngatePeripheralClock
+XMC_SCU_RESET_DeassertPeripheralReset
+XMC_SCU_RESET_AssertPeripheralReset
+XMC_SCU_CLOCK_GatePeripheralClock
+XMC_SCU_RESET_IsPeripheralResetAsserted
+XMC_SCU_CLOCK_IsPeripheralClockGated

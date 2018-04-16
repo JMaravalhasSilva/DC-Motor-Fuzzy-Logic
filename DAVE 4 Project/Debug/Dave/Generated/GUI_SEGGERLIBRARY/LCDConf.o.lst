@@ -1,0 +1,1154 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "LCDConf.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.LCD_X_Config,"ax",%progbits
+  20              	 .align 2
+  21              	 .global LCD_X_Config
+  22              	 .thumb
+  23              	 .thumb_func
+  25              	LCD_X_Config:
+  26              	.LFB295:
+  27              	 .file 1 "../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c"
+   1:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /*********************************************************************
+   2:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *                SEGGER Microcontroller GmbH & Co. KG                *
+   3:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *        Solutions for real time microcontroller applications        *
+   4:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** **********************************************************************
+   5:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *                                                                    *
+   6:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *        (c) 1996 - 2015  SEGGER Microcontroller GmbH & Co. KG       *
+   7:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *                                                                    *
+   8:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *        Internet: www.segger.com    Support:  support@segger.com    *
+   9:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *                                                                    *
+  10:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *********************************************************************/
+  11:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /**
+  12:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * 
+  13:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  **************************************************************************************************
+  14:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *
+  15:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * Copyright (c) 2015, Infineon Technologies AG
+  16:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * All rights reserved.
+  17:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *
+  18:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  19:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * following conditions are met:
+  20:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *
+  21:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *   Redistributions of source code must retain the above copyright notice, this list of conditions
+  22:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *   disclaimer.
+  23:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *
+  24:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *   Redistributions in binary form must reproduce the above copyright notice, this list of conditi
+  25:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *   following disclaimer in the documentation and/or other materials provided with the distributio
+  26:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *
+  27:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *   Neither the name of the copyright holders nor the names of its contributors may be used to end
+  28:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *   products derived from this software without specific prior written permission.
+  29:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *
+  30:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  31:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  32:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  33:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  34:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  35:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  36:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  37:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  *
+  38:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  39:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * with Infineon Technologies AG (dave@infineon.com).
+  40:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  **************************************************************************************************
+  41:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  */
+  42:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /*
+  43:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** ----------------------------------------------------------------------
+  44:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** File        : LCDConf.c
+  45:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** Purpose     : Sample display controller configuration
+  46:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+  47:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****               Controller:     Syncoam SEPS525
+  48:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****               Display driver: GUIDRV_FlexColor
+  49:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****               Operation mode: 16bpp, 8 bit interface
+  50:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+  51:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** ---------------------------END-OF-HEADER------------------------------
+  52:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** */
+  53:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+  54:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #include "GUI.h"
+  55:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+  56:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #ifndef WIN32
+  57:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #include "gui_seggerlibrary.h"
+  58:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+  59:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #include "GUIDRV_FlexColor.h"
+  60:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+  61:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /*********************************************************************
+  62:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+  63:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *       Layer configuration
+  64:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+  65:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** **********************************************************************
+  66:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** */
+  67:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** //
+  68:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** // Physical display size
+  69:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** //
+  70:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if !USER_DEFINED_LCD
+  71:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define XSIZE_PHYS 160
+  72:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define YSIZE_PHYS 128
+  73:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define DISPLAY_ORIENTATION SYNCOAM_LCD_ORIENTATION
+  74:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #else
+  75:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define XSIZE_PHYS GUI_LCD_XSIZE
+  76:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define YSIZE_PHYS GUI_LCD_YSIZE
+  77:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define DISPLAY_ORIENTATION OTHER_LCD_ORIENTATION
+  78:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+  79:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+  80:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** //
+  81:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** // Color conversion
+  82:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** //
+  83:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if !USER_DEFINED_LCD
+  84:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define COLOR_CONVERSION GUICC_M565
+  85:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #else
+  86:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define COLOR_CONVERSION GUICC_565
+  87:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+  88:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** //
+  89:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** // Display driver
+  90:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** //
+  91:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define DISPLAY_DRIVER GUIDRV_FLEXCOLOR
+  92:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+  93:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /* If user wants to use a different display controller then change then below pfFUNC and pfMODE mac
+  94:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****  * emWin documentation GUIDRV_FlexColor_SetFunc() API usage */
+  95:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if ((GUI_SEGGERLIBRARY_NON_READ_SUPPORT == 0) && (DISPLAY_8BPP == 1))
+  96:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define pfFUNC GUIDRV_FLEXCOLOR_F66718
+  97:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define pfMODE GUIDRV_FLEXCOLOR_M16C0B8
+  98:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+  99:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 100:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /* Cache enabled in 8-bit mode */
+ 101:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if ((GUI_SEGGERLIBRARY_NON_READ_SUPPORT == 1) && (DISPLAY_8BPP == 1))
+ 102:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define pfFUNC GUIDRV_FLEXCOLOR_F66718
+ 103:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define pfMODE GUIDRV_FLEXCOLOR_M16C1B8
+ 104:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 105:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 106:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if ((GUI_SEGGERLIBRARY_NON_READ_SUPPORT == 0) && (DISPLAY_16BPP == 1))
+ 107:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define pfFUNC GUIDRV_FLEXCOLOR_F66708
+ 108:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define pfMODE GUIDRV_FLEXCOLOR_M16C0B16
+ 109:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 110:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 111:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /* Cache enabled in 16-bit mode */
+ 112:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if ((GUI_SEGGERLIBRARY_NON_READ_SUPPORT == 1) && (DISPLAY_16BPP == 1))
+ 113:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define pfFUNC GUIDRV_FLEXCOLOR_F66708
+ 114:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define pfMODE GUIDRV_FLEXCOLOR_M16C1B16
+ 115:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 116:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 117:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** //
+ 118:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** // Orientation
+ 119:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** //
+ 120:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 121:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 122:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 123:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /*********************************************************************
+ 124:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 125:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *       Configuration checking
+ 126:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 127:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** **********************************************************************
+ 128:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** */
+ 129:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #ifndef   VXSIZE_PHYS
+ 130:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #define VXSIZE_PHYS XSIZE_PHYS
+ 131:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 132:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #ifndef   VYSIZE_PHYS
+ 133:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #define VYSIZE_PHYS YSIZE_PHYS
+ 134:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 135:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #ifndef   XSIZE_PHYS
+ 136:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #error Physical X size of display is not defined!
+ 137:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 138:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #ifndef   YSIZE_PHYS
+ 139:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #error Physical Y size of display is not defined!
+ 140:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 141:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #ifndef   COLOR_CONVERSION
+ 142:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #error Color conversion not defined!
+ 143:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 144:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #ifndef   DISPLAY_DRIVER
+ 145:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #error No display driver defined!
+ 146:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 147:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #ifndef   DISPLAY_ORIENTATION
+ 148:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #define DISPLAY_ORIENTATION 0
+ 149:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 150:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 151:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /*********************************************************************
+ 152:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 153:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *       Display controller register definitions
+ 154:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 155:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** **********************************************************************
+ 156:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** */
+ 157:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_OSC_CTL                 0x02
+ 158:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_CLOCK_DIV               0x03
+ 159:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_REDUCE_CURRENT          0x04
+ 160:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_DISP_ON_OFF             0x06
+ 161:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_PRECHARGE_TIME_R        0x08
+ 162:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_PRECHARGE_TIME_G        0x09
+ 163:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_PRECHARGE_TIME_B        0x0A
+ 164:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_PRECHARGE_Current_R     0x0B
+ 165:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_PRECHARGE_Current_G     0x0C
+ 166:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_PRECHARGE_Current_B     0x0D
+ 167:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_DRIVING_CURRENT_R       0x10
+ 168:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_DRIVING_CURRENT_G       0x11
+ 169:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_DRIVING_CURRENT_B       0x12
+ 170:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_DISPLAY_MODE_SET        0x13
+ 171:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_RGB_IF                  0x14
+ 172:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_MEMORY_WRITE_MODE       0x16
+ 173:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_MX1_ADDR                0x17
+ 174:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_MX2_ADDR                0x18
+ 175:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_MY1_ADDR                0x19
+ 176:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_MY2_ADDR                0x1A
+ 177:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_MEMORY_ACCESS_POINTER_X 0x20
+ 178:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_MEMORY_ACCESS_POINTER_Y 0x21
+ 179:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_DDRAM_DATA_ACCESS_PORT  0x22
+ 180:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_DUTY                    0x28
+ 181:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_DSL                     0x29
+ 182:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_D1_DDRAM_FAC            0x2E
+ 183:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_D1_DDRAM_FAR            0x2F
+ 184:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_D2_DDRAM_SAC            0x31
+ 185:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_D2_DDRAM_SAR            0x32
+ 186:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SCR1_FX1                0x33
+ 187:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SCR1_FX2                0x34
+ 188:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SCR1_FY1                0x35
+ 189:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SCR1_FY2                0x36
+ 190:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SCR2_SX1                0x37
+ 191:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SCR2_SX2                0x38
+ 192:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SCR2_SY1                0x39
+ 193:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SCR2_SY2                0x3A
+ 194:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SCREEN_SAVER_CONTEROL   0x3B
+ 195:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SCREEN_SAVER_MODE       0x3D
+ 196:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SS_SCR1_FU              0x3E
+ 197:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SS_SCR1_MXY             0x3F
+ 198:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SS_SCR2_FU              0x40
+ 199:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SS_SCR2_MXY             0x41
+ 200:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SS_SCR2_SX1             0x47
+ 201:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SS_SCR2_SX2             0x48
+ 202:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SS_SCR2_SY1             0x49
+ 203:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_SS_SCR2_SY2             0x4A
+ 204:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #define REG_IREF                    0x80
+ 205:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 206:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 207:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /*********************************************************************
+ 208:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 209:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *       OLED_SPI_WriteCommand
+ 210:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** */
+ 211:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if (!USER_DEFINED_LCD && SPI_INTERFACE == 1)
+ 212:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #ifndef WIN32
+ 213:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if (DISPLAY_8BPP == 1)
+ 214:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** static void OLED_SPI_WriteCommand(U8 Reg, U8 Para) {
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteCmdByte(Reg);
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 217:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 218:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 219:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 220:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if (DISPLAY_16BPP == 1)
+ 221:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** static void OLED_SPI_WriteCommand(U16 Reg, U16 Para) {
+ 222:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	User_LCD_16_WriteCmd(Reg);
+ 223:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	User_LCD_16_WriteData(Para);
+ 224:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 225:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 226:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 227:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 228:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 229:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /*********************************************************************
+ 230:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 231:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *       OLED_InitController
+ 232:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 233:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** * Purpose:
+ 234:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   Initializes the display controller
+ 235:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** */
+ 236:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** static void OLED_SPI_InitController(void) {
+ 237:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #ifndef WIN32
+ 238:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** //  GUI_X_Delay(10);
+ 239:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 240:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_DISP_ON_OFF, 0x00);
+ 241:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(5, 0x00);
+ 242:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_REDUCE_CURRENT, 0x03);
+ 243:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //DelayMS(10);
+ 244:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_REDUCE_CURRENT, 0x00);          // Reg:04h Action: Normal current and P
+ 245:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //DelayMS(10);
+ 246:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_SCREEN_SAVER_CONTEROL, 0x00);   // Reg:3Bh Action: Screen Saver OFF
+ 247:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_OSC_CTL, 0x01);                 // Reg:02h Action: Export1 internal clo
+ 248:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_CLOCK_DIV, 0x90);               // Reg:03h Action: FR=120Hz DIV=1
+ 249:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_IREF, 0x00);                    // Reg:80h Action: PDAC OFF, DDAC OFF/R
+ 250:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_PRECHARGE_TIME_R, 0x01);        // Reg:08h Action: set color R precharg
+ 251:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_PRECHARGE_TIME_G, 0x01);        // Reg:09h Action: set color G precharg
+ 252:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_PRECHARGE_TIME_B, 0x01);        // Reg:0Ah Action: set color B precharg
+ 253:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_PRECHARGE_Current_R, 0x0a);     // Reg:0Bh Action: set color R precharg
+ 254:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_PRECHARGE_Current_G, 0x0a);     // Reg:0Ch Action: set color G precharg
+ 255:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_PRECHARGE_Current_B, 0x0a);     // Reg:0Dh Action: set color B precharg
+ 256:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_DRIVING_CURRENT_R, 0x46);       // Reg:10h Action: set color R dot driv
+ 257:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_DRIVING_CURRENT_G, 0x38);       // Reg:11h Action: set color G dot driv
+ 258:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_DRIVING_CURRENT_B, 0x3A);       // Reg:12h Action: set color B dot driv
+ 259:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_DISPLAY_MODE_SET, 0x00);        // Reg:13h Action: Col D0 to D159/col n
+ 260:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_RGB_IF, 0x31);                  // Reg:14h Action: MPU mode
+ 261:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(15, 0x00);
+ 262:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_MEMORY_WRITE_MODE, 0x66);       // Reg:16h Action: 8bits dual transfer,
+ 263:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_MX1_ADDR, 0x00);                // Reg:17h Action: Memory addr.X start
+ 264:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_MX2_ADDR, 0x9f);                // Reg:18h Action: Memory addr.X end
+ 265:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_MY1_ADDR, 0x00);                // Reg:18h Action: Memory addr.Y start
+ 266:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_MY2_ADDR, 0x7f);                // Reg:1Ah Action: Memory addr.Y end
+ 267:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_MEMORY_ACCESS_POINTER_X, 0x00); // Reg:20h Action: Memory X start addr.
+ 268:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_MEMORY_ACCESS_POINTER_Y, 0x00); // Reg:21h Action: Memory Y start addr.
+ 269:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_DUTY, 0x7f);                    // Reg:28h Action: Display duty ratio
+ 270:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_DSL, 0x00);                     // Reg:29h Action: Display start line
+ 271:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_D1_DDRAM_FAC, 0x00);            // Reg:2Eh Action: Display First screen
+ 272:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_D1_DDRAM_FAR, 0x00);            // Reg:2Fh Action: Display First screen
+ 273:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_D2_DDRAM_SAC, 0x00);            // Reg:31h Action: Display Second scree
+ 274:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_D2_DDRAM_SAR, 0x00);            // Reg:32h Action: Display Second scree
+ 275:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_SCR1_FX1, 0x00);                // Reg:33h Action: Display size X start
+ 276:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_SCR1_FX2, 0x9f);                // Reg:34h Action: Display size X end
+ 277:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_SCR1_FY1, 0x00);                // Reg:35h Action: Display size Y start
+ 278:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_SCR1_FY2, 0x7f);                // Reg:36h Action: Display size Y end
+ 279:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //DelayMS(100);
+ 280:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   OLED_SPI_WriteCommand(REG_DISP_ON_OFF, 0x01);             // Reg:06h Action: Scan signal is high 
+ 281:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #endif
+ 282:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 283:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 284:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /*********************************************************************
+ 285:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 286:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *       Public code
+ 287:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 288:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** **********************************************************************
+ 289:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** */
+ 290:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /*********************************************************************
+ 291:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 292:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *       LCD_X_Config
+ 293:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 294:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** * Purpose:
+ 295:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   Called during the initialization process in order to set up the
+ 296:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   display driver configuration.
+ 297:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   
+ 298:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** */
+ 299:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** void LCD_X_Config(void) {
+  28              	 .loc 1 299 0
+  29              	 .cfi_startproc
+  30              	 
+  31              	 
+  32 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+  33              	.LCFI0:
+  34              	 .cfi_def_cfa_offset 20
+  35              	 .cfi_offset 4,-20
+  36              	 .cfi_offset 5,-16
+  37              	 .cfi_offset 6,-12
+  38              	 .cfi_offset 7,-8
+  39              	 .cfi_offset 14,-4
+ 300:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   GUI_DEVICE * pDevice;
+ 301:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   GUI_PORT_API PortAPI = {0};
+  40              	 .loc 1 301 0
+  41 0002 0021     	 movs r1,#0
+ 299:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   GUI_DEVICE * pDevice;
+  42              	 .loc 1 299 0
+  43 0004 A1B0     	 sub sp,sp,#132
+  44              	.LCFI1:
+  45              	 .cfi_def_cfa_offset 152
+ 302:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   CONFIG_FLEXCOLOR Config = {0};
+  46              	 .loc 1 302 0
+  47 0006 0C46     	 mov r4,r1
+ 301:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   CONFIG_FLEXCOLOR Config = {0};
+  48              	 .loc 1 301 0
+  49 0008 06A8     	 add r0,sp,#24
+  50 000a 6822     	 movs r2,#104
+  51 000c FFF7FEFF 	 bl memset
+  52              	.LVL0:
+ 303:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 304:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //
+ 305:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   // Set display driver and color conversion for 1st layer
+ 306:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //
+ 307:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   pDevice = GUI_DEVICE_CreateAndLink(DISPLAY_DRIVER, COLOR_CONVERSION, 0, 0);
+  53              	 .loc 1 307 0
+  54 0010 2346     	 mov r3,r4
+  55 0012 2246     	 mov r2,r4
+  56 0014 1749     	 ldr r1,.L3
+  57 0016 1848     	 ldr r0,.L3+4
+ 302:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+  58              	 .loc 1 302 0
+  59 0018 0194     	 str r4,[sp,#4]
+  60 001a 0294     	 str r4,[sp,#8]
+  61 001c 0394     	 str r4,[sp,#12]
+  62 001e 0494     	 str r4,[sp,#16]
+  63 0020 0594     	 str r4,[sp,#20]
+  64              	 .loc 1 307 0
+  65 0022 FFF7FEFF 	 bl GUI_DEVICE_CreateAndLink
+  66              	.LVL1:
+ 308:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //
+ 309:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   // Display size configuration
+ 310:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //
+ 311:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   LCD_SetSizeEx (0, XSIZE_PHYS,  YSIZE_PHYS);
+  67              	 .loc 1 311 0
+  68 0026 A021     	 movs r1,#160
+ 307:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //
+  69              	 .loc 1 307 0
+  70 0028 0546     	 mov r5,r0
+  71              	.LVL2:
+  72              	 .loc 1 311 0
+  73 002a 8022     	 movs r2,#128
+  74 002c 2046     	 mov r0,r4
+  75              	.LVL3:
+  76 002e FFF7FEFF 	 bl LCD_SetSizeEx
+  77              	.LVL4:
+ 312:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   LCD_SetVSizeEx(0, VXSIZE_PHYS, VYSIZE_PHYS);
+  78              	 .loc 1 312 0
+  79 0032 2046     	 mov r0,r4
+  80 0034 A021     	 movs r1,#160
+  81 0036 8022     	 movs r2,#128
+  82 0038 FFF7FEFF 	 bl LCD_SetVSizeEx
+  83              	.LVL5:
+ 313:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //
+ 314:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   // Function selection, hardware routines (PortAPI) and operation mode (bus, bpp and cache)
+ 315:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //
+ 316:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #ifndef WIN32
+ 317:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if (!USER_DEFINED_LCD && SPI_INTERFACE == 1)
+ 318:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	#if (DISPLAY_8BPP == 1)
+ 319:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWrite8_A0  = GUI_SEGGERLIBRARY_WriteCmdByte;
+ 320:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWrite8_A1  = GUI_SEGGERLIBRARY_WriteDataByte;
+ 321:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWriteM8_A1 = GUI_SEGGERLIBRARY_WriteMultipleBytes;
+  84              	 .loc 1 321 0
+  85 003c 0F4F     	 ldr r7,.L3+8
+ 319:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWrite8_A1  = GUI_SEGGERLIBRARY_WriteDataByte;
+  86              	 .loc 1 319 0
+  87 003e DFF84CC0 	 ldr ip,.L3+24
+ 320:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWriteM8_A1 = GUI_SEGGERLIBRARY_WriteMultipleBytes;
+  88              	 .loc 1 320 0
+  89 0042 DFF84CE0 	 ldr lr,.L3+28
+ 322:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfReadM8_A1  = GUI_SEGGERLIBRARY_ReadMultipleBytes;
+ 323:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	#endif
+ 324:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #else
+ 325:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if (DISPLAY_8BPP == 1)
+ 326:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWrite8_A0  = User_LCD_8_WriteCmd;
+ 327:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWrite8_A1  = User_LCD_8_WriteData;
+ 328:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWriteM8_A1 = User_LCD_8_WriteMultiple;
+ 329:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfReadM8_A1  = User_LCD_8_Read;
+ 330:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 331:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if (DISPLAY_16BPP == 1)
+ 332:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWrite16_A0  = User_LCD_16_WriteCmd;
+ 333:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWrite16_A1  = User_LCD_16_WriteData;
+ 334:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWriteM16_A1 = User_LCD_16_WriteMultiple;
+ 335:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfReadM16_A1  = User_LCD_16_Read;
+ 336:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 337:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 338:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 339:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		GUIDRV_FlexColor_SetFunc(pDevice, &PortAPI, pfFUNC, pfMODE);
+  90              	 .loc 1 339 0
+  91 0046 0E4A     	 ldr r2,.L3+12
+ 322:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfReadM8_A1  = GUI_SEGGERLIBRARY_ReadMultipleBytes;
+  92              	 .loc 1 322 0
+  93 0048 0E4E     	 ldr r6,.L3+16
+  94              	 .loc 1 339 0
+  95 004a 0F4B     	 ldr r3,.L3+20
+ 319:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWrite8_A1  = GUI_SEGGERLIBRARY_WriteDataByte;
+  96              	 .loc 1 319 0
+  97 004c CDF818C0 	 str ip,[sp,#24]
+  98              	 .loc 1 339 0
+  99 0050 06A9     	 add r1,sp,#24
+ 100 0052 2846     	 mov r0,r5
+ 320:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfWriteM8_A1 = GUI_SEGGERLIBRARY_WriteMultipleBytes;
+ 101              	 .loc 1 320 0
+ 102 0054 CDF81CE0 	 str lr,[sp,#28]
+ 321:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfReadM8_A1  = GUI_SEGGERLIBRARY_ReadMultipleBytes;
+ 103              	 .loc 1 321 0
+ 104 0058 0997     	 str r7,[sp,#36]
+ 322:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 		PortAPI.pfReadM8_A1  = GUI_SEGGERLIBRARY_ReadMultipleBytes;
+ 105              	 .loc 1 322 0
+ 106 005a 0D96     	 str r6,[sp,#52]
+ 107              	 .loc 1 339 0
+ 108 005c FFF7FEFF 	 bl GUIDRV_FlexColor_SetFunc
+ 109              	.LVL6:
+ 340:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 341:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	//
+ 342:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     // Orientation
+ 343:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     //
+ 344:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     Config.Orientation  = DISPLAY_ORIENTATION;
+ 345:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     Config.RegEntryMode = 0x60;
+ 110              	 .loc 1 345 0
+ 111 0060 6023     	 movs r3,#96
+ 346:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     GUIDRV_FlexColor_Config(pDevice, &Config);
+ 112              	 .loc 1 346 0
+ 113 0062 2846     	 mov r0,r5
+ 114 0064 01A9     	 add r1,sp,#4
+ 344:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     Config.RegEntryMode = 0x60;
+ 115              	 .loc 1 344 0
+ 116 0066 0394     	 str r4,[sp,#12]
+ 345:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     GUIDRV_FlexColor_Config(pDevice, &Config);
+ 117              	 .loc 1 345 0
+ 118 0068 ADF81030 	 strh r3,[sp,#16]
+ 119              	 .loc 1 346 0
+ 120 006c FFF7FEFF 	 bl GUIDRV_FlexColor_Config
+ 121              	.LVL7:
+ 347:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   #endif
+ 348:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 122              	 .loc 1 348 0
+ 123 0070 21B0     	 add sp,sp,#132
+ 124              	.LCFI2:
+ 125              	 .cfi_def_cfa_offset 20
+ 126              	 
+ 127 0072 F0BD     	 pop {r4,r5,r6,r7,pc}
+ 128              	.LVL8:
+ 129              	.L4:
+ 130              	 .align 2
+ 131              	.L3:
+ 132 0074 00000000 	 .word LCD_API_ColorConv_M565
+ 133 0078 00000000 	 .word GUIDRV_FlexColor_API
+ 134 007c 00000000 	 .word GUI_SEGGERLIBRARY_WriteMultipleBytes
+ 135 0080 00000000 	 .word GUIDRV_FlexColor_SetFunc66718
+ 136 0084 00000000 	 .word GUI_SEGGERLIBRARY_ReadMultipleBytes
+ 137 0088 00000000 	 .word GUIDRV_FlexColor_SetMode16bppC0B8
+ 138 008c 00000000 	 .word GUI_SEGGERLIBRARY_WriteCmdByte
+ 139 0090 00000000 	 .word GUI_SEGGERLIBRARY_WriteDataByte
+ 140              	 .cfi_endproc
+ 141              	.LFE295:
+ 143              	 .section .text.LCD_X_DisplayDriver,"ax",%progbits
+ 144              	 .align 2
+ 145              	 .global LCD_X_DisplayDriver
+ 146              	 .thumb
+ 147              	 .thumb_func
+ 149              	LCD_X_DisplayDriver:
+ 150              	.LFB296:
+ 349:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 350:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** /*********************************************************************
+ 351:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 352:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *       LCD_X_DisplayDriver
+ 353:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 354:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** * Purpose:
+ 355:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   This function is called by the display driver for several purposes.
+ 356:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   To support the according task the routine needs to be adapted to
+ 357:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   the display controller. Please note that the commands marked with
+ 358:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   'optional' are not cogently required and should only be adapted if 
+ 359:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   the display controller supports these features.
+ 360:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *
+ 361:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** * Parameter:
+ 362:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   LayerIndex - Index of layer to be configured
+ 363:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   Cmd        - Please refer to the details in the switch statement below
+ 364:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** *   pData      - Pointer to a LCD_X_DATA structure
+ 365:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** */
+ 366:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void * pData) {
+ 151              	 .loc 1 366 0
+ 152              	 .cfi_startproc
+ 153              	 
+ 154              	 
+ 155              	.LVL9:
+ 367:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   int r;
+ 368:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 
+ 369:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   GUI_USE_PARA(LayerIndex);
+ 370:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   GUI_USE_PARA(pData);
+ 371:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   switch (Cmd) {
+ 156              	 .loc 1 371 0
+ 157 0000 0129     	 cmp r1,#1
+ 158 0002 40F0E880 	 bne .L9
+ 366:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   int r;
+ 159              	 .loc 1 366 0
+ 160 0006 10B5     	 push {r4,lr}
+ 161              	.LCFI3:
+ 162              	 .cfi_def_cfa_offset 8
+ 163              	 .cfi_offset 4,-8
+ 164              	 .cfi_offset 14,-4
+ 165              	.LBB156:
+ 166              	.LBB157:
+ 167              	.LBB158:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 168              	 .loc 1 215 0
+ 169 0008 0620     	 movs r0,#6
+ 170              	.LVL10:
+ 171 000a 0C46     	 mov r4,r1
+ 172              	.LVL11:
+ 173 000c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 174              	.LVL12:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 175              	 .loc 1 216 0
+ 176 0010 0020     	 movs r0,#0
+ 177 0012 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 178              	.LVL13:
+ 179              	.LBE158:
+ 180              	.LBE157:
+ 181              	.LBB159:
+ 182              	.LBB160:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 183              	 .loc 1 215 0
+ 184 0016 0520     	 movs r0,#5
+ 185 0018 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 186              	.LVL14:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 187              	 .loc 1 216 0
+ 188 001c 0020     	 movs r0,#0
+ 189 001e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 190              	.LVL15:
+ 191              	.LBE160:
+ 192              	.LBE159:
+ 193              	.LBB161:
+ 194              	.LBB162:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 195              	 .loc 1 215 0
+ 196 0022 0420     	 movs r0,#4
+ 197 0024 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 198              	.LVL16:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 199              	 .loc 1 216 0
+ 200 0028 0320     	 movs r0,#3
+ 201 002a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 202              	.LVL17:
+ 203              	.LBE162:
+ 204              	.LBE161:
+ 205              	.LBB163:
+ 206              	.LBB164:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 207              	 .loc 1 215 0
+ 208 002e 0420     	 movs r0,#4
+ 209 0030 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 210              	.LVL18:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 211              	 .loc 1 216 0
+ 212 0034 0020     	 movs r0,#0
+ 213 0036 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 214              	.LVL19:
+ 215              	.LBE164:
+ 216              	.LBE163:
+ 217              	.LBB165:
+ 218              	.LBB166:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 219              	 .loc 1 215 0
+ 220 003a 3B20     	 movs r0,#59
+ 221 003c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 222              	.LVL20:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 223              	 .loc 1 216 0
+ 224 0040 0020     	 movs r0,#0
+ 225 0042 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 226              	.LVL21:
+ 227              	.LBE166:
+ 228              	.LBE165:
+ 229              	.LBB167:
+ 230              	.LBB168:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 231              	 .loc 1 215 0
+ 232 0046 0220     	 movs r0,#2
+ 233 0048 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 234              	.LVL22:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 235              	 .loc 1 216 0
+ 236 004c 2046     	 mov r0,r4
+ 237 004e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 238              	.LVL23:
+ 239              	.LBE168:
+ 240              	.LBE167:
+ 241              	.LBB169:
+ 242              	.LBB170:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 243              	 .loc 1 215 0
+ 244 0052 0320     	 movs r0,#3
+ 245 0054 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 246              	.LVL24:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 247              	 .loc 1 216 0
+ 248 0058 9020     	 movs r0,#144
+ 249 005a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 250              	.LVL25:
+ 251              	.LBE170:
+ 252              	.LBE169:
+ 253              	.LBB171:
+ 254              	.LBB172:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 255              	 .loc 1 215 0
+ 256 005e 8020     	 movs r0,#128
+ 257 0060 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 258              	.LVL26:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 259              	 .loc 1 216 0
+ 260 0064 0020     	 movs r0,#0
+ 261 0066 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 262              	.LVL27:
+ 263              	.LBE172:
+ 264              	.LBE171:
+ 265              	.LBB173:
+ 266              	.LBB174:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 267              	 .loc 1 215 0
+ 268 006a 0820     	 movs r0,#8
+ 269 006c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 270              	.LVL28:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 271              	 .loc 1 216 0
+ 272 0070 2046     	 mov r0,r4
+ 273 0072 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 274              	.LVL29:
+ 275              	.LBE174:
+ 276              	.LBE173:
+ 277              	.LBB175:
+ 278              	.LBB176:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 279              	 .loc 1 215 0
+ 280 0076 0920     	 movs r0,#9
+ 281 0078 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 282              	.LVL30:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 283              	 .loc 1 216 0
+ 284 007c 2046     	 mov r0,r4
+ 285 007e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 286              	.LVL31:
+ 287              	.LBE176:
+ 288              	.LBE175:
+ 289              	.LBB177:
+ 290              	.LBB178:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 291              	 .loc 1 215 0
+ 292 0082 0A20     	 movs r0,#10
+ 293 0084 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 294              	.LVL32:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 295              	 .loc 1 216 0
+ 296 0088 2046     	 mov r0,r4
+ 297 008a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 298              	.LVL33:
+ 299              	.LBE178:
+ 300              	.LBE177:
+ 301              	.LBB179:
+ 302              	.LBB180:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 303              	 .loc 1 215 0
+ 304 008e 0B20     	 movs r0,#11
+ 305 0090 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 306              	.LVL34:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 307              	 .loc 1 216 0
+ 308 0094 0A20     	 movs r0,#10
+ 309 0096 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 310              	.LVL35:
+ 311              	.LBE180:
+ 312              	.LBE179:
+ 313              	.LBB181:
+ 314              	.LBB182:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 315              	 .loc 1 215 0
+ 316 009a 0C20     	 movs r0,#12
+ 317 009c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 318              	.LVL36:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 319              	 .loc 1 216 0
+ 320 00a0 0A20     	 movs r0,#10
+ 321 00a2 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 322              	.LVL37:
+ 323              	.LBE182:
+ 324              	.LBE181:
+ 325              	.LBB183:
+ 326              	.LBB184:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 327              	 .loc 1 215 0
+ 328 00a6 0D20     	 movs r0,#13
+ 329 00a8 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 330              	.LVL38:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 331              	 .loc 1 216 0
+ 332 00ac 0A20     	 movs r0,#10
+ 333 00ae FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 334              	.LVL39:
+ 335              	.LBE184:
+ 336              	.LBE183:
+ 337              	.LBB185:
+ 338              	.LBB186:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 339              	 .loc 1 215 0
+ 340 00b2 1020     	 movs r0,#16
+ 341 00b4 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 342              	.LVL40:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 343              	 .loc 1 216 0
+ 344 00b8 4620     	 movs r0,#70
+ 345 00ba FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 346              	.LVL41:
+ 347              	.LBE186:
+ 348              	.LBE185:
+ 349              	.LBB187:
+ 350              	.LBB188:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 351              	 .loc 1 215 0
+ 352 00be 1120     	 movs r0,#17
+ 353 00c0 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 354              	.LVL42:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 355              	 .loc 1 216 0
+ 356 00c4 3820     	 movs r0,#56
+ 357 00c6 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 358              	.LVL43:
+ 359              	.LBE188:
+ 360              	.LBE187:
+ 361              	.LBB189:
+ 362              	.LBB190:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 363              	 .loc 1 215 0
+ 364 00ca 1220     	 movs r0,#18
+ 365 00cc FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 366              	.LVL44:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 367              	 .loc 1 216 0
+ 368 00d0 3A20     	 movs r0,#58
+ 369 00d2 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 370              	.LVL45:
+ 371              	.LBE190:
+ 372              	.LBE189:
+ 373              	.LBB191:
+ 374              	.LBB192:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 375              	 .loc 1 215 0
+ 376 00d6 1320     	 movs r0,#19
+ 377 00d8 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 378              	.LVL46:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 379              	 .loc 1 216 0
+ 380 00dc 0020     	 movs r0,#0
+ 381 00de FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 382              	.LVL47:
+ 383              	.LBE192:
+ 384              	.LBE191:
+ 385              	.LBB193:
+ 386              	.LBB194:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 387              	 .loc 1 215 0
+ 388 00e2 1420     	 movs r0,#20
+ 389 00e4 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 390              	.LVL48:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 391              	 .loc 1 216 0
+ 392 00e8 3120     	 movs r0,#49
+ 393 00ea FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 394              	.LVL49:
+ 395              	.LBE194:
+ 396              	.LBE193:
+ 397              	.LBB195:
+ 398              	.LBB196:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 399              	 .loc 1 215 0
+ 400 00ee 0F20     	 movs r0,#15
+ 401 00f0 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 402              	.LVL50:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 403              	 .loc 1 216 0
+ 404 00f4 0020     	 movs r0,#0
+ 405 00f6 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 406              	.LVL51:
+ 407              	.LBE196:
+ 408              	.LBE195:
+ 409              	.LBB197:
+ 410              	.LBB198:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 411              	 .loc 1 215 0
+ 412 00fa 1620     	 movs r0,#22
+ 413 00fc FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 414              	.LVL52:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 415              	 .loc 1 216 0
+ 416 0100 6620     	 movs r0,#102
+ 417 0102 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 418              	.LVL53:
+ 419              	.LBE198:
+ 420              	.LBE197:
+ 421              	.LBB199:
+ 422              	.LBB200:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 423              	 .loc 1 215 0
+ 424 0106 1720     	 movs r0,#23
+ 425 0108 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 426              	.LVL54:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 427              	 .loc 1 216 0
+ 428 010c 0020     	 movs r0,#0
+ 429 010e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 430              	.LVL55:
+ 431              	.LBE200:
+ 432              	.LBE199:
+ 433              	.LBB201:
+ 434              	.LBB202:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 435              	 .loc 1 215 0
+ 436 0112 1820     	 movs r0,#24
+ 437 0114 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 438              	.LVL56:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 439              	 .loc 1 216 0
+ 440 0118 9F20     	 movs r0,#159
+ 441 011a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 442              	.LVL57:
+ 443              	.LBE202:
+ 444              	.LBE201:
+ 445              	.LBB203:
+ 446              	.LBB204:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 447              	 .loc 1 215 0
+ 448 011e 1920     	 movs r0,#25
+ 449 0120 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 450              	.LVL58:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 451              	 .loc 1 216 0
+ 452 0124 0020     	 movs r0,#0
+ 453 0126 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 454              	.LVL59:
+ 455              	.LBE204:
+ 456              	.LBE203:
+ 457              	.LBB205:
+ 458              	.LBB206:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 459              	 .loc 1 215 0
+ 460 012a 1A20     	 movs r0,#26
+ 461 012c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 462              	.LVL60:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 463              	 .loc 1 216 0
+ 464 0130 7F20     	 movs r0,#127
+ 465 0132 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 466              	.LVL61:
+ 467              	.LBE206:
+ 468              	.LBE205:
+ 469              	.LBB207:
+ 470              	.LBB208:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 471              	 .loc 1 215 0
+ 472 0136 2020     	 movs r0,#32
+ 473 0138 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 474              	.LVL62:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 475              	 .loc 1 216 0
+ 476 013c 0020     	 movs r0,#0
+ 477 013e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 478              	.LVL63:
+ 479              	.LBE208:
+ 480              	.LBE207:
+ 481              	.LBB209:
+ 482              	.LBB210:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 483              	 .loc 1 215 0
+ 484 0142 2120     	 movs r0,#33
+ 485 0144 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 486              	.LVL64:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 487              	 .loc 1 216 0
+ 488 0148 0020     	 movs r0,#0
+ 489 014a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 490              	.LVL65:
+ 491              	.LBE210:
+ 492              	.LBE209:
+ 493              	.LBB211:
+ 494              	.LBB212:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 495              	 .loc 1 215 0
+ 496 014e 2820     	 movs r0,#40
+ 497 0150 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 498              	.LVL66:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 499              	 .loc 1 216 0
+ 500 0154 7F20     	 movs r0,#127
+ 501 0156 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 502              	.LVL67:
+ 503              	.LBE212:
+ 504              	.LBE211:
+ 505              	.LBB213:
+ 506              	.LBB214:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 507              	 .loc 1 215 0
+ 508 015a 2920     	 movs r0,#41
+ 509 015c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 510              	.LVL68:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 511              	 .loc 1 216 0
+ 512 0160 0020     	 movs r0,#0
+ 513 0162 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 514              	.LVL69:
+ 515              	.LBE214:
+ 516              	.LBE213:
+ 517              	.LBB215:
+ 518              	.LBB216:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 519              	 .loc 1 215 0
+ 520 0166 2E20     	 movs r0,#46
+ 521 0168 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 522              	.LVL70:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 523              	 .loc 1 216 0
+ 524 016c 0020     	 movs r0,#0
+ 525 016e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 526              	.LVL71:
+ 527              	.LBE216:
+ 528              	.LBE215:
+ 529              	.LBB217:
+ 530              	.LBB218:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 531              	 .loc 1 215 0
+ 532 0172 2F20     	 movs r0,#47
+ 533 0174 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 534              	.LVL72:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 535              	 .loc 1 216 0
+ 536 0178 0020     	 movs r0,#0
+ 537 017a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 538              	.LVL73:
+ 539              	.LBE218:
+ 540              	.LBE217:
+ 541              	.LBB219:
+ 542              	.LBB220:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 543              	 .loc 1 215 0
+ 544 017e 3120     	 movs r0,#49
+ 545 0180 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 546              	.LVL74:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 547              	 .loc 1 216 0
+ 548 0184 0020     	 movs r0,#0
+ 549 0186 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 550              	.LVL75:
+ 551              	.LBE220:
+ 552              	.LBE219:
+ 553              	.LBB221:
+ 554              	.LBB222:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 555              	 .loc 1 215 0
+ 556 018a 3220     	 movs r0,#50
+ 557 018c FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 558              	.LVL76:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 559              	 .loc 1 216 0
+ 560 0190 0020     	 movs r0,#0
+ 561 0192 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 562              	.LVL77:
+ 563              	.LBE222:
+ 564              	.LBE221:
+ 565              	.LBB223:
+ 566              	.LBB224:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 567              	 .loc 1 215 0
+ 568 0196 3320     	 movs r0,#51
+ 569 0198 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 570              	.LVL78:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 571              	 .loc 1 216 0
+ 572 019c 0020     	 movs r0,#0
+ 573 019e FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 574              	.LVL79:
+ 575              	.LBE224:
+ 576              	.LBE223:
+ 577              	.LBB225:
+ 578              	.LBB226:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 579              	 .loc 1 215 0
+ 580 01a2 3420     	 movs r0,#52
+ 581 01a4 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 582              	.LVL80:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 583              	 .loc 1 216 0
+ 584 01a8 9F20     	 movs r0,#159
+ 585 01aa FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 586              	.LVL81:
+ 587              	.LBE226:
+ 588              	.LBE225:
+ 589              	.LBB227:
+ 590              	.LBB228:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 591              	 .loc 1 215 0
+ 592 01ae 3520     	 movs r0,#53
+ 593 01b0 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 594              	.LVL82:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 595              	 .loc 1 216 0
+ 596 01b4 0020     	 movs r0,#0
+ 597 01b6 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 598              	.LVL83:
+ 599              	.LBE228:
+ 600              	.LBE227:
+ 601              	.LBB229:
+ 602              	.LBB230:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 603              	 .loc 1 215 0
+ 604 01ba 3620     	 movs r0,#54
+ 605 01bc FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 606              	.LVL84:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 607              	 .loc 1 216 0
+ 608 01c0 7F20     	 movs r0,#127
+ 609 01c2 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 610              	.LVL85:
+ 611              	.LBE230:
+ 612              	.LBE229:
+ 613              	.LBB231:
+ 614              	.LBB232:
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	GUI_SEGGERLIBRARY_WriteDataByte(Para);
+ 615              	 .loc 1 215 0
+ 616 01c6 0620     	 movs r0,#6
+ 617 01c8 FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteCmdByte
+ 618              	.LVL86:
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** }
+ 619              	 .loc 1 216 0
+ 620 01cc 2046     	 mov r0,r4
+ 621 01ce FFF7FEFF 	 bl GUI_SEGGERLIBRARY_WriteDataByte
+ 622              	.LVL87:
+ 623              	.LBE232:
+ 624              	.LBE231:
+ 625              	.LBE156:
+ 372:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //
+ 373:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   // Required
+ 374:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   //
+ 375:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   case LCD_X_INITCONTROLLER: {
+ 376:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     //
+ 377:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     // Called during the initialization process in order to set up the
+ 378:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     // display controller and put it into operation. If the display
+ 379:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     // controller is not initialized by any external routine this needs
+ 380:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     // to be adapted by the customer...
+ 381:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     //
+ 382:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #if ((USER_DEFINED_LCD == 1) || (SPI_INTERFACE == 0))
+ 383:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** 	  User_LCD_Init();
+ 384:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #else
+ 385:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     OLED_SPI_InitController();
+ 386:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c **** #endif
+ 387:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     return 0;
+ 626              	 .loc 1 387 0
+ 627 01d2 0020     	 movs r0,#0
+ 628 01d4 10BD     	 pop {r4,pc}
+ 629              	.LVL88:
+ 630              	.L9:
+ 631              	.LCFI4:
+ 632              	 .cfi_def_cfa_offset 0
+ 633              	 .cfi_restore 4
+ 634              	 .cfi_restore 14
+ 388:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   }
+ 389:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   default:
+ 390:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****     r = -1;
+ 391:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   }
+ 392:../Dave/Generated/GUI_SEGGERLIBRARY/LCDConf.c ****   return r;
+ 635              	 .loc 1 392 0
+ 636 01d6 4FF0FF30 	 mov r0,#-1
+ 637              	.LVL89:
+ 638 01da 7047     	 bx lr
+ 639              	 .cfi_endproc
+ 640              	.LFE296:
+ 642              	 .text
+ 643              	.Letext0:
+ 644              	 .file 2 "c:\\dave 4\\eclipse\\emwin\\start\\gui\\inc\\LCD.h"
+ 645              	 .file 3 "c:\\dave 4\\eclipse\\emwin\\start\\gui\\inc\\gui.h"
+ 646              	 .file 4 "c:\\dave 4\\eclipse\\emwin\\start\\gui\\inc\\GUI_Type.h"
+ 647              	 .file 5 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 648              	 .file 6 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 649              	 .file 7 "c:\\dave 4\\eclipse\\emwin\\start\\gui\\inc\\guidrv_flexcolor.h"
+ 650              	 .file 8 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/CMSIS/Include/core_cm4.h"
+ 651              	 .file 9 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
+ 652              	 .file 10 "../Dave/Generated/GUI_SEGGERLIBRARY/gui_seggerlibrary.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 LCDConf.c
+    {standard input}:20     .text.LCD_X_Config:00000000 $t
+    {standard input}:25     .text.LCD_X_Config:00000000 LCD_X_Config
+    {standard input}:132    .text.LCD_X_Config:00000074 $d
+    {standard input}:144    .text.LCD_X_DisplayDriver:00000000 $t
+    {standard input}:149    .text.LCD_X_DisplayDriver:00000000 LCD_X_DisplayDriver
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+memset
+GUI_DEVICE_CreateAndLink
+LCD_SetSizeEx
+LCD_SetVSizeEx
+GUIDRV_FlexColor_SetFunc
+GUIDRV_FlexColor_Config
+LCD_API_ColorConv_M565
+GUIDRV_FlexColor_API
+GUI_SEGGERLIBRARY_WriteMultipleBytes
+GUIDRV_FlexColor_SetFunc66718
+GUI_SEGGERLIBRARY_ReadMultipleBytes
+GUIDRV_FlexColor_SetMode16bppC0B8
+GUI_SEGGERLIBRARY_WriteCmdByte
+GUI_SEGGERLIBRARY_WriteDataByte

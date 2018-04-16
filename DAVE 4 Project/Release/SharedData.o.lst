@@ -1,0 +1,145 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "SharedData.c"
+  16              	 .section .text.setMotorData,"ax",%progbits
+  17              	 .align 2
+  18              	 .global setMotorData
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	setMotorData:
+  23              	 
+  24              	 
+  25 0000 10B5     	 push {r4,lr}
+  26 0002 84B0     	 sub sp,sp,#16
+  27 0004 01AC     	 add r4,sp,#4
+  28 0006 84E80700 	 stmia r4,{r0,r1,r2}
+  29 000a FFF7FEFF 	 bl vPortEnterCritical
+  30 000e 94E80700 	 ldmia r4,{r0,r1,r2}
+  31 0012 044B     	 ldr r3,.L3
+  32 0014 83E80700 	 stmia r3,{r0,r1,r2}
+  33 0018 04B0     	 add sp,sp,#16
+  34              	 
+  35 001a BDE81040 	 pop {r4,lr}
+  36 001e FFF7FEBF 	 b vPortExitCritical
+  37              	.L4:
+  38 0022 00BF     	 .align 2
+  39              	.L3:
+  40 0024 00000000 	 .word .LANCHOR0
+  42              	 .section .text.getMotorData,"ax",%progbits
+  43              	 .align 2
+  44              	 .global getMotorData
+  45              	 .thumb
+  46              	 .thumb_func
+  48              	getMotorData:
+  49              	 
+  50              	 
+  51 0000 10B5     	 push {r4,lr}
+  52 0002 0446     	 mov r4,r0
+  53 0004 FFF7FEFF 	 bl vPortEnterCritical
+  54 0008 044B     	 ldr r3,.L7
+  55 000a 93E80700 	 ldmia r3,{r0,r1,r2}
+  56 000e 84E80700 	 stmia r4,{r0,r1,r2}
+  57 0012 FFF7FEFF 	 bl vPortExitCritical
+  58 0016 2046     	 mov r0,r4
+  59 0018 10BD     	 pop {r4,pc}
+  60              	.L8:
+  61 001a 00BF     	 .align 2
+  62              	.L7:
+  63 001c 00000000 	 .word .LANCHOR0
+  65              	 .section .text.setControlParams,"ax",%progbits
+  66              	 .align 2
+  67              	 .global setControlParams
+  68              	 .thumb
+  69              	 .thumb_func
+  71              	setControlParams:
+  72              	 
+  73              	 
+  74 0000 10B5     	 push {r4,lr}
+  75 0002 84B0     	 sub sp,sp,#16
+  76 0004 01AC     	 add r4,sp,#4
+  77 0006 84E80700 	 stmia r4,{r0,r1,r2}
+  78 000a FFF7FEFF 	 bl vPortEnterCritical
+  79 000e 94E80700 	 ldmia r4,{r0,r1,r2}
+  80 0012 044B     	 ldr r3,.L11
+  81 0014 83E80700 	 stmia r3,{r0,r1,r2}
+  82 0018 04B0     	 add sp,sp,#16
+  83              	 
+  84 001a BDE81040 	 pop {r4,lr}
+  85 001e FFF7FEBF 	 b vPortExitCritical
+  86              	.L12:
+  87 0022 00BF     	 .align 2
+  88              	.L11:
+  89 0024 00000000 	 .word .LANCHOR1
+  91              	 .section .text.getControlParams,"ax",%progbits
+  92              	 .align 2
+  93              	 .global getControlParams
+  94              	 .thumb
+  95              	 .thumb_func
+  97              	getControlParams:
+  98              	 
+  99              	 
+ 100 0000 10B5     	 push {r4,lr}
+ 101 0002 0446     	 mov r4,r0
+ 102 0004 FFF7FEFF 	 bl vPortEnterCritical
+ 103 0008 044B     	 ldr r3,.L15
+ 104 000a 93E80700 	 ldmia r3,{r0,r1,r2}
+ 105 000e 84E80700 	 stmia r4,{r0,r1,r2}
+ 106 0012 FFF7FEFF 	 bl vPortExitCritical
+ 107 0016 2046     	 mov r0,r4
+ 108 0018 10BD     	 pop {r4,pc}
+ 109              	.L16:
+ 110 001a 00BF     	 .align 2
+ 111              	.L15:
+ 112 001c 00000000 	 .word .LANCHOR1
+ 114              	 .global shared_control_params
+ 115              	 .global shared_motor_data
+ 116              	 .section .data.shared_control_params,"aw",%progbits
+ 117              	 .align 2
+ 118              	 .set .LANCHOR1,.+0
+ 121              	shared_control_params:
+ 122 0000 01       	 .byte 1
+ 123 0001 000000   	 .space 3
+ 124 0004 00000000 	 .word 0
+ 125 0008 00000000 	 .word 0
+ 126              	 .section .data.shared_motor_data,"aw",%progbits
+ 127              	 .align 2
+ 128              	 .set .LANCHOR0,.+0
+ 131              	shared_motor_data:
+ 132 0000 00000000 	 .word 0
+ 133 0004 00000000 	 .word 0
+ 134 0008 00004842 	 .word 1112014848
+ 135              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 SharedData.c
+    {standard input}:17     .text.setMotorData:00000000 $t
+    {standard input}:22     .text.setMotorData:00000000 setMotorData
+    {standard input}:40     .text.setMotorData:00000024 $d
+    {standard input}:43     .text.getMotorData:00000000 $t
+    {standard input}:48     .text.getMotorData:00000000 getMotorData
+    {standard input}:63     .text.getMotorData:0000001c $d
+    {standard input}:66     .text.setControlParams:00000000 $t
+    {standard input}:71     .text.setControlParams:00000000 setControlParams
+    {standard input}:89     .text.setControlParams:00000024 $d
+    {standard input}:92     .text.getControlParams:00000000 $t
+    {standard input}:97     .text.getControlParams:00000000 getControlParams
+    {standard input}:112    .text.getControlParams:0000001c $d
+    {standard input}:121    .data.shared_control_params:00000000 shared_control_params
+    {standard input}:131    .data.shared_motor_data:00000000 shared_motor_data
+    {standard input}:117    .data.shared_control_params:00000000 $d
+    {standard input}:127    .data.shared_motor_data:00000000 $d
+
+UNDEFINED SYMBOLS
+vPortEnterCritical
+vPortExitCritical

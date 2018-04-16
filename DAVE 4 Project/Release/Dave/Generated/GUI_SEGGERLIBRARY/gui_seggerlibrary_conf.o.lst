@@ -1,0 +1,52 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "gui_seggerlibrary_conf.c"
+  16              	 .global GUI_SEGGERLIBRARY_0
+  17              	 .global GUI_SEGGERLIBRARY_0_config
+  18              	 .global GUI_SEGGERLIBRARY_0_gpio_pin_config
+  19              	 .section .rodata.GUI_SEGGERLIBRARY_0_config,"a",%progbits
+  20              	 .align 2
+  23              	GUI_SEGGERLIBRARY_0_config:
+  24 0000 00000000 	 .word GUI_SEGGERLIBRARY_0_gpio_pin_config
+  25 0004 00800248 	 .word 1208123392
+  26 0008 0C       	 .byte 12
+  27 0009 000000   	 .space 3
+  28              	 .section .data.GUI_SEGGERLIBRARY_0,"aw",%progbits
+  29              	 .align 2
+  32              	GUI_SEGGERLIBRARY_0:
+  33 0000 00000000 	 .word SPI_MASTER_1
+  34 0004 00000000 	 .word GUI_SEGGERLIBRARY_0_config
+  35 0008 01       	 .byte 1
+  36 0009 000000   	 .space 3
+  37              	 .section .rodata.GUI_SEGGERLIBRARY_0_gpio_pin_config,"a",%progbits
+  38              	 .align 2
+  41              	GUI_SEGGERLIBRARY_0_gpio_pin_config:
+  42 0000 80       	 .byte -128
+  43 0001 000000   	 .space 3
+  44 0004 01000000 	 .word 1
+  45 0008 04       	 .byte 4
+  46 0009 000000   	 .space 3
+  47              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 gui_seggerlibrary_conf.c
+    {standard input}:32     .data.GUI_SEGGERLIBRARY_0:00000000 GUI_SEGGERLIBRARY_0
+    {standard input}:23     .rodata.GUI_SEGGERLIBRARY_0_config:00000000 GUI_SEGGERLIBRARY_0_config
+    {standard input}:41     .rodata.GUI_SEGGERLIBRARY_0_gpio_pin_config:00000000 GUI_SEGGERLIBRARY_0_gpio_pin_config
+    {standard input}:20     .rodata.GUI_SEGGERLIBRARY_0_config:00000000 $d
+    {standard input}:29     .data.GUI_SEGGERLIBRARY_0:00000000 $d
+    {standard input}:38     .rodata.GUI_SEGGERLIBRARY_0_gpio_pin_config:00000000 $d
+
+UNDEFINED SYMBOLS
+SPI_MASTER_1

@@ -1,0 +1,470 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc_usic.c"
+  16              	 .section .text.XMC_USIC_CH_Enable,"ax",%progbits
+  17              	 .align 2
+  18              	 .global XMC_USIC_CH_Enable
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	XMC_USIC_CH_Enable:
+  23              	 
+  24              	 
+  25 0000 1B4B     	 ldr r3,.L13
+  26 0002 9842     	 cmp r0,r3
+  27 0004 10B5     	 push {r4,lr}
+  28 0006 0446     	 mov r4,r0
+  29 0008 1BD0     	 beq .L2
+  30 000a 03F50073 	 add r3,r3,#512
+  31 000e 9842     	 cmp r0,r3
+  32 0010 17D0     	 beq .L2
+  33 0012 184B     	 ldr r3,.L13+4
+  34 0014 9842     	 cmp r0,r3
+  35 0016 24D0     	 beq .L5
+  36 0018 03F50073 	 add r3,r3,#512
+  37 001c 9842     	 cmp r0,r3
+  38 001e 20D0     	 beq .L5
+  39 0020 154B     	 ldr r3,.L13+8
+  40 0022 9842     	 cmp r0,r3
+  41 0024 16D0     	 beq .L7
+  42 0026 03F50073 	 add r3,r3,#512
+  43 002a 9842     	 cmp r0,r3
+  44 002c 12D0     	 beq .L7
+  45              	.L4:
+  46 002e 0323     	 movs r3,#3
+  47 0030 E360     	 str r3,[r4,#12]
+  48              	.L8:
+  49 0032 E368     	 ldr r3,[r4,#12]
+  50 0034 DB07     	 lsls r3,r3,#31
+  51 0036 FCD5     	 bpl .L8
+  52 0038 236C     	 ldr r3,[r4,#64]
+  53 003a 23F00F03 	 bic r3,r3,#15
+  54 003e 2364     	 str r3,[r4,#64]
+  55 0040 10BD     	 pop {r4,pc}
+  56              	.L2:
+  57 0042 4FF40060 	 mov r0,#2048
+  58 0046 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  59 004a 4FF40060 	 mov r0,#2048
+  60 004e FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+  61 0052 ECE7     	 b .L4
+  62              	.L7:
+  63 0054 0948     	 ldr r0,.L13+12
+  64 0056 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  65 005a 0848     	 ldr r0,.L13+12
+  66 005c FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+  67 0060 E5E7     	 b .L4
+  68              	.L5:
+  69 0062 0748     	 ldr r0,.L13+16
+  70 0064 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  71 0068 0548     	 ldr r0,.L13+16
+  72 006a FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+  73 006e DEE7     	 b .L4
+  74              	.L14:
+  75              	 .align 2
+  76              	.L13:
+  77 0070 00000340 	 .word 1073938432
+  78 0074 00000248 	 .word 1208090624
+  79 0078 00400248 	 .word 1208107008
+  80 007c 00010010 	 .word 268435712
+  81 0080 80000010 	 .word 268435584
+  83              	 .section .text.XMC_USIC_CH_Disable,"ax",%progbits
+  84              	 .align 2
+  85              	 .global XMC_USIC_CH_Disable
+  86              	 .thumb
+  87              	 .thumb_func
+  89              	XMC_USIC_CH_Disable:
+  90              	 
+  91              	 
+  92              	 
+  93 0000 C368     	 ldr r3,[r0,#12]
+  94 0002 23F00303 	 bic r3,r3,#3
+  95 0006 43F00203 	 orr r3,r3,#2
+  96 000a C360     	 str r3,[r0,#12]
+  97 000c 7047     	 bx lr
+  99 000e 00BF     	 .section .text.XMC_USIC_CH_SetBaudrate,"ax",%progbits
+ 100              	 .align 2
+ 101              	 .global XMC_USIC_CH_SetBaudrate
+ 102              	 .thumb
+ 103              	 .thumb_func
+ 105              	XMC_USIC_CH_SetBaudrate:
+ 106              	 
+ 107              	 
+ 108 0000 6329     	 cmp r1,#99
+ 109 0002 00D9     	 bls .L21
+ 110 0004 0AB9     	 cbnz r2,.L25
+ 111              	.L21:
+ 112 0006 0120     	 movs r0,#1
+ 113 0008 7047     	 bx lr
+ 114              	.L25:
+ 115 000a 2DE9F041 	 push {r4,r5,r6,r7,r8,lr}
+ 116 000e 1746     	 mov r7,r2
+ 117 0010 0C46     	 mov r4,r1
+ 118 0012 0646     	 mov r6,r0
+ 119 0014 FFF7FEFF 	 bl XMC_SCU_CLOCK_GetPeripheralClockFrequency
+ 120 0018 184D     	 ldr r5,.L26
+ 121 001a A5FB0032 	 umull r3,r2,r5,r0
+ 122 001e A5FB0435 	 umull r3,r5,r5,r4
+ 123 0022 5209     	 lsrs r2,r2,#5
+ 124 0024 6D09     	 lsrs r5,r5,#5
+ 125 0026 40F2FF3E 	 movw lr,#1023
+ 126 002a 4FF0010C 	 mov ip,#1
+ 127 002e 07FB05F5 	 mul r5,r7,r5
+ 128 0032 C2EB8221 	 rsb r1,r2,r2,lsl#10
+ 129 0036 7046     	 mov r0,lr
+ 130 0038 E046     	 mov r8,ip
+ 131              	.L19:
+ 132 003a B1FBF5F3 	 udiv r3,r1,r5
+ 133 003e 9C0A     	 lsrs r4,r3,#10
+ 134 0040 B4F5806F 	 cmp r4,#1024
+ 135 0044 C3F30903 	 ubfx r3,r3,#0,#10
+ 136 0048 A1EB0201 	 sub r1,r1,r2
+ 137 004c 04D2     	 bcs .L18
+ 138 004e 7345     	 cmp r3,lr
+ 139 0050 02D2     	 bcs .L18
+ 140 0052 9E46     	 mov lr,r3
+ 141 0054 A446     	 mov ip,r4
+ 142 0056 8046     	 mov r8,r0
+ 143              	.L18:
+ 144 0058 0138     	 subs r0,r0,#1
+ 145 005a EED1     	 bne .L19
+ 146 005c 48F40043 	 orr r3,r8,#32768
+ 147 0060 3361     	 str r3,[r6,#16]
+ 148 0062 7269     	 ldr r2,[r6,#20]
+ 149 0064 064B     	 ldr r3,.L26+4
+ 150 0066 013F     	 subs r7,r7,#1
+ 151 0068 1340     	 ands r3,r3,r2
+ 152 006a 0CF1FF3C 	 add ip,ip,#-1
+ 153 006e 43EA8723 	 orr r3,r3,r7,lsl#10
+ 154 0072 43EA0C43 	 orr r3,r3,ip,lsl#16
+ 155 0076 7361     	 str r3,[r6,#20]
+ 156 0078 BDE8F081 	 pop {r4,r5,r6,r7,r8,pc}
+ 157              	.L27:
+ 158              	 .align 2
+ 159              	.L26:
+ 160 007c 1F85EB51 	 .word 1374389535
+ 161 0080 EF8000FC 	 .word -67075857
+ 163              	 .section .text.XMC_USIC_CH_ConfigExternalInputSignalToBRG,"ax",%progbits
+ 164              	 .align 2
+ 165              	 .global XMC_USIC_CH_ConfigExternalInputSignalToBRG
+ 166              	 .thumb
+ 167              	 .thumb_func
+ 169              	XMC_USIC_CH_ConfigExternalInputSignalToBRG:
+ 170              	 
+ 171              	 
+ 172              	 
+ 173 0000 30B4     	 push {r4,r5}
+ 174 0002 4569     	 ldr r5,[r0,#20]
+ 175 0004 0B4C     	 ldr r4,.L30
+ 176 0006 25F00305 	 bic r5,r5,#3
+ 177 000a 45F00205 	 orr r5,r5,#2
+ 178 000e 4561     	 str r5,[r0,#20]
+ 179 0010 056A     	 ldr r5,[r0,#32]
+ 180 0012 25F44065 	 bic r5,r5,#3072
+ 181 0016 45EA8323 	 orr r3,r5,r3,lsl#10
+ 182 001a 0362     	 str r3,[r0,#32]
+ 183 001c 4369     	 ldr r3,[r0,#20]
+ 184 001e 0139     	 subs r1,r1,#1
+ 185 0020 0904     	 lsls r1,r1,#16
+ 186 0022 013A     	 subs r2,r2,#1
+ 187 0024 41EA8221 	 orr r1,r1,r2,lsl#10
+ 188 0028 1C40     	 ands r4,r4,r3
+ 189 002a 0C43     	 orrs r4,r4,r1
+ 190 002c 4461     	 str r4,[r0,#20]
+ 191 002e 30BC     	 pop {r4,r5}
+ 192 0030 7047     	 bx lr
+ 193              	.L31:
+ 194 0032 00BF     	 .align 2
+ 195              	.L30:
+ 196 0034 EF8000FC 	 .word -67075857
+ 198              	 .section .text.XMC_USIC_CH_TXFIFO_Configure,"ax",%progbits
+ 199              	 .align 2
+ 200              	 .global XMC_USIC_CH_TXFIFO_Configure
+ 201              	 .thumb
+ 202              	 .thumb_func
+ 204              	XMC_USIC_CH_TXFIFO_Configure:
+ 205              	 
+ 206              	 
+ 207              	 
+ 208 0000 30B4     	 push {r4,r5}
+ 209 0002 D0F80851 	 ldr r5,[r0,#264]
+ 210 0006 084C     	 ldr r4,.L34
+ 211 0008 25F0E065 	 bic r5,r5,#117440512
+ 212 000c C0F80851 	 str r5,[r0,#264]
+ 213 0010 D0F80851 	 ldr r5,[r0,#264]
+ 214 0014 2C40     	 ands r4,r4,r5
+ 215 0016 2143     	 orrs r1,r1,r4
+ 216 0018 41EA0262 	 orr r2,r1,r2,lsl#24
+ 217 001c 42EA0323 	 orr r3,r2,r3,lsl#8
+ 218 0020 C0F80831 	 str r3,[r0,#264]
+ 219 0024 30BC     	 pop {r4,r5}
+ 220 0026 7047     	 bx lr
+ 221              	.L35:
+ 222              	 .align 2
+ 223              	.L34:
+ 224 0028 C0C0FFF8 	 .word -117456704
+ 226              	 .section .text.XMC_USIC_CH_RXFIFO_Configure,"ax",%progbits
+ 227              	 .align 2
+ 228              	 .global XMC_USIC_CH_RXFIFO_Configure
+ 229              	 .thumb
+ 230              	 .thumb_func
+ 232              	XMC_USIC_CH_RXFIFO_Configure:
+ 233              	 
+ 234              	 
+ 235              	 
+ 236 0000 30B4     	 push {r4,r5}
+ 237 0002 D0F80C51 	 ldr r5,[r0,#268]
+ 238 0006 094C     	 ldr r4,.L38
+ 239 0008 25F0E065 	 bic r5,r5,#117440512
+ 240 000c C0F80C51 	 str r5,[r0,#268]
+ 241 0010 D0F80C51 	 ldr r5,[r0,#268]
+ 242 0014 2C40     	 ands r4,r4,r5
+ 243 0016 44F08054 	 orr r4,r4,#268435456
+ 244 001a 2143     	 orrs r1,r1,r4
+ 245 001c 41EA0262 	 orr r2,r1,r2,lsl#24
+ 246 0020 42EA0323 	 orr r3,r2,r3,lsl#8
+ 247 0024 C0F80C31 	 str r3,[r0,#268]
+ 248 0028 30BC     	 pop {r4,r5}
+ 249 002a 7047     	 bx lr
+ 250              	.L39:
+ 251              	 .align 2
+ 252              	.L38:
+ 253 002c C0C0FFEF 	 .word -268451648
+ 255              	 .section .text.XMC_USIC_CH_TXFIFO_SetSizeTriggerLimit,"ax",%progbits
+ 256              	 .align 2
+ 257              	 .global XMC_USIC_CH_TXFIFO_SetSizeTriggerLimit
+ 258              	 .thumb
+ 259              	 .thumb_func
+ 261              	XMC_USIC_CH_TXFIFO_SetSizeTriggerLimit:
+ 262              	 
+ 263              	 
+ 264              	 
+ 265 0000 D0F80831 	 ldr r3,[r0,#264]
+ 266 0004 23F0E063 	 bic r3,r3,#117440512
+ 267 0008 C0F80831 	 str r3,[r0,#264]
+ 268 000c D0F80831 	 ldr r3,[r0,#264]
+ 269 0010 0906     	 lsls r1,r1,#24
+ 270 0012 41EA0222 	 orr r2,r1,r2,lsl#8
+ 271 0016 23F47C53 	 bic r3,r3,#16128
+ 272 001a 1343     	 orrs r3,r3,r2
+ 273 001c C0F80831 	 str r3,[r0,#264]
+ 274 0020 7047     	 bx lr
+ 276 0022 00BF     	 .section .text.XMC_USIC_CH_RXFIFO_SetSizeTriggerLimit,"ax",%progbits
+ 277              	 .align 2
+ 278              	 .global XMC_USIC_CH_RXFIFO_SetSizeTriggerLimit
+ 279              	 .thumb
+ 280              	 .thumb_func
+ 282              	XMC_USIC_CH_RXFIFO_SetSizeTriggerLimit:
+ 283              	 
+ 284              	 
+ 285              	 
+ 286 0000 D0F80C31 	 ldr r3,[r0,#268]
+ 287 0004 23F0E063 	 bic r3,r3,#117440512
+ 288 0008 C0F80C31 	 str r3,[r0,#268]
+ 289 000c D0F80C31 	 ldr r3,[r0,#268]
+ 290 0010 0906     	 lsls r1,r1,#24
+ 291 0012 41EA0222 	 orr r2,r1,r2,lsl#8
+ 292 0016 23F47C53 	 bic r3,r3,#16128
+ 293 001a 1343     	 orrs r3,r3,r2
+ 294 001c C0F80C31 	 str r3,[r0,#268]
+ 295 0020 7047     	 bx lr
+ 297 0022 00BF     	 .section .text.XMC_USIC_CH_SetInterruptNodePointer,"ax",%progbits
+ 298              	 .align 2
+ 299              	 .global XMC_USIC_CH_SetInterruptNodePointer
+ 300              	 .thumb
+ 301              	 .thumb_func
+ 303              	XMC_USIC_CH_SetInterruptNodePointer:
+ 304              	 
+ 305              	 
+ 306              	 
+ 307 0000 10B4     	 push {r4}
+ 308 0002 8369     	 ldr r3,[r0,#24]
+ 309 0004 0724     	 movs r4,#7
+ 310 0006 8C40     	 lsls r4,r4,r1
+ 311 0008 23EA0403 	 bic r3,r3,r4
+ 312 000c 8A40     	 lsls r2,r2,r1
+ 313 000e 1A43     	 orrs r2,r2,r3
+ 314 0010 8261     	 str r2,[r0,#24]
+ 315 0012 5DF8044B 	 ldr r4,[sp],#4
+ 316 0016 7047     	 bx lr
+ 318              	 .section .text.XMC_USIC_CH_TXFIFO_SetInterruptNodePointer,"ax",%progbits
+ 319              	 .align 2
+ 320              	 .global XMC_USIC_CH_TXFIFO_SetInterruptNodePointer
+ 321              	 .thumb
+ 322              	 .thumb_func
+ 324              	XMC_USIC_CH_TXFIFO_SetInterruptNodePointer:
+ 325              	 
+ 326              	 
+ 327              	 
+ 328 0000 10B4     	 push {r4}
+ 329 0002 D0F80831 	 ldr r3,[r0,#264]
+ 330 0006 0724     	 movs r4,#7
+ 331 0008 8C40     	 lsls r4,r4,r1
+ 332 000a 23EA0403 	 bic r3,r3,r4
+ 333 000e 8A40     	 lsls r2,r2,r1
+ 334 0010 1A43     	 orrs r2,r2,r3
+ 335 0012 C0F80821 	 str r2,[r0,#264]
+ 336 0016 5DF8044B 	 ldr r4,[sp],#4
+ 337 001a 7047     	 bx lr
+ 339              	 .section .text.XMC_USIC_CH_RXFIFO_SetInterruptNodePointer,"ax",%progbits
+ 340              	 .align 2
+ 341              	 .global XMC_USIC_CH_RXFIFO_SetInterruptNodePointer
+ 342              	 .thumb
+ 343              	 .thumb_func
+ 345              	XMC_USIC_CH_RXFIFO_SetInterruptNodePointer:
+ 346              	 
+ 347              	 
+ 348              	 
+ 349 0000 10B4     	 push {r4}
+ 350 0002 D0F80C31 	 ldr r3,[r0,#268]
+ 351 0006 0724     	 movs r4,#7
+ 352 0008 8C40     	 lsls r4,r4,r1
+ 353 000a 23EA0403 	 bic r3,r3,r4
+ 354 000e 8A40     	 lsls r2,r2,r1
+ 355 0010 1A43     	 orrs r2,r2,r3
+ 356 0012 C0F80C21 	 str r2,[r0,#268]
+ 357 0016 5DF8044B 	 ldr r4,[sp],#4
+ 358 001a 7047     	 bx lr
+ 360              	 .section .text.XMC_USIC_Enable,"ax",%progbits
+ 361              	 .align 2
+ 362              	 .global XMC_USIC_Enable
+ 363              	 .thumb
+ 364              	 .thumb_func
+ 366              	XMC_USIC_Enable:
+ 367              	 
+ 368              	 
+ 369 0000 08B5     	 push {r3,lr}
+ 370 0002 124B     	 ldr r3,.L56
+ 371 0004 9842     	 cmp r0,r3
+ 372 0006 0ED0     	 beq .L53
+ 373 0008 114B     	 ldr r3,.L56+4
+ 374 000a 9842     	 cmp r0,r3
+ 375 000c 15D0     	 beq .L54
+ 376 000e 114B     	 ldr r3,.L56+8
+ 377 0010 9842     	 cmp r0,r3
+ 378 0012 00D0     	 beq .L55
+ 379 0014 08BD     	 pop {r3,pc}
+ 380              	.L55:
+ 381 0016 1048     	 ldr r0,.L56+12
+ 382 0018 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+ 383 001c 0E48     	 ldr r0,.L56+12
+ 384 001e BDE80840 	 pop {r3,lr}
+ 385 0022 FFF7FEBF 	 b XMC_SCU_RESET_DeassertPeripheralReset
+ 386              	.L53:
+ 387 0026 4FF40060 	 mov r0,#2048
+ 388 002a FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+ 389 002e 4FF40060 	 mov r0,#2048
+ 390 0032 BDE80840 	 pop {r3,lr}
+ 391 0036 FFF7FEBF 	 b XMC_SCU_RESET_DeassertPeripheralReset
+ 392              	.L54:
+ 393 003a 0848     	 ldr r0,.L56+16
+ 394 003c FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+ 395 0040 0648     	 ldr r0,.L56+16
+ 396 0042 BDE80840 	 pop {r3,lr}
+ 397 0046 FFF7FEBF 	 b XMC_SCU_RESET_DeassertPeripheralReset
+ 398              	.L57:
+ 399 004a 00BF     	 .align 2
+ 400              	.L56:
+ 401 004c 08000340 	 .word 1073938440
+ 402 0050 08000248 	 .word 1208090632
+ 403 0054 08400248 	 .word 1208107016
+ 404 0058 00010010 	 .word 268435712
+ 405 005c 80000010 	 .word 268435584
+ 407              	 .section .text.XMC_USIC_Disable,"ax",%progbits
+ 408              	 .align 2
+ 409              	 .global XMC_USIC_Disable
+ 410              	 .thumb
+ 411              	 .thumb_func
+ 413              	XMC_USIC_Disable:
+ 414              	 
+ 415              	 
+ 416 0000 08B5     	 push {r3,lr}
+ 417 0002 124B     	 ldr r3,.L66
+ 418 0004 9842     	 cmp r0,r3
+ 419 0006 0ED0     	 beq .L63
+ 420 0008 114B     	 ldr r3,.L66+4
+ 421 000a 9842     	 cmp r0,r3
+ 422 000c 15D0     	 beq .L64
+ 423 000e 114B     	 ldr r3,.L66+8
+ 424 0010 9842     	 cmp r0,r3
+ 425 0012 00D0     	 beq .L65
+ 426 0014 08BD     	 pop {r3,pc}
+ 427              	.L65:
+ 428 0016 1048     	 ldr r0,.L66+12
+ 429 0018 FFF7FEFF 	 bl XMC_SCU_RESET_AssertPeripheralReset
+ 430 001c 0E48     	 ldr r0,.L66+12
+ 431 001e BDE80840 	 pop {r3,lr}
+ 432 0022 FFF7FEBF 	 b XMC_SCU_CLOCK_GatePeripheralClock
+ 433              	.L63:
+ 434 0026 4FF40060 	 mov r0,#2048
+ 435 002a FFF7FEFF 	 bl XMC_SCU_RESET_AssertPeripheralReset
+ 436 002e 4FF40060 	 mov r0,#2048
+ 437 0032 BDE80840 	 pop {r3,lr}
+ 438 0036 FFF7FEBF 	 b XMC_SCU_CLOCK_GatePeripheralClock
+ 439              	.L64:
+ 440 003a 0848     	 ldr r0,.L66+16
+ 441 003c FFF7FEFF 	 bl XMC_SCU_RESET_AssertPeripheralReset
+ 442 0040 0648     	 ldr r0,.L66+16
+ 443 0042 BDE80840 	 pop {r3,lr}
+ 444 0046 FFF7FEBF 	 b XMC_SCU_CLOCK_GatePeripheralClock
+ 445              	.L67:
+ 446 004a 00BF     	 .align 2
+ 447              	.L66:
+ 448 004c 08000340 	 .word 1073938440
+ 449 0050 08000248 	 .word 1208090632
+ 450 0054 08400248 	 .word 1208107016
+ 451 0058 00010010 	 .word 268435712
+ 452 005c 80000010 	 .word 268435584
+ 454              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_usic.c
+    {standard input}:17     .text.XMC_USIC_CH_Enable:00000000 $t
+    {standard input}:22     .text.XMC_USIC_CH_Enable:00000000 XMC_USIC_CH_Enable
+    {standard input}:77     .text.XMC_USIC_CH_Enable:00000070 $d
+    {standard input}:84     .text.XMC_USIC_CH_Disable:00000000 $t
+    {standard input}:89     .text.XMC_USIC_CH_Disable:00000000 XMC_USIC_CH_Disable
+    {standard input}:100    .text.XMC_USIC_CH_SetBaudrate:00000000 $t
+    {standard input}:105    .text.XMC_USIC_CH_SetBaudrate:00000000 XMC_USIC_CH_SetBaudrate
+    {standard input}:160    .text.XMC_USIC_CH_SetBaudrate:0000007c $d
+    {standard input}:164    .text.XMC_USIC_CH_ConfigExternalInputSignalToBRG:00000000 $t
+    {standard input}:169    .text.XMC_USIC_CH_ConfigExternalInputSignalToBRG:00000000 XMC_USIC_CH_ConfigExternalInputSignalToBRG
+    {standard input}:196    .text.XMC_USIC_CH_ConfigExternalInputSignalToBRG:00000034 $d
+    {standard input}:199    .text.XMC_USIC_CH_TXFIFO_Configure:00000000 $t
+    {standard input}:204    .text.XMC_USIC_CH_TXFIFO_Configure:00000000 XMC_USIC_CH_TXFIFO_Configure
+    {standard input}:224    .text.XMC_USIC_CH_TXFIFO_Configure:00000028 $d
+    {standard input}:227    .text.XMC_USIC_CH_RXFIFO_Configure:00000000 $t
+    {standard input}:232    .text.XMC_USIC_CH_RXFIFO_Configure:00000000 XMC_USIC_CH_RXFIFO_Configure
+    {standard input}:253    .text.XMC_USIC_CH_RXFIFO_Configure:0000002c $d
+    {standard input}:256    .text.XMC_USIC_CH_TXFIFO_SetSizeTriggerLimit:00000000 $t
+    {standard input}:261    .text.XMC_USIC_CH_TXFIFO_SetSizeTriggerLimit:00000000 XMC_USIC_CH_TXFIFO_SetSizeTriggerLimit
+    {standard input}:277    .text.XMC_USIC_CH_RXFIFO_SetSizeTriggerLimit:00000000 $t
+    {standard input}:282    .text.XMC_USIC_CH_RXFIFO_SetSizeTriggerLimit:00000000 XMC_USIC_CH_RXFIFO_SetSizeTriggerLimit
+    {standard input}:298    .text.XMC_USIC_CH_SetInterruptNodePointer:00000000 $t
+    {standard input}:303    .text.XMC_USIC_CH_SetInterruptNodePointer:00000000 XMC_USIC_CH_SetInterruptNodePointer
+    {standard input}:319    .text.XMC_USIC_CH_TXFIFO_SetInterruptNodePointer:00000000 $t
+    {standard input}:324    .text.XMC_USIC_CH_TXFIFO_SetInterruptNodePointer:00000000 XMC_USIC_CH_TXFIFO_SetInterruptNodePointer
+    {standard input}:340    .text.XMC_USIC_CH_RXFIFO_SetInterruptNodePointer:00000000 $t
+    {standard input}:345    .text.XMC_USIC_CH_RXFIFO_SetInterruptNodePointer:00000000 XMC_USIC_CH_RXFIFO_SetInterruptNodePointer
+    {standard input}:361    .text.XMC_USIC_Enable:00000000 $t
+    {standard input}:366    .text.XMC_USIC_Enable:00000000 XMC_USIC_Enable
+    {standard input}:401    .text.XMC_USIC_Enable:0000004c $d
+    {standard input}:408    .text.XMC_USIC_Disable:00000000 $t
+    {standard input}:413    .text.XMC_USIC_Disable:00000000 XMC_USIC_Disable
+    {standard input}:448    .text.XMC_USIC_Disable:0000004c $d
+
+UNDEFINED SYMBOLS
+XMC_SCU_CLOCK_UngatePeripheralClock
+XMC_SCU_RESET_DeassertPeripheralReset
+XMC_SCU_CLOCK_GetPeripheralClockFrequency
+XMC_SCU_RESET_AssertPeripheralReset
+XMC_SCU_CLOCK_GatePeripheralClock

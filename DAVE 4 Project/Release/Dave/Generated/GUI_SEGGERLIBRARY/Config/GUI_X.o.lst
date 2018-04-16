@@ -1,0 +1,334 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "GUI_X.c"
+  16              	 .section .text.GUI_X_GetTime,"ax",%progbits
+  17              	 .align 2
+  18              	 .global GUI_X_GetTime
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	GUI_X_GetTime:
+  23              	 
+  24              	 
+  25              	 
+  26 0000 FFF7FEBF 	 b xTaskGetTickCount
+  28              	 .section .text.GUI_X_Delay,"ax",%progbits
+  29              	 .align 2
+  30              	 .global GUI_X_Delay
+  31              	 .thumb
+  32              	 .thumb_func
+  34              	GUI_X_Delay:
+  35              	 
+  36              	 
+  37              	 
+  38 0000 FFF7FEBF 	 b vTaskDelay
+  40              	 .section .text.GUI_X_Init,"ax",%progbits
+  41              	 .align 2
+  42              	 .global GUI_X_Init
+  43              	 .thumb
+  44              	 .thumb_func
+  46              	GUI_X_Init:
+  47              	 
+  48              	 
+  49              	 
+  50 0000 7047     	 bx lr
+  52 0002 00BF     	 .section .text.GUI_X_ExecIdle,"ax",%progbits
+  53              	 .align 2
+  54              	 .global GUI_X_ExecIdle
+  55              	 .thumb
+  56              	 .thumb_func
+  58              	GUI_X_ExecIdle:
+  59              	 
+  60              	 
+  61              	 
+  62 0000 7047     	 bx lr
+  64 0002 00BF     	 .section .text.GUI_X_InitOS,"ax",%progbits
+  65              	 .align 2
+  66              	 .global GUI_X_InitOS
+  67              	 .thumb
+  68              	 .thumb_func
+  70              	GUI_X_InitOS:
+  71              	 
+  72              	 
+  73 0000 10B5     	 push {r4,lr}
+  74 0002 0120     	 movs r0,#1
+  75 0004 FFF7FEFF 	 bl xQueueCreateMutex
+  76 0008 124B     	 ldr r3,.L17
+  77 000a 1860     	 str r0,[r3]
+  78 000c 78B1     	 cbz r0,.L16
+  79 000e 0120     	 movs r0,#1
+  80 0010 0021     	 movs r1,#0
+  81 0012 0322     	 movs r2,#3
+  82 0014 FFF7FEFF 	 bl xQueueGenericCreate
+  83 0018 0F4C     	 ldr r4,.L17+4
+  84 001a 2060     	 str r0,[r4]
+  85 001c 80B1     	 cbz r0,.L8
+  86 001e 0021     	 movs r1,#0
+  87 0020 0B46     	 mov r3,r1
+  88 0022 0A46     	 mov r2,r1
+  89 0024 FFF7FEFF 	 bl xQueueGenericSend
+  90 0028 2368     	 ldr r3,[r4]
+  91 002a 4BB1     	 cbz r3,.L8
+  92 002c 10BD     	 pop {r4,pc}
+  93              	.L16:
+  94              	
+  95 002e 4FF0FC03 	 mov r3,#252
+  96 0032 83F31188 	 msr basepri,r3
+  97 0036 BFF36F8F 	 isb 
+  98 003a BFF34F8F 	 dsb 
+  99              	
+ 100              	
+ 101              	 .thumb
+ 102              	.L7:
+ 103 003e FEE7     	 b .L7
+ 104              	.L8:
+ 105              	
+ 106 0040 4FF0FC03 	 mov r3,#252
+ 107 0044 83F31188 	 msr basepri,r3
+ 108 0048 BFF36F8F 	 isb 
+ 109 004c BFF34F8F 	 dsb 
+ 110              	
+ 111              	
+ 112              	 .thumb
+ 113              	.L10:
+ 114 0050 FEE7     	 b .L10
+ 115              	.L18:
+ 116 0052 00BF     	 .align 2
+ 117              	.L17:
+ 118 0054 00000000 	 .word .LANCHOR0
+ 119 0058 00000000 	 .word .LANCHOR1
+ 121              	 .section .text.GUI_X_Unlock,"ax",%progbits
+ 122              	 .align 2
+ 123              	 .global GUI_X_Unlock
+ 124              	 .thumb
+ 125              	 .thumb_func
+ 127              	GUI_X_Unlock:
+ 128              	 
+ 129              	 
+ 130              	 
+ 131 0000 034B     	 ldr r3,.L20
+ 132 0002 0021     	 movs r1,#0
+ 133 0004 1868     	 ldr r0,[r3]
+ 134 0006 0A46     	 mov r2,r1
+ 135 0008 0B46     	 mov r3,r1
+ 136 000a FFF7FEBF 	 b xQueueGenericSend
+ 137              	.L21:
+ 138 000e 00BF     	 .align 2
+ 139              	.L20:
+ 140 0010 00000000 	 .word .LANCHOR0
+ 142              	 .section .text.GUI_X_Lock,"ax",%progbits
+ 143              	 .align 2
+ 144              	 .global GUI_X_Lock
+ 145              	 .thumb
+ 146              	 .thumb_func
+ 148              	GUI_X_Lock:
+ 149              	 
+ 150              	 
+ 151 0000 70B5     	 push {r4,r5,r6,lr}
+ 152 0002 1A4D     	 ldr r5,.L37
+ 153 0004 2C68     	 ldr r4,[r5]
+ 154 0006 44B1     	 cbz r4,.L35
+ 155              	.L23:
+ 156 0008 0021     	 movs r1,#0
+ 157 000a 2046     	 mov r0,r4
+ 158 000c 0B46     	 mov r3,r1
+ 159 000e 4FF0FF32 	 mov r2,#-1
+ 160 0012 BDE87040 	 pop {r4,r5,r6,lr}
+ 161 0016 FFF7FEBF 	 b xQueueGenericReceive
+ 162              	.L35:
+ 163 001a 0120     	 movs r0,#1
+ 164 001c FFF7FEFF 	 bl xQueueCreateMutex
+ 165 0020 2860     	 str r0,[r5]
+ 166 0022 80B1     	 cbz r0,.L36
+ 167 0024 0120     	 movs r0,#1
+ 168 0026 2146     	 mov r1,r4
+ 169 0028 0322     	 movs r2,#3
+ 170 002a FFF7FEFF 	 bl xQueueGenericCreate
+ 171 002e 104E     	 ldr r6,.L37+4
+ 172 0030 3060     	 str r0,[r6]
+ 173 0032 88B1     	 cbz r0,.L26
+ 174 0034 2346     	 mov r3,r4
+ 175 0036 2146     	 mov r1,r4
+ 176 0038 2246     	 mov r2,r4
+ 177 003a FFF7FEFF 	 bl xQueueGenericSend
+ 178 003e 3368     	 ldr r3,[r6]
+ 179 0040 53B1     	 cbz r3,.L26
+ 180 0042 2C68     	 ldr r4,[r5]
+ 181 0044 E0E7     	 b .L23
+ 182              	.L36:
+ 183              	
+ 184 0046 4FF0FC03 	 mov r3,#252
+ 185 004a 83F31188 	 msr basepri,r3
+ 186 004e BFF36F8F 	 isb 
+ 187 0052 BFF34F8F 	 dsb 
+ 188              	
+ 189              	
+ 190              	 .thumb
+ 191              	.L25:
+ 192 0056 FEE7     	 b .L25
+ 193              	.L26:
+ 194              	
+ 195 0058 4FF0FC03 	 mov r3,#252
+ 196 005c 83F31188 	 msr basepri,r3
+ 197 0060 BFF36F8F 	 isb 
+ 198 0064 BFF34F8F 	 dsb 
+ 199              	
+ 200              	
+ 201              	 .thumb
+ 202              	.L27:
+ 203 0068 FEE7     	 b .L27
+ 204              	.L38:
+ 205 006a 00BF     	 .align 2
+ 206              	.L37:
+ 207 006c 00000000 	 .word .LANCHOR0
+ 208 0070 00000000 	 .word .LANCHOR1
+ 210              	 .section .text.GUI_X_GetTaskId,"ax",%progbits
+ 211              	 .align 2
+ 212              	 .global GUI_X_GetTaskId
+ 213              	 .thumb
+ 214              	 .thumb_func
+ 216              	GUI_X_GetTaskId:
+ 217              	 
+ 218              	 
+ 219              	 
+ 220 0000 FFF7FEBF 	 b xTaskGetCurrentTaskHandle
+ 222              	 .section .text.GUI_X_WaitEvent,"ax",%progbits
+ 223              	 .align 2
+ 224              	 .global GUI_X_WaitEvent
+ 225              	 .thumb
+ 226              	 .thumb_func
+ 228              	GUI_X_WaitEvent:
+ 229              	 
+ 230              	 
+ 231 0000 10B5     	 push {r4,lr}
+ 232 0002 054C     	 ldr r4,.L44
+ 233              	.L41:
+ 234 0004 2068     	 ldr r0,[r4]
+ 235 0006 0021     	 movs r1,#0
+ 236 0008 0B46     	 mov r3,r1
+ 237 000a 4FF0FF32 	 mov r2,#-1
+ 238 000e FFF7FEFF 	 bl xQueueGenericReceive
+ 239 0012 0128     	 cmp r0,#1
+ 240 0014 F6D1     	 bne .L41
+ 241 0016 10BD     	 pop {r4,pc}
+ 242              	.L45:
+ 243              	 .align 2
+ 244              	.L44:
+ 245 0018 00000000 	 .word .LANCHOR1
+ 247              	 .section .text.GUI_X_SignalEvent,"ax",%progbits
+ 248              	 .align 2
+ 249              	 .global GUI_X_SignalEvent
+ 250              	 .thumb
+ 251              	 .thumb_func
+ 253              	GUI_X_SignalEvent:
+ 254              	 
+ 255              	 
+ 256              	 
+ 257 0000 034B     	 ldr r3,.L47
+ 258 0002 0021     	 movs r1,#0
+ 259 0004 1868     	 ldr r0,[r3]
+ 260 0006 0A46     	 mov r2,r1
+ 261 0008 0B46     	 mov r3,r1
+ 262 000a FFF7FEBF 	 b xQueueGenericSend
+ 263              	.L48:
+ 264 000e 00BF     	 .align 2
+ 265              	.L47:
+ 266 0010 00000000 	 .word .LANCHOR1
+ 268              	 .section .text.GUI_X_Log,"ax",%progbits
+ 269              	 .align 2
+ 270              	 .global GUI_X_Log
+ 271              	 .thumb
+ 272              	 .thumb_func
+ 274              	GUI_X_Log:
+ 275              	 
+ 276              	 
+ 277              	 
+ 278 0000 7047     	 bx lr
+ 280 0002 00BF     	 .section .text.GUI_X_Warn,"ax",%progbits
+ 281              	 .align 2
+ 282              	 .global GUI_X_Warn
+ 283              	 .thumb
+ 284              	 .thumb_func
+ 286              	GUI_X_Warn:
+ 287              	 
+ 288              	 
+ 289              	 
+ 290 0000 7047     	 bx lr
+ 292 0002 00BF     	 .section .text.GUI_X_ErrorOut,"ax",%progbits
+ 293              	 .align 2
+ 294              	 .global GUI_X_ErrorOut
+ 295              	 .thumb
+ 296              	 .thumb_func
+ 298              	GUI_X_ErrorOut:
+ 299              	 
+ 300              	 
+ 301              	 
+ 302 0000 7047     	 bx lr
+ 304 0002 00BF     	 .section .bss.xSemaTxDone,"aw",%nobits
+ 305              	 .align 2
+ 306              	 .set .LANCHOR1,.+0
+ 309              	xSemaTxDone:
+ 310 0000 00000000 	 .space 4
+ 311              	 .section .bss.xQueueMutex,"aw",%nobits
+ 312              	 .align 2
+ 313              	 .set .LANCHOR0,.+0
+ 316              	xQueueMutex:
+ 317 0000 00000000 	 .space 4
+ 318              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 GUI_X.c
+    {standard input}:17     .text.GUI_X_GetTime:00000000 $t
+    {standard input}:22     .text.GUI_X_GetTime:00000000 GUI_X_GetTime
+    {standard input}:29     .text.GUI_X_Delay:00000000 $t
+    {standard input}:34     .text.GUI_X_Delay:00000000 GUI_X_Delay
+    {standard input}:41     .text.GUI_X_Init:00000000 $t
+    {standard input}:46     .text.GUI_X_Init:00000000 GUI_X_Init
+    {standard input}:53     .text.GUI_X_ExecIdle:00000000 $t
+    {standard input}:58     .text.GUI_X_ExecIdle:00000000 GUI_X_ExecIdle
+    {standard input}:65     .text.GUI_X_InitOS:00000000 $t
+    {standard input}:70     .text.GUI_X_InitOS:00000000 GUI_X_InitOS
+    {standard input}:118    .text.GUI_X_InitOS:00000054 $d
+    {standard input}:122    .text.GUI_X_Unlock:00000000 $t
+    {standard input}:127    .text.GUI_X_Unlock:00000000 GUI_X_Unlock
+    {standard input}:140    .text.GUI_X_Unlock:00000010 $d
+    {standard input}:143    .text.GUI_X_Lock:00000000 $t
+    {standard input}:148    .text.GUI_X_Lock:00000000 GUI_X_Lock
+    {standard input}:207    .text.GUI_X_Lock:0000006c $d
+    {standard input}:211    .text.GUI_X_GetTaskId:00000000 $t
+    {standard input}:216    .text.GUI_X_GetTaskId:00000000 GUI_X_GetTaskId
+    {standard input}:223    .text.GUI_X_WaitEvent:00000000 $t
+    {standard input}:228    .text.GUI_X_WaitEvent:00000000 GUI_X_WaitEvent
+    {standard input}:245    .text.GUI_X_WaitEvent:00000018 $d
+    {standard input}:248    .text.GUI_X_SignalEvent:00000000 $t
+    {standard input}:253    .text.GUI_X_SignalEvent:00000000 GUI_X_SignalEvent
+    {standard input}:266    .text.GUI_X_SignalEvent:00000010 $d
+    {standard input}:269    .text.GUI_X_Log:00000000 $t
+    {standard input}:274    .text.GUI_X_Log:00000000 GUI_X_Log
+    {standard input}:281    .text.GUI_X_Warn:00000000 $t
+    {standard input}:286    .text.GUI_X_Warn:00000000 GUI_X_Warn
+    {standard input}:293    .text.GUI_X_ErrorOut:00000000 $t
+    {standard input}:298    .text.GUI_X_ErrorOut:00000000 GUI_X_ErrorOut
+    {standard input}:305    .bss.xSemaTxDone:00000000 $d
+    {standard input}:309    .bss.xSemaTxDone:00000000 xSemaTxDone
+    {standard input}:312    .bss.xQueueMutex:00000000 $d
+    {standard input}:316    .bss.xQueueMutex:00000000 xQueueMutex
+
+UNDEFINED SYMBOLS
+xTaskGetTickCount
+vTaskDelay
+xQueueCreateMutex
+xQueueGenericCreate
+xQueueGenericSend
+xQueueGenericReceive
+xTaskGetCurrentTaskHandle

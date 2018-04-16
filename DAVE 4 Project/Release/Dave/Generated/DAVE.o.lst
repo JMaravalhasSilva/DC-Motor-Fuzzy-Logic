@@ -1,0 +1,114 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "DAVE.c"
+  16              	 .section .text.DAVE_Init,"ax",%progbits
+  17              	 .align 2
+  18              	 .global DAVE_Init
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	DAVE_Init:
+  23              	 
+  24              	 
+  25 0000 08B5     	 push {r3,lr}
+  26 0002 1E48     	 ldr r0,.L15
+  27 0004 FFF7FEFF 	 bl CLOCK_XMC4_Init
+  28 0008 00B1     	 cbz r0,.L14
+  29              	.L11:
+  30 000a 08BD     	 pop {r3,pc}
+  31              	.L14:
+  32 000c 1C48     	 ldr r0,.L15+4
+  33 000e FFF7FEFF 	 bl DIGITAL_IO_Init
+  34 0012 0028     	 cmp r0,#0
+  35 0014 F9D1     	 bne .L11
+  36 0016 1B48     	 ldr r0,.L15+8
+  37 0018 FFF7FEFF 	 bl DIGITAL_IO_Init
+  38 001c 0028     	 cmp r0,#0
+  39 001e F4D1     	 bne .L11
+  40 0020 1948     	 ldr r0,.L15+12
+  41 0022 FFF7FEFF 	 bl DIGITAL_IO_Init
+  42 0026 0028     	 cmp r0,#0
+  43 0028 EFD1     	 bne .L11
+  44 002a 1848     	 ldr r0,.L15+16
+  45 002c FFF7FEFF 	 bl DIGITAL_IO_Init
+  46 0030 0028     	 cmp r0,#0
+  47 0032 EAD1     	 bne .L11
+  48 0034 1648     	 ldr r0,.L15+20
+  49 0036 FFF7FEFF 	 bl INTERRUPT_Init
+  50 003a 0028     	 cmp r0,#0
+  51 003c E5D1     	 bne .L11
+  52 003e 1548     	 ldr r0,.L15+24
+  53 0040 FFF7FEFF 	 bl TIMER_Init
+  54 0044 0028     	 cmp r0,#0
+  55 0046 E0D1     	 bne .L11
+  56 0048 1348     	 ldr r0,.L15+28
+  57 004a FFF7FEFF 	 bl GUI_SEGGERLIBRARY_Init
+  58 004e 0028     	 cmp r0,#0
+  59 0050 DBD1     	 bne .L11
+  60 0052 1248     	 ldr r0,.L15+32
+  61 0054 FFF7FEFF 	 bl PWM_CCU8_Init
+  62 0058 0028     	 cmp r0,#0
+  63 005a D6D1     	 bne .L11
+  64 005c 1048     	 ldr r0,.L15+36
+  65 005e FFF7FEFF 	 bl DIGITAL_IO_Init
+  66 0062 0028     	 cmp r0,#0
+  67 0064 D1D1     	 bne .L11
+  68 0066 0F48     	 ldr r0,.L15+40
+  69 0068 FFF7FEFF 	 bl DIGITAL_IO_Init
+  70 006c 0028     	 cmp r0,#0
+  71 006e CCD1     	 bne .L11
+  72 0070 0D48     	 ldr r0,.L15+44
+  73 0072 BDE80840 	 pop {r3,lr}
+  74 0076 FFF7FEBF 	 b DIGITAL_IO_Init
+  75              	.L16:
+  76 007a 00BF     	 .align 2
+  77              	.L15:
+  78 007c 00000000 	 .word CLOCK_XMC4_0
+  79 0080 00000000 	 .word LED1
+  80 0084 00000000 	 .word LED2
+  81 0088 00000000 	 .word ENC_B
+  82 008c 00000000 	 .word ENC_A
+  83 0090 00000000 	 .word ENCODER_INTERRUPT
+  84 0094 00000000 	 .word ENCODER_TIMER
+  85 0098 00000000 	 .word GUI_SEGGERLIBRARY_0
+  86 009c 00000000 	 .word PWM_CCU8_0
+  87 00a0 00000000 	 .word INH_1
+  88 00a4 00000000 	 .word INH_2
+  89 00a8 00000000 	 .word TEST_PIN
+  91              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 DAVE.c
+    {standard input}:17     .text.DAVE_Init:00000000 $t
+    {standard input}:22     .text.DAVE_Init:00000000 DAVE_Init
+    {standard input}:78     .text.DAVE_Init:0000007c $d
+
+UNDEFINED SYMBOLS
+CLOCK_XMC4_Init
+DIGITAL_IO_Init
+INTERRUPT_Init
+TIMER_Init
+GUI_SEGGERLIBRARY_Init
+PWM_CCU8_Init
+CLOCK_XMC4_0
+LED1
+LED2
+ENC_B
+ENC_A
+ENCODER_INTERRUPT
+ENCODER_TIMER
+GUI_SEGGERLIBRARY_0
+PWM_CCU8_0
+INH_1
+INH_2
+TEST_PIN

@@ -1,0 +1,1423 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "FuzzyController.c"
+  16              	 .section .text.setupFuzzyController,"ax",%progbits
+  17              	 .align 2
+  18              	 .global setupFuzzyController
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	setupFuzzyController:
+  23              	 
+  24              	 
+  25 0000 2DE9F04F 	 push {r4,r5,r6,r7,r8,r9,r10,fp,lr}
+  26 0004 3C20     	 movs r0,#60
+  27 0006 85B0     	 sub sp,sp,#20
+  28 0008 FFF7FEFF 	 bl malloc
+  29 000c DFF8D8B2 	 ldr fp,.L3+44
+  30 0010 DFF8D8A2 	 ldr r10,.L3+48
+  31 0014 DFF8D892 	 ldr r9,.L3+52
+  32 0018 0746     	 mov r7,r0
+  33 001a 1420     	 movs r0,#20
+  34 001c CBF80070 	 str r7,[fp]
+  35 0020 FFF7FEFF 	 bl malloc
+  36 0024 8446     	 mov ip,r0
+  37 0026 2420     	 movs r0,#36
+  38 0028 CBF804C0 	 str ip,[fp,#4]
+  39 002c CDF800C0 	 str ip,[sp]
+  40 0030 FFF7FEFF 	 bl malloc
+  41 0034 8046     	 mov r8,r0
+  42 0036 0C20     	 movs r0,#12
+  43 0038 CAF80080 	 str r8,[r10]
+  44 003c FFF7FEFF 	 bl malloc
+  45 0040 0346     	 mov r3,r0
+  46 0042 3C20     	 movs r0,#60
+  47 0044 CAF80430 	 str r3,[r10,#4]
+  48 0048 0393     	 str r3,[sp,#12]
+  49 004a FFF7FEFF 	 bl malloc
+  50 004e 0646     	 mov r6,r0
+  51 0050 1420     	 movs r0,#20
+  52 0052 C9F80060 	 str r6,[r9]
+  53 0056 FFF7FEFF 	 bl malloc
+  54 005a 0146     	 mov r1,r0
+  55 005c 5420     	 movs r0,#84
+  56 005e C9F80410 	 str r1,[r9,#4]
+  57 0062 0291     	 str r1,[sp,#8]
+  58 0064 FFF7FEFF 	 bl malloc
+  59 0068 944B     	 ldr r3,.L3
+  60 006a 0446     	 mov r4,r0
+  61 006c 1C20     	 movs r0,#28
+  62 006e 1C60     	 str r4,[r3]
+  63 0070 FFF7FEFF 	 bl malloc
+  64 0074 914B     	 ldr r3,.L3
+  65 0076 0246     	 mov r2,r0
+  66 0078 3C20     	 movs r0,#60
+  67 007a 5A60     	 str r2,[r3,#4]
+  68 007c 0192     	 str r2,[sp,#4]
+  69 007e FFF7FEFF 	 bl malloc
+  70 0082 8F4B     	 ldr r3,.L3+4
+  71 0084 0546     	 mov r5,r0
+  72 0086 1420     	 movs r0,#20
+  73 0088 1D60     	 str r5,[r3]
+  74 008a FFF7FEFF 	 bl malloc
+  75 008e DDF800C0 	 ldr ip,[sp]
+  76 0092 0299     	 ldr r1,[sp,#8]
+  77 0094 8A4A     	 ldr r2,.L3+4
+  78 0096 9FED8B7A 	 flds s14,.L3+8
+  79 009a DFED8B7A 	 flds s15,.L3+12
+  80 009e 9FED8B5A 	 flds s10,.L3+16
+  81 00a2 88ED007A 	 fsts s14,[r8]
+  82 00a6 E646     	 mov lr,ip
+  83 00a8 0346     	 mov r3,r0
+  84 00aa 0020     	 movs r0,#0
+  85 00ac 4EF8040B 	 str r0,[lr],#4
+  86 00b0 0EF1040E 	 add lr,lr,#4
+  87 00b4 CCF80400 	 str r0,[ip,#4]
+  88 00b8 4EF8040B 	 str r0,[lr],#4
+  89 00bc 4EF8040B 	 str r0,[lr],#4
+  90 00c0 B8EE006A 	 fconsts s12,#128
+  91 00c4 F0EE006A 	 fconsts s13,#0
+  92 00c8 0093     	 str r3,[sp]
+  93 00ca 5360     	 str r3,[r2,#4]
+  94 00cc CEF80000 	 str r0,[lr]
+  95 00d0 039B     	 ldr r3,[sp,#12]
+  96 00d2 C8ED087A 	 fsts s15,[r8,#32]
+  97 00d6 8E46     	 mov lr,r1
+  98 00d8 4FF0000C 	 mov ip,#0
+  99 00dc BFEE007A 	 fconsts s14,#240
+ 100 00e0 F7EE007A 	 fconsts s15,#112
+ 101 00e4 B8EE084A 	 fconsts s8,#136
+ 102 00e8 8BED026A 	 fsts s12,[fp,#8]
+ 103 00ec CBED036A 	 fsts s13,[fp,#12]
+ 104 00f0 DFF800B2 	 ldr fp,.L3+56
+ 105 00f4 87ED004A 	 fsts s8,[r7]
+ 106 00f8 87ED016A 	 fsts s12,[r7,#4]
+ 107 00fc 87ED036A 	 fsts s12,[r7,#12]
+ 108 0100 C7ED0B6A 	 fsts s13,[r7,#44]
+ 109 0104 C7ED0D6A 	 fsts s13,[r7,#52]
+ 110 0108 87ED027A 	 fsts s14,[r7,#8]
+ 111 010c 87ED047A 	 fsts s14,[r7,#16]
+ 112 0110 87ED067A 	 fsts s14,[r7,#24]
+ 113 0114 C7F814C0 	 str ip,[r7,#20]
+ 114 0118 C7F81CC0 	 str ip,[r7,#28]
+ 115 011c C7F824C0 	 str ip,[r7,#36]
+ 116 0120 C8F808C0 	 str ip,[r8,#8]
+ 117 0124 C8F810C0 	 str ip,[r8,#16]
+ 118 0128 C8F818C0 	 str ip,[r8,#24]
+ 119 012c C3F800C0 	 str ip,[r3]
+ 120 0130 C7ED087A 	 fsts s15,[r7,#32]
+ 121 0134 C7ED0A7A 	 fsts s15,[r7,#40]
+ 122 0138 C7ED0C7A 	 fsts s15,[r7,#48]
+ 123 013c C7F838B0 	 str fp,[r7,#56]
+ 124 0140 88ED015A 	 fsts s10,[r8,#4]
+ 125 0144 4EF8040B 	 str r0,[lr],#4
+ 126 0148 0EF1040E 	 add lr,lr,#4
+ 127 014c 4860     	 str r0,[r1,#4]
+ 128 014e 019A     	 ldr r2,[sp,#4]
+ 129 0150 4EF8040B 	 str r0,[lr],#4
+ 130 0154 DFED5E5A 	 flds s11,.L3+20
+ 131 0158 4EF8040B 	 str r0,[lr],#4
+ 132 015c C3F804C0 	 str ip,[r3,#4]
+ 133 0160 C3F808C0 	 str ip,[r3,#8]
+ 134 0164 1346     	 mov r3,r2
+ 135 0166 4FF03F47 	 mov r7,#-1090519040
+ 136 016a 4FF07C51 	 mov r1,#1056964608
+ 137 016e 88ED035A 	 fsts s10,[r8,#12]
+ 138 0172 8AED025A 	 fsts s10,[r10,#8]
+ 139 0176 CAED035A 	 fsts s11,[r10,#12]
+ 140 017a BFEE085A 	 fconsts s10,#248
+ 141 017e 4FF07F5A 	 mov r10,#1069547520
+ 142 0182 C8ED055A 	 fsts s11,[r8,#20]
+ 143 0186 C8ED075A 	 fsts s11,[r8,#28]
+ 144 018a 86ED017A 	 fsts s14,[r6,#4]
+ 145 018e 86ED037A 	 fsts s14,[r6,#12]
+ 146 0192 C6F814C0 	 str ip,[r6,#20]
+ 147 0196 C6F81CC0 	 str ip,[r6,#28]
+ 148 019a C6F824C0 	 str ip,[r6,#36]
+ 149 019e C6ED0B7A 	 fsts s15,[r6,#44]
+ 150 01a2 C6ED0D7A 	 fsts s15,[r6,#52]
+ 151 01a6 89ED027A 	 fsts s14,[r9,#8]
+ 152 01aa C9ED037A 	 fsts s15,[r9,#12]
+ 153 01ae 86ED005A 	 fsts s10,[r6]
+ 154 01b2 C6F838A0 	 str r10,[r6,#56]
+ 155 01b6 CEF80000 	 str r0,[lr]
+ 156 01ba B760     	 str r7,[r6,#8]
+ 157 01bc 3761     	 str r7,[r6,#16]
+ 158 01be B761     	 str r7,[r6,#24]
+ 159 01c0 3162     	 str r1,[r6,#32]
+ 160 01c2 B162     	 str r1,[r6,#40]
+ 161 01c4 84ED004A 	 fsts s8,[r4]
+ 162 01c8 84ED016A 	 fsts s12,[r4,#4]
+ 163 01cc 84ED027A 	 fsts s14,[r4,#8]
+ 164 01d0 84ED037A 	 fsts s14,[r4,#12]
+ 165 01d4 3163     	 str r1,[r6,#48]
+ 166 01d6 43F8040B 	 str r0,[r3],#4
+ 167 01da 0433     	 adds r3,r3,#4
+ 168 01dc 5060     	 str r0,[r2,#4]
+ 169 01de 43F8040B 	 str r0,[r3],#4
+ 170 01e2 43F8040B 	 str r0,[r3],#4
+ 171 01e6 43F8040B 	 str r0,[r3],#4
+ 172 01ea 009A     	 ldr r2,[sp]
+ 173 01ec 43F8040B 	 str r0,[r3],#4
+ 174 01f0 DFED384A 	 flds s9,.L3+24
+ 175 01f4 DFF80081 	 ldr r8,.L3+60
+ 176 01f8 3049     	 ldr r1,.L3
+ 177 01fa DFED375A 	 flds s11,.L3+28
+ 178 01fe C4F81480 	 str r8,[r4,#20]
+ 179 0202 C4F81C80 	 str r8,[r4,#28]
+ 180 0206 DFF8F4E0 	 ldr lr,.L3+64
+ 181 020a 344F     	 ldr r7,.L3+32
+ 182 020c DFF8F0A0 	 ldr r10,.L3+68
+ 183 0210 DFF8F090 	 ldr r9,.L3+72
+ 184 0214 DFF8F080 	 ldr r8,.L3+76
+ 185 0218 1860     	 str r0,[r3]
+ 186 021a C4ED044A 	 fsts s9,[r4,#16]
+ 187 021e C4ED064A 	 fsts s9,[r4,#24]
+ 188 0222 C4F820C0 	 str ip,[r4,#32]
+ 189 0226 C4F828C0 	 str ip,[r4,#40]
+ 190 022a C4F830C0 	 str ip,[r4,#48]
+ 191 022e C4ED117A 	 fsts s15,[r4,#68]
+ 192 0232 C4ED127A 	 fsts s15,[r4,#72]
+ 193 0236 C4ED136A 	 fsts s13,[r4,#76]
+ 194 023a C4F850B0 	 str fp,[r4,#80]
+ 195 023e 81ED026A 	 fsts s12,[r1,#8]
+ 196 0242 C1ED036A 	 fsts s13,[r1,#12]
+ 197 0246 85ED006A 	 fsts s12,[r5]
+ 198 024a 85ED017A 	 fsts s14,[r5,#4]
+ 199 024e C5F808C0 	 str ip,[r5,#8]
+ 200 0252 C5F814C0 	 str ip,[r5,#20]
+ 201 0256 C5F81CC0 	 str ip,[r5,#28]
+ 202 025a C5F824C0 	 str ip,[r5,#36]
+ 203 025e C4ED095A 	 fsts s11,[r4,#36]
+ 204 0262 C4F82CA0 	 str r10,[r4,#44]
+ 205 0266 C5F81890 	 str r9,[r5,#24]
+ 206 026a C5F82080 	 str r8,[r5,#32]
+ 207 026e C4F834E0 	 str lr,[r4,#52]
+ 208 0272 C4F83CE0 	 str lr,[r4,#60]
+ 209 0276 A763     	 str r7,[r4,#56]
+ 210 0278 42F8040B 	 str r0,[r2],#4
+ 211 027c 009B     	 ldr r3,[sp]
+ 212 027e 184E     	 ldr r6,.L3+36
+ 213 0280 5860     	 str r0,[r3,#4]
+ 214 0282 0432     	 adds r2,r2,#4
+ 215 0284 9FED175A 	 flds s10,.L3+40
+ 216 0288 42F8040B 	 str r0,[r2],#4
+ 217 028c 0C4B     	 ldr r3,.L3+4
+ 218 028e 42F8040B 	 str r0,[r2],#4
+ 219 0292 2764     	 str r7,[r4,#64]
+ 220 0294 EE60     	 str r6,[r5,#12]
+ 221 0296 2E61     	 str r6,[r5,#16]
+ 222 0298 85ED0A5A 	 fsts s10,[r5,#40]
+ 223 029c 85ED0B5A 	 fsts s10,[r5,#44]
+ 224 02a0 C5F830C0 	 str ip,[r5,#48]
+ 225 02a4 C5ED0D7A 	 fsts s15,[r5,#52]
+ 226 02a8 C5ED0E6A 	 fsts s13,[r5,#56]
+ 227 02ac 83ED026A 	 fsts s12,[r3,#8]
+ 228 02b0 C3ED036A 	 fsts s13,[r3,#12]
+ 229 02b4 1060     	 str r0,[r2]
+ 230 02b6 05B0     	 add sp,sp,#20
+ 231              	 
+ 232 02b8 BDE8F08F 	 pop {r4,r5,r6,r7,r8,r9,r10,fp,pc}
+ 233              	.L4:
+ 234              	 .align 2
+ 235              	.L3:
+ 236 02bc 00000000 	 .word pwm_fuzzy
+ 237 02c0 00000000 	 .word speed_ref_fuzzy
+ 238 02c4 000034C3 	 .word -1020002304
+ 239 02c8 00003443 	 .word 1127481344
+ 240 02cc 0000F0C2 	 .word -1024458752
+ 241 02d0 0000F042 	 .word 1123024896
+ 242 02d4 333333BF 	 .word -1087163597
+ 243 02d8 9A9999BE 	 .word -1097229926
+ 244 02dc 3333333F 	 .word 1060320051
+ 245 02e0 CDCC4CBF 	 .word -1085485875
+ 246 02e4 CDCC4C3F 	 .word 1061997773
+ 247 02e8 00000000 	 .word speed_error_fuzzy
+ 248 02ec 00000000 	 .word accel_fuzzy
+ 249 02f0 00000000 	 .word position_error_fuzzy
+ 250 02f4 00004040 	 .word 1077936128
+ 251 02f8 CDCCCCBE 	 .word -1093874483
+ 252 02fc CDCCCC3E 	 .word 1053609165
+ 253 0300 9A99993E 	 .word 1050253722
+ 254 0304 CDCC4CBE 	 .word -1102263091
+ 255 0308 CDCC4C3E 	 .word 1045220557
+ 257              	 .section .text.assignMembershipFunctionParams,"ax",%progbits
+ 258              	 .align 2
+ 259              	 .global assignMembershipFunctionParams
+ 260              	 .thumb
+ 261              	 .thumb_func
+ 263              	assignMembershipFunctionParams:
+ 264              	 
+ 265              	 
+ 266              	 
+ 267 0000 0160     	 str r1,[r0]
+ 268 0002 4260     	 str r2,[r0,#4]
+ 269 0004 8360     	 str r3,[r0,#8]
+ 270 0006 7047     	 bx lr
+ 272              	 .section .text.fuzzify,"ax",%progbits
+ 273              	 .align 2
+ 274              	 .global fuzzify
+ 275              	 .thumb
+ 276              	 .thumb_func
+ 278              	fuzzify:
+ 279              	 
+ 280              	 
+ 281              	 
+ 282 0000 D0ED026A 	 flds s13,[r0,#8]
+ 283 0004 07EE901A 	 fmsr s15,r1
+ 284 0008 F4EEE76A 	 fcmpes s13,s15
+ 285 000c F1EE10FA 	 fmstat
+ 286 0010 10B4     	 push {r4}
+ 287 0012 08DC     	 bgt .L7
+ 288 0014 D0ED036A 	 flds s13,[r0,#12]
+ 289 0018 F4EEE67A 	 fcmpes s15,s13
+ 290 001c F1EE10FA 	 fmstat
+ 291 0020 D8BF     	 it le
+ 292 0022 F0EE676A 	 fcpysle s13,s15
+ 293              	.L7:
+ 294 0026 224C     	 ldr r4,.L26
+ 295 0028 0023     	 movs r3,#0
+ 296 002a 2360     	 str r3,[r4]
+ 297 002c 7AB3     	 cbz r2,.L6
+ 298 002e 0368     	 ldr r3,[r0]
+ 299 0030 4168     	 ldr r1,[r0,#4]
+ 300 0032 0433     	 adds r3,r3,#4
+ 301 0034 01EB8200 	 add r0,r1,r2,lsl#2
+ 302              	.L14:
+ 303 0038 13ED016A 	 flds s12,[r3,#-4]
+ 304 003c D3ED007A 	 flds s15,[r3]
+ 305 0040 93ED017A 	 flds s14,[r3,#4]
+ 306 0044 F4EEC66A 	 fcmpes s13,s12
+ 307 0048 F1EE10FA 	 fmstat
+ 308 004c 22D9     	 bls .L18
+ 309 004e F4EEC76A 	 fcmpes s13,s14
+ 310 0052 F1EE10FA 	 fmstat
+ 311 0056 1DDA     	 bge .L18
+ 312 0058 F4EE676A 	 fcmps s13,s15
+ 313 005c F1EE10FA 	 fmstat
+ 314 0060 1BD0     	 beq .L19
+ 315 0062 F4EEC66A 	 fcmpes s13,s12
+ 316 0066 F1EE10FA 	 fmstat
+ 317 006a 04DD     	 ble .L11
+ 318 006c F4EEE76A 	 fcmpes s13,s15
+ 319 0070 F1EE10FA 	 fmstat
+ 320 0074 14D4     	 bmi .L25
+ 321              	.L11:
+ 322 0076 77EE677A 	 fsubs s15,s14,s15
+ 323 007a 37EE667A 	 fsubs s14,s14,s13
+ 324 007e C7EE277A 	 fdivs s15,s14,s15
+ 325              	.L10:
+ 326 0082 0C33     	 adds r3,r3,#12
+ 327 0084 E1EC017A 	 fstmias r1!,{s15}
+ 328 0088 8142     	 cmp r1,r0
+ 329 008a D5D1     	 bne .L14
+ 330 008c 2260     	 str r2,[r4]
+ 331              	.L6:
+ 332 008e 5DF8044B 	 ldr r4,[sp],#4
+ 333 0092 7047     	 bx lr
+ 334              	.L18:
+ 335 0094 DFED077A 	 flds s15,.L26+4
+ 336 0098 F3E7     	 b .L10
+ 337              	.L19:
+ 338 009a F7EE007A 	 fconsts s15,#112
+ 339 009e F0E7     	 b .L10
+ 340              	.L25:
+ 341 00a0 77EEC67A 	 fsubs s15,s15,s12
+ 342 00a4 36EEC66A 	 fsubs s12,s13,s12
+ 343 00a8 C6EE277A 	 fdivs s15,s12,s15
+ 344 00ac E9E7     	 b .L10
+ 345              	.L27:
+ 346 00ae 00BF     	 .align 2
+ 347              	.L26:
+ 348 00b0 00000000 	 .word .LANCHOR0
+ 349 00b4 00000000 	 .word 0
+ 351              	 .section .text.getTruthValue,"ax",%progbits
+ 352              	 .align 2
+ 353              	 .global getTruthValue
+ 354              	 .thumb
+ 355              	 .thumb_func
+ 357              	getTruthValue:
+ 358              	 
+ 359              	 
+ 360 0000 00B5     	 push {lr}
+ 361 0002 85B0     	 sub sp,sp,#20
+ 362 0004 0DF1100E 	 add lr,sp,#16
+ 363 0008 0EE90700 	 stmdb lr,{r0,r1,r2}
+ 364 000c 07EE903A 	 fmsr s15,r3
+ 365 0010 DDED016A 	 flds s13,[sp,#4]
+ 366 0014 9DED026A 	 flds s12,[sp,#8]
+ 367 0018 9DED037A 	 flds s14,[sp,#12]
+ 368 001c F4EEE67A 	 fcmpes s15,s13
+ 369 0020 F1EE10FA 	 fmstat
+ 370 0024 1ED9     	 bls .L34
+ 371 0026 F4EEC77A 	 fcmpes s15,s14
+ 372 002a F1EE10FA 	 fmstat
+ 373 002e 19DA     	 bge .L34
+ 374 0030 F4EE467A 	 fcmps s15,s12
+ 375 0034 F1EE10FA 	 fmstat
+ 376 0038 1BD0     	 beq .L35
+ 377 003a F4EEE67A 	 fcmpes s15,s13
+ 378 003e F1EE10FA 	 fmstat
+ 379 0042 04DD     	 ble .L30
+ 380 0044 F4EEC67A 	 fcmpes s15,s12
+ 381 0048 F1EE10FA 	 fmstat
+ 382 004c 18D4     	 bmi .L39
+ 383              	.L30:
+ 384 004e 77EE677A 	 fsubs s15,s14,s15
+ 385 0052 37EE467A 	 fsubs s14,s14,s12
+ 386 0056 C7EE877A 	 fdivs s15,s15,s14
+ 387 005a 17EE900A 	 fmrs r0,s15
+ 388 005e 05B0     	 add sp,sp,#20
+ 389              	 
+ 390 0060 5DF804FB 	 ldr pc,[sp],#4
+ 391              	.L34:
+ 392 0064 DFED0A7A 	 flds s15,.L40
+ 393              	.L29:
+ 394 0068 17EE900A 	 fmrs r0,s15
+ 395 006c 05B0     	 add sp,sp,#20
+ 396              	 
+ 397 006e 5DF804FB 	 ldr pc,[sp],#4
+ 398              	.L35:
+ 399 0072 F7EE007A 	 fconsts s15,#112
+ 400 0076 17EE900A 	 fmrs r0,s15
+ 401 007a 05B0     	 add sp,sp,#20
+ 402              	 
+ 403 007c 5DF804FB 	 ldr pc,[sp],#4
+ 404              	.L39:
+ 405 0080 37EEE67A 	 fsubs s14,s15,s13
+ 406 0084 76EE667A 	 fsubs s15,s12,s13
+ 407 0088 C7EE277A 	 fdivs s15,s14,s15
+ 408 008c ECE7     	 b .L29
+ 409              	.L41:
+ 410 008e 00BF     	 .align 2
+ 411              	.L40:
+ 412 0090 00000000 	 .word 0
+ 414              	 .section .text.inference,"ax",%progbits
+ 415              	 .align 2
+ 416              	 .global inference
+ 417              	 .thumb
+ 418              	 .thumb_func
+ 420              	inference:
+ 421              	 
+ 422              	 
+ 423 0000 38B5     	 push {r3,r4,r5,lr}
+ 424 0002 BD4B     	 ldr r3,.L129
+ 425 0004 5C68     	 ldr r4,[r3,#4]
+ 426 0006 0021     	 movs r1,#0
+ 427 0008 1C22     	 movs r2,#28
+ 428 000a 2046     	 mov r0,r4
+ 429 000c FFF7FEFF 	 bl memset
+ 430 0010 BA4B     	 ldr r3,.L129+4
+ 431 0012 5D68     	 ldr r5,[r3,#4]
+ 432 0014 1422     	 movs r2,#20
+ 433 0016 0021     	 movs r1,#0
+ 434 0018 2846     	 mov r0,r5
+ 435 001a FFF7FEFF 	 bl memset
+ 436 001e B84A     	 ldr r2,.L129+8
+ 437 0020 B84B     	 ldr r3,.L129+12
+ 438 0022 5268     	 ldr r2,[r2,#4]
+ 439 0024 5B68     	 ldr r3,[r3,#4]
+ 440 0026 D2ED027A 	 flds s15,[r2,#8]
+ 441 002a 93ED017A 	 flds s14,[r3,#4]
+ 442 002e 94ED036A 	 flds s12,[r4,#12]
+ 443 0032 F4EE477A 	 fcmps s15,s14
+ 444 0036 F1EE10FA 	 fmstat
+ 445 003a 48BF     	 it mi
+ 446 003c B0EE677A 	 fcpysmi s14,s15
+ 447 0040 B4EEC76A 	 fcmpes s12,s14
+ 448 0044 F1EE10FA 	 fmstat
+ 449 0048 05D5     	 bpl .L44
+ 450 004a 84ED037A 	 fsts s14,[r4,#12]
+ 451 004e D2ED027A 	 flds s15,[r2,#8]
+ 452 0052 B0EE476A 	 fcpys s12,s14
+ 453              	.L44:
+ 454 0056 93ED027A 	 flds s14,[r3,#8]
+ 455 005a D4ED026A 	 flds s13,[r4,#8]
+ 456 005e B4EE677A 	 fcmps s14,s15
+ 457 0062 F1EE10FA 	 fmstat
+ 458 0066 C8BF     	 it gt
+ 459 0068 B0EE677A 	 fcpysgt s14,s15
+ 460 006c F4EEC76A 	 fcmpes s13,s14
+ 461 0070 F1EE10FA 	 fmstat
+ 462 0074 05D5     	 bpl .L47
+ 463 0076 84ED027A 	 fsts s14,[r4,#8]
+ 464 007a D2ED027A 	 flds s15,[r2,#8]
+ 465 007e F0EE476A 	 fcpys s13,s14
+ 466              	.L47:
+ 467 0082 93ED007A 	 flds s14,[r3]
+ 468 0086 D4ED045A 	 flds s11,[r4,#16]
+ 469 008a B4EEE77A 	 fcmpes s14,s15
+ 470 008e F1EE10FA 	 fmstat
+ 471 0092 D8BF     	 it le
+ 472 0094 F0EE477A 	 fcpysle s15,s14
+ 473 0098 F4EEE75A 	 fcmpes s11,s15
+ 474 009c F1EE10FA 	 fmstat
+ 475 00a0 44BF     	 itt mi
+ 476 00a2 C4ED047A 	 fstsmi s15,[r4,#16]
+ 477 00a6 F0EE675A 	 fcpysmi s11,s15
+ 478 00aa 93ED017A 	 flds s14,[r3,#4]
+ 479 00ae D2ED037A 	 flds s15,[r2,#12]
+ 480 00b2 F4EE477A 	 fcmps s15,s14
+ 481 00b6 F1EE10FA 	 fmstat
+ 482 00ba 48BF     	 it mi
+ 483 00bc B0EE677A 	 fcpysmi s14,s15
+ 484 00c0 B4EEE57A 	 fcmpes s14,s11
+ 485 00c4 F1EE10FA 	 fmstat
+ 486 00c8 C4BF     	 itt gt
+ 487 00ca 84ED047A 	 fstsgt s14,[r4,#16]
+ 488 00ce D2ED037A 	 fldsgt s15,[r2,#12]
+ 489 00d2 93ED027A 	 flds s14,[r3,#8]
+ 490 00d6 B4EE677A 	 fcmps s14,s15
+ 491 00da F1EE10FA 	 fmstat
+ 492 00de C8BF     	 it gt
+ 493 00e0 B0EE677A 	 fcpysgt s14,s15
+ 494 00e4 B4EEC76A 	 fcmpes s12,s14
+ 495 00e8 F1EE10FA 	 fmstat
+ 496 00ec 05D5     	 bpl .L56
+ 497 00ee 84ED037A 	 fsts s14,[r4,#12]
+ 498 00f2 D2ED037A 	 flds s15,[r2,#12]
+ 499 00f6 B0EE476A 	 fcpys s12,s14
+ 500              	.L56:
+ 501 00fa 93ED007A 	 flds s14,[r3]
+ 502 00fe D4ED055A 	 flds s11,[r4,#20]
+ 503 0102 B4EEE77A 	 fcmpes s14,s15
+ 504 0106 F1EE10FA 	 fmstat
+ 505 010a D8BF     	 it le
+ 506 010c F0EE477A 	 fcpysle s15,s14
+ 507 0110 F4EEE75A 	 fcmpes s11,s15
+ 508 0114 F1EE10FA 	 fmstat
+ 509 0118 48BF     	 it mi
+ 510 011a C4ED057A 	 fstsmi s15,[r4,#20]
+ 511 011e 93ED017A 	 flds s14,[r3,#4]
+ 512 0122 48BF     	 it mi
+ 513 0124 F0EE675A 	 fcpysmi s11,s15
+ 514 0128 D2ED047A 	 flds s15,[r2,#16]
+ 515 012c F4EE477A 	 fcmps s15,s14
+ 516 0130 F1EE10FA 	 fmstat
+ 517 0134 48BF     	 it mi
+ 518 0136 B0EE677A 	 fcpysmi s14,s15
+ 519 013a B4EEE57A 	 fcmpes s14,s11
+ 520 013e F1EE10FA 	 fmstat
+ 521 0142 C4BF     	 itt gt
+ 522 0144 84ED057A 	 fstsgt s14,[r4,#20]
+ 523 0148 D2ED047A 	 fldsgt s15,[r2,#16]
+ 524 014c 93ED027A 	 flds s14,[r3,#8]
+ 525 0150 D4ED045A 	 flds s11,[r4,#16]
+ 526 0154 B4EE677A 	 fcmps s14,s15
+ 527 0158 F1EE10FA 	 fmstat
+ 528 015c C8BF     	 it gt
+ 529 015e B0EE677A 	 fcpysgt s14,s15
+ 530 0162 F4EEC75A 	 fcmpes s11,s14
+ 531 0166 F1EE10FA 	 fmstat
+ 532 016a 44BF     	 itt mi
+ 533 016c 84ED047A 	 fstsmi s14,[r4,#16]
+ 534 0170 D2ED047A 	 fldsmi s15,[r2,#16]
+ 535 0174 93ED007A 	 flds s14,[r3]
+ 536 0178 D4ED065A 	 flds s11,[r4,#24]
+ 537 017c B4EEE77A 	 fcmpes s14,s15
+ 538 0180 F1EE10FA 	 fmstat
+ 539 0184 D8BF     	 it le
+ 540 0186 F0EE477A 	 fcpysle s15,s14
+ 541 018a F4EEE75A 	 fcmpes s11,s15
+ 542 018e F1EE10FA 	 fmstat
+ 543 0192 48BF     	 it mi
+ 544 0194 C4ED067A 	 fstsmi s15,[r4,#24]
+ 545 0198 D2ED017A 	 flds s15,[r2,#4]
+ 546 019c 93ED017A 	 flds s14,[r3,#4]
+ 547 01a0 F4EE477A 	 fcmps s15,s14
+ 548 01a4 F1EE10FA 	 fmstat
+ 549 01a8 48BF     	 it mi
+ 550 01aa B0EE677A 	 fcpysmi s14,s15
+ 551 01ae F4EEC76A 	 fcmpes s13,s14
+ 552 01b2 F1EE10FA 	 fmstat
+ 553 01b6 05D5     	 bpl .L71
+ 554 01b8 84ED027A 	 fsts s14,[r4,#8]
+ 555 01bc D2ED017A 	 flds s15,[r2,#4]
+ 556 01c0 F0EE476A 	 fcpys s13,s14
+ 557              	.L71:
+ 558 01c4 93ED027A 	 flds s14,[r3,#8]
+ 559 01c8 D4ED015A 	 flds s11,[r4,#4]
+ 560 01cc B4EE677A 	 fcmps s14,s15
+ 561 01d0 F1EE10FA 	 fmstat
+ 562 01d4 C8BF     	 it gt
+ 563 01d6 B0EE677A 	 fcpysgt s14,s15
+ 564 01da F4EEC75A 	 fcmpes s11,s14
+ 565 01de F1EE10FA 	 fmstat
+ 566 01e2 05D5     	 bpl .L74
+ 567 01e4 84ED017A 	 fsts s14,[r4,#4]
+ 568 01e8 D2ED017A 	 flds s15,[r2,#4]
+ 569 01ec F0EE475A 	 fcpys s11,s14
+ 570              	.L74:
+ 571 01f0 93ED007A 	 flds s14,[r3]
+ 572 01f4 B4EEE77A 	 fcmpes s14,s15
+ 573 01f8 F1EE10FA 	 fmstat
+ 574 01fc D8BF     	 it le
+ 575 01fe F0EE477A 	 fcpysle s15,s14
+ 576 0202 B4EEE76A 	 fcmpes s12,s15
+ 577 0206 F1EE10FA 	 fmstat
+ 578 020a 48BF     	 it mi
+ 579 020c C4ED037A 	 fstsmi s15,[r4,#12]
+ 580 0210 D2ED007A 	 flds s15,[r2]
+ 581 0214 93ED017A 	 flds s14,[r3,#4]
+ 582 0218 94ED006A 	 flds s12,[r4]
+ 583 021c F4EE477A 	 fcmps s15,s14
+ 584 0220 F1EE10FA 	 fmstat
+ 585 0224 48BF     	 it mi
+ 586 0226 B0EE677A 	 fcpysmi s14,s15
+ 587 022a F4EEC75A 	 fcmpes s11,s14
+ 588 022e F1EE10FA 	 fmstat
+ 589 0232 44BF     	 itt mi
+ 590 0234 84ED017A 	 fstsmi s14,[r4,#4]
+ 591 0238 D2ED007A 	 fldsmi s15,[r2]
+ 592 023c 93ED027A 	 flds s14,[r3,#8]
+ 593 0240 B4EE677A 	 fcmps s14,s15
+ 594 0244 F1EE10FA 	 fmstat
+ 595 0248 C8BF     	 it gt
+ 596 024a B0EE677A 	 fcpysgt s14,s15
+ 597 024e B4EEC76A 	 fcmpes s12,s14
+ 598 0252 F1EE10FA 	 fmstat
+ 599 0256 48BF     	 it mi
+ 600 0258 84ED007A 	 fstsmi s14,[r4]
+ 601 025c 93ED007A 	 flds s14,[r3]
+ 602 0260 48BF     	 it mi
+ 603 0262 D2ED007A 	 fldsmi s15,[r2]
+ 604 0266 284B     	 ldr r3,.L129+16
+ 605 0268 B4EEE77A 	 fcmpes s14,s15
+ 606 026c F1EE10FA 	 fmstat
+ 607 0270 D8BF     	 it le
+ 608 0272 F0EE477A 	 fcpysle s15,s14
+ 609 0276 F4EEE76A 	 fcmpes s13,s15
+ 610 027a 5B68     	 ldr r3,[r3,#4]
+ 611 027c F1EE10FA 	 fmstat
+ 612 0280 48BF     	 it mi
+ 613 0282 C4ED027A 	 fstsmi s15,[r4,#8]
+ 614 0286 D3ED007A 	 flds s15,[r3]
+ 615 028a 95ED007A 	 flds s14,[r5]
+ 616 028e F4EEC77A 	 fcmpes s15,s14
+ 617 0292 F1EE10FA 	 fmstat
+ 618 0296 C8BF     	 it gt
+ 619 0298 C5ED007A 	 fstsgt s15,[r5]
+ 620 029c D3ED017A 	 flds s15,[r3,#4]
+ 621 02a0 95ED017A 	 flds s14,[r5,#4]
+ 622 02a4 F4EEC77A 	 fcmpes s15,s14
+ 623 02a8 F1EE10FA 	 fmstat
+ 624 02ac C8BF     	 it gt
+ 625 02ae C5ED017A 	 fstsgt s15,[r5,#4]
+ 626 02b2 D3ED027A 	 flds s15,[r3,#8]
+ 627 02b6 95ED027A 	 flds s14,[r5,#8]
+ 628 02ba F4EEC77A 	 fcmpes s15,s14
+ 629 02be F1EE10FA 	 fmstat
+ 630 02c2 C8BF     	 it gt
+ 631 02c4 C5ED027A 	 fstsgt s15,[r5,#8]
+ 632 02c8 D3ED037A 	 flds s15,[r3,#12]
+ 633 02cc 95ED037A 	 flds s14,[r5,#12]
+ 634 02d0 F4EEC77A 	 fcmpes s15,s14
+ 635 02d4 F1EE10FA 	 fmstat
+ 636 02d8 C8BF     	 it gt
+ 637 02da C5ED037A 	 fstsgt s15,[r5,#12]
+ 638 02de D3ED047A 	 flds s15,[r3,#16]
+ 639 02e2 95ED047A 	 flds s14,[r5,#16]
+ 640 02e6 F4EEC77A 	 fcmpes s15,s14
+ 641 02ea F1EE10FA 	 fmstat
+ 642 02ee C8BF     	 it gt
+ 643 02f0 C5ED047A 	 fstsgt s15,[r5,#16]
+ 644 02f4 38BD     	 pop {r3,r4,r5,pc}
+ 645              	.L130:
+ 646 02f6 00BF     	 .align 2
+ 647              	.L129:
+ 648 02f8 00000000 	 .word pwm_fuzzy
+ 649 02fc 00000000 	 .word speed_ref_fuzzy
+ 650 0300 00000000 	 .word speed_error_fuzzy
+ 651 0304 00000000 	 .word accel_fuzzy
+ 652 0308 00000000 	 .word position_error_fuzzy
+ 654              	 .section .text.fuzzyAnd,"ax",%progbits
+ 655              	 .align 2
+ 656              	 .global fuzzyAnd
+ 657              	 .thumb
+ 658              	 .thumb_func
+ 660              	fuzzyAnd:
+ 661              	 
+ 662              	 
+ 663              	 
+ 664 0000 07EE100A 	 fmsr s14,r0
+ 665 0004 07EE901A 	 fmsr s15,r1
+ 666 0008 B4EEE77A 	 fcmpes s14,s15
+ 667 000c F1EE10FA 	 fmstat
+ 668 0010 54BF     	 ite pl
+ 669 0012 17EE900A 	 fmrspl r0,s15
+ 670 0016 17EE100A 	 fmrsmi r0,s14
+ 671 001a 7047     	 bx lr
+ 673              	 .section .text.defuzzify,"ax",%progbits
+ 674              	 .align 2
+ 675              	 .global defuzzify
+ 676              	 .thumb
+ 677              	 .thumb_func
+ 679              	defuzzify:
+ 680              	 
+ 681              	 
+ 682 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+ 683 0002 85B0     	 sub sp,sp,#20
+ 684 0004 04AC     	 add r4,sp,#16
+ 685 0006 04E90F00 	 stmdb r4,{r0,r1,r2,r3}
+ 686 000a DDED026A 	 flds s13,[sp,#8]
+ 687 000e 9DED034A 	 flds s8,[sp,#12]
+ 688 0012 DDED0A4A 	 flds s9,[sp,#40]
+ 689 0016 9FED4C6A 	 flds s12,.L160
+ 690 001a 4C4B     	 ldr r3,.L160+4
+ 691 001c 4C4E     	 ldr r6,.L160+8
+ 692 001e DFF83CC1 	 ldr ip,.L160+20
+ 693 0022 DFF83CE1 	 ldr lr,.L160+24
+ 694 0026 4B4F     	 ldr r7,.L160+12
+ 695 0028 C6ED006A 	 fsts s13,[r6]
+ 696 002c 74EE667A 	 fsubs s15,s8,s13
+ 697 0030 F4EEC46A 	 fcmpes s13,s8
+ 698 0034 C7EEA44A 	 fdivs s9,s15,s9
+ 699 0038 019C     	 ldr r4,[sp,#4]
+ 700 003a 0B98     	 ldr r0,[sp,#44]
+ 701 003c F1EE10FA 	 fmstat
+ 702 0040 8CED006A 	 fsts s12,[ip]
+ 703 0044 8EED006A 	 fsts s12,[lr]
+ 704 0048 C3ED004A 	 fsts s9,[r3]
+ 705 004c 87ED006A 	 fsts s12,[r7]
+ 706 0050 70D8     	 bhi .L156
+ 707 0052 009D     	 ldr r5,[sp]
+ 708 0054 B0EE465A 	 fcpys s10,s12
+ 709 0058 F0EE467A 	 fcpys s15,s12
+ 710 005c B0EE467A 	 fcpys s14,s12
+ 711 0060 F0EE465A 	 fcpys s11,s12
+ 712 0064 04EB8001 	 add r1,r4,r0,lsl#2
+ 713              	.L144:
+ 714 0068 0028     	 cmp r0,#0
+ 715 006a 45D0     	 beq .L137
+ 716 006c B0EE475A 	 fcpys s10,s14
+ 717 0070 B0EE656A 	 fcpys s12,s11
+ 718 0074 2B1D     	 adds r3,r5,#4
+ 719 0076 2246     	 mov r2,r4
+ 720 0078 29E0     	 b .L143
+ 721              	.L159:
+ 722 007a F4EEE67A 	 fcmpes s15,s13
+ 723 007e F1EE10FA 	 fmstat
+ 724 0082 2FD9     	 bls .L148
+ 725 0084 F4EE476A 	 fcmps s13,s14
+ 726 0088 F1EE10FA 	 fmstat
+ 727 008c 2DD0     	 beq .L149
+ 728 008e F4EEE65A 	 fcmpes s11,s13
+ 729 0092 F1EE10FA 	 fmstat
+ 730 0096 46D5     	 bpl .L139
+ 731 0098 B4EEE67A 	 fcmpes s14,s13
+ 732 009c F1EE10FA 	 fmstat
+ 733 00a0 41DD     	 ble .L139
+ 734 00a2 37EE657A 	 fsubs s14,s14,s11
+ 735 00a6 76EEE55A 	 fsubs s11,s13,s11
+ 736 00aa 85EE877A 	 fdivs s14,s11,s14
+ 737              	.L138:
+ 738 00ae 0C33     	 adds r3,r3,#12
+ 739 00b0 F2EC017A 	 fldmias r2!,{s15}
+ 740 00b4 F4EEC77A 	 fcmpes s15,s14
+ 741 00b8 F1EE10FA 	 fmstat
+ 742 00bc 58BF     	 it pl
+ 743 00be F0EE477A 	 fcpyspl s15,s14
+ 744 00c2 8A42     	 cmp r2,r1
+ 745 00c4 A6EEA76A 	 vfma.f32 s12,s13,s15
+ 746 00c8 35EE275A 	 fadds s10,s10,s15
+ 747 00cc 10D0     	 beq .L158
+ 748              	.L143:
+ 749 00ce 53ED015A 	 flds s11,[r3,#-4]
+ 750 00d2 93ED007A 	 flds s14,[r3]
+ 751 00d6 D3ED017A 	 flds s15,[r3,#4]
+ 752 00da F4EEE65A 	 fcmpes s11,s13
+ 753 00de F1EE10FA 	 fmstat
+ 754 00e2 CADB     	 blt .L159
+ 755              	.L148:
+ 756 00e4 9FED187A 	 flds s14,.L160
+ 757 00e8 E1E7     	 b .L138
+ 758              	.L149:
+ 759 00ea B7EE007A 	 fconsts s14,#112
+ 760 00ee DEE7     	 b .L138
+ 761              	.L158:
+ 762 00f0 B0EE457A 	 fcpys s14,s10
+ 763 00f4 F0EE465A 	 fcpys s11,s12
+ 764              	.L137:
+ 765 00f8 76EEA46A 	 fadds s13,s13,s9
+ 766 00fc F4EEC46A 	 fcmpes s13,s8
+ 767 0100 F1EE10FA 	 fmstat
+ 768 0104 B0D9     	 bls .L144
+ 769 0106 C7ED007A 	 fsts s15,[r7]
+ 770 010a C5EE877A 	 fdivs s15,s11,s14
+ 771 010e 124B     	 ldr r3,.L160+16
+ 772 0110 1860     	 str r0,[r3]
+ 773 0112 8CED006A 	 fsts s12,[ip]
+ 774 0116 17EE900A 	 fmrs r0,s15
+ 775 011a 8EED005A 	 fsts s10,[lr]
+ 776 011e C6ED006A 	 fsts s13,[r6]
+ 777 0122 05B0     	 add sp,sp,#20
+ 778              	 
+ 779 0124 F0BD     	 pop {r4,r5,r6,r7,pc}
+ 780              	.L139:
+ 781 0126 37EEC77A 	 fsubs s14,s15,s14
+ 782 012a 77EEE67A 	 fsubs s15,s15,s13
+ 783 012e 87EE877A 	 fdivs s14,s15,s14
+ 784 0132 BCE7     	 b .L138
+ 785              	.L156:
+ 786 0134 B0EE467A 	 fcpys s14,s12
+ 787 0138 F0EE465A 	 fcpys s11,s12
+ 788 013c C5EE877A 	 fdivs s15,s11,s14
+ 789 0140 17EE900A 	 fmrs r0,s15
+ 790 0144 05B0     	 add sp,sp,#20
+ 791              	 
+ 792 0146 F0BD     	 pop {r4,r5,r6,r7,pc}
+ 793              	.L161:
+ 794              	 .align 2
+ 795              	.L160:
+ 796 0148 00000000 	 .word 0
+ 797 014c 00000000 	 .word .LANCHOR2
+ 798 0150 00000000 	 .word .LANCHOR1
+ 799 0154 00000000 	 .word .LANCHOR5
+ 800 0158 00000000 	 .word .LANCHOR6
+ 801 015c 00000000 	 .word .LANCHOR3
+ 802 0160 00000000 	 .word .LANCHOR4
+ 804              	 .section .text.computeFuzzy,"ax",%progbits
+ 805              	 .align 2
+ 806              	 .global computeFuzzy
+ 807              	 .thumb
+ 808              	 .thumb_func
+ 810              	computeFuzzy:
+ 811              	 
+ 812              	 
+ 813 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+ 814 0002 E14C     	 ldr r4,.L298
+ 815 0004 07EE100A 	 fmsr s14,r0
+ 816 0008 D4ED027A 	 flds s15,[r4,#8]
+ 817 000c B4EEE77A 	 fcmpes s14,s15
+ 818 0010 F1EE10FA 	 fmstat
+ 819 0014 83B0     	 sub sp,sp,#12
+ 820 0016 1D46     	 mov r5,r3
+ 821 0018 05EE901A 	 fmsr s11,r1
+ 822 001c 06EE902A 	 fmsr s13,r2
+ 823 0020 08D4     	 bmi .L163
+ 824 0022 D4ED037A 	 flds s15,[r4,#12]
+ 825 0026 B4EE677A 	 fcmps s14,s15
+ 826 002a F1EE10FA 	 fmstat
+ 827 002e D8BF     	 it le
+ 828 0030 F0EE477A 	 fcpysle s15,s14
+ 829              	.L163:
+ 830 0034 2368     	 ldr r3,[r4]
+ 831 0036 6268     	 ldr r2,[r4,#4]
+ 832 0038 93ED007A 	 flds s14,[r3]
+ 833 003c 93ED015A 	 flds s10,[r3,#4]
+ 834 0040 93ED026A 	 flds s12,[r3,#8]
+ 835 0044 F4EEC77A 	 fcmpes s15,s14
+ 836 0048 F1EE10FA 	 fmstat
+ 837 004c 00F28082 	 bhi .L283
+ 838              	.L225:
+ 839 0050 9FEDCE7A 	 flds s14,.L298+4
+ 840              	.L166:
+ 841 0054 82ED007A 	 fsts s14,[r2]
+ 842 0058 93ED037A 	 flds s14,[r3,#12]
+ 843 005c 93ED045A 	 flds s10,[r3,#16]
+ 844 0060 93ED056A 	 flds s12,[r3,#20]
+ 845 0064 F4EEC77A 	 fcmpes s15,s14
+ 846 0068 F1EE10FA 	 fmstat
+ 847 006c 00F25482 	 bhi .L284
+ 848              	.L228:
+ 849 0070 9FEDC67A 	 flds s14,.L298+4
+ 850              	.L170:
+ 851 0074 82ED017A 	 fsts s14,[r2,#4]
+ 852 0078 93ED067A 	 flds s14,[r3,#24]
+ 853 007c 93ED075A 	 flds s10,[r3,#28]
+ 854 0080 93ED086A 	 flds s12,[r3,#32]
+ 855 0084 F4EEC77A 	 fcmpes s15,s14
+ 856 0088 F1EE10FA 	 fmstat
+ 857 008c 00F22682 	 bhi .L285
+ 858              	.L231:
+ 859 0090 9FEDBE7A 	 flds s14,.L298+4
+ 860              	.L174:
+ 861 0094 82ED027A 	 fsts s14,[r2,#8]
+ 862 0098 93ED097A 	 flds s14,[r3,#36]
+ 863 009c 93ED0A5A 	 flds s10,[r3,#40]
+ 864 00a0 93ED0B6A 	 flds s12,[r3,#44]
+ 865 00a4 F4EEC77A 	 fcmpes s15,s14
+ 866 00a8 F1EE10FA 	 fmstat
+ 867 00ac 00F2F881 	 bhi .L286
+ 868              	.L234:
+ 869 00b0 9FEDB67A 	 flds s14,.L298+4
+ 870              	.L178:
+ 871 00b4 82ED037A 	 fsts s14,[r2,#12]
+ 872 00b8 93ED0C7A 	 flds s14,[r3,#48]
+ 873 00bc 93ED0D5A 	 flds s10,[r3,#52]
+ 874 00c0 93ED0E6A 	 flds s12,[r3,#56]
+ 875 00c4 B4EEE77A 	 fcmpes s14,s15
+ 876 00c8 F1EE10FA 	 fmstat
+ 877 00cc C0F2C981 	 blt .L287
+ 878              	.L237:
+ 879 00d0 DFEDAE7A 	 flds s15,.L298+4
+ 880              	.L182:
+ 881 00d4 AE49     	 ldr r1,.L298+8
+ 882 00d6 C2ED047A 	 fsts s15,[r2,#16]
+ 883 00da D1ED027A 	 flds s15,[r1,#8]
+ 884 00de F4EEE57A 	 fcmpes s15,s11
+ 885 00e2 F1EE10FA 	 fmstat
+ 886 00e6 40F3A280 	 ble .L288
+ 887              	.L186:
+ 888 00ea 0B68     	 ldr r3,[r1]
+ 889 00ec 4968     	 ldr r1,[r1,#4]
+ 890 00ee 93ED007A 	 flds s14,[r3]
+ 891 00f2 D3ED015A 	 flds s11,[r3,#4]
+ 892 00f6 93ED026A 	 flds s12,[r3,#8]
+ 893 00fa F4EEC77A 	 fcmpes s15,s14
+ 894 00fe F1EE10FA 	 fmstat
+ 895 0102 00F28F81 	 bhi .L289
+ 896              	.L240:
+ 897 0106 9FEDA17A 	 flds s14,.L298+4
+ 898              	.L189:
+ 899 010a 81ED007A 	 fsts s14,[r1]
+ 900 010e 93ED037A 	 flds s14,[r3,#12]
+ 901 0112 D3ED045A 	 flds s11,[r3,#16]
+ 902 0116 93ED056A 	 flds s12,[r3,#20]
+ 903 011a F4EEC77A 	 fcmpes s15,s14
+ 904 011e F1EE10FA 	 fmstat
+ 905 0122 00F26081 	 bhi .L290
+ 906              	.L243:
+ 907 0126 9FED997A 	 flds s14,.L298+4
+ 908              	.L193:
+ 909 012a 81ED017A 	 fsts s14,[r1,#4]
+ 910 012e 93ED067A 	 flds s14,[r3,#24]
+ 911 0132 D3ED075A 	 flds s11,[r3,#28]
+ 912 0136 93ED086A 	 flds s12,[r3,#32]
+ 913 013a B4EEE77A 	 fcmpes s14,s15
+ 914 013e F1EE10FA 	 fmstat
+ 915 0142 C0F23181 	 blt .L291
+ 916              	.L246:
+ 917 0146 DFED917A 	 flds s15,.L298+4
+ 918              	.L197:
+ 919 014a 924A     	 ldr r2,.L298+12
+ 920 014c C1ED027A 	 fsts s15,[r1,#8]
+ 921 0150 D2ED027A 	 flds s15,[r2,#8]
+ 922 0154 F4EEE67A 	 fcmpes s15,s13
+ 923 0158 F1EE10FA 	 fmstat
+ 924 015c 71DD     	 ble .L292
+ 925              	.L201:
+ 926 015e 1368     	 ldr r3,[r2]
+ 927 0160 5268     	 ldr r2,[r2,#4]
+ 928 0162 93ED007A 	 flds s14,[r3]
+ 929 0166 93ED016A 	 flds s12,[r3,#4]
+ 930 016a D3ED026A 	 flds s13,[r3,#8]
+ 931 016e F4EEC77A 	 fcmpes s15,s14
+ 932 0172 F1EE10FA 	 fmstat
+ 933 0176 00F2E880 	 bhi .L293
+ 934              	.L249:
+ 935 017a 9FED847A 	 flds s14,.L298+4
+ 936              	.L204:
+ 937 017e 82ED007A 	 fsts s14,[r2]
+ 938 0182 93ED037A 	 flds s14,[r3,#12]
+ 939 0186 93ED046A 	 flds s12,[r3,#16]
+ 940 018a D3ED056A 	 flds s13,[r3,#20]
+ 941 018e F4EEC77A 	 fcmpes s15,s14
+ 942 0192 F1EE10FA 	 fmstat
+ 943 0196 00F2B980 	 bhi .L294
+ 944              	.L252:
+ 945 019a 9FED7C7A 	 flds s14,.L298+4
+ 946              	.L208:
+ 947 019e 82ED017A 	 fsts s14,[r2,#4]
+ 948 01a2 93ED067A 	 flds s14,[r3,#24]
+ 949 01a6 93ED076A 	 flds s12,[r3,#28]
+ 950 01aa D3ED086A 	 flds s13,[r3,#32]
+ 951 01ae F4EEC77A 	 fcmpes s15,s14
+ 952 01b2 F1EE10FA 	 fmstat
+ 953 01b6 00F28A80 	 bhi .L295
+ 954              	.L255:
+ 955 01ba 9FED747A 	 flds s14,.L298+4
+ 956              	.L212:
+ 957 01be 82ED027A 	 fsts s14,[r2,#8]
+ 958 01c2 93ED097A 	 flds s14,[r3,#36]
+ 959 01c6 93ED0A6A 	 flds s12,[r3,#40]
+ 960 01ca D3ED0B6A 	 flds s13,[r3,#44]
+ 961 01ce F4EEC77A 	 fcmpes s15,s14
+ 962 01d2 F1EE10FA 	 fmstat
+ 963 01d6 5CD8     	 bhi .L296
+ 964              	.L258:
+ 965 01d8 9FED6C7A 	 flds s14,.L298+4
+ 966              	.L216:
+ 967 01dc 82ED037A 	 fsts s14,[r2,#12]
+ 968 01e0 93ED0C7A 	 flds s14,[r3,#48]
+ 969 01e4 93ED0D6A 	 flds s12,[r3,#52]
+ 970 01e8 D3ED0E6A 	 flds s13,[r3,#56]
+ 971 01ec F4EEC77A 	 fcmpes s15,s14
+ 972 01f0 F1EE10FA 	 fmstat
+ 973 01f4 2FD8     	 bhi .L297
+ 974              	.L261:
+ 975 01f6 DFED657A 	 flds s15,.L298+4
+ 976              	.L220:
+ 977 01fa 674B     	 ldr r3,.L298+16
+ 978 01fc C2ED047A 	 fsts s15,[r2,#16]
+ 979 0200 0526     	 movs r6,#5
+ 980 0202 1E60     	 str r6,[r3]
+ 981 0204 654C     	 ldr r4,.L298+20
+ 982 0206 FFF7FEFF 	 bl inference
+ 983 020a 654B     	 ldr r3,.L298+24
+ 984 020c 0094     	 str r4,[sp]
+ 985 020e 0727     	 movs r7,#7
+ 986 0210 0FCB     	 ldmia r3,{r0,r1,r2,r3}
+ 987 0212 0197     	 str r7,[sp,#4]
+ 988 0214 FFF7FEFF 	 bl defuzzify
+ 989 0218 624B     	 ldr r3,.L298+28
+ 990 021a 2860     	 str r0,[r5]
+ 991 021c 0196     	 str r6,[sp,#4]
+ 992 021e 0094     	 str r4,[sp]
+ 993 0220 0FCB     	 ldmia r3,{r0,r1,r2,r3}
+ 994 0222 FFF7FEFF 	 bl defuzzify
+ 995 0226 089B     	 ldr r3,[sp,#32]
+ 996 0228 1860     	 str r0,[r3]
+ 997 022a 03B0     	 add sp,sp,#12
+ 998              	 
+ 999 022c F0BD     	 pop {r4,r5,r6,r7,pc}
+ 1000              	.L288:
+ 1001 022e D1ED037A 	 flds s15,[r1,#12]
+ 1002 0232 F4EE675A 	 fcmps s11,s15
+ 1003 0236 F1EE10FA 	 fmstat
+ 1004 023a D8BF     	 it le
+ 1005 023c F0EE657A 	 fcpysle s15,s11
+ 1006 0240 53E7     	 b .L186
+ 1007              	.L292:
+ 1008 0242 D2ED037A 	 flds s15,[r2,#12]
+ 1009 0246 F4EE676A 	 fcmps s13,s15
+ 1010 024a F1EE10FA 	 fmstat
+ 1011 024e D8BF     	 it le
+ 1012 0250 F0EE667A 	 fcpysle s15,s13
+ 1013 0254 83E7     	 b .L201
+ 1014              	.L297:
+ 1015 0256 F4EEE67A 	 fcmpes s15,s13
+ 1016 025a F1EE10FA 	 fmstat
+ 1017 025e CADA     	 bge .L261
+ 1018 0260 B4EE676A 	 fcmps s12,s15
+ 1019 0264 F1EE10FA 	 fmstat
+ 1020 0268 00F0B281 	 beq .L262
+ 1021 026c F4EEC77A 	 fcmpes s15,s14
+ 1022 0270 F1EE10FA 	 fmstat
+ 1023 0274 40F3D281 	 ble .L221
+ 1024 0278 F4EEC67A 	 fcmpes s15,s12
+ 1025 027c F1EE10FA 	 fmstat
+ 1026 0280 40F1CC81 	 bpl .L221
+ 1027 0284 77EEC77A 	 fsubs s15,s15,s14
+ 1028 0288 36EE477A 	 fsubs s14,s12,s14
+ 1029 028c C7EE877A 	 fdivs s15,s15,s14
+ 1030 0290 B3E7     	 b .L220
+ 1031              	.L296:
+ 1032 0292 F4EEE67A 	 fcmpes s15,s13
+ 1033 0296 F1EE10FA 	 fmstat
+ 1034 029a 9DDA     	 bge .L258
+ 1035 029c B4EE676A 	 fcmps s12,s15
+ 1036 02a0 F1EE10FA 	 fmstat
+ 1037 02a4 00F09181 	 beq .L259
+ 1038 02a8 F4EEC77A 	 fcmpes s15,s14
+ 1039 02ac F1EE10FA 	 fmstat
+ 1040 02b0 40F39F81 	 ble .L218
+ 1041 02b4 F4EEC67A 	 fcmpes s15,s12
+ 1042 02b8 F1EE10FA 	 fmstat
+ 1043 02bc 40F19981 	 bpl .L218
+ 1044 02c0 36EE476A 	 fsubs s12,s12,s14
+ 1045 02c4 37EEC77A 	 fsubs s14,s15,s14
+ 1046 02c8 87EE067A 	 fdivs s14,s14,s12
+ 1047 02cc 86E7     	 b .L216
+ 1048              	.L295:
+ 1049 02ce F4EEE67A 	 fcmpes s15,s13
+ 1050 02d2 F1EE10FA 	 fmstat
+ 1051 02d6 BFF670AF 	 bge .L255
+ 1052 02da B4EE676A 	 fcmps s12,s15
+ 1053 02de F1EE10FA 	 fmstat
+ 1054 02e2 00F06F81 	 beq .L256
+ 1055 02e6 F4EEC77A 	 fcmpes s15,s14
+ 1056 02ea F1EE10FA 	 fmstat
+ 1057 02ee 40F38E81 	 ble .L214
+ 1058 02f2 F4EEC67A 	 fcmpes s15,s12
+ 1059 02f6 F1EE10FA 	 fmstat
+ 1060 02fa 40F18881 	 bpl .L214
+ 1061 02fe 36EE476A 	 fsubs s12,s12,s14
+ 1062 0302 37EEC77A 	 fsubs s14,s15,s14
+ 1063 0306 87EE067A 	 fdivs s14,s14,s12
+ 1064 030a 58E7     	 b .L212
+ 1065              	.L294:
+ 1066 030c F4EEE67A 	 fcmpes s15,s13
+ 1067 0310 F1EE10FA 	 fmstat
+ 1068 0314 BFF641AF 	 bge .L252
+ 1069 0318 B4EE676A 	 fcmps s12,s15
+ 1070 031c F1EE10FA 	 fmstat
+ 1071 0320 00F04D81 	 beq .L253
+ 1072 0324 F4EEC77A 	 fcmpes s15,s14
+ 1073 0328 F1EE10FA 	 fmstat
+ 1074 032c 40F36881 	 ble .L210
+ 1075 0330 F4EEC67A 	 fcmpes s15,s12
+ 1076 0334 F1EE10FA 	 fmstat
+ 1077 0338 40F16281 	 bpl .L210
+ 1078 033c 36EE476A 	 fsubs s12,s12,s14
+ 1079 0340 37EEC77A 	 fsubs s14,s15,s14
+ 1080 0344 87EE067A 	 fdivs s14,s14,s12
+ 1081 0348 29E7     	 b .L208
+ 1082              	.L293:
+ 1083 034a F4EEE67A 	 fcmpes s15,s13
+ 1084 034e F1EE10FA 	 fmstat
+ 1085 0352 BFF612AF 	 bge .L249
+ 1086 0356 B4EE676A 	 fcmps s12,s15
+ 1087 035a F1EE10FA 	 fmstat
+ 1088 035e 00F02B81 	 beq .L250
+ 1089 0362 F4EEC77A 	 fcmpes s15,s14
+ 1090 0366 F1EE10FA 	 fmstat
+ 1091 036a 40F38881 	 ble .L206
+ 1092 036e F4EEC67A 	 fcmpes s15,s12
+ 1093 0372 F1EE10FA 	 fmstat
+ 1094 0376 40F18281 	 bpl .L206
+ 1095 037a 36EE476A 	 fsubs s12,s12,s14
+ 1096 037e 37EEC77A 	 fsubs s14,s15,s14
+ 1097 0382 87EE067A 	 fdivs s14,s14,s12
+ 1098 0386 FAE6     	 b .L204
+ 1099              	.L299:
+ 1100              	 .align 2
+ 1101              	.L298:
+ 1102 0388 00000000 	 .word speed_error_fuzzy
+ 1103 038c 00000000 	 .word 0
+ 1104 0390 00000000 	 .word accel_fuzzy
+ 1105 0394 00000000 	 .word position_error_fuzzy
+ 1106 0398 00000000 	 .word .LANCHOR0
+ 1107 039c 00003443 	 .word 1127481344
+ 1108 03a0 00000000 	 .word pwm_fuzzy
+ 1109 03a4 00000000 	 .word speed_ref_fuzzy
+ 1110              	.L291:
+ 1111 03a8 B4EEE76A 	 fcmpes s12,s15
+ 1112 03ac F1EE10FA 	 fmstat
+ 1113 03b0 7FF6C9AE 	 bls .L246
+ 1114 03b4 F4EE675A 	 fcmps s11,s15
+ 1115 03b8 F1EE10FA 	 fmstat
+ 1116 03bc 00F0F980 	 beq .L247
+ 1117 03c0 B4EEE77A 	 fcmpes s14,s15
+ 1118 03c4 F1EE10FA 	 fmstat
+ 1119 03c8 40F15281 	 bpl .L198
+ 1120 03cc F4EEE75A 	 fcmpes s11,s15
+ 1121 03d0 F1EE10FA 	 fmstat
+ 1122 03d4 40F34C81 	 ble .L198
+ 1123 03d8 77EEC77A 	 fsubs s15,s15,s14
+ 1124 03dc 35EEC77A 	 fsubs s14,s11,s14
+ 1125 03e0 C7EE877A 	 fdivs s15,s15,s14
+ 1126 03e4 B1E6     	 b .L197
+ 1127              	.L290:
+ 1128 03e6 F4EEC67A 	 fcmpes s15,s12
+ 1129 03ea F1EE10FA 	 fmstat
+ 1130 03ee BFF69AAE 	 bge .L243
+ 1131 03f2 F4EE675A 	 fcmps s11,s15
+ 1132 03f6 F1EE10FA 	 fmstat
+ 1133 03fa 00F0D780 	 beq .L244
+ 1134 03fe F4EEC77A 	 fcmpes s15,s14
+ 1135 0402 F1EE10FA 	 fmstat
+ 1136 0406 40F32C81 	 ble .L195
+ 1137 040a F4EEE57A 	 fcmpes s15,s11
+ 1138 040e F1EE10FA 	 fmstat
+ 1139 0412 40F12681 	 bpl .L195
+ 1140 0416 75EEC75A 	 fsubs s11,s11,s14
+ 1141 041a 37EEC77A 	 fsubs s14,s15,s14
+ 1142 041e 87EE257A 	 fdivs s14,s14,s11
+ 1143 0422 82E6     	 b .L193
+ 1144              	.L289:
+ 1145 0424 F4EEC67A 	 fcmpes s15,s12
+ 1146 0428 F1EE10FA 	 fmstat
+ 1147 042c BFF66BAE 	 bge .L240
+ 1148 0430 F4EE675A 	 fcmps s11,s15
+ 1149 0434 F1EE10FA 	 fmstat
+ 1150 0438 00F0B580 	 beq .L241
+ 1151 043c F4EEC77A 	 fcmpes s15,s14
+ 1152 0440 F1EE10FA 	 fmstat
+ 1153 0444 40F30681 	 ble .L191
+ 1154 0448 F4EEE57A 	 fcmpes s15,s11
+ 1155 044c F1EE10FA 	 fmstat
+ 1156 0450 40F10081 	 bpl .L191
+ 1157 0454 75EEC75A 	 fsubs s11,s11,s14
+ 1158 0458 37EEC77A 	 fsubs s14,s15,s14
+ 1159 045c 87EE257A 	 fdivs s14,s14,s11
+ 1160 0460 53E6     	 b .L189
+ 1161              	.L287:
+ 1162 0462 B4EEE76A 	 fcmpes s12,s15
+ 1163 0466 F1EE10FA 	 fmstat
+ 1164 046a 7FF631AE 	 bls .L237
+ 1165 046e B4EE675A 	 fcmps s10,s15
+ 1166 0472 F1EE10FA 	 fmstat
+ 1167 0476 00F09380 	 beq .L238
+ 1168 047a B4EEE77A 	 fcmpes s14,s15
+ 1169 047e F1EE10FA 	 fmstat
+ 1170 0482 40F1A880 	 bpl .L183
+ 1171 0486 B4EEE75A 	 fcmpes s10,s15
+ 1172 048a F1EE10FA 	 fmstat
+ 1173 048e 40F3A280 	 ble .L183
+ 1174 0492 77EEC77A 	 fsubs s15,s15,s14
+ 1175 0496 35EE477A 	 fsubs s14,s10,s14
+ 1176 049a C7EE877A 	 fdivs s15,s15,s14
+ 1177 049e 19E6     	 b .L182
+ 1178              	.L286:
+ 1179 04a0 F4EEC67A 	 fcmpes s15,s12
+ 1180 04a4 F1EE10FA 	 fmstat
+ 1181 04a8 BFF602AE 	 bge .L234
+ 1182 04ac B4EE675A 	 fcmps s10,s15
+ 1183 04b0 F1EE10FA 	 fmstat
+ 1184 04b4 71D0     	 beq .L235
+ 1185 04b6 F4EEC77A 	 fcmpes s15,s14
+ 1186 04ba F1EE10FA 	 fmstat
+ 1187 04be 40F3B480 	 ble .L180
+ 1188 04c2 F4EEC57A 	 fcmpes s15,s10
+ 1189 04c6 F1EE10FA 	 fmstat
+ 1190 04ca 40F1AE80 	 bpl .L180
+ 1191 04ce 35EE475A 	 fsubs s10,s10,s14
+ 1192 04d2 37EEC77A 	 fsubs s14,s15,s14
+ 1193 04d6 87EE057A 	 fdivs s14,s14,s10
+ 1194 04da EBE5     	 b .L178
+ 1195              	.L285:
+ 1196 04dc F4EEC67A 	 fcmpes s15,s12
+ 1197 04e0 F1EE10FA 	 fmstat
+ 1198 04e4 BFF6D4AD 	 bge .L231
+ 1199 04e8 B4EE675A 	 fcmps s10,s15
+ 1200 04ec F1EE10FA 	 fmstat
+ 1201 04f0 50D0     	 beq .L232
+ 1202 04f2 F4EEC77A 	 fcmpes s15,s14
+ 1203 04f6 F1EE10FA 	 fmstat
+ 1204 04fa 40F3A480 	 ble .L176
+ 1205 04fe F4EEC57A 	 fcmpes s15,s10
+ 1206 0502 F1EE10FA 	 fmstat
+ 1207 0506 40F19E80 	 bpl .L176
+ 1208 050a 35EE475A 	 fsubs s10,s10,s14
+ 1209 050e 37EEC77A 	 fsubs s14,s15,s14
+ 1210 0512 87EE057A 	 fdivs s14,s14,s10
+ 1211 0516 BDE5     	 b .L174
+ 1212              	.L284:
+ 1213 0518 F4EEC67A 	 fcmpes s15,s12
+ 1214 051c F1EE10FA 	 fmstat
+ 1215 0520 BFF6A6AD 	 bge .L228
+ 1216 0524 B4EE675A 	 fcmps s10,s15
+ 1217 0528 F1EE10FA 	 fmstat
+ 1218 052c 2FD0     	 beq .L229
+ 1219 052e F4EEC77A 	 fcmpes s15,s14
+ 1220 0532 F1EE10FA 	 fmstat
+ 1221 0536 7FDD     	 ble .L172
+ 1222 0538 F4EEC57A 	 fcmpes s15,s10
+ 1223 053c F1EE10FA 	 fmstat
+ 1224 0540 7AD5     	 bpl .L172
+ 1225 0542 35EE475A 	 fsubs s10,s10,s14
+ 1226 0546 37EEC77A 	 fsubs s14,s15,s14
+ 1227 054a 87EE057A 	 fdivs s14,s14,s10
+ 1228 054e 91E5     	 b .L170
+ 1229              	.L283:
+ 1230 0550 F4EEC67A 	 fcmpes s15,s12
+ 1231 0554 F1EE10FA 	 fmstat
+ 1232 0558 BFF67AAD 	 bge .L225
+ 1233 055c B4EE675A 	 fcmps s10,s15
+ 1234 0560 F1EE10FA 	 fmstat
+ 1235 0564 10D0     	 beq .L226
+ 1236 0566 F4EEC77A 	 fcmpes s15,s14
+ 1237 056a F1EE10FA 	 fmstat
+ 1238 056e 39DD     	 ble .L168
+ 1239 0570 F4EEC57A 	 fcmpes s15,s10
+ 1240 0574 F1EE10FA 	 fmstat
+ 1241 0578 34D5     	 bpl .L168
+ 1242 057a 35EE475A 	 fsubs s10,s10,s14
+ 1243 057e 37EEC77A 	 fsubs s14,s15,s14
+ 1244 0582 87EE057A 	 fdivs s14,s14,s10
+ 1245 0586 65E5     	 b .L166
+ 1246              	.L226:
+ 1247 0588 B7EE007A 	 fconsts s14,#112
+ 1248 058c 62E5     	 b .L166
+ 1249              	.L229:
+ 1250 058e B7EE007A 	 fconsts s14,#112
+ 1251 0592 6FE5     	 b .L170
+ 1252              	.L232:
+ 1253 0594 B7EE007A 	 fconsts s14,#112
+ 1254 0598 7CE5     	 b .L174
+ 1255              	.L235:
+ 1256 059a B7EE007A 	 fconsts s14,#112
+ 1257 059e 89E5     	 b .L178
+ 1258              	.L238:
+ 1259 05a0 F7EE007A 	 fconsts s15,#112
+ 1260 05a4 96E5     	 b .L182
+ 1261              	.L241:
+ 1262 05a6 B7EE007A 	 fconsts s14,#112
+ 1263 05aa AEE5     	 b .L189
+ 1264              	.L244:
+ 1265 05ac B7EE007A 	 fconsts s14,#112
+ 1266 05b0 BBE5     	 b .L193
+ 1267              	.L247:
+ 1268 05b2 F7EE007A 	 fconsts s15,#112
+ 1269 05b6 C8E5     	 b .L197
+ 1270              	.L250:
+ 1271 05b8 B7EE007A 	 fconsts s14,#112
+ 1272 05bc DFE5     	 b .L204
+ 1273              	.L253:
+ 1274 05be B7EE007A 	 fconsts s14,#112
+ 1275 05c2 ECE5     	 b .L208
+ 1276              	.L256:
+ 1277 05c4 B7EE007A 	 fconsts s14,#112
+ 1278 05c8 F9E5     	 b .L212
+ 1279              	.L259:
+ 1280 05ca B7EE007A 	 fconsts s14,#112
+ 1281 05ce 05E6     	 b .L216
+ 1282              	.L262:
+ 1283 05d0 F7EE007A 	 fconsts s15,#112
+ 1284 05d4 11E6     	 b .L220
+ 1285              	.L183:
+ 1286 05d6 76EE677A 	 fsubs s15,s12,s15
+ 1287 05da 36EE456A 	 fsubs s12,s12,s10
+ 1288 05de C7EE867A 	 fdivs s15,s15,s12
+ 1289 05e2 77E5     	 b .L182
+ 1290              	.L168:
+ 1291 05e4 36EE457A 	 fsubs s14,s12,s10
+ 1292 05e8 36EE676A 	 fsubs s12,s12,s15
+ 1293 05ec 86EE077A 	 fdivs s14,s12,s14
+ 1294 05f0 30E5     	 b .L166
+ 1295              	.L218:
+ 1296 05f2 36EEC67A 	 fsubs s14,s13,s12
+ 1297 05f6 76EEE76A 	 fsubs s13,s13,s15
+ 1298 05fa 86EE877A 	 fdivs s14,s13,s14
+ 1299 05fe EDE5     	 b .L216
+ 1300              	.L210:
+ 1301 0600 36EEC67A 	 fsubs s14,s13,s12
+ 1302 0604 76EEE76A 	 fsubs s13,s13,s15
+ 1303 0608 86EE877A 	 fdivs s14,s13,s14
+ 1304 060c C7E5     	 b .L208
+ 1305              	.L214:
+ 1306 060e 36EEC67A 	 fsubs s14,s13,s12
+ 1307 0612 76EEE76A 	 fsubs s13,s13,s15
+ 1308 0616 86EE877A 	 fdivs s14,s13,s14
+ 1309 061a D0E5     	 b .L212
+ 1310              	.L221:
+ 1311 061c 76EEE77A 	 fsubs s15,s13,s15
+ 1312 0620 76EEC66A 	 fsubs s13,s13,s12
+ 1313 0624 C7EEA67A 	 fdivs s15,s15,s13
+ 1314 0628 E7E5     	 b .L220
+ 1315              	.L180:
+ 1316 062a 36EE457A 	 fsubs s14,s12,s10
+ 1317 062e 36EE676A 	 fsubs s12,s12,s15
+ 1318 0632 86EE077A 	 fdivs s14,s12,s14
+ 1319 0636 3DE5     	 b .L178
+ 1320              	.L172:
+ 1321 0638 36EE457A 	 fsubs s14,s12,s10
+ 1322 063c 36EE676A 	 fsubs s12,s12,s15
+ 1323 0640 86EE077A 	 fdivs s14,s12,s14
+ 1324 0644 16E5     	 b .L170
+ 1325              	.L176:
+ 1326 0646 36EE457A 	 fsubs s14,s12,s10
+ 1327 064a 36EE676A 	 fsubs s12,s12,s15
+ 1328 064e 86EE077A 	 fdivs s14,s12,s14
+ 1329 0652 1FE5     	 b .L174
+ 1330              	.L191:
+ 1331 0654 36EE657A 	 fsubs s14,s12,s11
+ 1332 0658 36EE676A 	 fsubs s12,s12,s15
+ 1333 065c 86EE077A 	 fdivs s14,s12,s14
+ 1334 0660 53E5     	 b .L189
+ 1335              	.L195:
+ 1336 0662 36EE657A 	 fsubs s14,s12,s11
+ 1337 0666 36EE676A 	 fsubs s12,s12,s15
+ 1338 066a 86EE077A 	 fdivs s14,s12,s14
+ 1339 066e 5CE5     	 b .L193
+ 1340              	.L198:
+ 1341 0670 76EE677A 	 fsubs s15,s12,s15
+ 1342 0674 36EE656A 	 fsubs s12,s12,s11
+ 1343 0678 C7EE867A 	 fdivs s15,s15,s12
+ 1344 067c 65E5     	 b .L197
+ 1345              	.L206:
+ 1346 067e 36EEC67A 	 fsubs s14,s13,s12
+ 1347 0682 76EEE76A 	 fsubs s13,s13,s15
+ 1348 0686 86EE877A 	 fdivs s14,s13,s14
+ 1349 068a 78E5     	 b .L204
+ 1351              	 .comm speed_ref_fuzzy,16,4
+ 1352              	 .comm pwm_fuzzy,16,4
+ 1353              	 .comm position_error_fuzzy,16,4
+ 1354              	 .comm accel_fuzzy,16,4
+ 1355              	 .comm speed_error_fuzzy,16,4
+ 1356              	 .section .bss.bottom_sum.4851,"aw",%nobits
+ 1357              	 .align 2
+ 1358              	 .set .LANCHOR4,.+0
+ 1361              	bottom_sum.4851:
+ 1362 0000 00000000 	 .space 4
+ 1363              	 .section .bss.top_sum.4850,"aw",%nobits
+ 1364              	 .align 2
+ 1365              	 .set .LANCHOR3,.+0
+ 1368              	top_sum.4850:
+ 1369 0000 00000000 	 .space 4
+ 1370              	 .section .bss.x_increment.4849,"aw",%nobits
+ 1371              	 .align 2
+ 1372              	 .set .LANCHOR2,.+0
+ 1375              	x_increment.4849:
+ 1376 0000 00000000 	 .space 4
+ 1377              	 .section .bss.i.4819,"aw",%nobits
+ 1378              	 .align 2
+ 1379              	 .set .LANCHOR0,.+0
+ 1382              	i.4819:
+ 1383 0000 00000000 	 .space 4
+ 1384              	 .section .bss.current_x.4848,"aw",%nobits
+ 1385              	 .align 2
+ 1386              	 .set .LANCHOR1,.+0
+ 1389              	current_x.4848:
+ 1390 0000 00000000 	 .space 4
+ 1391              	 .section .bss.i.4847,"aw",%nobits
+ 1392              	 .align 2
+ 1393              	 .set .LANCHOR6,.+0
+ 1396              	i.4847:
+ 1397 0000 00000000 	 .space 4
+ 1398              	 .section .bss.truth_value.4852,"aw",%nobits
+ 1399              	 .align 2
+ 1400              	 .set .LANCHOR5,.+0
+ 1403              	truth_value.4852:
+ 1404 0000 00000000 	 .space 4
+ 1405              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 FuzzyController.c
+    {standard input}:17     .text.setupFuzzyController:00000000 $t
+    {standard input}:22     .text.setupFuzzyController:00000000 setupFuzzyController
+    {standard input}:236    .text.setupFuzzyController:000002bc $d
+                            *COM*:00000010 pwm_fuzzy
+                            *COM*:00000010 speed_ref_fuzzy
+                            *COM*:00000010 speed_error_fuzzy
+                            *COM*:00000010 accel_fuzzy
+                            *COM*:00000010 position_error_fuzzy
+    {standard input}:258    .text.assignMembershipFunctionParams:00000000 $t
+    {standard input}:263    .text.assignMembershipFunctionParams:00000000 assignMembershipFunctionParams
+    {standard input}:273    .text.fuzzify:00000000 $t
+    {standard input}:278    .text.fuzzify:00000000 fuzzify
+    {standard input}:348    .text.fuzzify:000000b0 $d
+    {standard input}:352    .text.getTruthValue:00000000 $t
+    {standard input}:357    .text.getTruthValue:00000000 getTruthValue
+    {standard input}:412    .text.getTruthValue:00000090 $d
+    {standard input}:415    .text.inference:00000000 $t
+    {standard input}:420    .text.inference:00000000 inference
+    {standard input}:648    .text.inference:000002f8 $d
+    {standard input}:655    .text.fuzzyAnd:00000000 $t
+    {standard input}:660    .text.fuzzyAnd:00000000 fuzzyAnd
+    {standard input}:674    .text.defuzzify:00000000 $t
+    {standard input}:679    .text.defuzzify:00000000 defuzzify
+    {standard input}:796    .text.defuzzify:00000148 $d
+    {standard input}:805    .text.computeFuzzy:00000000 $t
+    {standard input}:810    .text.computeFuzzy:00000000 computeFuzzy
+    {standard input}:1102   .text.computeFuzzy:00000388 $d
+    {standard input}:1111   .text.computeFuzzy:000003a8 $t
+    {standard input}:1357   .bss.bottom_sum.4851:00000000 $d
+    {standard input}:1361   .bss.bottom_sum.4851:00000000 bottom_sum.4851
+    {standard input}:1364   .bss.top_sum.4850:00000000 $d
+    {standard input}:1368   .bss.top_sum.4850:00000000 top_sum.4850
+    {standard input}:1371   .bss.x_increment.4849:00000000 $d
+    {standard input}:1375   .bss.x_increment.4849:00000000 x_increment.4849
+    {standard input}:1378   .bss.i.4819:00000000 $d
+    {standard input}:1382   .bss.i.4819:00000000 i.4819
+    {standard input}:1385   .bss.current_x.4848:00000000 $d
+    {standard input}:1389   .bss.current_x.4848:00000000 current_x.4848
+    {standard input}:1392   .bss.i.4847:00000000 $d
+    {standard input}:1396   .bss.i.4847:00000000 i.4847
+    {standard input}:1399   .bss.truth_value.4852:00000000 $d
+    {standard input}:1403   .bss.truth_value.4852:00000000 truth_value.4852
+
+UNDEFINED SYMBOLS
+malloc
+memset

@@ -1,0 +1,91 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "syscalls.c"
+  16              	 .section .text._sbrk,"ax",%progbits
+  17              	 .align 2
+  18              	 .global _sbrk
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	_sbrk:
+  23              	 
+  24              	 
+  25 0000 0C4A     	 ldr r2,.L8
+  26 0002 08B5     	 push {r3,lr}
+  27 0004 1368     	 ldr r3,[r2]
+  28 0006 8BB1     	 cbz r3,.L7
+  29              	.L2:
+  30 0008 0330     	 adds r0,r0,#3
+  31 000a 20F00300 	 bic r0,r0,#3
+  32 000e 0A49     	 ldr r1,.L8+4
+  33 0010 1844     	 add r0,r0,r3
+  34 0012 8842     	 cmp r0,r1
+  35 0014 02D2     	 bcs .L3
+  36 0016 1060     	 str r0,[r2]
+  37 0018 1846     	 mov r0,r3
+  38 001a 08BD     	 pop {r3,pc}
+  39              	.L3:
+  40 001c FFF7FEFF 	 bl __errno
+  41 0020 0C23     	 movs r3,#12
+  42 0022 0360     	 str r3,[r0]
+  43 0024 4FF0FF33 	 mov r3,#-1
+  44 0028 1846     	 mov r0,r3
+  45 002a 08BD     	 pop {r3,pc}
+  46              	.L7:
+  47 002c 034B     	 ldr r3,.L8+8
+  48 002e 1360     	 str r3,[r2]
+  49 0030 EAE7     	 b .L2
+  50              	.L9:
+  51 0032 00BF     	 .align 2
+  52              	.L8:
+  53 0034 00000000 	 .word .LANCHOR0
+  54 0038 00000000 	 .word Heap_Bank1_End
+  55 003c 00000000 	 .word Heap_Bank1_Start
+  57              	 .section .text._init,"ax",%progbits
+  58              	 .align 2
+  59              	 .global _init
+  60              	 .thumb
+  61              	 .thumb_func
+  63              	_init:
+  64              	 
+  65              	 
+  66              	 
+  67 0000 7047     	 bx lr
+  69              	 .weak __dso_handle
+  70 0002 00BF     	 .section .bss.__dso_handle,"aw",%nobits
+  71              	 .align 2
+  74              	__dso_handle:
+  75 0000 00000000 	 .space 4
+  76              	 .section .bss.heap_ptr.4331,"aw",%nobits
+  77              	 .align 2
+  78              	 .set .LANCHOR0,.+0
+  81              	heap_ptr.4331:
+  82 0000 00000000 	 .space 4
+  83              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 syscalls.c
+    {standard input}:17     .text._sbrk:00000000 $t
+    {standard input}:22     .text._sbrk:00000000 _sbrk
+    {standard input}:53     .text._sbrk:00000034 $d
+    {standard input}:58     .text._init:00000000 $t
+    {standard input}:63     .text._init:00000000 _init
+    {standard input}:74     .bss.__dso_handle:00000000 __dso_handle
+    {standard input}:71     .bss.__dso_handle:00000000 $d
+    {standard input}:77     .bss.heap_ptr.4331:00000000 $d
+    {standard input}:81     .bss.heap_ptr.4331:00000000 heap_ptr.4331
+
+UNDEFINED SYMBOLS
+__errno
+Heap_Bank1_End
+Heap_Bank1_Start

@@ -1,0 +1,1046 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "GUI_X.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.GUI_X_GetTime,"ax",%progbits
+  20              	 .align 2
+  21              	 .global GUI_X_GetTime
+  22              	 .thumb
+  23              	 .thumb_func
+  25              	GUI_X_GetTime:
+  26              	.LFB133:
+  27              	 .file 1 "../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c"
+   1:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /*********************************************************************
+   2:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *                SEGGER Microcontroller GmbH & Co. KG                *
+   3:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *        Solutions for real time microcontroller applications        *
+   4:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** **********************************************************************
+   5:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *                                                                    *
+   6:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *        (c) 1996 - 2015  SEGGER Microcontroller GmbH & Co. KG       *
+   7:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *                                                                    *
+   8:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *        Internet: www.segger.com    Support:  support@segger.com    *
+   9:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *                                                                    *
+  10:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** **********************************************************************
+  11:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+  12:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** ** emWin V5.30 - Graphical user interface for embedded applications **
+  13:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** All  Intellectual Property rights  in the Software  belongs to SEGGER.
+  14:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** emWin is protected by international copyright laws.
+  15:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+  16:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** This  file  has been  licensed to  Infineon Technologies AG,  a german
+  17:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** company at the address Am Campeon 1-12 in 85579 Neubiberg, Germany and
+  18:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** is  sublicensed  and  distributed  by   Infineon  Technologies  AG  in
+  19:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** accordance with the DAVE (TM) 3 Software License Agreement to be used 
+  20:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** for and with Infineon's Cortex-M0, M0+ and M4 based 32-bit microcon-
+  21:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** troller products only.
+  22:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+  23:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** Full source code is available at: www.segger.com
+  24:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+  25:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** We appreciate your understanding and fairness.
+  26:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** ----------------------------------------------------------------------*/
+  27:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /**
+  28:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * @cond
+  29:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  **************************************************************************************************
+  30:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *
+  31:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * Copyright (c) 2015, Infineon Technologies AG
+  32:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * All rights reserved.
+  33:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *
+  34:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  35:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * following conditions are met:
+  36:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *
+  37:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *   Redistributions of source code must retain the above copyright notice, this list of conditions
+  38:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *   disclaimer.
+  39:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *
+  40:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *   Redistributions in binary form must reproduce the above copyright notice, this list of conditi
+  41:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *   following disclaimer in the documentation and/or other materials provided with the distributio
+  42:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *
+  43:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *   Neither the name of the copyright holders nor the names of its contributors may be used to end
+  44:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *   products derived from this software without specific prior written permission.
+  45:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *
+  46:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  47:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  48:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  49:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  50:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  51:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  52:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  53:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *
+  54:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  55:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * with Infineon Technologies AG (dave@infineon.com).
+  56:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  **************************************************************************************************
+  57:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *
+  58:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * Change History
+  59:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * --------------
+  60:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *
+  61:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * 2015-02-16:
+  62:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *     - Initial version<br>
+  63:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *
+  64:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * 2015-05-18:
+  65:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *     - GUI_X_Delay is modified
+  66:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * @endcond
+  67:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  *
+  68:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  */
+  69:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /**************************************************************************************************
+  70:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * HEADER FILES
+  71:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  **************************************************************************************************
+  72:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #include <xmc_common.h>
+  73:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #include "GUI.h"
+  74:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #include "../gui_seggerlibrary_conf.h"
+  75:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #if (GUI_SEGGERLIBRARY_RTOS_PRESENT == 0)
+  76:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #include "SYSTIMER/systimer.h"
+  77:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #endif
+  78:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+  79:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #if (CMSIS_RTOS_RTX_PRESENT == 1)
+  80:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /* CMSIS_RTOS_RTX include files */
+  81:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #include "CMSIS_RTOS_RTX/cmsis_rtos_rtx.h"
+  82:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #include "CMSIS_RTOS_RTX/SRC/rt_Time.h"
+  83:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+  84:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #define SEMAPHORE_BLK_TIME   1000
+  85:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /** Lock Semaphore */
+  86:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** osSemaphoreDef(LockSemaphore);
+  87:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** osSemaphoreId LockSemaphoreId;
+  88:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** int LockSemaphoreIndex;
+  89:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #endif
+  90:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+  91:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #if (FREERTOS_PRESENT == 1)
+  92:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /* FreeRTOS include files */
+  93:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #include "FREERTOS/FreeRTOS.h"
+  94:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #include "FREERTOS/task.h"
+  95:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #include "FREERTOS/timers.h"
+  96:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #include "FREERTOS/semphr.h"
+  97:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #endif
+  98:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /**************************************************************************************************
+  99:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * MACROS
+ 100:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  **************************************************************************************************
+ 101:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  /*************************************************************************************************
+ 102:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * LOCAL DATA
+ 103:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  **************************************************************************************************
+ 104:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #if ((GUI_SEGGERLIBRARY_RTOS_PRESENT == 0) || (CMSIS_RTOS_RTX_PRESENT == 1))
+ 105:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** volatile uint32_t OS_TimeMS;
+ 106:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #endif
+ 107:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 108:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #if (FREERTOS_PRESENT == 1)
+ 109:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** static xSemaphoreHandle xQueueMutex;
+ 110:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** static xSemaphoreHandle xSemaTxDone;
+ 111:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #endif
+ 112:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 113:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /**************************************************************************************************
+ 114:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  * LOCAL ROUTINES
+ 115:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****  **************************************************************************************************
+ 116:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 117:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /*********************************************************************
+ 118:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *
+ 119:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *      Timing:
+ 120:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *                 GUI_X_GetTime()
+ 121:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *                 GUI_X_Delay(int)
+ 122:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 123:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   Some timing dependent routines require a GetTime
+ 124:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   and delay function. Default time unit (tick), normally is
+ 125:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   1 ms.
+ 126:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** */
+ 127:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #if (GUI_SEGGERLIBRARY_RTOS_PRESENT == 0)
+ 128:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /* Non-RTOS */
+ 129:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** int GUI_X_GetTime(void) {
+ 130:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   OS_TimeMS = SYSTIMER_GetTime();
+ 131:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   return OS_TimeMS;
+ 132:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 133:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 134:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_Delay(int ms) {
+ 135:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   uint32_t tStart = OS_TimeMS;
+ 136:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   ms = ms * 1000;
+ 137:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   do
+ 138:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   {
+ 139:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****     OS_TimeMS = SYSTIMER_GetTime();
+ 140:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   }
+ 141:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   while ((OS_TimeMS-tStart) < ms );
+ 142:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 143:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #endif
+ 144:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 145:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #if (CMSIS_RTOS_RTX_PRESENT == 1)
+ 146:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /* CMSIS RTOS support */
+ 147:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** int GUI_X_GetTime(void)
+ 148:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 149:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 	return OS_TimeMS++;
+ 150:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 151:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 152:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_Delay(int ms)
+ 153:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 154:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 	osDelay( ms );
+ 155:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 	OS_TimeMS += ms;
+ 156:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 157:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #endif
+ 158:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 159:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #if (FREERTOS_PRESENT == 1)
+ 160:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /* FreeRTOS support */
+ 161:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** int GUI_X_GetTime(void)
+ 162:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+  28              	 .loc 1 162 0
+  29              	 .cfi_startproc
+  30              	 
+  31              	 
+  32              	 
+ 163:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   return ((int) xTaskGetTickCount());
+  33              	 .loc 1 163 0
+  34 0000 FFF7FEBF 	 b xTaskGetTickCount
+  35              	.LVL0:
+  36              	 .cfi_endproc
+  37              	.LFE133:
+  39              	 .section .text.GUI_X_Delay,"ax",%progbits
+  40              	 .align 2
+  41              	 .global GUI_X_Delay
+  42              	 .thumb
+  43              	 .thumb_func
+  45              	GUI_X_Delay:
+  46              	.LFB134:
+ 164:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 165:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 166:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_Delay(int ms)
+ 167:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+  47              	 .loc 1 167 0
+  48              	 .cfi_startproc
+  49              	 
+  50              	 
+  51              	 
+  52              	.LVL1:
+ 168:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 	vTaskDelay( ms );
+  53              	 .loc 1 168 0
+  54 0000 FFF7FEBF 	 b vTaskDelay
+  55              	.LVL2:
+  56              	 .cfi_endproc
+  57              	.LFE134:
+  59              	 .section .text.GUI_X_Init,"ax",%progbits
+  60              	 .align 2
+  61              	 .global GUI_X_Init
+  62              	 .thumb
+  63              	 .thumb_func
+  65              	GUI_X_Init:
+  66              	.LFB135:
+ 169:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 170:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #endif
+ 171:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /*********************************************************************
+ 172:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *
+ 173:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *       GUI_X_Init()
+ 174:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *
+ 175:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * Note:
+ 176:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *     GUI_X_Init() is called from GUI_Init is a possibility to init
+ 177:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *     some hardware which needs to be up and running before the GUI.
+ 178:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *     If not required, leave this routine blank.
+ 179:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** */
+ 180:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 181:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_Init(void) {}
+  67              	 .loc 1 181 0
+  68              	 .cfi_startproc
+  69              	 
+  70              	 
+  71              	 
+  72 0000 7047     	 bx lr
+  73              	 .cfi_endproc
+  74              	.LFE135:
+  76 0002 00BF     	 .section .text.GUI_X_ExecIdle,"ax",%progbits
+  77              	 .align 2
+  78              	 .global GUI_X_ExecIdle
+  79              	 .thumb
+  80              	 .thumb_func
+  82              	GUI_X_ExecIdle:
+  83              	.LFB136:
+ 182:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 183:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 184:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /*********************************************************************
+ 185:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *
+ 186:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *       GUI_X_ExecIdle
+ 187:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *
+ 188:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * Note:
+ 189:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *  Called if WM is in idle state
+ 190:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** */
+ 191:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 192:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_ExecIdle(void) {}
+  84              	 .loc 1 192 0
+  85              	 .cfi_startproc
+  86              	 
+  87              	 
+  88              	 
+  89 0000 7047     	 bx lr
+  90              	 .cfi_endproc
+  91              	.LFE136:
+  93 0002 00BF     	 .section .text.GUI_X_InitOS,"ax",%progbits
+  94              	 .align 2
+  95              	 .global GUI_X_InitOS
+  96              	 .thumb
+  97              	 .thumb_func
+  99              	GUI_X_InitOS:
+ 100              	.LFB137:
+ 193:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 194:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 195:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /*********************************************************************
+ 196:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *
+ 197:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * Multitasking:
+ 198:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *
+ 199:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * GUI_X_InitOS()
+ 200:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * GUI_X_GetTaskId()
+ 201:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * GUI_X_Lock()
+ 202:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * GUI_X_Unlock()
+ 203:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *
+ 204:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * Note:
+ 205:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * The following routines are required only if emWin is used in a
+ 206:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * true multi task environment, which means you have more than one
+ 207:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * thread using the emWin API.
+ 208:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * In this case the
+ 209:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * #define GUI_OS 1
+ 210:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** * needs to be in GUIConf.h
+ 211:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** */
+ 212:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #if (CMSIS_RTOS_RTX_PRESENT == 1)
+ 213:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /* CMSIS RTOS Init OS */
+ 214:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_InitOS(void)
+ 215:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 216:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   /* Create Lock Semaphore */
+ 217:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   LockSemaphoreId = osSemaphoreCreate (osSemaphore(LockSemaphore), 1);
+ 218:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 219:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 220:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_Unlock(void)
+ 221:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 222:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   /* Release the Lock Semaphore */
+ 223:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   osSemaphoreRelease(LockSemaphoreId);
+ 224:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 225:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 226:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_Lock(void)
+ 227:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 228:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   /* Take the Lock semaphore  */
+ 229:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   LockSemaphoreIndex = osSemaphoreWait(LockSemaphoreId, SEMAPHORE_BLK_TIME);
+ 230:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 231:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 232:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /* Get Task handle */
+ 233:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** U32 GUI_X_GetTaskId(void)
+ 234:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 235:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 	return 1;
+ 236:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 237:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #endif
+ 238:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 239:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #if (FREERTOS_PRESENT == 1)
+ 240:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /* FreeRTOS Init OS */
+ 241:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_InitOS(void)
+ 242:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 101              	 .loc 1 242 0
+ 102              	 .cfi_startproc
+ 103              	 
+ 104              	 
+ 105              	 .loc 1 242 0
+ 106 0000 10B5     	 push {r4,lr}
+ 107              	.LCFI0:
+ 108              	 .cfi_def_cfa_offset 8
+ 109              	 .cfi_offset 4,-8
+ 110              	 .cfi_offset 14,-4
+ 243:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   /* Create Mutex lock */
+ 244:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   xQueueMutex = xSemaphoreCreateMutex();
+ 111              	 .loc 1 244 0
+ 112 0002 0120     	 movs r0,#1
+ 113 0004 FFF7FEFF 	 bl xQueueCreateMutex
+ 114              	.LVL3:
+ 115 0008 124B     	 ldr r3,.L17
+ 116 000a 1860     	 str r0,[r3]
+ 245:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   configASSERT (xQueueMutex != NULL);
+ 117              	 .loc 1 245 0
+ 118 000c 78B1     	 cbz r0,.L16
+ 246:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 247:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   /* Queue Semaphore */
+ 248:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   vSemaphoreCreateBinary( xSemaTxDone );
+ 119              	 .loc 1 248 0
+ 120 000e 0120     	 movs r0,#1
+ 121 0010 0021     	 movs r1,#0
+ 122 0012 0322     	 movs r2,#3
+ 123 0014 FFF7FEFF 	 bl xQueueGenericCreate
+ 124              	.LVL4:
+ 125 0018 0F4C     	 ldr r4,.L17+4
+ 126 001a 2060     	 str r0,[r4]
+ 127 001c 80B1     	 cbz r0,.L8
+ 128              	 .loc 1 248 0 is_stmt 0 discriminator 1
+ 129 001e 0021     	 movs r1,#0
+ 130 0020 0B46     	 mov r3,r1
+ 131 0022 0A46     	 mov r2,r1
+ 132 0024 FFF7FEFF 	 bl xQueueGenericSend
+ 133              	.LVL5:
+ 249:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   configASSERT ( xSemaTxDone != NULL );
+ 134              	 .loc 1 249 0 is_stmt 1 discriminator 1
+ 135 0028 2368     	 ldr r3,[r4]
+ 136 002a 4BB1     	 cbz r3,.L8
+ 137 002c 10BD     	 pop {r4,pc}
+ 138              	.L16:
+ 139              	.LBB20:
+ 140              	.LBB21:
+ 141              	 .file 2 "C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS/portmacro.h"
+   1:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /*
+   2:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     FreeRTOS V9.0.0 - Copyright (C) 2016 Real Time Engineers Ltd.
+   3:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     All rights reserved
+   4:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+   5:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     VISIT http://www.FreeRTOS.org TO ENSURE YOU ARE USING THE LATEST VERSION.
+   6:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+   7:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     This file is part of the FreeRTOS distribution.
+   8:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+   9:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     FreeRTOS is free software; you can redistribute it and/or modify it under
+  10:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     the terms of the GNU General Public License (version 2) as published by the
+  11:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     Free Software Foundation >>>> AND MODIFIED BY <<<< the FreeRTOS exception.
+  12:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  13:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     ***************************************************************************
+  14:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     >>!   NOTE: The modification to the GPL is included to allow you to     !<<
+  15:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     >>!   distribute a combined work that includes FreeRTOS without being   !<<
+  16:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     >>!   obliged to provide the source code for proprietary components     !<<
+  17:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     >>!   outside of the FreeRTOS kernel.                                   !<<
+  18:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     ***************************************************************************
+  19:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  20:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     FreeRTOS is distributed in the hope that it will be useful, but WITHOUT ANY
+  21:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  22:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     FOR A PARTICULAR PURPOSE.  Full license text is available on the following
+  23:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     link: http://www.freertos.org/a00114.html
+  24:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  25:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     ***************************************************************************
+  26:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****      *                                                                       *
+  27:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****      *    FreeRTOS provides completely free yet professionally developed,    *
+  28:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****      *    robust, strictly quality controlled, supported, and cross          *
+  29:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****      *    platform software that is more than just the market leader, it     *
+  30:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****      *    is the industry's de facto standard.                               *
+  31:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****      *                                                                       *
+  32:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****      *    Help yourself get started quickly while simultaneously helping     *
+  33:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****      *    to support the FreeRTOS project by purchasing a FreeRTOS           *
+  34:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****      *    tutorial book, reference manual, or both:                          *
+  35:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****      *    http://www.FreeRTOS.org/Documentation                              *
+  36:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****      *                                                                       *
+  37:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     ***************************************************************************
+  38:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  39:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     http://www.FreeRTOS.org/FAQHelp.html - Having a problem?  Start by reading
+  40:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     the FAQ page "My application does not run, what could be wrong?".  Have you
+  41:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     defined configASSERT()?
+  42:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  43:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     http://www.FreeRTOS.org/support - In return for receiving this top quality
+  44:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     embedded software for free we request you assist our global community by
+  45:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     participating in the support forum.
+  46:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  47:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     http://www.FreeRTOS.org/training - Investing in training allows your team to
+  48:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     be as productive as possible as early as possible.  Now you can receive
+  49:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     FreeRTOS training directly from Richard Barry, CEO of Real Time Engineers
+  50:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     Ltd, and the world's leading authority on the world's leading RTOS.
+  51:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  52:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     http://www.FreeRTOS.org/plus - A selection of FreeRTOS ecosystem products,
+  53:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     including FreeRTOS+Trace - an indispensable productivity tool, a DOS
+  54:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     compatible FAT file system, and our tiny thread aware UDP/IP stack.
+  55:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  56:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     http://www.FreeRTOS.org/labs - Where new FreeRTOS products go to incubate.
+  57:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     Come and try FreeRTOS+TCP, our new open source TCP/IP stack for FreeRTOS.
+  58:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  59:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     http://www.OpenRTOS.com - Real Time Engineers ltd. license FreeRTOS to High
+  60:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     Integrity Systems ltd. to sell under the OpenRTOS brand.  Low cost OpenRTOS
+  61:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     licenses offer ticketed support, indemnification and commercial middleware.
+  62:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  63:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     http://www.SafeRTOS.com - High Integrity Systems also provide a safety
+  64:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     engineered and independently SIL3 certified version for use in safety and
+  65:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     mission critical applications that require provable dependability.
+  66:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  67:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****     1 tab == 4 spaces!
+  68:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** */
+  69:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #include "freertos_conf.h"
+  70:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  71:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #if FREERTOS_MPU_SUPPORT == 0
+  72:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  73:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #ifndef PORTMACRO_H
+  74:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define PORTMACRO_H
+  75:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  76:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #ifdef __cplusplus
+  77:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** extern "C" {
+  78:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #endif
+  79:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  80:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /*-----------------------------------------------------------
+  81:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****  * Port specific definitions.
+  82:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****  *
+  83:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****  * The settings in this file configure FreeRTOS correctly for the
+  84:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****  * given hardware and compiler.
+  85:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****  *
+  86:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****  * These settings should not be altered.
+  87:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****  *-----------------------------------------------------------
+  88:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h ****  */
+  89:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+  90:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #if defined( __GNUC__ )
+  91:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /* Type definitions. */
+  92:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portCHAR		char
+  93:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portFLOAT		float
+  94:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portDOUBLE		double
+  95:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portLONG		long
+  96:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portSHORT		short
+  97:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portSTACK_TYPE	uint32_t
+  98:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portBASE_TYPE	long
+  99:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 100:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** typedef portSTACK_TYPE StackType_t;
+ 101:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** typedef long BaseType_t;
+ 102:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** typedef unsigned long UBaseType_t;
+ 103:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 104:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #if( configUSE_16_BIT_TICKS == 1 )
+ 105:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	typedef uint16_t TickType_t;
+ 106:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#define portMAX_DELAY ( TickType_t ) 0xffff
+ 107:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #else
+ 108:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	typedef uint32_t TickType_t;
+ 109:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#define portMAX_DELAY ( TickType_t ) 0xffffffffUL
+ 110:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 111:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	/* 32-bit tick type on a 32-bit architecture, so reads of the tick count do
+ 112:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	not need to be guarded with a critical section. */
+ 113:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#define portTICK_TYPE_IS_ATOMIC 1
+ 114:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #endif
+ 115:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /*-----------------------------------------------------------*/
+ 116:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 117:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /* Architecture specifics. */
+ 118:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portSTACK_GROWTH			( -1 )
+ 119:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portTICK_PERIOD_MS			( ( TickType_t ) 1000 / configTICK_RATE_HZ )
+ 120:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portBYTE_ALIGNMENT			8
+ 121:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /*-----------------------------------------------------------*/
+ 122:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 123:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /* Scheduler utilities. */
+ 124:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portYIELD() 															\
+ 125:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** {																				\
+ 126:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	/* Set a PendSV to request a context switch. */								\
+ 127:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	portNVIC_INT_CTRL_REG = portNVIC_PENDSVSET_BIT;								\
+ 128:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 																				\
+ 129:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	/* Barriers are normally not required but do ensure the code is completely	\
+ 130:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	within the specified behaviour for the architecture. */						\
+ 131:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	__asm volatile( "dsb" );													\
+ 132:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	__asm volatile( "isb" );													\
+ 133:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** }
+ 134:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 135:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portNVIC_INT_CTRL_REG		( * ( ( volatile uint32_t * ) 0xe000ed04 ) )
+ 136:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portNVIC_PENDSVSET_BIT		( 1UL << 28UL )
+ 137:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portEND_SWITCHING_ISR( xSwitchRequired ) if( xSwitchRequired != pdFALSE ) portYIELD()
+ 138:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portYIELD_FROM_ISR( x ) portEND_SWITCHING_ISR( x )
+ 139:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /*-----------------------------------------------------------*/
+ 140:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 141:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /* Critical section management. */
+ 142:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** extern void vPortEnterCritical( void );
+ 143:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** extern void vPortExitCritical( void );
+ 144:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portSET_INTERRUPT_MASK_FROM_ISR()		ulPortRaiseBASEPRI()
+ 145:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortSetBASEPRI(x)
+ 146:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portDISABLE_INTERRUPTS()				vPortRaiseBASEPRI()
+ 147:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portENABLE_INTERRUPTS()					vPortSetBASEPRI(0)
+ 148:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portENTER_CRITICAL()					vPortEnterCritical()
+ 149:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portEXIT_CRITICAL()						vPortExitCritical()
+ 150:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 151:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /*-----------------------------------------------------------*/
+ 152:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 153:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /* Task function macros as described on the FreeRTOS.org WEB site.  These are
+ 154:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** not necessary for to use this port.  They are defined so the common demo files
+ 155:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** (which build with all the ports) will build. */
+ 156:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portTASK_FUNCTION_PROTO( vFunction, pvParameters ) void vFunction( void *pvParameters )
+ 157:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portTASK_FUNCTION( vFunction, pvParameters ) void vFunction( void *pvParameters )
+ 158:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /*-----------------------------------------------------------*/
+ 159:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 160:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /* Tickless idle/low power functionality. */
+ 161:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #ifndef portSUPPRESS_TICKS_AND_SLEEP
+ 162:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	extern void vPortSuppressTicksAndSleep( TickType_t xExpectedIdleTime );
+ 163:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#define portSUPPRESS_TICKS_AND_SLEEP( xExpectedIdleTime ) vPortSuppressTicksAndSleep( xExpectedIdl
+ 164:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #endif
+ 165:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /*-----------------------------------------------------------*/
+ 166:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 167:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /* Architecture specific optimisations. */
+ 168:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #ifndef configUSE_PORT_OPTIMISED_TASK_SELECTION
+ 169:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#define configUSE_PORT_OPTIMISED_TASK_SELECTION 1
+ 170:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #endif
+ 171:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 172:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #if configUSE_PORT_OPTIMISED_TASK_SELECTION == 1
+ 173:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 174:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	/* Generic helper function. */
+ 175:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	__attribute__( ( always_inline ) ) static inline uint8_t ucPortCountLeadingZeros( uint32_t ulBitma
+ 176:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	{
+ 177:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	uint8_t ucReturn;
+ 178:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 179:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 		__asm volatile ( "clz %0, %1" : "=r" ( ucReturn ) : "r" ( ulBitmap ) );
+ 180:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 		return ucReturn;
+ 181:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	}
+ 182:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 183:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	/* Check the configuration. */
+ 184:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#if( configMAX_PRIORITIES > 32 )
+ 185:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 		#error configUSE_PORT_OPTIMISED_TASK_SELECTION can only be set to 1 when configMAX_PRIORITIES is 
+ 186:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#endif
+ 187:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 188:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	/* Store/clear the ready priorities in a bit map. */
+ 189:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#define portRECORD_READY_PRIORITY( uxPriority, uxReadyPriorities ) ( uxReadyPriorities ) |= ( 1UL 
+ 190:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#define portRESET_READY_PRIORITY( uxPriority, uxReadyPriorities ) ( uxReadyPriorities ) &= ~( 1UL 
+ 191:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 192:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	/*-----------------------------------------------------------*/
+ 193:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 194:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#define portGET_HIGHEST_PRIORITY( uxTopPriority, uxReadyPriorities ) uxTopPriority = ( 31UL - ( ui
+ 195:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 196:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #endif /* configUSE_PORT_OPTIMISED_TASK_SELECTION */
+ 197:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 198:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /*-----------------------------------------------------------*/
+ 199:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 200:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #ifdef configASSERT
+ 201:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	void vPortValidateInterruptPriority( void );
+ 202:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#define portASSERT_IF_INTERRUPT_PRIORITY_INVALID() 	vPortValidateInterruptPriority()
+ 203:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #endif
+ 204:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 205:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /* portNOP() is not required by this port. */
+ 206:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portNOP()
+ 207:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 208:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #define portINLINE	__inline
+ 209:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 210:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #ifndef portFORCE_INLINE
+ 211:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	#define portFORCE_INLINE inline __attribute__(( always_inline))
+ 212:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** #endif
+ 213:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 214:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** portFORCE_INLINE static BaseType_t xPortIsInsideInterrupt( void )
+ 215:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** {
+ 216:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** uint32_t ulCurrentInterrupt;
+ 217:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** BaseType_t xReturn;
+ 218:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 219:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	/* Obtain the number of the currently executing interrupt. */
+ 220:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	__asm volatile( "mrs %0, ipsr" : "=r"( ulCurrentInterrupt ) );
+ 221:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 222:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	if( ulCurrentInterrupt == 0 )
+ 223:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	{
+ 224:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 		xReturn = pdFALSE;
+ 225:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	}
+ 226:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	else
+ 227:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	{
+ 228:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 		xReturn = pdTRUE;
+ 229:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	}
+ 230:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 231:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	return xReturn;
+ 232:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** }
+ 233:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 234:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** /*-----------------------------------------------------------*/
+ 235:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 236:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** portFORCE_INLINE static void vPortRaiseBASEPRI( void )
+ 237:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** {
+ 238:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** uint32_t ulNewBASEPRI;
+ 239:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 
+ 240:C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS\portmacro.h **** 	__asm volatile
+ 142              	 .loc 2 240 0
+ 143              	
+ 144 002e 4FF0FC03 	 mov r3,#252
+ 145 0032 83F31188 	 msr basepri,r3
+ 146 0036 BFF36F8F 	 isb 
+ 147 003a BFF34F8F 	 dsb 
+ 148              	
+ 149              	
+ 150              	.LVL6:
+ 151              	 .thumb
+ 152              	.L7:
+ 153 003e FEE7     	 b .L7
+ 154              	.L8:
+ 155              	.LBE21:
+ 156              	.LBE20:
+ 157              	.LBB22:
+ 158              	.LBB23:
+ 159              	
+ 160 0040 4FF0FC03 	 mov r3,#252
+ 161 0044 83F31188 	 msr basepri,r3
+ 162 0048 BFF36F8F 	 isb 
+ 163 004c BFF34F8F 	 dsb 
+ 164              	
+ 165              	
+ 166              	.LVL7:
+ 167              	 .thumb
+ 168              	.L10:
+ 169              	.LBE23:
+ 170              	.LBE22:
+ 171              	 .loc 1 249 0 discriminator 2
+ 172 0050 FEE7     	 b .L10
+ 173              	.L18:
+ 174 0052 00BF     	 .align 2
+ 175              	.L17:
+ 176 0054 00000000 	 .word .LANCHOR0
+ 177 0058 00000000 	 .word .LANCHOR1
+ 178              	 .cfi_endproc
+ 179              	.LFE137:
+ 181              	 .section .text.GUI_X_Unlock,"ax",%progbits
+ 182              	 .align 2
+ 183              	 .global GUI_X_Unlock
+ 184              	 .thumb
+ 185              	 .thumb_func
+ 187              	GUI_X_Unlock:
+ 188              	.LFB138:
+ 250:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 251:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 252:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_Unlock(void)
+ 253:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 189              	 .loc 1 253 0
+ 190              	 .cfi_startproc
+ 191              	 
+ 192              	 
+ 193              	 
+ 254:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   xSemaphoreGive( xQueueMutex );
+ 194              	 .loc 1 254 0
+ 195 0000 034B     	 ldr r3,.L20
+ 196 0002 0021     	 movs r1,#0
+ 197 0004 1868     	 ldr r0,[r3]
+ 198 0006 0A46     	 mov r2,r1
+ 199 0008 0B46     	 mov r3,r1
+ 200 000a FFF7FEBF 	 b xQueueGenericSend
+ 201              	.LVL8:
+ 202              	.L21:
+ 203 000e 00BF     	 .align 2
+ 204              	.L20:
+ 205 0010 00000000 	 .word .LANCHOR0
+ 206              	 .cfi_endproc
+ 207              	.LFE138:
+ 209              	 .section .text.GUI_X_Lock,"ax",%progbits
+ 210              	 .align 2
+ 211              	 .global GUI_X_Lock
+ 212              	 .thumb
+ 213              	 .thumb_func
+ 215              	GUI_X_Lock:
+ 216              	.LFB139:
+ 255:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 256:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 257:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_Lock(void)
+ 258:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 217              	 .loc 1 258 0
+ 218              	 .cfi_startproc
+ 219              	 
+ 220              	 
+ 221 0000 70B5     	 push {r4,r5,r6,lr}
+ 222              	.LCFI1:
+ 223              	 .cfi_def_cfa_offset 16
+ 224              	 .cfi_offset 4,-16
+ 225              	 .cfi_offset 5,-12
+ 226              	 .cfi_offset 6,-8
+ 227              	 .cfi_offset 14,-4
+ 259:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   if(xQueueMutex == NULL)
+ 228              	 .loc 1 259 0
+ 229 0002 1A4D     	 ldr r5,.L37
+ 230 0004 2C68     	 ldr r4,[r5]
+ 231 0006 44B1     	 cbz r4,.L35
+ 232              	.L23:
+ 260:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   {
+ 261:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****     GUI_X_InitOS();
+ 262:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   }
+ 263:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 264:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   xSemaphoreTake( xQueueMutex, portMAX_DELAY );
+ 233              	 .loc 1 264 0
+ 234 0008 0021     	 movs r1,#0
+ 235 000a 2046     	 mov r0,r4
+ 236 000c 0B46     	 mov r3,r1
+ 237 000e 4FF0FF32 	 mov r2,#-1
+ 265:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 238              	 .loc 1 265 0
+ 239 0012 BDE87040 	 pop {r4,r5,r6,lr}
+ 240              	.LCFI2:
+ 241              	 .cfi_remember_state
+ 242              	 .cfi_restore 14
+ 243              	 .cfi_restore 6
+ 244              	 .cfi_restore 5
+ 245              	 .cfi_restore 4
+ 246              	 .cfi_def_cfa_offset 0
+ 264:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 247              	 .loc 1 264 0
+ 248 0016 FFF7FEBF 	 b xQueueGenericReceive
+ 249              	.LVL9:
+ 250              	.L35:
+ 251              	.LCFI3:
+ 252              	 .cfi_restore_state
+ 253              	.LBB34:
+ 254              	.LBB35:
+ 244:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   configASSERT (xQueueMutex != NULL);
+ 255              	 .loc 1 244 0
+ 256 001a 0120     	 movs r0,#1
+ 257 001c FFF7FEFF 	 bl xQueueCreateMutex
+ 258              	.LVL10:
+ 259 0020 2860     	 str r0,[r5]
+ 245:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 260              	 .loc 1 245 0
+ 261 0022 80B1     	 cbz r0,.L36
+ 248:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   configASSERT ( xSemaTxDone != NULL );
+ 262              	 .loc 1 248 0
+ 263 0024 0120     	 movs r0,#1
+ 264 0026 2146     	 mov r1,r4
+ 265 0028 0322     	 movs r2,#3
+ 266 002a FFF7FEFF 	 bl xQueueGenericCreate
+ 267              	.LVL11:
+ 268 002e 104E     	 ldr r6,.L37+4
+ 269 0030 3060     	 str r0,[r6]
+ 270 0032 88B1     	 cbz r0,.L26
+ 271 0034 2346     	 mov r3,r4
+ 272 0036 2146     	 mov r1,r4
+ 273 0038 2246     	 mov r2,r4
+ 274 003a FFF7FEFF 	 bl xQueueGenericSend
+ 275              	.LVL12:
+ 249:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 276              	 .loc 1 249 0
+ 277 003e 3368     	 ldr r3,[r6]
+ 278 0040 53B1     	 cbz r3,.L26
+ 279 0042 2C68     	 ldr r4,[r5]
+ 280 0044 E0E7     	 b .L23
+ 281              	.L36:
+ 282              	.LBB36:
+ 283              	.LBB37:
+ 284              	 .loc 2 240 0
+ 285              	
+ 286 0046 4FF0FC03 	 mov r3,#252
+ 287 004a 83F31188 	 msr basepri,r3
+ 288 004e BFF36F8F 	 isb 
+ 289 0052 BFF34F8F 	 dsb 
+ 290              	
+ 291              	
+ 292              	.LVL13:
+ 293              	 .thumb
+ 294              	.L25:
+ 295 0056 FEE7     	 b .L25
+ 296              	.L26:
+ 297              	.LBE37:
+ 298              	.LBE36:
+ 299              	.LBB38:
+ 300              	.LBB39:
+ 301              	
+ 302 0058 4FF0FC03 	 mov r3,#252
+ 303 005c 83F31188 	 msr basepri,r3
+ 304 0060 BFF36F8F 	 isb 
+ 305 0064 BFF34F8F 	 dsb 
+ 306              	
+ 307              	
+ 308              	.LVL14:
+ 309              	 .thumb
+ 310              	.L27:
+ 311 0068 FEE7     	 b .L27
+ 312              	.L38:
+ 313 006a 00BF     	 .align 2
+ 314              	.L37:
+ 315 006c 00000000 	 .word .LANCHOR0
+ 316 0070 00000000 	 .word .LANCHOR1
+ 317              	.LBE39:
+ 318              	.LBE38:
+ 319              	.LBE35:
+ 320              	.LBE34:
+ 321              	 .cfi_endproc
+ 322              	.LFE139:
+ 324              	 .section .text.GUI_X_GetTaskId,"ax",%progbits
+ 325              	 .align 2
+ 326              	 .global GUI_X_GetTaskId
+ 327              	 .thumb
+ 328              	 .thumb_func
+ 330              	GUI_X_GetTaskId:
+ 331              	.LFB140:
+ 266:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 267:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /* Get Task handle */
+ 268:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** U32 GUI_X_GetTaskId(void)
+ 269:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 332              	 .loc 1 269 0
+ 333              	 .cfi_startproc
+ 334              	 
+ 335              	 
+ 336              	 
+ 270:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   return ((U32) xTaskGetCurrentTaskHandle());
+ 337              	 .loc 1 270 0
+ 338 0000 FFF7FEBF 	 b xTaskGetCurrentTaskHandle
+ 339              	.LVL15:
+ 340              	 .cfi_endproc
+ 341              	.LFE140:
+ 343              	 .section .text.GUI_X_WaitEvent,"ax",%progbits
+ 344              	 .align 2
+ 345              	 .global GUI_X_WaitEvent
+ 346              	 .thumb
+ 347              	 .thumb_func
+ 349              	GUI_X_WaitEvent:
+ 350              	.LFB141:
+ 271:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 272:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 273:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_WaitEvent (void)
+ 274:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 351              	 .loc 1 274 0
+ 352              	 .cfi_startproc
+ 353              	 
+ 354              	 
+ 355 0000 10B5     	 push {r4,lr}
+ 356              	.LCFI4:
+ 357              	 .cfi_def_cfa_offset 8
+ 358              	 .cfi_offset 4,-8
+ 359              	 .cfi_offset 14,-4
+ 360 0002 054C     	 ldr r4,.L44
+ 361              	.L41:
+ 275:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   while( xSemaphoreTake(xSemaTxDone, portMAX_DELAY ) != pdTRUE );
+ 362              	 .loc 1 275 0 discriminator 1
+ 363 0004 2068     	 ldr r0,[r4]
+ 364 0006 0021     	 movs r1,#0
+ 365 0008 0B46     	 mov r3,r1
+ 366 000a 4FF0FF32 	 mov r2,#-1
+ 367 000e FFF7FEFF 	 bl xQueueGenericReceive
+ 368              	.LVL16:
+ 369 0012 0128     	 cmp r0,#1
+ 370 0014 F6D1     	 bne .L41
+ 276:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 371              	 .loc 1 276 0
+ 372 0016 10BD     	 pop {r4,pc}
+ 373              	.L45:
+ 374              	 .align 2
+ 375              	.L44:
+ 376 0018 00000000 	 .word .LANCHOR1
+ 377              	 .cfi_endproc
+ 378              	.LFE141:
+ 380              	 .section .text.GUI_X_SignalEvent,"ax",%progbits
+ 381              	 .align 2
+ 382              	 .global GUI_X_SignalEvent
+ 383              	 .thumb
+ 384              	 .thumb_func
+ 386              	GUI_X_SignalEvent:
+ 387              	.LFB142:
+ 277:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 278:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 279:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_SignalEvent (void)
+ 280:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** {
+ 388              	 .loc 1 280 0
+ 389              	 .cfi_startproc
+ 390              	 
+ 391              	 
+ 392              	 
+ 281:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   xSemaphoreGive( xSemaTxDone );
+ 393              	 .loc 1 281 0
+ 394 0000 034B     	 ldr r3,.L47
+ 395 0002 0021     	 movs r1,#0
+ 396 0004 1868     	 ldr r0,[r3]
+ 397 0006 0A46     	 mov r2,r1
+ 398 0008 0B46     	 mov r3,r1
+ 399 000a FFF7FEBF 	 b xQueueGenericSend
+ 400              	.LVL17:
+ 401              	.L48:
+ 402 000e 00BF     	 .align 2
+ 403              	.L47:
+ 404 0010 00000000 	 .word .LANCHOR1
+ 405              	 .cfi_endproc
+ 406              	.LFE142:
+ 408              	 .section .text.GUI_X_Log,"ax",%progbits
+ 409              	 .align 2
+ 410              	 .global GUI_X_Log
+ 411              	 .thumb
+ 412              	 .thumb_func
+ 414              	GUI_X_Log:
+ 415              	.LFB143:
+ 282:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** }
+ 283:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** #endif
+ 284:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 285:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** /*********************************************************************
+ 286:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *
+ 287:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** *      Logging: OS dependent
+ 288:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 289:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** Note:
+ 290:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   Logging is used in higher debug levels only. The typical target
+ 291:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   build does not use logging and does therefor not require any of
+ 292:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   the logging routines below. For a release build without logging
+ 293:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   the routines below may be eliminated to save some space.
+ 294:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   (If the linker is not function aware and eliminates unreferenced
+ 295:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c ****   functions automatically)
+ 296:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 297:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** */
+ 298:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** 
+ 299:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_Log     (const char *s) { GUI_USE_PARA(s); }
+ 416              	 .loc 1 299 0
+ 417              	 .cfi_startproc
+ 418              	 
+ 419              	 
+ 420              	 
+ 421              	.LVL18:
+ 422 0000 7047     	 bx lr
+ 423              	 .cfi_endproc
+ 424              	.LFE143:
+ 426 0002 00BF     	 .section .text.GUI_X_Warn,"ax",%progbits
+ 427              	 .align 2
+ 428              	 .global GUI_X_Warn
+ 429              	 .thumb
+ 430              	 .thumb_func
+ 432              	GUI_X_Warn:
+ 433              	.LFB144:
+ 300:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_Warn    (const char *s) { GUI_USE_PARA(s); }
+ 434              	 .loc 1 300 0
+ 435              	 .cfi_startproc
+ 436              	 
+ 437              	 
+ 438              	 
+ 439              	.LVL19:
+ 440 0000 7047     	 bx lr
+ 441              	 .cfi_endproc
+ 442              	.LFE144:
+ 444 0002 00BF     	 .section .text.GUI_X_ErrorOut,"ax",%progbits
+ 445              	 .align 2
+ 446              	 .global GUI_X_ErrorOut
+ 447              	 .thumb
+ 448              	 .thumb_func
+ 450              	GUI_X_ErrorOut:
+ 451              	.LFB145:
+ 301:../Dave/Generated/GUI_SEGGERLIBRARY/Config/GUI_X.c **** void GUI_X_ErrorOut(const char *s) { GUI_USE_PARA(s); }
+ 452              	 .loc 1 301 0
+ 453              	 .cfi_startproc
+ 454              	 
+ 455              	 
+ 456              	 
+ 457              	.LVL20:
+ 458 0000 7047     	 bx lr
+ 459              	 .cfi_endproc
+ 460              	.LFE145:
+ 462 0002 00BF     	 .section .bss.xSemaTxDone,"aw",%nobits
+ 463              	 .align 2
+ 464              	 .set .LANCHOR1,.+0
+ 467              	xSemaTxDone:
+ 468 0000 00000000 	 .space 4
+ 469              	 .section .bss.xQueueMutex,"aw",%nobits
+ 470              	 .align 2
+ 471              	 .set .LANCHOR0,.+0
+ 474              	xQueueMutex:
+ 475 0000 00000000 	 .space 4
+ 476              	 .text
+ 477              	.Letext0:
+ 478              	 .file 3 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 479              	 .file 4 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 480              	 .file 5 "C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS/task.h"
+ 481              	 .file 6 "C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS/queue.h"
+ 482              	 .file 7 "C:/Workspaces/Dave 4/CTPOT_test1/Dave/Generated/FREERTOS/semphr.h"
+ 483              	 .file 8 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/CMSIS/Include/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 GUI_X.c
+    {standard input}:20     .text.GUI_X_GetTime:00000000 $t
+    {standard input}:25     .text.GUI_X_GetTime:00000000 GUI_X_GetTime
+    {standard input}:40     .text.GUI_X_Delay:00000000 $t
+    {standard input}:45     .text.GUI_X_Delay:00000000 GUI_X_Delay
+    {standard input}:60     .text.GUI_X_Init:00000000 $t
+    {standard input}:65     .text.GUI_X_Init:00000000 GUI_X_Init
+    {standard input}:77     .text.GUI_X_ExecIdle:00000000 $t
+    {standard input}:82     .text.GUI_X_ExecIdle:00000000 GUI_X_ExecIdle
+    {standard input}:94     .text.GUI_X_InitOS:00000000 $t
+    {standard input}:99     .text.GUI_X_InitOS:00000000 GUI_X_InitOS
+    {standard input}:176    .text.GUI_X_InitOS:00000054 $d
+    {standard input}:182    .text.GUI_X_Unlock:00000000 $t
+    {standard input}:187    .text.GUI_X_Unlock:00000000 GUI_X_Unlock
+    {standard input}:205    .text.GUI_X_Unlock:00000010 $d
+    {standard input}:210    .text.GUI_X_Lock:00000000 $t
+    {standard input}:215    .text.GUI_X_Lock:00000000 GUI_X_Lock
+    {standard input}:315    .text.GUI_X_Lock:0000006c $d
+    {standard input}:325    .text.GUI_X_GetTaskId:00000000 $t
+    {standard input}:330    .text.GUI_X_GetTaskId:00000000 GUI_X_GetTaskId
+    {standard input}:344    .text.GUI_X_WaitEvent:00000000 $t
+    {standard input}:349    .text.GUI_X_WaitEvent:00000000 GUI_X_WaitEvent
+    {standard input}:376    .text.GUI_X_WaitEvent:00000018 $d
+    {standard input}:381    .text.GUI_X_SignalEvent:00000000 $t
+    {standard input}:386    .text.GUI_X_SignalEvent:00000000 GUI_X_SignalEvent
+    {standard input}:404    .text.GUI_X_SignalEvent:00000010 $d
+    {standard input}:409    .text.GUI_X_Log:00000000 $t
+    {standard input}:414    .text.GUI_X_Log:00000000 GUI_X_Log
+    {standard input}:427    .text.GUI_X_Warn:00000000 $t
+    {standard input}:432    .text.GUI_X_Warn:00000000 GUI_X_Warn
+    {standard input}:445    .text.GUI_X_ErrorOut:00000000 $t
+    {standard input}:450    .text.GUI_X_ErrorOut:00000000 GUI_X_ErrorOut
+    {standard input}:463    .bss.xSemaTxDone:00000000 $d
+    {standard input}:467    .bss.xSemaTxDone:00000000 xSemaTxDone
+    {standard input}:470    .bss.xQueueMutex:00000000 $d
+    {standard input}:474    .bss.xQueueMutex:00000000 xQueueMutex
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+xTaskGetTickCount
+vTaskDelay
+xQueueCreateMutex
+xQueueGenericCreate
+xQueueGenericSend
+xQueueGenericReceive
+xTaskGetCurrentTaskHandle

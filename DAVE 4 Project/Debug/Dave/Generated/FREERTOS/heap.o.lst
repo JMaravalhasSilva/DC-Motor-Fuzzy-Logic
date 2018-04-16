@@ -1,0 +1,257 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "heap.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.pvPortMalloc,"ax",%progbits
+  20              	 .align 2
+  21              	 .global pvPortMalloc
+  22              	 .thumb
+  23              	 .thumb_func
+  25              	pvPortMalloc:
+  26              	.LFB128:
+  27              	 .file 1 "../Dave/Generated/FREERTOS/heap_3.h"
+   1:../Dave/Generated/FREERTOS/heap_3.h **** /*
+   2:../Dave/Generated/FREERTOS/heap_3.h ****     FreeRTOS V9.0.0 - Copyright (C) 2016 Real Time Engineers Ltd.
+   3:../Dave/Generated/FREERTOS/heap_3.h ****     All rights reserved
+   4:../Dave/Generated/FREERTOS/heap_3.h **** 
+   5:../Dave/Generated/FREERTOS/heap_3.h ****     VISIT http://www.FreeRTOS.org TO ENSURE YOU ARE USING THE LATEST VERSION.
+   6:../Dave/Generated/FREERTOS/heap_3.h **** 
+   7:../Dave/Generated/FREERTOS/heap_3.h ****     This file is part of the FreeRTOS distribution.
+   8:../Dave/Generated/FREERTOS/heap_3.h **** 
+   9:../Dave/Generated/FREERTOS/heap_3.h ****     FreeRTOS is free software; you can redistribute it and/or modify it under
+  10:../Dave/Generated/FREERTOS/heap_3.h ****     the terms of the GNU General Public License (version 2) as published by the
+  11:../Dave/Generated/FREERTOS/heap_3.h ****     Free Software Foundation >>>> AND MODIFIED BY <<<< the FreeRTOS exception.
+  12:../Dave/Generated/FREERTOS/heap_3.h **** 
+  13:../Dave/Generated/FREERTOS/heap_3.h ****     ***************************************************************************
+  14:../Dave/Generated/FREERTOS/heap_3.h ****     >>!   NOTE: The modification to the GPL is included to allow you to     !<<
+  15:../Dave/Generated/FREERTOS/heap_3.h ****     >>!   distribute a combined work that includes FreeRTOS without being   !<<
+  16:../Dave/Generated/FREERTOS/heap_3.h ****     >>!   obliged to provide the source code for proprietary components     !<<
+  17:../Dave/Generated/FREERTOS/heap_3.h ****     >>!   outside of the FreeRTOS kernel.                                   !<<
+  18:../Dave/Generated/FREERTOS/heap_3.h ****     ***************************************************************************
+  19:../Dave/Generated/FREERTOS/heap_3.h **** 
+  20:../Dave/Generated/FREERTOS/heap_3.h ****     FreeRTOS is distributed in the hope that it will be useful, but WITHOUT ANY
+  21:../Dave/Generated/FREERTOS/heap_3.h ****     WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  22:../Dave/Generated/FREERTOS/heap_3.h ****     FOR A PARTICULAR PURPOSE.  Full license text is available on the following
+  23:../Dave/Generated/FREERTOS/heap_3.h ****     link: http://www.freertos.org/a00114.html
+  24:../Dave/Generated/FREERTOS/heap_3.h **** 
+  25:../Dave/Generated/FREERTOS/heap_3.h ****     ***************************************************************************
+  26:../Dave/Generated/FREERTOS/heap_3.h ****      *                                                                       *
+  27:../Dave/Generated/FREERTOS/heap_3.h ****      *    FreeRTOS provides completely free yet professionally developed,    *
+  28:../Dave/Generated/FREERTOS/heap_3.h ****      *    robust, strictly quality controlled, supported, and cross          *
+  29:../Dave/Generated/FREERTOS/heap_3.h ****      *    platform software that is more than just the market leader, it     *
+  30:../Dave/Generated/FREERTOS/heap_3.h ****      *    is the industry's de facto standard.                               *
+  31:../Dave/Generated/FREERTOS/heap_3.h ****      *                                                                       *
+  32:../Dave/Generated/FREERTOS/heap_3.h ****      *    Help yourself get started quickly while simultaneously helping     *
+  33:../Dave/Generated/FREERTOS/heap_3.h ****      *    to support the FreeRTOS project by purchasing a FreeRTOS           *
+  34:../Dave/Generated/FREERTOS/heap_3.h ****      *    tutorial book, reference manual, or both:                          *
+  35:../Dave/Generated/FREERTOS/heap_3.h ****      *    http://www.FreeRTOS.org/Documentation                              *
+  36:../Dave/Generated/FREERTOS/heap_3.h ****      *                                                                       *
+  37:../Dave/Generated/FREERTOS/heap_3.h ****     ***************************************************************************
+  38:../Dave/Generated/FREERTOS/heap_3.h **** 
+  39:../Dave/Generated/FREERTOS/heap_3.h ****     http://www.FreeRTOS.org/FAQHelp.html - Having a problem?  Start by reading
+  40:../Dave/Generated/FREERTOS/heap_3.h ****     the FAQ page "My application does not run, what could be wrong?".  Have you
+  41:../Dave/Generated/FREERTOS/heap_3.h ****     defined configASSERT()?
+  42:../Dave/Generated/FREERTOS/heap_3.h **** 
+  43:../Dave/Generated/FREERTOS/heap_3.h ****     http://www.FreeRTOS.org/support - In return for receiving this top quality
+  44:../Dave/Generated/FREERTOS/heap_3.h ****     embedded software for free we request you assist our global community by
+  45:../Dave/Generated/FREERTOS/heap_3.h ****     participating in the support forum.
+  46:../Dave/Generated/FREERTOS/heap_3.h **** 
+  47:../Dave/Generated/FREERTOS/heap_3.h ****     http://www.FreeRTOS.org/training - Investing in training allows your team to
+  48:../Dave/Generated/FREERTOS/heap_3.h ****     be as productive as possible as early as possible.  Now you can receive
+  49:../Dave/Generated/FREERTOS/heap_3.h ****     FreeRTOS training directly from Richard Barry, CEO of Real Time Engineers
+  50:../Dave/Generated/FREERTOS/heap_3.h ****     Ltd, and the world's leading authority on the world's leading RTOS.
+  51:../Dave/Generated/FREERTOS/heap_3.h **** 
+  52:../Dave/Generated/FREERTOS/heap_3.h ****     http://www.FreeRTOS.org/plus - A selection of FreeRTOS ecosystem products,
+  53:../Dave/Generated/FREERTOS/heap_3.h ****     including FreeRTOS+Trace - an indispensable productivity tool, a DOS
+  54:../Dave/Generated/FREERTOS/heap_3.h ****     compatible FAT file system, and our tiny thread aware UDP/IP stack.
+  55:../Dave/Generated/FREERTOS/heap_3.h **** 
+  56:../Dave/Generated/FREERTOS/heap_3.h ****     http://www.FreeRTOS.org/labs - Where new FreeRTOS products go to incubate.
+  57:../Dave/Generated/FREERTOS/heap_3.h ****     Come and try FreeRTOS+TCP, our new open source TCP/IP stack for FreeRTOS.
+  58:../Dave/Generated/FREERTOS/heap_3.h **** 
+  59:../Dave/Generated/FREERTOS/heap_3.h ****     http://www.OpenRTOS.com - Real Time Engineers ltd. license FreeRTOS to High
+  60:../Dave/Generated/FREERTOS/heap_3.h ****     Integrity Systems ltd. to sell under the OpenRTOS brand.  Low cost OpenRTOS
+  61:../Dave/Generated/FREERTOS/heap_3.h ****     licenses offer ticketed support, indemnification and commercial middleware.
+  62:../Dave/Generated/FREERTOS/heap_3.h **** 
+  63:../Dave/Generated/FREERTOS/heap_3.h ****     http://www.SafeRTOS.com - High Integrity Systems also provide a safety
+  64:../Dave/Generated/FREERTOS/heap_3.h ****     engineered and independently SIL3 certified version for use in safety and
+  65:../Dave/Generated/FREERTOS/heap_3.h ****     mission critical applications that require provable dependability.
+  66:../Dave/Generated/FREERTOS/heap_3.h **** 
+  67:../Dave/Generated/FREERTOS/heap_3.h ****     1 tab == 4 spaces!
+  68:../Dave/Generated/FREERTOS/heap_3.h **** */
+  69:../Dave/Generated/FREERTOS/heap_3.h **** 
+  70:../Dave/Generated/FREERTOS/heap_3.h **** 
+  71:../Dave/Generated/FREERTOS/heap_3.h **** /*
+  72:../Dave/Generated/FREERTOS/heap_3.h ****  * Implementation of pvPortMalloc() and vPortFree() that relies on the
+  73:../Dave/Generated/FREERTOS/heap_3.h ****  * compilers own malloc() and free() implementations.
+  74:../Dave/Generated/FREERTOS/heap_3.h ****  *
+  75:../Dave/Generated/FREERTOS/heap_3.h ****  * This file can only be used if the linker is configured to to generate
+  76:../Dave/Generated/FREERTOS/heap_3.h ****  * a heap memory area.
+  77:../Dave/Generated/FREERTOS/heap_3.h ****  *
+  78:../Dave/Generated/FREERTOS/heap_3.h ****  * See heap_1.c, heap_2.c and heap_4.c for alternative implementations, and the
+  79:../Dave/Generated/FREERTOS/heap_3.h ****  * memory management pages of http://www.FreeRTOS.org for more information.
+  80:../Dave/Generated/FREERTOS/heap_3.h ****  */
+  81:../Dave/Generated/FREERTOS/heap_3.h **** 
+  82:../Dave/Generated/FREERTOS/heap_3.h **** #include <stdlib.h>
+  83:../Dave/Generated/FREERTOS/heap_3.h **** 
+  84:../Dave/Generated/FREERTOS/heap_3.h **** /* Defining MPU_WRAPPERS_INCLUDED_FROM_API_FILE prevents task.h from redefining
+  85:../Dave/Generated/FREERTOS/heap_3.h **** all the API functions to use the MPU wrappers.  That should only be done when
+  86:../Dave/Generated/FREERTOS/heap_3.h **** task.h is included from an application file. */
+  87:../Dave/Generated/FREERTOS/heap_3.h **** #define MPU_WRAPPERS_INCLUDED_FROM_API_FILE
+  88:../Dave/Generated/FREERTOS/heap_3.h **** 
+  89:../Dave/Generated/FREERTOS/heap_3.h **** #include "FreeRTOS.h"
+  90:../Dave/Generated/FREERTOS/heap_3.h **** #include "task.h"
+  91:../Dave/Generated/FREERTOS/heap_3.h **** 
+  92:../Dave/Generated/FREERTOS/heap_3.h **** #undef MPU_WRAPPERS_INCLUDED_FROM_API_FILE
+  93:../Dave/Generated/FREERTOS/heap_3.h **** 
+  94:../Dave/Generated/FREERTOS/heap_3.h **** #if( configSUPPORT_DYNAMIC_ALLOCATION == 0 )
+  95:../Dave/Generated/FREERTOS/heap_3.h **** 	#error This file must not be used if configSUPPORT_DYNAMIC_ALLOCATION is 0
+  96:../Dave/Generated/FREERTOS/heap_3.h **** #endif
+  97:../Dave/Generated/FREERTOS/heap_3.h **** 
+  98:../Dave/Generated/FREERTOS/heap_3.h **** /*-----------------------------------------------------------*/
+  99:../Dave/Generated/FREERTOS/heap_3.h **** 
+ 100:../Dave/Generated/FREERTOS/heap_3.h **** void *pvPortMalloc( size_t xWantedSize )
+ 101:../Dave/Generated/FREERTOS/heap_3.h **** {
+  28              	 .loc 1 101 0
+  29              	 .cfi_startproc
+  30              	 
+  31              	 
+  32              	.LVL0:
+  33 0000 10B5     	 push {r4,lr}
+  34              	.LCFI0:
+  35              	 .cfi_def_cfa_offset 8
+  36              	 .cfi_offset 4,-8
+  37              	 .cfi_offset 14,-4
+  38              	 .loc 1 101 0
+  39 0002 0446     	 mov r4,r0
+ 102:../Dave/Generated/FREERTOS/heap_3.h **** void *pvReturn;
+ 103:../Dave/Generated/FREERTOS/heap_3.h **** 
+ 104:../Dave/Generated/FREERTOS/heap_3.h **** 	vTaskSuspendAll();
+  40              	 .loc 1 104 0
+  41 0004 FFF7FEFF 	 bl vTaskSuspendAll
+  42              	.LVL1:
+ 105:../Dave/Generated/FREERTOS/heap_3.h **** 	{
+ 106:../Dave/Generated/FREERTOS/heap_3.h **** 		pvReturn = malloc( xWantedSize );
+  43              	 .loc 1 106 0
+  44 0008 2046     	 mov r0,r4
+  45 000a FFF7FEFF 	 bl malloc
+  46              	.LVL2:
+  47 000e 0446     	 mov r4,r0
+  48              	.LVL3:
+ 107:../Dave/Generated/FREERTOS/heap_3.h **** 		traceMALLOC( pvReturn, xWantedSize );
+ 108:../Dave/Generated/FREERTOS/heap_3.h **** 	}
+ 109:../Dave/Generated/FREERTOS/heap_3.h **** 	( void ) xTaskResumeAll();
+  49              	 .loc 1 109 0
+  50 0010 FFF7FEFF 	 bl xTaskResumeAll
+  51              	.LVL4:
+ 110:../Dave/Generated/FREERTOS/heap_3.h **** 
+ 111:../Dave/Generated/FREERTOS/heap_3.h **** 	#if( configUSE_MALLOC_FAILED_HOOK == 1 )
+ 112:../Dave/Generated/FREERTOS/heap_3.h **** 	{
+ 113:../Dave/Generated/FREERTOS/heap_3.h **** 		if( pvReturn == NULL )
+ 114:../Dave/Generated/FREERTOS/heap_3.h **** 		{
+ 115:../Dave/Generated/FREERTOS/heap_3.h **** 			extern void vApplicationMallocFailedHook( void );
+ 116:../Dave/Generated/FREERTOS/heap_3.h **** 			vApplicationMallocFailedHook();
+ 117:../Dave/Generated/FREERTOS/heap_3.h **** 		}
+ 118:../Dave/Generated/FREERTOS/heap_3.h **** 	}
+ 119:../Dave/Generated/FREERTOS/heap_3.h **** 	#endif
+ 120:../Dave/Generated/FREERTOS/heap_3.h **** 
+ 121:../Dave/Generated/FREERTOS/heap_3.h **** 	return pvReturn;
+ 122:../Dave/Generated/FREERTOS/heap_3.h **** }
+  52              	 .loc 1 122 0
+  53 0014 2046     	 mov r0,r4
+  54 0016 10BD     	 pop {r4,pc}
+  55              	 .cfi_endproc
+  56              	.LFE128:
+  58              	 .section .text.vPortFree,"ax",%progbits
+  59              	 .align 2
+  60              	 .global vPortFree
+  61              	 .thumb
+  62              	 .thumb_func
+  64              	vPortFree:
+  65              	.LFB129:
+ 123:../Dave/Generated/FREERTOS/heap_3.h **** /*-----------------------------------------------------------*/
+ 124:../Dave/Generated/FREERTOS/heap_3.h **** 
+ 125:../Dave/Generated/FREERTOS/heap_3.h **** void vPortFree( void *pv )
+ 126:../Dave/Generated/FREERTOS/heap_3.h **** {
+  66              	 .loc 1 126 0
+  67              	 .cfi_startproc
+  68              	 
+  69              	 
+  70              	.LVL5:
+ 127:../Dave/Generated/FREERTOS/heap_3.h **** 	if( pv )
+  71              	 .loc 1 127 0
+  72 0000 50B1     	 cbz r0,.L6
+ 126:../Dave/Generated/FREERTOS/heap_3.h **** 	if( pv )
+  73              	 .loc 1 126 0
+  74 0002 10B5     	 push {r4,lr}
+  75              	.LCFI1:
+  76              	 .cfi_def_cfa_offset 8
+  77              	 .cfi_offset 4,-8
+  78              	 .cfi_offset 14,-4
+  79 0004 0446     	 mov r4,r0
+ 128:../Dave/Generated/FREERTOS/heap_3.h **** 	{
+ 129:../Dave/Generated/FREERTOS/heap_3.h **** 		vTaskSuspendAll();
+  80              	 .loc 1 129 0
+  81 0006 FFF7FEFF 	 bl vTaskSuspendAll
+  82              	.LVL6:
+ 130:../Dave/Generated/FREERTOS/heap_3.h **** 		{
+ 131:../Dave/Generated/FREERTOS/heap_3.h **** 			free( pv );
+  83              	 .loc 1 131 0
+  84 000a 2046     	 mov r0,r4
+  85 000c FFF7FEFF 	 bl free
+  86              	.LVL7:
+ 132:../Dave/Generated/FREERTOS/heap_3.h **** 			traceFREE( pv, 0 );
+ 133:../Dave/Generated/FREERTOS/heap_3.h **** 		}
+ 134:../Dave/Generated/FREERTOS/heap_3.h **** 		( void ) xTaskResumeAll();
+ 135:../Dave/Generated/FREERTOS/heap_3.h **** 	}
+ 136:../Dave/Generated/FREERTOS/heap_3.h **** }
+  87              	 .loc 1 136 0
+  88 0010 BDE81040 	 pop {r4,lr}
+  89              	.LCFI2:
+  90              	 .cfi_restore 14
+  91              	 .cfi_restore 4
+  92              	 .cfi_def_cfa_offset 0
+  93              	.LVL8:
+ 134:../Dave/Generated/FREERTOS/heap_3.h **** 	}
+  94              	 .loc 1 134 0
+  95 0014 FFF7FEBF 	 b xTaskResumeAll
+  96              	.LVL9:
+  97              	.L6:
+  98 0018 7047     	 bx lr
+  99              	 .cfi_endproc
+ 100              	.LFE129:
+ 102 001a 00BF     	 .text
+ 103              	.Letext0:
+ 104              	 .file 2 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 105              	 .file 3 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 106              	 .file 4 "c:\\dave 4\\eclipse\\arm-gcc-49\\lib\\gcc\\arm-none-eabi\\4.9.3\\include\\stddef.h"
+ 107              	 .file 5 "../Dave/Generated/FREERTOS/portmacro.h"
+ 108              	 .file 6 "C:/Workspaces/Dave 4/CTPOT_test1/Libraries/CMSIS/Include/core_cm4.h"
+ 109              	 .file 7 "../Dave/Generated/FREERTOS/task.h"
+ 110              	 .file 8 "c:\\dave 4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdlib.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 heap.c
+    {standard input}:20     .text.pvPortMalloc:00000000 $t
+    {standard input}:25     .text.pvPortMalloc:00000000 pvPortMalloc
+    {standard input}:59     .text.vPortFree:00000000 $t
+    {standard input}:64     .text.vPortFree:00000000 vPortFree
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+vTaskSuspendAll
+malloc
+xTaskResumeAll
+free

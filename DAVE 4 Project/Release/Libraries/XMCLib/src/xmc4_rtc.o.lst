@@ -1,0 +1,259 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc4_rtc.c"
+  16              	 .section .text.XMC_RTC_Enable,"ax",%progbits
+  17              	 .align 2
+  18              	 .global XMC_RTC_Enable
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	XMC_RTC_Enable:
+  23              	 
+  24              	 
+  25              	 
+  26 0000 FFF7FEBF 	 b XMC_SCU_HIB_EnableHibernateDomain
+  28              	 .section .text.XMC_RTC_Disable,"ax",%progbits
+  29              	 .align 2
+  30              	 .global XMC_RTC_Disable
+  31              	 .thumb
+  32              	 .thumb_func
+  34              	XMC_RTC_Disable:
+  35              	 
+  36              	 
+  37              	 
+  38 0000 7047     	 bx lr
+  40 0002 00BF     	 .section .text.XMC_RTC_IsEnabled,"ax",%progbits
+  41              	 .align 2
+  42              	 .global XMC_RTC_IsEnabled
+  43              	 .thumb
+  44              	 .thumb_func
+  46              	XMC_RTC_IsEnabled:
+  47              	 
+  48              	 
+  49              	 
+  50 0000 FFF7FEBF 	 b XMC_SCU_HIB_IsHibernateDomainEnabled
+  52              	 .section .text.XMC_RTC_Init,"ax",%progbits
+  53              	 .align 2
+  54              	 .global XMC_RTC_Init
+  55              	 .thumb
+  56              	 .thumb_func
+  58              	XMC_RTC_Init:
+  59              	 
+  60              	 
+  61 0000 194B     	 ldr r3,.L20
+  62 0002 5B68     	 ldr r3,[r3,#4]
+  63 0004 DA07     	 lsls r2,r3,#31
+  64 0006 01D5     	 bpl .L18
+  65 0008 0020     	 movs r0,#0
+  66 000a 7047     	 bx lr
+  67              	.L18:
+  68 000c 10B5     	 push {r4,lr}
+  69 000e 0446     	 mov r4,r0
+  70 0010 FFF7FEFF 	 bl XMC_SCU_HIB_IsHibernateDomainEnabled
+  71 0014 20B3     	 cbz r0,.L19
+  72              	.L6:
+  73 0016 208A     	 ldrh r0,[r4,#16]
+  74 0018 FFF7FEFF 	 bl XMC_RTC_SetPrescaler
+  75 001c 134A     	 ldr r2,.L20+4
+  76              	.L7:
+  77 001e D2F8C430 	 ldr r3,[r2,#196]
+  78 0022 1B05     	 lsls r3,r3,#20
+  79 0024 FBD4     	 bmi .L7
+  80 0026 104B     	 ldr r3,.L20
+  81 0028 2168     	 ldr r1,[r4]
+  82 002a 104A     	 ldr r2,.L20+4
+  83 002c 1962     	 str r1,[r3,#32]
+  84              	.L8:
+  85 002e D2F8C430 	 ldr r3,[r2,#196]
+  86 0032 D804     	 lsls r0,r3,#19
+  87 0034 FBD4     	 bmi .L8
+  88 0036 0C4B     	 ldr r3,.L20
+  89 0038 6168     	 ldr r1,[r4,#4]
+  90 003a 0C4A     	 ldr r2,.L20+4
+  91 003c 5962     	 str r1,[r3,#36]
+  92              	.L9:
+  93 003e D2F8C430 	 ldr r3,[r2,#196]
+  94 0042 9905     	 lsls r1,r3,#22
+  95 0044 FBD4     	 bmi .L9
+  96 0046 084B     	 ldr r3,.L20
+  97 0048 A168     	 ldr r1,[r4,#8]
+  98 004a 084A     	 ldr r2,.L20+4
+  99 004c 9961     	 str r1,[r3,#24]
+ 100              	.L10:
+ 101 004e D2F8C430 	 ldr r3,[r2,#196]
+ 102 0052 5B05     	 lsls r3,r3,#21
+ 103 0054 FBD4     	 bmi .L10
+ 104 0056 044B     	 ldr r3,.L20
+ 105 0058 E268     	 ldr r2,[r4,#12]
+ 106 005a DA61     	 str r2,[r3,#28]
+ 107 005c 0020     	 movs r0,#0
+ 108 005e 10BD     	 pop {r4,pc}
+ 109              	.L19:
+ 110 0060 FFF7FEFF 	 bl XMC_SCU_HIB_EnableHibernateDomain
+ 111 0064 D7E7     	 b .L6
+ 112              	.L21:
+ 113 0066 00BF     	 .align 2
+ 114              	.L20:
+ 115 0068 004A0050 	 .word 1342196224
+ 116 006c 00400050 	 .word 1342193664
+ 118              	 .section .text.XMC_RTC_EnableEvent,"ax",%progbits
+ 119              	 .align 2
+ 120              	 .global XMC_RTC_EnableEvent
+ 121              	 .thumb
+ 122              	 .thumb_func
+ 124              	XMC_RTC_EnableEvent:
+ 125              	 
+ 126              	 
+ 127              	 
+ 128 0000 044A     	 ldr r2,.L25
+ 129              	.L23:
+ 130 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 131 0006 5B04     	 lsls r3,r3,#17
+ 132 0008 FBD4     	 bmi .L23
+ 133 000a 034A     	 ldr r2,.L25+4
+ 134 000c 1369     	 ldr r3,[r2,#16]
+ 135 000e 1843     	 orrs r0,r0,r3
+ 136 0010 1061     	 str r0,[r2,#16]
+ 137 0012 7047     	 bx lr
+ 138              	.L26:
+ 139              	 .align 2
+ 140              	.L25:
+ 141 0014 00400050 	 .word 1342193664
+ 142 0018 004A0050 	 .word 1342196224
+ 144              	 .section .text.XMC_RTC_DisableEvent,"ax",%progbits
+ 145              	 .align 2
+ 146              	 .global XMC_RTC_DisableEvent
+ 147              	 .thumb
+ 148              	 .thumb_func
+ 150              	XMC_RTC_DisableEvent:
+ 151              	 
+ 152              	 
+ 153              	 
+ 154 0000 054A     	 ldr r2,.L30
+ 155              	.L28:
+ 156 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 157 0006 5B04     	 lsls r3,r3,#17
+ 158 0008 FBD4     	 bmi .L28
+ 159 000a 044A     	 ldr r2,.L30+4
+ 160 000c 1369     	 ldr r3,[r2,#16]
+ 161 000e 23EA0000 	 bic r0,r3,r0
+ 162 0012 1061     	 str r0,[r2,#16]
+ 163 0014 7047     	 bx lr
+ 164              	.L31:
+ 165 0016 00BF     	 .align 2
+ 166              	.L30:
+ 167 0018 00400050 	 .word 1342193664
+ 168 001c 004A0050 	 .word 1342196224
+ 170              	 .section .text.XMC_RTC_ClearEvent,"ax",%progbits
+ 171              	 .align 2
+ 172              	 .global XMC_RTC_ClearEvent
+ 173              	 .thumb
+ 174              	 .thumb_func
+ 176              	XMC_RTC_ClearEvent:
+ 177              	 
+ 178              	 
+ 179              	 
+ 180 0000 034A     	 ldr r2,.L35
+ 181              	.L33:
+ 182 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 183 0006 1B04     	 lsls r3,r3,#16
+ 184 0008 FBD4     	 bmi .L33
+ 185 000a 024B     	 ldr r3,.L35+4
+ 186 000c 5861     	 str r0,[r3,#20]
+ 187 000e 7047     	 bx lr
+ 188              	.L36:
+ 189              	 .align 2
+ 190              	.L35:
+ 191 0010 00400050 	 .word 1342193664
+ 192 0014 004A0050 	 .word 1342196224
+ 194              	 .section .text.XMC_RTC_EnableHibernationWakeUp,"ax",%progbits
+ 195              	 .align 2
+ 196              	 .global XMC_RTC_EnableHibernationWakeUp
+ 197              	 .thumb
+ 198              	 .thumb_func
+ 200              	XMC_RTC_EnableHibernationWakeUp:
+ 201              	 
+ 202              	 
+ 203              	 
+ 204 0000 044A     	 ldr r2,.L40
+ 205              	.L38:
+ 206 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 207 0006 DB05     	 lsls r3,r3,#23
+ 208 0008 FBD4     	 bmi .L38
+ 209 000a 034A     	 ldr r2,.L40+4
+ 210 000c 5368     	 ldr r3,[r2,#4]
+ 211 000e 1843     	 orrs r0,r0,r3
+ 212 0010 5060     	 str r0,[r2,#4]
+ 213 0012 7047     	 bx lr
+ 214              	.L41:
+ 215              	 .align 2
+ 216              	.L40:
+ 217 0014 00400050 	 .word 1342193664
+ 218 0018 004A0050 	 .word 1342196224
+ 220              	 .section .text.XMC_RTC_DisableHibernationWakeUp,"ax",%progbits
+ 221              	 .align 2
+ 222              	 .global XMC_RTC_DisableHibernationWakeUp
+ 223              	 .thumb
+ 224              	 .thumb_func
+ 226              	XMC_RTC_DisableHibernationWakeUp:
+ 227              	 
+ 228              	 
+ 229              	 
+ 230 0000 054A     	 ldr r2,.L45
+ 231              	.L43:
+ 232 0002 D2F8C430 	 ldr r3,[r2,#196]
+ 233 0006 DB05     	 lsls r3,r3,#23
+ 234 0008 FBD4     	 bmi .L43
+ 235 000a 044A     	 ldr r2,.L45+4
+ 236 000c 5368     	 ldr r3,[r2,#4]
+ 237 000e 23EA0000 	 bic r0,r3,r0
+ 238 0012 5060     	 str r0,[r2,#4]
+ 239 0014 7047     	 bx lr
+ 240              	.L46:
+ 241 0016 00BF     	 .align 2
+ 242              	.L45:
+ 243 0018 00400050 	 .word 1342193664
+ 244 001c 004A0050 	 .word 1342196224
+ 246              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc4_rtc.c
+    {standard input}:17     .text.XMC_RTC_Enable:00000000 $t
+    {standard input}:22     .text.XMC_RTC_Enable:00000000 XMC_RTC_Enable
+    {standard input}:29     .text.XMC_RTC_Disable:00000000 $t
+    {standard input}:34     .text.XMC_RTC_Disable:00000000 XMC_RTC_Disable
+    {standard input}:41     .text.XMC_RTC_IsEnabled:00000000 $t
+    {standard input}:46     .text.XMC_RTC_IsEnabled:00000000 XMC_RTC_IsEnabled
+    {standard input}:53     .text.XMC_RTC_Init:00000000 $t
+    {standard input}:58     .text.XMC_RTC_Init:00000000 XMC_RTC_Init
+    {standard input}:115    .text.XMC_RTC_Init:00000068 $d
+    {standard input}:119    .text.XMC_RTC_EnableEvent:00000000 $t
+    {standard input}:124    .text.XMC_RTC_EnableEvent:00000000 XMC_RTC_EnableEvent
+    {standard input}:141    .text.XMC_RTC_EnableEvent:00000014 $d
+    {standard input}:145    .text.XMC_RTC_DisableEvent:00000000 $t
+    {standard input}:150    .text.XMC_RTC_DisableEvent:00000000 XMC_RTC_DisableEvent
+    {standard input}:167    .text.XMC_RTC_DisableEvent:00000018 $d
+    {standard input}:171    .text.XMC_RTC_ClearEvent:00000000 $t
+    {standard input}:176    .text.XMC_RTC_ClearEvent:00000000 XMC_RTC_ClearEvent
+    {standard input}:191    .text.XMC_RTC_ClearEvent:00000010 $d
+    {standard input}:195    .text.XMC_RTC_EnableHibernationWakeUp:00000000 $t
+    {standard input}:200    .text.XMC_RTC_EnableHibernationWakeUp:00000000 XMC_RTC_EnableHibernationWakeUp
+    {standard input}:217    .text.XMC_RTC_EnableHibernationWakeUp:00000014 $d
+    {standard input}:221    .text.XMC_RTC_DisableHibernationWakeUp:00000000 $t
+    {standard input}:226    .text.XMC_RTC_DisableHibernationWakeUp:00000000 XMC_RTC_DisableHibernationWakeUp
+    {standard input}:243    .text.XMC_RTC_DisableHibernationWakeUp:00000018 $d
+
+UNDEFINED SYMBOLS
+XMC_SCU_HIB_EnableHibernateDomain
+XMC_SCU_HIB_IsHibernateDomainEnabled
+XMC_RTC_SetPrescaler

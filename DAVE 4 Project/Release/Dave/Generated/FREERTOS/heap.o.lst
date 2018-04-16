@@ -1,0 +1,63 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,2
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "heap.c"
+  16              	 .section .text.pvPortMalloc,"ax",%progbits
+  17              	 .align 2
+  18              	 .global pvPortMalloc
+  19              	 .thumb
+  20              	 .thumb_func
+  22              	pvPortMalloc:
+  23              	 
+  24              	 
+  25 0000 10B5     	 push {r4,lr}
+  26 0002 0446     	 mov r4,r0
+  27 0004 FFF7FEFF 	 bl vTaskSuspendAll
+  28 0008 2046     	 mov r0,r4
+  29 000a FFF7FEFF 	 bl malloc
+  30 000e 0446     	 mov r4,r0
+  31 0010 FFF7FEFF 	 bl xTaskResumeAll
+  32 0014 2046     	 mov r0,r4
+  33 0016 10BD     	 pop {r4,pc}
+  35              	 .section .text.vPortFree,"ax",%progbits
+  36              	 .align 2
+  37              	 .global vPortFree
+  38              	 .thumb
+  39              	 .thumb_func
+  41              	vPortFree:
+  42              	 
+  43              	 
+  44 0000 50B1     	 cbz r0,.L6
+  45 0002 10B5     	 push {r4,lr}
+  46 0004 0446     	 mov r4,r0
+  47 0006 FFF7FEFF 	 bl vTaskSuspendAll
+  48 000a 2046     	 mov r0,r4
+  49 000c FFF7FEFF 	 bl free
+  50 0010 BDE81040 	 pop {r4,lr}
+  51 0014 FFF7FEBF 	 b xTaskResumeAll
+  52              	.L6:
+  53 0018 7047     	 bx lr
+  55 001a 00BF     	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 heap.c
+    {standard input}:17     .text.pvPortMalloc:00000000 $t
+    {standard input}:22     .text.pvPortMalloc:00000000 pvPortMalloc
+    {standard input}:36     .text.vPortFree:00000000 $t
+    {standard input}:41     .text.vPortFree:00000000 vPortFree
+
+UNDEFINED SYMBOLS
+vTaskSuspendAll
+malloc
+xTaskResumeAll
+free
