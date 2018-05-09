@@ -7,3 +7,5 @@ The hardware used is a Infineon's [XMC-4700 Relax kit](https://www.infineon.com/
 The motor's transfer function was obtained via experimental methods and used in Matlab/Simulink to tune a Fuzzy-logic controller. The fuzzy logic controller was then implemented in C in a platform-abstract way.
 
 Make sure to import the project as a DAVE CE project.
+
+A [XMC uC/Probe](https://infineoncommunity.com/uC-Probe-XMC-software-download_ID712) file is also available. This probes the microcontroller during run-time and displays in real-time their values in a graphical user interface. It also allows changing variables in real-time.
